@@ -1,0 +1,22 @@
+
+cpus="1" 
+sde="bf-sde-9.2.0"   # tofino sde tgz file
+vmname="fp4switchvm"
+shareddir="/fp4switch"
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "bento/ubuntu-18.04" # bionic 64 doesn't work with serial disconnected...
+  config.vm.hostname = vmname
+  config.ssh.insert_key = false
+  config.vm.synced_folder "../", shareddir
+  config.vm.provider "virtualbox" do |vb|
+    # disable the log for portability.
+    vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+    vb.cpus ="#{cpus}"
+    vb.memory = "4096" 
+    # config.disksize.size = "40GB"
+  end
+
+  config.vm.provision "file", source: "install.sh", destination: "$HOME/install.sh"
+  config.vm.provision "shell", privileged: false, inline: "$HOME/install.sh  $HOME/#{File.basename(sde)}"
+end

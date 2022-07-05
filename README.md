@@ -19,8 +19,7 @@ FP4 is a fuzz-testing framework for P4 switches that achieves high expressivenes
 - `test_programs/`: Contains the programs we tested
     - `simulation`: Programs to test in mininet
     - `p4_14`: Programs to run in tofino p4_14
-- `runme.sh`: Script to run everything from a single place
-- `install.sh`: Script to install the required dependencies
+- `install_<machine>.sh`: Script to install the required dependencies
 
 
 ## Installation
@@ -30,24 +29,49 @@ If you don't want to run in VMs, just call `./install_server.sh` at a server and
 
 
 ## How to run
-
-`runme.sh` is the main entry point for running different parts of the systems.
 There are three main modules: instrumentation, Switch Under Test (SUT) and Switch Doing Test (SDT)
 
 First, we will need to instrument the input P4 program at the server. 
 Use the commands 
 ```
-./instrument ...
+cd $HOME/FP4/instrumentation
+./instrument.sh -t hw -r <rules_file> <p4 program>
+
+# Example
+./instrument.sh -t hw -r $HOME/FP4/test_programs/p4_14/dv_router/hardware_rules.txt $HOME/FP4/test_programs/p4_14/dv_router/dv_router.p4
 ```  
-It will generate `<program_name>_ut_hw.p4`, `<program_name>_dt_hw.p4`.
+It will generate `<program_name>_ut_hw.p4`, `<program_name>_dt_hw.p4`, `<program_name>_ut_hw_rules.txt` in `$HOME/FP4/instrumentation/sample_out/` and also generate the `.json` files in `$HOME/FP4/instrumentation/out/`.
 
-Move the files to ...
 
-Run the switch under test. Rules must be installed to output from ports xyz
+### SUT switch
+1. Move the files `<program_name>_ut_hw.p4` in `$HOME/FP4/hardware_run/`. 
+1. Compile the program using `./compile_p4_14.sh <program_name>_ut_hw.p4>`.
+1. Move the file `<program_name>_ut_hw_rules.txt` and any other controller extension (More on this later) in `$HOME/FP4/control_plane/SUT/`.
+1. On separate terminals, run the hardware program and the control-plane program.
+
 ```
+# Run switch - terminal 1
+cd $HOME/FP4/hardware_run/
+sudo ./launch.sh <program_name>_ut_hw config_sut.ini
+
+# Run control plane - terminal 2
+cd $HOME/FP4/control_plane/SUT
+python SUTcontroller.py -p <program_name>_ut_hw 
 ```
 
-Run the switch doing test. Rules will be auto-populated
+### SDT switch
+1. Move the files `<program_name>_dt_hw.p4` in `$HOME/FP4/hardware_run/`. 
+1. Compile the program using `./compile_p4_14.sh <program_name>_dt_hw.p4>`.
+1. Move the file `<program_name>_ut_hw_rules.txt`, and all the `.json` files in `$HOME/FP4/control_plane/SDT/`.
+1. On separate terminals, run the hardware program and the control-plane program.
 
-### Steps
-1. Compile the instrumentation 
+```
+# Run switch - terminal 1
+cd $HOME/FP4/hardware_run/
+sudo ./launch.sh <program_name>_dt_hw config_sdt.ini
+
+# Run control plane - terminal 2
+cd $HOME/FP4/control_plane/SDT
+python SDTcontroller.py -p <program_name>_dt_hw -r <program_name>_ut_hw_rules.txt 
+```
+
