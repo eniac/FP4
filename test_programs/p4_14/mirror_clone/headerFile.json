@@ -1,0 +1,161 @@
+{
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "fp4_metadata_t": [
+        {
+            "reg_pos_one": "12"
+        },
+        {
+            "reg_pos_two": "12"
+        },
+        {
+            "reg_val_one": "1"
+        },
+        {
+            "reg_val_two": "1"
+        },
+        {
+            "apply_mutations": "2"
+        },
+        {
+            "temp_port": "4"
+        },
+        {
+            "make_clone": "8"
+        },
+        {
+            "seed_num": "8"
+        },
+        {
+            "fixed_header_seed": "8"
+        },
+        {
+            "table_seed": "4"
+        },
+        {
+            "__pad1": "4"
+        },
+        {
+            "temp_data": "32"
+        },
+        {
+            "max_bits_field0": "16"
+        }
+    ],
+    "fp4_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "count_original" : "16"
+        },
+        {
+            "count_mirror" : "16"
+        },
+        {
+            "count_diff1" : "16"
+        },
+        {
+            "count_diff2" : "16"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "aeGetDiff": "1"
+        },
+        {
+            "aeReadMirror": "1"
+        },
+        {
+            "aeReadOriginal": "1"
+        },
+        {
+            "aeUpdateMirror": "1"
+        },
+        {
+            "aeUpdateOriginal": "1"
+        },
+        {
+            "aiSendClone": "1"
+        },
+        {
+            "aiSetOutputPort": "1"
+        },
+        {
+            "assertion_one" : "1"
+        },
+        {
+            "assertion_two" : "1"
+        },
+        {
+            "__pad": "5"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "metadata_t": [
+        {
+            "count_mirror": "32"
+        },
+        {
+            "count_original": "32"
+        },
+        {
+            "diff1": "32"
+        },
+        {
+            "diff2": "32"
+        }
+    ],
+    "type_to_instance": {
+        "ethernet_t": "ethernet",
+        "fp4_visited_t": "fp4_visited",
+        "ipv4_t": "ipv4"
+    }
+}

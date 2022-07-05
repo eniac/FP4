@@ -1,0 +1,26 @@
+table_set_default ecmp_group drop_packet
+table_set_default ecmp_nhop drop_packet
+table_set_default send_frame drop_packet
+
+table_add ecmp_group set_ecmp_select 10.0.0.1/8 => 
+table_add ecmp_group set_ecmp_select 192.0.0.1/8 => 
+
+table_add ecmp_nhop set_nhop 0 => 20:00:00:00:00:00 10.10.10.10 1 
+table_add ecmp_nhop set_nhop 1 => 20:00:00:00:00:00 10.10.10.11 2
+
+table_add send_frame rewrite_mac 0 =>  00:00:00:00:00:00
+table_add send_frame rewrite_mac 1 =>  00:04:00:00:00:00
+table_add send_frame rewrite_mac 2 =>  00:00:00:00:00:01
+table_add send_frame rewrite_mac 3 =>  00:00:00:00:00:10
+table_add send_frame rewrite_mac 4 =>  00:00:00:00:01:00
+table_add send_frame rewrite_mac 5 =>  00:00:00:00:10:00
+table_add send_frame rewrite_mac 6 =>  00:00:00:01:00:00
+table_add send_frame rewrite_mac 7 =>  00:00:00:10:00:00
+table_add send_frame rewrite_mac 8 =>  00:00:01:00:00:00
+table_add send_frame rewrite_mac 9 =>  00:00:10:00:00:00
+table_add send_frame rewrite_mac 10 =>  10:00:00:00:00:00
+table_add send_frame rewrite_mac 11 =>  10:04:00:00:00:00
+table_add send_frame rewrite_mac 12 =>  10:00:00:00:00:01
+table_add send_frame rewrite_mac 13 =>  10:00:00:00:00:10
+table_add send_frame rewrite_mac 14 =>  10:00:00:00:01:00
+table_add send_frame rewrite_mac 15 =>  10:00:00:00:10:00

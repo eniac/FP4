@@ -1,0 +1,7 @@
+pd teUpdateMirror set_default_action aeUpdateMirror
+pd teReadOriginal set_default_action aeReadOriginal
+pd teReadMirror set_default_action aeReadMirror
+pd teUpdateOriginal set_default_action aeUpdateOriginal
+pd te_check_assertion1 add_entry ae_mark_assertion_one meta_diff1_start 2 meta_diff1_end 65535 priority 2
+pd te_check_assertion2 add_entry ae_mark_assertion_two meta_diff2_start 2 meta_diff2_end 65535 priority 2
+pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0

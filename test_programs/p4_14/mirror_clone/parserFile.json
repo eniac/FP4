@@ -1,0 +1,79 @@
+{
+    "extract": {
+        "parse_ethernet": [
+            "ethernet"
+        ],
+        "parse_ethernet_clone": [
+            "ethernet_clone"
+        ],
+        "parse_ipv4": [
+            "ipv4"
+        ],
+        "parse_ipv4_clone": [
+            "ipv4_clone"
+        ],
+        "start": [
+            "fp4_visited"
+        ]
+    },
+    "final_state": "ingress",
+    "initial_state": "start",
+    "states": [
+        "parse_ipv4",
+        "parse_ipv4_clone",
+        "parse_ethernet",
+        "parse_ethernet_clone",
+        "start",
+        "start_clone"
+    ],
+    "transitions": [
+        {
+            "condition": 0,
+            "from": "parse_ipv4",
+            "to": "start_clone"
+        },
+        {
+            "condition": 0,
+            "from": "parse_ipv4_clone",
+            "to": "ingress"
+        },
+        {
+            "condition": 1,
+            "from": "parse_ethernet",
+            "header": "ethernet.etherType",
+            "to": "parse_ipv4",
+            "value": "0x0800"
+        },
+        {
+            "condition": 1,
+            "from": "parse_ethernet",
+            "header": "ethernet.etherType",
+            "to": "start_clone",
+            "value": "default"
+        },
+        {
+            "condition": 1,
+            "from": "parse_ethernet_clone",
+            "header": "ethernet_clone.etherType",
+            "to": "parse_ipv4_clone",
+            "value": "0x0800"
+        },
+        {
+            "condition": 1,
+            "from": "parse_ethernet_clone",
+            "header": "ethernet_clone.etherType",
+            "to": "ingress",
+            "value": "default"
+        },
+        {
+            "condition": 0,
+            "from": "start",
+            "to": "parse_ethernet"
+        },
+        {
+            "condition": 0,
+            "from": "start_clone",
+            "to": "parse_ethernet_clone"
+        }
+    ]
+}

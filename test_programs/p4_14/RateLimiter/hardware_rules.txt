@@ -1,0 +1,10 @@
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 4
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.1.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 8
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.4.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 12
+pd ipv4_lpm add_entry drop_packet ipv4_dstAddr 10.5.0.1 ipv4_dstAddr_prefix_length 16 
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.6.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 20
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.7.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 24
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.20.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 28
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.30.1 ipv4_dstAddr_prefix_length 2 action_dstAddr 0xaaaaac action_port 32
+pd ipv4_lpm add_entry ipv4_forward ipv4_dstAddr 10.0.50.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 36
+pd ipv4_lpm add_entry ai_noOp ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8 

@@ -1,0 +1,12 @@
+
+vmname="fp4servervm"
+shareddir="/fp4server"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.hostname = vmname
+  config.vm.synced_folder "../", shareddir
+
+  config.vm.provision "file", source: "install.sh", destination: "$HOME/install.sh"
+  config.vm.provision "shell", privileged: false, inline: "$HOME/install.sh"
+end
