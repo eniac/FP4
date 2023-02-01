@@ -74,7 +74,7 @@ class StaticController:
         self.input_filename = program_name + '_rules.txt'
         self.output_filename = program_name + '_output_rules.txt'
 
-        port_map_filename = "/home/nofelyaseen/EPV/doingPrograms/controlPlane/config/portMap.json"
+        port_map_filename = home+"/FP4/control_plane/SUT/portMap.json"
         self.port_map = json.load(open(port_map_filename, "r"))
 
         self.transport = TTransport.TBufferedTransport(TSocket.TSocket('localhost', 9090))
