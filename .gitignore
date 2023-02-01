@@ -50,3 +50,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Ignore FP4 temp files
+instrumentation/build
+instrumentation/frontend
+instrumentation/sample_out
+**/switchd
+**/zlog-cfg-cur
+*.pyc
+bf_drivers.log
