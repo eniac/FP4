@@ -27,7 +27,6 @@ We have provided 2 vms for easily running the system: server (for instrumentatio
 
 If you don't want to run in VMs, just call `./install_server.sh` at a server and `./install_switch.sh` at the switch to install the required dependencies at both places.
 
-
 ## How to run
 There are three main modules: instrumentation, Switch Under Test (SUT) and Switch Doing Test (SDT)
 
@@ -45,14 +44,14 @@ It will generate `<program_name>_ut_hw.p4`, `<program_name>_dt_hw.p4`, `<program
 
 ### SUT switch
 1. Move the files `<program_name>_ut_hw.p4` in `$HOME/FP4/hardware_run/`. 
-1. Compile the program using `./compile_p4_14.sh <program_name>_ut_hw.p4>`.
+1. Compile the program using `sudo -E ./compile_p4_14.sh <program_name>_ut_hw.p4>`.
 1. Move the file `<program_name>_ut_hw_rules.txt` and any other controller extension (More on this later) in `$HOME/FP4/control_plane/SUT/`.
 1. On separate terminals, run the hardware program and the control-plane program.
 
 ```
 # Run switch - terminal 1
 cd $HOME/FP4/hardware_run/
-sudo ./launch.sh <program_name>_ut_hw config_sut.ini
+sudo -E ./launch.sh <program_name>_ut_hw config_sut.ini
 
 # Run control plane - terminal 2
 cd $HOME/FP4/control_plane/SUT
@@ -61,7 +60,7 @@ python SUTcontroller.py -p <program_name>_ut_hw
 
 ### SDT switch
 1. Move the files `<program_name>_dt_hw.p4` in `$HOME/FP4/hardware_run/`. 
-1. Compile the program using `./compile_p4_14.sh <program_name>_dt_hw.p4>`.
+1. Compile the program using `sudo -E ./compile_p4_14.sh <program_name>_dt_hw.p4>`.
 1. Move the file `<program_name>_ut_hw_rules.txt`, and all the `.json` files in `$HOME/FP4/control_plane/SDT/`.
 1. On separate terminals, run the hardware program and the control-plane program.
 
@@ -72,6 +71,6 @@ sudo ./launch.sh <program_name>_dt_hw config_sdt.ini
 
 # Run control plane - terminal 2
 cd $HOME/FP4/control_plane/SDT
-python SDTcontroller.py -p <program_name>_dt_hw -r <program_name>_ut_hw_rules.txt 
+sudo -E python SDTcontroller.py -p <program_name>_dt_hw -r <program_name>_ut_hw_rules.txt 
 ```
 
