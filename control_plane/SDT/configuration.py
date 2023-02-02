@@ -23,7 +23,8 @@ if SIMULATION:
     TOFINO_INTERFACE = 's2-ethc'
 else:
     CPU_PORT = 192
-    TOFINO_INTERFACE = 'ens1'
+    # LC_TODO: should be adaptive based on basename /sys/module/bf_kpkt/drivers/pci\:bf/*/net/*
+    TOFINO_INTERFACE = 'enp6s0'
 
 FLOOD_GID_START = 1000
 RULES_FILE = args.rulesFile
