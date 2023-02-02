@@ -58,4 +58,9 @@ instrumentation/sample_out
 **/switchd
 **/zlog-cfg-cur
 *.pyc
-bf_drivers.log
+bf_drivers.log*
+control_plane/SDT/*.json
+control_plane/SDT/*.txt
+hardware_run/*.p4
+control_plane/SUT/*.txt
+
