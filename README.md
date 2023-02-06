@@ -41,6 +41,7 @@ cd $HOME/FP4/instrumentation
 ```  
 It will generate `<program_name>_ut_hw.p4`, `<program_name>_dt_hw.p4`, `<program_name>_ut_hw_rules.txt` in `$HOME/FP4/instrumentation/sample_out/` and also generate the `.json` files in `$HOME/FP4/instrumentation/out/`.
 
+Alternatively, `instrument_all_hw.sh` compiles a batch of test_programs and prepares the files under `$HOME/FP4/hardware_run` and `$HOME/FP4/control_plane`.
 
 ### SUT switch
 1. Move the files `<program_name>_ut_hw.p4` in `$HOME/FP4/hardware_run/`. 

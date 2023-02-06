@@ -55,6 +55,7 @@ dkms.conf
 instrumentation/build
 instrumentation/frontend
 instrumentation/sample_out
+instrumentation/out
 **/switchd
 **/zlog-cfg-cur
 *.pyc
