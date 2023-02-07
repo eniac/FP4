@@ -2381,6 +2381,21 @@ void DTModifier::AppendIngressAddClones(AstNode* root) {
 }
 
 void DTModifier::AppendEgressCount(AstNode* root) {
+    ostringstream oss;
+    oss << "action ai_set_visited_type() {\n"
+        << "    modify_field(" << sig_ << "_visited.pkt_type, 1);\n"
+	<< "}\n";
+    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_set_visited_type"), new string("ai_set_visited_type")));
+    oss.str("");
+    
+    // Add table
+    oss << "table ti_set_visited_type {\n"
+        << "    actions { ai_set_visited_type; }\n"
+        << "    default_action: ai_set_visited_type();\n"
+        << "}\n";
+    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
+    oss.str("");    
+
     AstNode* curr = root;
     bool foundEgress = false;
     P4ControlNode* controlNode = FindControlNode(root, "egress");
@@ -2397,7 +2412,8 @@ void DTModifier::AppendEgressCount(AstNode* root) {
         oss << "    apply(" << kTeMoveBackFields << ");\n"
             << "    apply(" << kTeDoResubmit << ");\n"
             << "  }\n";
-        oss << "    apply(" << kTeUpdateCount << ");\n";
+        oss << "    apply(ti_set_visited_type);\n";
+	oss << "    apply(" << kTeUpdateCount << ");\n";
         controlNode -> controlBlock_ -> append(std::string(oss.str()));
         oss.str("");
     }
@@ -2415,6 +2431,7 @@ void DTModifier::AppendEgressCount(AstNode* root) {
         oss << "    apply(" << kTeMoveBackFields << ");\n"
             << "    apply(" << kTeDoResubmit << ");\n"
             << "  }\n";
+        oss << "    apply(ti_set_visited_type);\n";
         oss << "    apply(" << kTeUpdateCount << ");\n"
             << "}\n";
         unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("egress"), new string("egress")));
