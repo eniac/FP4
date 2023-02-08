@@ -1,0 +1,108 @@
+{
+    "ingress_metadata_t": [
+        {
+            "vrf": "12"
+        },
+        {
+            "bd": "16"
+        },
+        {
+            "nexthop_index": "16"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "fp4_visited_t": "fp4_visited"
+    },
+    "fp4_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "fib_hit_nexthop_fp4_ipv4_fib": "1"
+        },
+        {
+            "fib_hit_nexthop_fp4_ipv4_fib_lpm": "1"
+        },
+        {
+            "on_miss_fp4_ipv4_fib": "1"
+        },
+        {
+            "on_miss_fp4_ipv4_fib_lpm": "1"
+        },
+        {
+            "on_miss_fp4_nexthop": "1"
+        },
+        {
+            "on_miss_fp4_rewrite_mac": "1"
+        },
+        {
+            "rewrite_src_dst_mac": "1"
+        },
+        {
+            "set_bd": "1"
+        },
+        {
+            "set_egress_details": "1"
+        },
+        {
+            "set_vrf": "1"
+        },
+        {
+            "__pad": "4"
+        }
+    ]
+}

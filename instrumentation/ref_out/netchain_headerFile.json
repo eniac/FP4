@@ -1,0 +1,258 @@
+{
+    "meta_t": [
+        {
+            "lock_id": "32"
+        },
+        {
+            "routed": "1"
+        },
+        {
+            "available": "8"
+        }
+    ],
+    "nc_hdr_t": [
+        {
+            "recirc_flag": "8"
+        },
+        {
+            "op": "8"
+        },
+        {
+            "mode": "8"
+        },
+        {
+            "client_id": "8"
+        },
+        {
+            "tid": "32"
+        },
+        {
+            "lock": "32"
+        },
+        {
+            "timestamp_lo": "32"
+        },
+        {
+            "timestamp_hi": "32"
+        }
+    ],
+    "probe_hdr_t": [
+        {
+            "failure_status": "8"
+        },
+        {
+            "op": "8"
+        },
+        {
+            "mode": "8"
+        },
+        {
+            "client_id": "8"
+        },
+        {
+            "tid": "32"
+        },
+        {
+            "lock": "32"
+        },
+        {
+            "timestamp_lo": "32"
+        },
+        {
+            "timestamp_hi": "32"
+        }
+    ],
+    "recirculate_hdr_t": [
+        {
+            "dequeued_mode": "8"
+        },
+        {
+            "cur_head": "32"
+        },
+        {
+            "cur_tail": "32"
+        }
+    ],
+    "adm_hdr_t": [
+        {
+            "op": "8"
+        },
+        {
+            "lock": "32"
+        },
+        {
+            "new_left": "32"
+        },
+        {
+            "new_right": "32"
+        }
+    ],
+    "nlk_hdr_t": [
+        {
+            "recirc_flag": "8"
+        },
+        {
+            "op": "8"
+        },
+        {
+            "mode": "8"
+        },
+        {
+            "client_id": "8"
+        },
+        {
+            "tid": "32"
+        },
+        {
+            "lock": "32"
+        },
+        {
+            "timestamp_lo": "32"
+        },
+        {
+            "timestamp_hi": "32"
+        }
+    ],
+    "udp_t": [
+        {
+            "srcPort": "16"
+        },
+        {
+            "dstPort": "16"
+        },
+        {
+            "pkt_length": "16"
+        },
+        {
+            "checksum": "16"
+        }
+    ],
+    "tcp_t": [
+        {
+            "srcPort": "16"
+        },
+        {
+            "dstPort": "16"
+        },
+        {
+            "seqNo": "32"
+        },
+        {
+            "ackNo": "32"
+        },
+        {
+            "dataOffset": "4"
+        },
+        {
+            "res": "3"
+        },
+        {
+            "ecn": "3"
+        },
+        {
+            "ctrl": "6"
+        },
+        {
+            "window": "16"
+        },
+        {
+            "checksum": "16"
+        },
+        {
+            "urgentPtr": "16"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "nc_hdr_t": "nc_hdr",
+        "probe_hdr_t": "probe_hdr",
+        "recirculate_hdr_t": "recirculate_hdr",
+        "adm_hdr_t": "adm_hdr",
+        "nlk_hdr_t": "nlk_hdr",
+        "udp_t": "udp",
+        "tcp_t": "tcp",
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "fp4_visited_t": "fp4_visited"
+    },
+    "fp4_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "acquire_lock_action": "1"
+        },
+        {
+            "decode_action": "1"
+        },
+        {
+            "drop_action": "1"
+        },
+        {
+            "release_lock_action": "1"
+        },
+        {
+            "reply_to_client_action": "1"
+        },
+        {
+            "set_egress": "1"
+        },
+        {
+            "set_retry_action": "1"
+        },
+        {
+            "__pad": "7"
+        }
+    ]
+}

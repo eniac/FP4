@@ -1,0 +1,298 @@
+{
+    "original_keys": {
+        "ipv4_route": {
+            "ipv4.dstAddr": "lpm"
+        }
+    },
+    "fixed_values": {
+        "nc_hdr.op": [
+            "0",
+            "1"
+        ]
+    },
+    "table": {
+        "IF_CONDITION_2_parser_4": [
+            "nc_hdr.lock"
+        ],
+        "IF_CONDITION_3_parser_4": [
+            "nc_hdr.op"
+        ],
+        "ipv4_route_parser_4": [
+            "ipv4.dstAddr",
+            "ipv4.srcAddr"
+        ]
+    },
+    "visited": [
+        {
+            "acquire_lock_action": 1
+        },
+        {
+            "decode_action": 1
+        },
+        {
+            "drop_action": 1
+        },
+        {
+            "release_lock_action": 1
+        },
+        {
+            "reply_to_client_action": 1
+        },
+        {
+            "set_egress": 1
+        },
+        {
+            "set_retry_action": 1
+        },
+        {
+            "__pad": 7
+        }
+    ],
+    "number_of_extract_paths": 5,
+    "extract": [
+        [
+            "ethernet"
+        ],
+        [
+            "ethernet",
+            "ipv4"
+        ],
+        [
+            "ethernet",
+            "ipv4",
+            "tcp"
+        ],
+        [
+            "ethernet",
+            "ipv4",
+            "udp"
+        ],
+        [
+            "ethernet",
+            "ipv4",
+            "udp",
+            "nc_hdr"
+        ]
+    ],
+    "fixed_fields": [
+        null,
+        {
+            "ethernet.etherType": "0x0800"
+        },
+        {
+            "ethernet.etherType": "0x0800",
+            "ipv4.protocol": "6"
+        },
+        {
+            "ethernet.etherType": "0x0800",
+            "ipv4.protocol": "17"
+        },
+        {
+            "ethernet.etherType": "0x0800",
+            "ipv4.protocol": "17",
+            "udp.dstPort": "6666"
+        }
+    ],
+    "table_keys": {
+        "ti_path_assertion": [
+            "fp4_metadata_reg_val_one",
+            "fp4_metadata_reg_val_two"
+        ],
+        "ti_set_seed_num": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_set_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_set_fixed_header": [
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "ti_create_packet": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_add_fields": [
+            "fp4_metadata_seed_num"
+        ],
+        "te_set_table_seed": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_back_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed",
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "te_do_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_add_clones": [
+            "adm_hdr_valid",
+            "ethernet_valid",
+            "ipv4_valid",
+            "nc_hdr_valid",
+            "nlk_hdr_valid",
+            "probe_hdr_valid",
+            "recirculate_hdr_valid",
+            "tcp_valid",
+            "udp_valid"
+        ]
+    },
+    "action_params": {
+        "ai_set_seed_num": [
+            "real_seed_num"
+        ],
+        "ai_set_resubmit": [
+            "real_resubmit"
+        ],
+        "ai_set_fixed_header": [
+            "real_fixed_header"
+        ],
+        "ai_add_fixed_ethernet": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType"
+        ],
+        "ai_add_fixed_ethernet_ipv4": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr"
+        ],
+        "ai_add_fixed_ethernet_ipv4_tcp": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr",
+            "tcpsrcPort",
+            "tcpdstPort",
+            "tcpseqNo",
+            "tcpackNo",
+            "tcpdataOffset",
+            "tcpres",
+            "tcpecn",
+            "tcpctrl",
+            "tcpwindow",
+            "tcpchecksum",
+            "tcpurgentPtr"
+        ],
+        "ai_add_fixed_ethernet_ipv4_udp": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr",
+            "udpsrcPort",
+            "udpdstPort",
+            "udppkt_length",
+            "udpchecksum"
+        ],
+        "ai_add_fixed_ethernet_ipv4_udp_nc_hdr": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr",
+            "udpsrcPort",
+            "udpdstPort",
+            "udppkt_length",
+            "udpchecksum",
+            "nc_hdrrecirc_flag",
+            "nc_hdrop",
+            "nc_hdrmode",
+            "nc_hdrclient_id",
+            "nc_hdrtid",
+            "nc_hdrlock",
+            "nc_hdrtimestamp_lo",
+            "nc_hdrtimestamp_hi"
+        ],
+        "ae_set_table_seed": [
+            "real_table_seed"
+        ],
+        "ae_move_back_fix_IF_CONDITION_2_parser_4": [
+            "nc_hdr_lock"
+        ],
+        "ae_move_back_fix_IF_CONDITION_3_parser_4": [
+            "nc_hdr_op"
+        ],
+        "ae_move_back_fix_ipv4_route_parser_4": [
+            "ipv4_dstAddr",
+            "ipv4_srcAddr"
+        ]
+    },
+    "num_assertions": 0,
+    "headers": [
+        {
+            "adm_hdr": "0"
+        },
+        {
+            "ethernet": "0"
+        },
+        {
+            "ipv4": "0"
+        },
+        {
+            "nc_hdr": "0"
+        },
+        {
+            "nlk_hdr": "0"
+        },
+        {
+            "probe_hdr": "0"
+        },
+        {
+            "recirculate_hdr": "0"
+        },
+        {
+            "tcp": "0"
+        },
+        {
+            "udp": "0"
+        }
+    ]
+}

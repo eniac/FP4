@@ -1,0 +1,184 @@
+{
+    "original_keys": {
+        "send_frame": {
+            "ig_intr_md_for_tm.ucast_egress_port": "exact"
+        },
+        "ecmp_nhop": {
+            "meta.ecmp_select": "exact"
+        },
+        "ecmp_group": {
+            "ipv4.dstAddr": "lpm"
+        }
+    },
+    "table": {
+        "send_frame": [
+            "ipv4.dstAddr"
+        ]
+    },
+    "visited": [
+        {
+            "drop_packet_fp4_ecmp_group": 1
+        },
+        {
+            "drop_packet_fp4_ecmp_nhop": 1
+        },
+        {
+            "drop_packet_fp4_send_frame": 1
+        },
+        {
+            "rewrite_mac": 1
+        },
+        {
+            "set_ecmp_select": 1
+        },
+        {
+            "set_nhop": 1
+        }
+    ],
+    "number_of_extract_paths": 3,
+    "extract": [
+        [
+            "ethernet"
+        ],
+        [
+            "ethernet",
+            "ipv4"
+        ],
+        [
+            "ethernet",
+            "ipv4",
+            "tcp"
+        ]
+    ],
+    "fixed_fields": [
+        null,
+        {
+            "ethernet.etherType": "0x0800"
+        },
+        {
+            "ethernet.etherType": "0x0800",
+            "ipv4.protocol": "6"
+        }
+    ],
+    "table_keys": {
+        "ti_path_assertion": [
+            "fp4_metadata_reg_val_one",
+            "fp4_metadata_reg_val_two"
+        ],
+        "ti_set_seed_num": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_set_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_set_fixed_header": [
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "ti_create_packet": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_add_fields": [
+            "fp4_metadata_seed_num"
+        ],
+        "te_set_table_seed": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_back_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed",
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "te_do_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_add_clones": [
+            "ethernet_valid",
+            "ipv4_valid",
+            "tcp_valid"
+        ]
+    },
+    "action_params": {
+        "ai_set_seed_num": [
+            "real_seed_num"
+        ],
+        "ai_set_resubmit": [
+            "real_resubmit"
+        ],
+        "ai_set_fixed_header": [
+            "real_fixed_header"
+        ],
+        "ai_add_fixed_ethernet": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType"
+        ],
+        "ai_add_fixed_ethernet_ipv4": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr"
+        ],
+        "ai_add_fixed_ethernet_ipv4_tcp": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr",
+            "tcpsrcPort",
+            "tcpdstPort",
+            "tcpseqNo",
+            "tcpackNo",
+            "tcpdataOffset",
+            "tcpres",
+            "tcpecn",
+            "tcpctrl",
+            "tcpwindow",
+            "tcpchecksum",
+            "tcpurgentPtr"
+        ],
+        "ae_set_table_seed": [
+            "real_table_seed"
+        ],
+        "ae_move_back_fix_send_frame": [
+            "ipv4_dstAddr"
+        ]
+    },
+    "num_assertions": 0,
+    "headers": [
+        {
+            "ethernet": "0"
+        },
+        {
+            "ipv4": "0"
+        },
+        {
+            "tcp": "0"
+        }
+    ]
+}

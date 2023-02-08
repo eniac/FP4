@@ -1,0 +1,258 @@
+{
+    "original_keys": {
+        "tiHandleOutgoingEthernet": {
+            "cis553_metadata.nextHop": "lpm"
+        },
+        "tiHandleIpv4": {
+            "ipv4.dstAddr": "lpm"
+        },
+        "tiHandleIncomingArpReqest_part_two": {
+            "arp.targetPA": "exact",
+            "ig_intr_md.ingress_port": "exact"
+        },
+        "tiHandleIncomingArpReqest_part_one": {
+            "arp.targetPA": "exact",
+            "ig_intr_md.ingress_port": "exact"
+        },
+        "tiHandleOutgoingRouting": {
+            "distance_vec.src": "exact"
+        },
+        "tiHandleIncomingEthernet": {
+            "ethernet.dstAddr": "exact",
+            "ig_intr_md.ingress_port": "exact"
+        }
+    },
+    "fixed_values": {
+        "arp.oper": [
+            "1",
+            "2"
+        ]
+    },
+    "table": {
+        "IF_CONDITION_5_parser_3": [
+            "arp.oper",
+            "ethernet.dstAddr"
+        ],
+        "tiHandleIncomingArpReqest_part_two_parser_3": [
+            "arp.targetPA"
+        ],
+        "tiHandleIncomingEthernet_parser_3": [
+            "ethernet.dstAddr"
+        ],
+        "tiHandleOutgoingEthernet_parser_2": [
+            "ipv4.dstAddr"
+        ]
+    },
+    "visited": [
+        {
+            "aDrop_fp4_tiDrop": 1
+        },
+        {
+            "aDrop_fp4_tiHandleIncomingArpReqest_part_two": 1
+        },
+        {
+            "aDrop_fp4_tiHandleIncomingEthernet": 1
+        },
+        {
+            "aDrop_fp4_tiHandleIpv4": 1
+        },
+        {
+            "aiArpMiss": 1
+        },
+        {
+            "aiFindNextL3Hop": 1
+        },
+        {
+            "aiForMe": 1
+        },
+        {
+            "aiForward": 1
+        },
+        {
+            "aiHandleIncomingArpReqest_part_one": 1
+        },
+        {
+            "aiHandleIncomingArpReqest_part_two": 1
+        },
+        {
+            "aiHandleIncomingArpResponse": 1
+        },
+        {
+            "aiHandleIncomingRouting": 1
+        },
+        {
+            "aiHandleOutgoingRouting": 1
+        },
+        {
+            "aiSendToLastHop": 1
+        }
+    ],
+    "number_of_extract_paths": 5,
+    "extract": [
+        [
+            "distance_vec"
+        ],
+        [
+            "ethernet"
+        ],
+        [
+            "ethernet",
+            "ipv4"
+        ],
+        [
+            "ethernet",
+            "arp"
+        ],
+        [
+            "ethernet",
+            "distance_vec"
+        ]
+    ],
+    "fixed_fields": [
+        null,
+        null,
+        {
+            "ethernet.etherType": "0x0800"
+        },
+        {
+            "ethernet.etherType": "0x0806"
+        },
+        {
+            "ethernet.etherType": "0x0553"
+        }
+    ],
+    "table_keys": {
+        "ti_path_assertion": [
+            "fp4_metadata_reg_val_one",
+            "fp4_metadata_reg_val_two"
+        ],
+        "ti_set_seed_num": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_set_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_set_fixed_header": [
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "ti_create_packet": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_add_fields": [
+            "fp4_metadata_seed_num"
+        ],
+        "te_set_table_seed": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_back_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed",
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "te_do_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_add_clones": [
+            "arp_valid",
+            "distance_vec_valid",
+            "ethernet_valid",
+            "ipv4_valid"
+        ]
+    },
+    "action_params": {
+        "ai_set_seed_num": [
+            "real_seed_num"
+        ],
+        "ai_set_resubmit": [
+            "real_resubmit"
+        ],
+        "ai_set_fixed_header": [
+            "real_fixed_header"
+        ],
+        "ai_add_fixed_distance_vec": [
+            "distance_vecsrc",
+            "distance_veclength_dist",
+            "distance_vecdata"
+        ],
+        "ai_add_fixed_ethernet": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType"
+        ],
+        "ai_add_fixed_ethernet_ipv4": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr"
+        ],
+        "ai_add_fixed_ethernet_arp": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "arphtype",
+            "arpptype",
+            "arphlen",
+            "arpplen",
+            "arpoper",
+            "arpsenderHA",
+            "arpsenderPA",
+            "arptargetHA",
+            "arptargetPA"
+        ],
+        "ai_add_fixed_ethernet_distance_vec": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "distance_vecsrc",
+            "distance_veclength_dist",
+            "distance_vecdata"
+        ],
+        "ae_set_table_seed": [
+            "real_table_seed"
+        ],
+        "ae_move_back_fix_IF_CONDITION_5_parser_3": [
+            "ethernet_dstAddr",
+            "arp_oper"
+        ],
+        "ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_3": [
+            "arp_targetPA"
+        ],
+        "ae_move_back_fix_tiHandleIncomingEthernet_parser_3": [
+            "ethernet_dstAddr"
+        ],
+        "ae_move_back_fix_tiHandleOutgoingEthernet_parser_2": [
+            "ipv4_dstAddr"
+        ]
+    },
+    "num_assertions": 0,
+    "headers": [
+        {
+            "arp": "0"
+        },
+        {
+            "distance_vec": "0"
+        },
+        {
+            "ethernet": "0"
+        },
+        {
+            "ipv4": "0"
+        }
+    ]
+}

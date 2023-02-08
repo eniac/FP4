@@ -1,0 +1,162 @@
+{
+    "cis553_metadata_t": [
+        {
+            "forMe": "1"
+        },
+        {
+            "__pad": "7"
+        },
+        {
+            "temp": "32"
+        },
+        {
+            "nextHop": "32"
+        }
+    ],
+    "distance_vec_t": [
+        {
+            "src": "32"
+        },
+        {
+            "length_dist": "16"
+        },
+        {
+            "data": "144"
+        }
+    ],
+    "arp_t": [
+        {
+            "htype": "16"
+        },
+        {
+            "ptype": "16"
+        },
+        {
+            "hlen": "8"
+        },
+        {
+            "plen": "8"
+        },
+        {
+            "oper": "16"
+        },
+        {
+            "senderHA": "48"
+        },
+        {
+            "senderPA": "32"
+        },
+        {
+            "targetHA": "48"
+        },
+        {
+            "targetPA": "32"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "distance_vec_t": "distance_vec",
+        "arp_t": "arp",
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "fp4_visited_t": "fp4_visited"
+    },
+    "fp4_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "aDrop_fp4_tiDrop": "1"
+        },
+        {
+            "aDrop_fp4_tiHandleIncomingArpReqest_part_two": "1"
+        },
+        {
+            "aDrop_fp4_tiHandleIncomingEthernet": "1"
+        },
+        {
+            "aDrop_fp4_tiHandleIpv4": "1"
+        },
+        {
+            "aiArpMiss": "1"
+        },
+        {
+            "aiFindNextL3Hop": "1"
+        },
+        {
+            "aiForMe": "1"
+        },
+        {
+            "aiForward": "1"
+        },
+        {
+            "aiHandleIncomingArpReqest_part_one": "1"
+        },
+        {
+            "aiHandleIncomingArpReqest_part_two": "1"
+        },
+        {
+            "aiHandleIncomingArpResponse": "1"
+        },
+        {
+            "aiHandleIncomingRouting": "1"
+        },
+        {
+            "aiHandleOutgoingRouting": "1"
+        },
+        {
+            "aiSendToLastHop": "1"
+        }
+    ]
+}

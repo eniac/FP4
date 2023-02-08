@@ -1,0 +1,105 @@
+{
+    "metadata_t": [
+        {
+            "cur_ts": "32"
+        },
+        {
+            "interArrival": "32"
+        },
+        {
+            "current_reading": "32"
+        },
+        {
+            "bitCounter": "1"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "fp4_visited_t": "fp4_visited"
+    },
+    "fp4_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "aeInitializeWma": "1"
+        },
+        {
+            "aeWmaPhase1": "1"
+        },
+        {
+            "aeWmaPhase2": "1"
+        },
+        {
+            "ae_rate_limit": "1"
+        },
+        {
+            "ai_noOp": "1"
+        },
+        {
+            "drop_packet_fp4_ipv4_lpm": "1"
+        },
+        {
+            "drop_packet_fp4_te_drop": "1"
+        },
+        {
+            "ipv4_forward": "1"
+        },
+        {
+            "__pad": "6"
+        }
+    ]
+}

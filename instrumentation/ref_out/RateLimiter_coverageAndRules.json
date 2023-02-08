@@ -1,0 +1,146 @@
+{
+    "original_keys": {
+        "ipv4_lpm": {
+            "ipv4.dstAddr": "lpm"
+        }
+    },
+    "table": {
+        "ipv4_lpm": [
+            "ipv4.dstAddr"
+        ]
+    },
+    "visited": [
+        {
+            "aeInitializeWma": 1
+        },
+        {
+            "aeWmaPhase1": 1
+        },
+        {
+            "aeWmaPhase2": 1
+        },
+        {
+            "ae_rate_limit": 1
+        },
+        {
+            "ai_noOp": 1
+        },
+        {
+            "drop_packet_fp4_ipv4_lpm": 1
+        },
+        {
+            "drop_packet_fp4_te_drop": 1
+        },
+        {
+            "ipv4_forward": 1
+        },
+        {
+            "__pad": 6
+        }
+    ],
+    "number_of_extract_paths": 2,
+    "extract": [
+        [
+            "ethernet"
+        ],
+        [
+            "ethernet",
+            "ipv4"
+        ]
+    ],
+    "fixed_fields": [
+        null,
+        {
+            "ethernet.etherType": "0x0800"
+        }
+    ],
+    "table_keys": {
+        "ti_path_assertion": [
+            "fp4_metadata_reg_val_one",
+            "fp4_metadata_reg_val_two"
+        ],
+        "ti_set_seed_num": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_set_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_set_fixed_header": [
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "ti_create_packet": [
+            "fp4_metadata_seed_num"
+        ],
+        "ti_add_fields": [
+            "fp4_metadata_seed_num"
+        ],
+        "te_set_table_seed": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed"
+        ],
+        "te_move_back_fields": [
+            "fp4_metadata_seed_num",
+            "fp4_metadata_table_seed",
+            "fp4_metadata_fixed_header_seed"
+        ],
+        "te_do_resubmit": [
+            "fp4_metadata_make_clone"
+        ],
+        "ti_add_clones": [
+            "ethernet_valid",
+            "ipv4_valid"
+        ]
+    },
+    "action_params": {
+        "ai_set_seed_num": [
+            "real_seed_num"
+        ],
+        "ai_set_resubmit": [
+            "real_resubmit"
+        ],
+        "ai_set_fixed_header": [
+            "real_fixed_header"
+        ],
+        "ai_add_fixed_ethernet": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType"
+        ],
+        "ai_add_fixed_ethernet_ipv4": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr"
+        ],
+        "ae_set_table_seed": [
+            "real_table_seed"
+        ],
+        "ae_move_back_fix_ipv4_lpm": [
+            "ipv4_dstAddr"
+        ]
+    },
+    "num_assertions": 0,
+    "headers": [
+        {
+            "ethernet": "0"
+        },
+        {
+            "ipv4": "0"
+        }
+    ]
+}
