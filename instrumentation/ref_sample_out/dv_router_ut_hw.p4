@@ -337,8 +337,6 @@ control ingress     {
 
     }
 
-    apply(ti_port_correction);
-
 
 }
 
@@ -418,23 +416,4 @@ calculated_field ipv4.hdrChecksum{
     update    ipv4_checksum;
 }
 
-
-action ai_port_correction(outPort) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);
-}
-
-action ai_NoAction() {
-}
-
-table ti_port_correction {
-    reads {
-        ig_intr_md_for_tm.ucast_egress_port: exact;
-  }
-    actions {
-        ai_port_correction;
-        ai_NoAction;
-    }
-    default_action : ai_NoAction();
-    size: 1;
-}
 

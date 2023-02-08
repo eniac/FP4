@@ -93,44 +93,44 @@ void UTModifier::addStatefulTblActions(AstNode* root) {
 }
 
 void UTModifier::correctPort(AstNode* root) {
-    ostringstream oss;
-    oss << "action ai_port_correction(outPort) {\n";
-    if (strcmp(target_, "sim")==0) {
-        oss << "    modify_field(standard_metadata.egress_spec, outPort);\n";
-    } else if (strcmp(target_, "hw")==0) {
-        oss << "    modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);\n";
-    } else {
-        PANIC("Unknown target!\n");
-        exit;
-    }
-    oss << "}\n";
-    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_port_correction"), new string("ai_port_correction")));
-    oss.str("");
+    // ostringstream oss;
+    // oss << "action ai_port_correction(outPort) {\n";
+    // if (strcmp(target_, "sim")==0) {
+    //     oss << "    modify_field(standard_metadata.egress_spec, outPort);\n";
+    // } else if (strcmp(target_, "hw")==0) {
+    //     oss << "    modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);\n";
+    // } else {
+    //     PANIC("Unknown target!\n");
+    //     exit;
+    // }
+    // oss << "}\n";
+    // unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_port_correction"), new string("ai_port_correction")));
+    // oss.str("");
 
-    oss << "action " << kAiNoAction << "() {\n"
-    << "}\n";
-    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kAiNoAction), new string(kAiNoAction)));
-    oss.str("");
+    // oss << "action " << kAiNoAction << "() {\n"
+    // << "}\n";
+    // unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kAiNoAction), new string(kAiNoAction)));
+    // oss.str("");
 
-    oss << "table ti_port_correction {\n"
-    << "    reads {\n";
-    if (strcmp(target_, "sim")==0) {
-        oss << "        standard_metadata.egress_spec: exact;\n";
-    } else if (strcmp(target_, "hw")==0) {
-        oss << "        ig_intr_md_for_tm.ucast_egress_port: exact;\n";
-    } else { 
-        PANIC("Unknown target!\n");
-    } 
-    oss << "  }\n"
-    << "    actions {\n"
-    << "        ai_port_correction;\n"
-    << "        " << kAiNoAction << ";\n"
-    << "    }\n"
-    << "    default_action : " << kAiNoAction << "();\n"
-    << "    size: 1;\n"
-    << "}\n";
-    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kTiPortCorrection), new string(kTiPortCorrection)));
-    oss.str("");
+    // oss << "table ti_port_correction {\n"
+    // << "    reads {\n";
+    // if (strcmp(target_, "sim")==0) {
+    //     oss << "        standard_metadata.egress_spec: exact;\n";
+    // } else if (strcmp(target_, "hw")==0) {
+    //     oss << "        ig_intr_md_for_tm.ucast_egress_port: exact;\n";
+    // } else { 
+    //     PANIC("Unknown target!\n");
+    // } 
+    // oss << "  }\n"
+    // << "    actions {\n"
+    // << "        ai_port_correction;\n"
+    // << "        " << kAiNoAction << ";\n"
+    // << "    }\n"
+    // << "    default_action : " << kAiNoAction << "();\n"
+    // << "    size: 1;\n"
+    // << "}\n";
+    // unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kTiPortCorrection), new string(kTiPortCorrection)));
+    // oss.str("");
 }
 
 void UTModifier::findStatefulActions(AstNode* root) {
@@ -510,13 +510,13 @@ void UTModifier::addVisitedType(AstNode* root) {
 //    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
 //    oss.str("");
     
-    AstNode* curr = root;
-    bool foundIngress = false;
-    P4ControlNode* controlNode = FindControlNode(root, "ingress");
-    if (controlNode != NULL) {
-        foundIngress = true;
-        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
-    }
+    // AstNode* curr = root;
+    // bool foundIngress = false;
+    // P4ControlNode* controlNode = FindControlNode(root, "ingress");
+    // if (controlNode != NULL) {
+    //     foundIngress = true;
+    //     controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
+    // }
 //    controlNode = FindControlNode(root, "egress");
 //    if (controlNode != NULL) {
 //        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_set_visited_type"));
