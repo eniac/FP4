@@ -348,12 +348,13 @@ void UTModifier::instrumentRules() {
         }        
         ofs << temp << endl;
     }
-    if (strcmp(target_, "sim")==0) {
-        ofs << "table_add ti_port_correction ai_port_correction 0 => 1" << endl;
-    } else {
-        ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0" << endl;
-    }
-    ofs << assert_rules_.str();
+    // if (strcmp(target_, "sim")==0) {
+    //     ofs << "table_add ti_port_correction ai_port_correction 0 => 1" << endl;
+    // } else {
+    //     ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0" << endl;
+    // }
+    // ofs << assert_rules_.str();
+
     // for (int i = 0; i < 16; ++i)
     // {
     //     if (strcmp(target_, "sim")==0) {

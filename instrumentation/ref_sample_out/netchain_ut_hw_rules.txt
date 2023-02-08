@@ -22,4 +22,3 @@ pd ipv4_route add_entry drop_action ipv4_dstAddr 210.5.0.1 ipv4_dstAddr_prefix_l
 pd ipv4_route add_entry drop_action ipv4_dstAddr 220.5.0.1 ipv4_dstAddr_prefix_length 8
 pd ipv4_route add_entry drop_action ipv4_dstAddr 230.5.0.1 ipv4_dstAddr_prefix_length 8
 pd ipv4_route add_entry drop_action ipv4_dstAddr 240.5.0.1 ipv4_dstAddr_prefix_length 8
-pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0
