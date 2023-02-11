@@ -355,14 +355,14 @@ void UTModifier::instrumentRules() {
     }
     ofs << assert_rules_.str();
 
-    for (int i = 0; i < 16; ++i)
-    {
-        if (strcmp(target_, "sim")==0) {
-            ofs << "table_add ti_port_correction ai_port_correction " << i << " => " << (i+1) << endl;
-        } else {
-            ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port " << i << " action_outPort " << (i*4) << endl;
-        }
-    }
+    // for (int i = 0; i < 16; ++i)
+    // {
+    //     if (strcmp(target_, "sim")==0) {
+    //         ofs << "table_add ti_port_correction ai_port_correction " << i << " => " << (i+1) << endl;
+    //     } else {
+    //         ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port " << i << " action_outPort " << (i*4) << endl;
+    //     }
+    // }
 }
 
 void UTModifier::markActionVisited(AstNode* head) {
