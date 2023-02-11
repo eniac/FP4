@@ -343,8 +343,6 @@ control ingress     {
 }
 
 control egress     {
-    apply(ti_set_visited_type);
-
 
 }
 
@@ -420,15 +418,6 @@ calculated_field ipv4.hdrChecksum{
     update    ipv4_checksum;
 }
 
-
-action ai_set_visited_type() {
-    modify_field(fp4_visited.pkt_type, 1);
-}
-
-table ti_set_visited_type {
-    actions { ai_set_visited_type; }
-    default_action: ai_set_visited_type();
-}
 
 action ai_port_correction(outPort) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);

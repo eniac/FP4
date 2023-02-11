@@ -410,8 +410,6 @@ header fp4_visited_t fp4_visited;
 
 
 control egress     {
-    apply(ti_set_visited_type);
-
 
 }
 
@@ -438,15 +436,6 @@ table tstate_release_lock_table {
     }
     default_action : astate_release_lock_table();
     size: 0;
-}
-
-action ai_set_visited_type() {
-    modify_field(fp4_visited.pkt_type, 1);
-}
-
-table ti_set_visited_type {
-    actions { ai_set_visited_type; }
-    default_action: ai_set_visited_type();
 }
 
 action ai_port_correction(outPort) {

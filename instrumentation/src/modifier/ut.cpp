@@ -496,20 +496,20 @@ void UTModifier::distinguishPopularActions(AstNode* head) {
 
 void UTModifier::addVisitedType(AstNode* root) {
     // Add ai_set_visited_type to set type = 1 to DT indicating that the current packet has traversed UT
-   ostringstream oss;
-   oss << "action ai_set_visited_type() {\n"
-   << "    modify_field(" << sig_ << "_visited.pkt_type, 1);\n"
-   << "}\n";
-   unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_set_visited_type"), new string("ai_set_visited_type")));
-   oss.str("");
+//    ostringstream oss;
+//    oss << "action ai_set_visited_type() {\n"
+//    << "    modify_field(" << sig_ << "_visited.pkt_type, 1);\n"
+//    << "}\n";
+//    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_set_visited_type"), new string("ai_set_visited_type")));
+//    oss.str("");
     
     // Add table
-   oss << "table ti_set_visited_type {\n"
-   << "    actions { ai_set_visited_type; }\n"
-   << "    default_action: ai_set_visited_type();\n"
-   << "}\n";
-   unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
-   oss.str("");
+//    oss << "table ti_set_visited_type {\n"
+//    << "    actions { ai_set_visited_type; }\n"
+//    << "    default_action: ai_set_visited_type();\n"
+//    << "}\n";
+//    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
+//    oss.str("");
     
     AstNode* curr = root;
     bool foundIngress = false;
@@ -518,13 +518,13 @@ void UTModifier::addVisitedType(AstNode* root) {
         foundIngress = true;
         controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
     }
-   controlNode = FindControlNode(root, "egress");
-   if (controlNode != NULL) {
-       controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_set_visited_type"));
-   }
-   if (!foundIngress) {
-       PANIC("control ingress not found\n");  
-   }
+//    controlNode = FindControlNode(root, "egress");
+//    if (controlNode != NULL) {
+//        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_set_visited_type"));
+//    }
+//    if (!foundIngress) {
+//        PANIC("control ingress not found\n");  
+//    }
 }
 
 void UTModifier::redirectDroppedPacket(AstNode* root) {
