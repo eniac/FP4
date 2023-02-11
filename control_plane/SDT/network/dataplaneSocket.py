@@ -17,7 +17,7 @@ class DataplaneSocket():
         # print("sent bytes: ", bytes_sent)
 
     def receive_packet(self):
-        print("receive_packet prologue")
+        print("--- receive_packet prologue ---")
         # Read data from the dataplane and return raw packet
         try:
             packet, addr = self.dpSocket.recvfrom(512)
@@ -31,7 +31,6 @@ class DataplaneSocket():
             return packet
         except socket.timeout:
             print("No packet within timeout")
-
             return None
 
     # def print_test(self):

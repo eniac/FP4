@@ -58,7 +58,7 @@ class StateMachine(object):
 
 
     def parsePacket(self, byteStreamObj):
-        print("parsePacket prologue")
+        print("--- parsePacket prologue ---")
         currentState = self.start
         packet = Packet(byteStreamObj)
         prevState = None
@@ -86,7 +86,7 @@ class StateMachine(object):
         if Transition.convertBinArrayToHexStr(packet.headers["fp4_visited"]["preamble"]) != 14593470:
             print("Unknown packet - not from dataplane - discarding packet")
             return None
-        print("parsePacket epilogue")
+        print("--- parsePacket epilog ---")
 
         return packet
 

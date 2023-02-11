@@ -64,7 +64,7 @@ class CoverageDetector(object):
         print("header written")
 
     def set_out_file(self):
-        self.outfile = open(self.baseName+"_sdt_cp_digest.txt", 'w')
+        self.outfile = open("cpdigest_sdt_"+self.baseName+".txt", 'w')
         self.outfile.write("time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen\n")
 
     def write_output(self, time):
@@ -224,7 +224,7 @@ class CoverageDetector(object):
 
 
     def add_initial_seed_packets(self):
-        print("add_initial_seed_packets prologue")
+        print("--- add_initial_seed_packets prologue ---")
         ruleList = []
         # ruleList.append("table_add ti_port_correction ai_drop_packet 0 =>")
         if self.simulation:
@@ -337,7 +337,7 @@ class CoverageDetector(object):
 
         for rule in ruleList:
             print(rule)
-        print("add_initial_seed_packets epilog\n")
+        print("--- add_initial_seed_packets epilog ---")
         return ruleList
 
     @staticmethod
@@ -478,7 +478,7 @@ class CoverageDetector(object):
     #                 break
 
     def check_coverage_and_add_seed(self, packet, addSeed=False):
-        print("check_coverage_and_add_seed prologue")
+        print("--- check_coverage_and_add_seed prologue ---")
 
         # Update coverage
         self.totalPacketReceived += 1
@@ -519,7 +519,7 @@ class CoverageDetector(object):
 
         print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ), "number_of_seeds: ", self.numSeeds, " time: ", datetime.now().time())
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
-        self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions))
+        #self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions)+"\n")
 
         if ((datetime.now() - self.start_time).total_seconds() > 300):
             print("")
@@ -538,11 +538,11 @@ class CoverageDetector(object):
             rules = []
         elif addSeed:
             rules = self.add_seed_packet(packet)
-        print("check_coverage_and_add_seed epilogue")
+        print("--- check_coverage_and_add_seed epilog ---")
         return rules
 
     def add_seed_packet(self, packet):
-        print("add_seed_packet prologue")
+        print("--- add_seed_packet prologue ---")
         ruleList = []
         
         # ruleList.append("table_set_default ti_get_random_seed ai_get_random_seed " + str(self.numSeeds) + " 100 1")
@@ -602,7 +602,7 @@ class CoverageDetector(object):
         # for rule in ruleList:
         #     print(rule)
 
-        print("add_seed_packet epilogue")
+        print("--- add_seed_packet epilog ---")
         return ruleList
 
     # https://stackoverflow.com/a/14267825

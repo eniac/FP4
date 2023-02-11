@@ -100,13 +100,13 @@ class DTController:
             yield lst[i:i + n]
 
     def add_entries(self, ruleList):
-        print("add_entries prologue")
+        #print("add_entries prologue")
         for current_list in DTController.chunks(ruleList, 50):
             outFile = open(self.program_name + '_rules.txt', 'w')
             outFile.write("pd-" + self.program_name.replace("_", "-") + "\n")
 
             for item in current_list:
-                print(item)
+                #print(item)
                 outFile.write("%s\n" % item)
 
             outFile.write("end\nexit\n")
@@ -117,7 +117,7 @@ class DTController:
             process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
             time.sleep(1)
-        print("add_entries epilogue")
+        #print("add_entries epilogue")
         return       
  
     def readRegister(self, registerName, index, pipeNum=0):
@@ -181,7 +181,7 @@ class DTController:
         return packet, ruleList
 
     def main_loop(self):
-        print("main_loop prologue")
+        print("--- main_loop prologue ---")
         time.sleep(2)
         packetsForwarded = self.readRegister('forward_count_register', 0)
         self.coverageDetector.set_packets_forwarded(packetsForwarded)
@@ -189,14 +189,16 @@ class DTController:
         start_time = None
 
         while True:
-            print("self.dp_iface.receive_packet...")
+            print("self.dp_iface.receive_packet......")
             switchData = self.dp_iface.receive_packet()
             packetsForwarded = self.readRegister('forward_count_register', 0)
 
             if packetsForwarded < 0:
                 packetsForwarded += (2**32)
-                
-            print("Packets forwarded on port 0:", packetsForwarded, datetime.now().time())
+            if start_time is None:    
+                print("First packets forwarded on port 0:", packetsForwarded, datetime.now().time())
+            else:
+                print("Packets forwarded on port 0:", packetsForwarded, (datetime.now() - start_time).total_seconds())
 
             self.coverageDetector.set_packets_forwarded(packetsForwarded)
             if switchData is not None:

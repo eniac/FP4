@@ -1,0 +1,8 @@
+time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen
+0,5,601584,0.142857142857,1,set(['drop_action'])
+1.411634,6,214076384,0.285714285714,2,set(['set_egress', 'drop_action'])
+2.532629,7,385060502,0.571428571429,3,set(['set_egress', 'decode_action', 'reply_to_client_action', 'drop_action'])
+3.65432,8,557568269,0.571428571429,4,set(['set_egress', 'decode_action', 'reply_to_client_action', 'drop_action'])
+4.779745,9,730703413,0.714285714286,5,set(['set_egress', 'acquire_lock_action', 'decode_action', 'reply_to_client_action', 'drop_action'])
+5.904277,10,904087270,0.857142857143,6,set(['decode_action', 'set_egress', 'set_retry_action', 'acquire_lock_action', 'reply_to_client_action', 'drop_action'])
+7.026752,11,1078232507,1.0,7,set(['decode_action', 'set_egress', 'release_lock_action', 'set_retry_action', 'acquire_lock_action', 'reply_to_client_action', 'drop_action'])

@@ -1,0 +1,8 @@
+time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen
+0,2,306021,0.5,1,set(['aeWmaPhase2', 'aeWmaPhase1', 'ae_rate_limit', 'aeInitializeWma'])
+1.091028,3,190829078,0.625,2,set(['aeWmaPhase2', 'aeWmaPhase1', 'ae_rate_limit', 'aeInitializeWma', 'drop_packet_fp4_ipv4_lpm'])
+2.290481,4,400635892,0.75,3,set(['drop_packet_fp4_te_drop', 'aeWmaPhase2', 'aeWmaPhase1', 'drop_packet_fp4_ipv4_lpm', 'aeInitializeWma', 'ae_rate_limit'])
+3.382224,5,591573106,0.875,4,set(['drop_packet_fp4_te_drop', 'aeWmaPhase2', 'aeWmaPhase1', 'drop_packet_fp4_ipv4_lpm', 'aeInitializeWma', 'ae_rate_limit', 'ipv4_forward'])
+4.577675,6,800774067,0.875,5,set(['drop_packet_fp4_te_drop', 'aeWmaPhase2', 'aeWmaPhase1', 'drop_packet_fp4_ipv4_lpm', 'aeInitializeWma', 'ae_rate_limit', 'ipv4_forward'])
+5.776183,7,1012651597,0.875,6,set(['drop_packet_fp4_te_drop', 'aeWmaPhase2', 'aeWmaPhase1', 'drop_packet_fp4_ipv4_lpm', 'aeInitializeWma', 'ae_rate_limit', 'ipv4_forward'])
+6.973229,8,1224854652,1.0,7,set(['drop_packet_fp4_te_drop', 'aeWmaPhase2', 'aeWmaPhase1', 'drop_packet_fp4_ipv4_lpm', 'aeInitializeWma', 'ai_noOp', 'ae_rate_limit', 'ipv4_forward'])

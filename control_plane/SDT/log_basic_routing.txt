@@ -1,0 +1,250 @@
+PROGRAM: basic_routing_dt_hw
+SIMULATION: False
+CPU_PORT: 192
+TOFINO_INTERFACE: enp6s0
+RULES file: basic_routing_ut_hw_rules.txt
+Mode: normal
+C_IP: None
+Waiting for switch to start
+Assuming switch has started
+('program_name', 'basic_routing_dt_hw')
+enabling ports: ['9/0', '10/0', '11/0', '12/0', '13/0', '14/0', '15/0', '16/0', '17/0', '18/0', '19/0', '20/0', '21/0', '22/0', '23/0', '24/0'] (dev ids: [60, 52, 44, 36, 28, 20, 12, 4, 0, 8, 16, 24, 32, 40, 48, 56]) at rate: 25G
+port: 60
+port: 52
+port: 44
+port: 36
+port: 28
+port: 20
+port: 12
+port: 4
+port: 0
+port: 8
+port: 16
+port: 24
+port: 32
+port: 40
+port: 48
+port: 56
+All ports up
+parse_ipv4
+parse_ipv4_clone
+parse_ethernet
+parse_ethernet_clone
+start
+start_clone
+('file path', 'basic_routing_coverageAndRules.json')
+[[u'ethernet'], [u'ethernet', u'ipv4']]
+header written
+--- add_initial_seed_packets prologue ---
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane fp4_metadata_reg_val_one 0 fp4_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane fp4_metadata_reg_val_one 0 fp4_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane fp4_metadata_reg_val_one 1 fp4_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num fp4_metadata_seed_num 0 fp4_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_seed_num add_entry ai_set_seed_num fp4_metadata_seed_num 1 fp4_metadata_seed_num_mask 1 priority 254 action_real_seed_num 1
+pd ti_set_resubmit add_entry ai_set_resubmit fp4_metadata_make_clone 0 fp4_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header fp4_metadata_make_clone_start 2 fp4_metadata_make_clone_end 255 fp4_metadata_fixed_header_seed 0 fp4_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_ethernet fp4_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_ethernet fp4_metadata_seed_num 0 action_ethernetdstAddr 0x15d54b899f4f action_ethernetsrcAddr 0x54df37bed541 action_ethernetetherType 21592
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 fp4_metadata_seed_num 1
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 fp4_metadata_seed_num 1 action_ethernetdstAddr 0xd0b70ef7d5dc action_ethernetsrcAddr 0xf5186fdba96e action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 8 action_ipv4diffserv 235 action_ipv4totalLen 12302 action_ipv4identification 35162 action_ipv4flags 1 action_ipv4fragOffset 3847 action_ipv4ttl 239 action_ipv4protocol 57 action_ipv4hdrChecksum 10111 action_ipv4srcAddr 653249388 action_ipv4dstAddr 2742690077
+pd ti_add_clones add_entry ai_add_clone_ethernet ethernet_valid 1 ipv4_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4 ethernet_valid 1 ipv4_valid 1
+pd te_set_table_seed add_entry ae_set_table_seed fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_table_seed_mask 0 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 0 fp4_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 1 fp4_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 2 fp4_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 3 fp4_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 4 fp4_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 5 fp4_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 6 fp4_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 7 fp4_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 8 fp4_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 9 fp4_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 10 fp4_metadata_fixed_header_seed_mask 15 priority 245 action_ipv4_dstAddr 50.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 11 fp4_metadata_fixed_header_seed_mask 15 priority 244 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 12 fp4_metadata_fixed_header_seed_mask 15 priority 243 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 13 fp4_metadata_fixed_header_seed_mask 15 priority 242 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 14 fp4_metadata_fixed_header_seed_mask 15 priority 241 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 15 fp4_metadata_fixed_header_seed_mask 15 priority 240 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 16 fp4_metadata_fixed_header_seed_mask 31 priority 239 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 17 fp4_metadata_fixed_header_seed_mask 31 priority 238 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 18 fp4_metadata_fixed_header_seed_mask 31 priority 237 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 19 fp4_metadata_fixed_header_seed_mask 31 priority 236 action_ipv4_dstAddr 10.0.50.1
+pd te_move_back_fields add_entry ae_move_back_fix_rewrite_mac fp4_metadata_seed_num 1 fp4_metadata_table_seed 0 fp4_metadata_fixed_header_seed 20 fp4_metadata_fixed_header_seed_mask 31 priority 235 action_ipv4_dstAddr 50.0.0.1
+pd te_do_resubmit add_entry ae_resubmit fp4_metadata_make_clone 1
+--- add_initial_seed_packets epilog ---
+--- main_loop prologue ---
+('Before entering loop', datetime.time(6, 30, 51, 481545))
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+Timeout Updated
+('packet received of size: ', 60)
+('First packets forwarded on port 0:', 653321683, datetime.time(6, 30, 51, 483351))
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 0.1, 'number_of_seeds: ', 2, ' time: ', datetime.time(6, 30, 51, 485828))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 819652745, 1.092339)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 0.5, 'number_of_seeds: ', 3, ' time: ', datetime.time(6, 30, 52, 580667))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 988147517, 2.179446)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 0.5, 'number_of_seeds: ', 4, ' time: ', datetime.time(6, 30, 53, 667520))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 1157732773, 3.271881)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 0.6, 'number_of_seeds: ', 5, ' time: ', datetime.time(6, 30, 54, 760300))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 1329338317, 4.365315)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 0.9, 'number_of_seeds: ', 6, ' time: ', datetime.time(6, 30, 55, 853921))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 1528104087, 5.642508)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 1.0, 'number_of_seeds: ', 7, ' time: ', datetime.time(6, 30, 57, 131141))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 1724658277, 6.919616)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 1.0, 'number_of_seeds: ', 8, ' time: ', datetime.time(6, 30, 58, 408384))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 1921950078, 8.209559)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 1.0, 'number_of_seeds: ', 9, ' time: ', datetime.time(6, 30, 59, 698113))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 2117258041, 9.487947)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 1.0, 'number_of_seeds: ', 10, ' time: ', datetime.time(6, 31, 0, 976586))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 2313086284, 10.774498)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 1.0, 'number_of_seeds: ', 11, ' time: ', datetime.time(6, 31, 2, 263187))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+('packet received of size: ', 100)
+('Packets forwarded on port 0:', 2507394164, 12.057115)
+--- parsePacket prologue ---
+--- parsePacket epilog ---
+--- check_coverage_and_add_seed prologue ---
+('Coverage: ', 1.0, 'number_of_seeds: ', 12, ' time: ', datetime.time(6, 31, 3, 545578))
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 2850989875, 14.336205)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3002103548, 15.339007)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3153065109, 16.340797)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3304115442, 17.343249)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3455154580, 18.345668)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3606068588, 19.347296)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3757147984, 20.349954)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---
+No packet within timeout
+('Packets forwarded on port 0:', 3908218947, 21.352589)
+self.dp_iface.receive_packet......
+--- receive_packet prologue ---

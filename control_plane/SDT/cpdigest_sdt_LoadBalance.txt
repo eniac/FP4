@@ -1,0 +1,5 @@
+time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen
+0,3,84005982,0.5,1,set(['drop_packet_fp4_ecmp_group', 'rewrite_mac', 'set_nhop'])
+1.141582,4,291579820,0.666666666667,2,set(['drop_packet_fp4_ecmp_group', 'rewrite_mac', 'set_nhop', 'drop_packet_fp4_send_frame'])
+2.241068,5,491171800,1.0,3,set(['drop_packet_fp4_ecmp_group', 'set_nhop', 'drop_packet_fp4_ecmp_nhop', 'set_ecmp_select', 'rewrite_mac', 'drop_packet_fp4_send_frame'])
+3.388832,6,698687720,1.0,4,set(['drop_packet_fp4_ecmp_group', 'set_nhop', 'drop_packet_fp4_ecmp_nhop', 'set_ecmp_select', 'rewrite_mac', 'drop_packet_fp4_send_frame'])
