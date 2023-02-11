@@ -100,12 +100,13 @@ class DTController:
             yield lst[i:i + n]
 
     def add_entries(self, ruleList):
+        print("add_entries prologue")
         for current_list in DTController.chunks(ruleList, 50):
             outFile = open(self.program_name + '_rules.txt', 'w')
             outFile.write("pd-" + self.program_name.replace("_", "-") + "\n")
 
             for item in current_list:
-                # print(item)
+                print(item)
                 outFile.write("%s\n" % item)
 
             outFile.write("end\nexit\n")
@@ -116,6 +117,7 @@ class DTController:
             process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
             time.sleep(1)
+        print("add_entries epilogue")
         return       
  
     def readRegister(self, registerName, index, pipeNum=0):
@@ -149,7 +151,7 @@ class DTController:
         self.counter = 0
         baseName = self.program_name.split("_dt_hw")[0]
         self.packetParser = StateMachine(baseName + "_parserFile.json")
-        self.coverageDetector = CoverageDetector(baseName + "_coverageAndRules.json", simulation = SIMULATION, rulesFile=self.rules_file, mode=MODE)
+        self.coverageDetector = CoverageDetector(baseName, simulation = SIMULATION, rulesFile=self.rules_file, mode=MODE)
 
         initialRules = self.coverageDetector.add_initial_seed_packets()
         self.discardPackets = self.readRegister('forward_count_register', 0)
@@ -179,6 +181,7 @@ class DTController:
         return packet, ruleList
 
     def main_loop(self):
+        print("main_loop prologue")
         time.sleep(2)
         packetsForwarded = self.readRegister('forward_count_register', 0)
         self.coverageDetector.set_packets_forwarded(packetsForwarded)
@@ -186,6 +189,7 @@ class DTController:
         start_time = None
 
         while True:
+            print("self.dp_iface.receive_packet...")
             switchData = self.dp_iface.receive_packet()
             packetsForwarded = self.readRegister('forward_count_register', 0)
 
@@ -196,7 +200,6 @@ class DTController:
 
             self.coverageDetector.set_packets_forwarded(packetsForwarded)
             if switchData is not None:
-                print("from switch", type(switchData))
                 current_packet = self.packetParser.parsePacket(switchData)
                 if (current_packet is None):
                     pass

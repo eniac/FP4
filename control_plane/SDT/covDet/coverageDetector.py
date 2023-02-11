@@ -9,7 +9,7 @@ import random
 from datetime import datetime
 
 class CoverageDetector(object):
-    def __init__(self, actionsFile, simulation=True, rulesFile=None, mode='normal'):
+    def __init__(self, baseName, simulation=True, rulesFile=None, mode='normal'):
         # Action name is the key, value is the number of times seen
         self.actionToCount = dict()
         self.totalUniqueActions = 0
@@ -50,6 +50,9 @@ class CoverageDetector(object):
 
         self.mode = mode
 
+        self.baseName = baseName
+
+        actionsFile = baseName + "_coverageAndRules.json"
         self.initialize_variables(actionsFile, rulesFile)
         self.simulation = simulation
 
@@ -61,7 +64,7 @@ class CoverageDetector(object):
         print("header written")
 
     def set_out_file(self):
-        self.outfile = open("control_plane_log.txt", 'w')
+        self.outfile = open(self.baseName+"_sdt_cp_digest.txt", 'w')
         self.outfile.write("time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen\n")
 
     def write_output(self, time):
@@ -221,7 +224,7 @@ class CoverageDetector(object):
 
 
     def add_initial_seed_packets(self):
-        print("generating initial rules")
+        print("add_initial_seed_packets prologue")
         ruleList = []
         # ruleList.append("table_add ti_port_correction ai_drop_packet 0 =>")
         if self.simulation:
@@ -332,6 +335,9 @@ class CoverageDetector(object):
         else:
             ruleList.append("pd te_do_resubmit add_entry ae_resubmit fp4_metadata_make_clone 1")
 
+        for rule in ruleList:
+            print(rule)
+        print("add_initial_seed_packets epilog\n")
         return ruleList
 
     @staticmethod
@@ -472,6 +478,7 @@ class CoverageDetector(object):
     #                 break
 
     def check_coverage_and_add_seed(self, packet, addSeed=False):
+        print("check_coverage_and_add_seed prologue")
 
         # Update coverage
         self.totalPacketReceived += 1
@@ -510,9 +517,9 @@ class CoverageDetector(object):
         else:
             self.write_output((datetime.now() - self.start_time).total_seconds())        
 
-        # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ), "number_of_seeds: ", self.numSeeds, " time: ", datetime.now().time())
+        print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ), "number_of_seeds: ", self.numSeeds, " time: ", datetime.now().time())
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
-        # self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions))
+        self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions))
 
         if ((datetime.now() - self.start_time).total_seconds() > 300):
             print("")
@@ -525,15 +532,17 @@ class CoverageDetector(object):
 
         if not flag or 'seed' in self.mode:
             print("No actions seen, not adding seed packet OR seeds are set to off")
-            return []
+            rules = []
         elif CoverageDetector.shifting(packet.headers["fp4_visited"]["pkt_type"]) == 3:
             print("Packet type is 3 so will not add packet")
-            return []
+            rules = []
         elif addSeed:
-            return self.add_seed_packet(packet)
+            rules = self.add_seed_packet(packet)
+        print("check_coverage_and_add_seed epilogue")
+        return rules
 
     def add_seed_packet(self, packet):
-        print("Adding new seed")
+        print("add_seed_packet prologue")
         ruleList = []
         
         # ruleList.append("table_set_default ti_get_random_seed ai_get_random_seed " + str(self.numSeeds) + " 100 1")
@@ -593,7 +602,7 @@ class CoverageDetector(object):
         # for rule in ruleList:
         #     print(rule)
 
-        # print("End of new rules")
+        print("add_seed_packet epilogue")
         return ruleList
 
     # https://stackoverflow.com/a/14267825
