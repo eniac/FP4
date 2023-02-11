@@ -93,44 +93,44 @@ void UTModifier::addStatefulTblActions(AstNode* root) {
 }
 
 void UTModifier::correctPort(AstNode* root) {
-    // ostringstream oss;
-    // oss << "action ai_port_correction(outPort) {\n";
-    // if (strcmp(target_, "sim")==0) {
-    //     oss << "    modify_field(standard_metadata.egress_spec, outPort);\n";
-    // } else if (strcmp(target_, "hw")==0) {
-    //     oss << "    modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);\n";
-    // } else {
-    //     PANIC("Unknown target!\n");
-    //     exit;
-    // }
-    // oss << "}\n";
-    // unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_port_correction"), new string("ai_port_correction")));
-    // oss.str("");
+    ostringstream oss;
+    oss << "action ai_port_correction(outPort) {\n";
+    if (strcmp(target_, "sim")==0) {
+        oss << "    modify_field(standard_metadata.egress_spec, outPort);\n";
+    } else if (strcmp(target_, "hw")==0) {
+        oss << "    modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);\n";
+    } else {
+        PANIC("Unknown target!\n");
+        exit;
+    }
+    oss << "}\n";
+    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_port_correction"), new string("ai_port_correction")));
+    oss.str("");
 
-    // oss << "action " << kAiNoAction << "() {\n"
-    // << "}\n";
-    // unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kAiNoAction), new string(kAiNoAction)));
-    // oss.str("");
+    oss << "action " << kAiNoAction << "() {\n"
+    << "}\n";
+    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kAiNoAction), new string(kAiNoAction)));
+    oss.str("");
 
-    // oss << "table ti_port_correction {\n"
-    // << "    reads {\n";
-    // if (strcmp(target_, "sim")==0) {
-    //     oss << "        standard_metadata.egress_spec: exact;\n";
-    // } else if (strcmp(target_, "hw")==0) {
-    //     oss << "        ig_intr_md_for_tm.ucast_egress_port: exact;\n";
-    // } else { 
-    //     PANIC("Unknown target!\n");
-    // } 
-    // oss << "  }\n"
-    // << "    actions {\n"
-    // << "        ai_port_correction;\n"
-    // << "        " << kAiNoAction << ";\n"
-    // << "    }\n"
-    // << "    default_action : " << kAiNoAction << "();\n"
-    // << "    size: 1;\n"
-    // << "}\n";
-    // unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kTiPortCorrection), new string(kTiPortCorrection)));
-    // oss.str("");
+    oss << "table ti_port_correction {\n"
+    << "    reads {\n";
+    if (strcmp(target_, "sim")==0) {
+        oss << "        standard_metadata.egress_spec: exact;\n";
+    } else if (strcmp(target_, "hw")==0) {
+        oss << "        ig_intr_md_for_tm.ucast_egress_port: exact;\n";
+    } else { 
+        PANIC("Unknown target!\n");
+    } 
+    oss << "  }\n"
+    << "    actions {\n"
+    << "        ai_port_correction;\n"
+    << "        " << kAiNoAction << ";\n"
+    << "    }\n"
+    << "    default_action : " << kAiNoAction << "();\n"
+    << "    size: 1;\n"
+    << "}\n";
+    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kTiPortCorrection), new string(kTiPortCorrection)));
+    oss.str("");
 }
 
 void UTModifier::findStatefulActions(AstNode* root) {
@@ -348,21 +348,21 @@ void UTModifier::instrumentRules() {
         }        
         ofs << temp << endl;
     }
-    // if (strcmp(target_, "sim")==0) {
-    //     ofs << "table_add ti_port_correction ai_port_correction 0 => 1" << endl;
-    // } else {
-    //     ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0" << endl;
-    // }
-    // ofs << assert_rules_.str();
+    if (strcmp(target_, "sim")==0) {
+        ofs << "table_add ti_port_correction ai_port_correction 0 => 1" << endl;
+    } else {
+        ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0" << endl;
+    }
+    ofs << assert_rules_.str();
 
-    // for (int i = 0; i < 16; ++i)
-    // {
-    //     if (strcmp(target_, "sim")==0) {
-    //         ofs << "table_add ti_port_correction ai_port_correction " << i << " => " << (i+1) << endl;
-    //     } else {
-    //         ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port " << i << " action_outPort " << (i*4) << endl;
-    //     }
-    // }
+    for (int i = 0; i < 16; ++i)
+    {
+        if (strcmp(target_, "sim")==0) {
+            ofs << "table_add ti_port_correction ai_port_correction " << i << " => " << (i+1) << endl;
+        } else {
+            ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port " << i << " action_outPort " << (i*4) << endl;
+        }
+    }
 }
 
 void UTModifier::markActionVisited(AstNode* head) {
@@ -496,35 +496,35 @@ void UTModifier::distinguishPopularActions(AstNode* head) {
 
 void UTModifier::addVisitedType(AstNode* root) {
     // Add ai_set_visited_type to set type = 1 to DT indicating that the current packet has traversed UT
-//    ostringstream oss;
-//    oss << "action ai_set_visited_type() {\n"
-//    << "    modify_field(" << sig_ << "_visited.pkt_type, 1);\n"
-//    << "}\n";
-//    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_set_visited_type"), new string("ai_set_visited_type")));
-//    oss.str("");
+   ostringstream oss;
+   oss << "action ai_set_visited_type() {\n"
+   << "    modify_field(" << sig_ << "_visited.pkt_type, 1);\n"
+   << "}\n";
+   unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_set_visited_type"), new string("ai_set_visited_type")));
+   oss.str("");
     
     // Add table
-//    oss << "table ti_set_visited_type {\n"
-//    << "    actions { ai_set_visited_type; }\n"
-//    << "    default_action: ai_set_visited_type();\n"
-//    << "}\n";
-//    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
-//    oss.str("");
+   oss << "table ti_set_visited_type {\n"
+   << "    actions { ai_set_visited_type; }\n"
+   << "    default_action: ai_set_visited_type();\n"
+   << "}\n";
+   unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
+   oss.str("");
     
-    // AstNode* curr = root;
-    // bool foundIngress = false;
-    // P4ControlNode* controlNode = FindControlNode(root, "ingress");
-    // if (controlNode != NULL) {
-    //     foundIngress = true;
-    //     controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
-    // }
-//    controlNode = FindControlNode(root, "egress");
-//    if (controlNode != NULL) {
-//        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_set_visited_type"));
-//    }
-//    if (!foundIngress) {
-//        PANIC("control ingress not found\n");  
-//    }
+    AstNode* curr = root;
+    bool foundIngress = false;
+    P4ControlNode* controlNode = FindControlNode(root, "ingress");
+    if (controlNode != NULL) {
+        foundIngress = true;
+        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
+    }
+   controlNode = FindControlNode(root, "egress");
+   if (controlNode != NULL) {
+       controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_set_visited_type"));
+   }
+   if (!foundIngress) {
+       PANIC("control ingress not found\n");  
+   }
 }
 
 void UTModifier::redirectDroppedPacket(AstNode* root) {

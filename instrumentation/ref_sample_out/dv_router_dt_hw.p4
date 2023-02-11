@@ -223,7 +223,6 @@ control egress {
     apply(te_move_back_fields);
     apply(te_do_resubmit);
   }
-    apply(ti_set_visited_type);
     apply(te_update_count);
 }
 
@@ -913,15 +912,6 @@ action ai_add_clone_ethernet_distance_vec() {
   modify_field(distance_vec_clone.src, distance_vec.src);
   modify_field(distance_vec_clone.length_dist, distance_vec.length_dist);
   modify_field(distance_vec_clone.data, distance_vec.data);
-}
-
-action ai_set_visited_type() {
-    modify_field(fp4_visited.pkt_type, 1);
-}
-
-table ti_set_visited_type {
-    actions { ai_set_visited_type; }
-    default_action: ai_set_visited_type();
 }
 
 register forward_count_register {

@@ -408,7 +408,6 @@ control egress {
     apply(te_move_back_fields);
     apply(te_do_resubmit);
   }
-    apply(ti_set_visited_type);
     apply(te_update_count);
 }
 
@@ -1121,15 +1120,6 @@ action ai_add_clone_ethernet_ipv4_udp_nc_hdr() {
   modify_field(nc_hdr_clone.lock, nc_hdr.lock);
   modify_field(nc_hdr_clone.timestamp_lo, nc_hdr.timestamp_lo);
   modify_field(nc_hdr_clone.timestamp_hi, nc_hdr.timestamp_hi);
-}
-
-action ai_set_visited_type() {
-    modify_field(fp4_visited.pkt_type, 1);
-}
-
-table ti_set_visited_type {
-    actions { ai_set_visited_type; }
-    default_action: ai_set_visited_type();
 }
 
 register forward_count_register {
