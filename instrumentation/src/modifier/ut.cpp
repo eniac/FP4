@@ -57,7 +57,7 @@ UTModifier::UTModifier(AstNode* root, char* target, const char* rules_in, const 
 	addVisitedType(root);
 	redirectDroppedPacket(root);
 	PRINT_VERBOSE("Done redirectDroppedPacket\n");
-	correctPort(root);
+	// correctPort(root);
 
     // createAssertTables(root);
 
@@ -348,11 +348,11 @@ void UTModifier::instrumentRules() {
         }        
         ofs << temp << endl;
     }
-    if (strcmp(target_, "sim")==0) {
-        ofs << "table_add ti_port_correction ai_port_correction 0 => 1" << endl;
-    } else {
-        ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0" << endl;
-    }
+    // if (strcmp(target_, "sim")==0) {
+    //     ofs << "table_add ti_port_correction ai_port_correction 0 => 1" << endl;
+    // } else {
+    //     ofs << "pd ti_port_correction add_entry ai_port_correction ig_intr_md_for_tm_ucast_egress_port 0 action_outPort 0" << endl;
+    // }
     ofs << assert_rules_.str();
 
     // for (int i = 0; i < 16; ++i)
@@ -511,13 +511,13 @@ void UTModifier::addVisitedType(AstNode* root) {
 //    unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_set_visited_type"), new string("ti_set_visited_type")));
 //    oss.str("");
     
-    AstNode* curr = root;
-    bool foundIngress = false;
-    P4ControlNode* controlNode = FindControlNode(root, "ingress");
-    if (controlNode != NULL) {
-        foundIngress = true;
-        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
-    }
+    // AstNode* curr = root;
+    // bool foundIngress = false;
+    // P4ControlNode* controlNode = FindControlNode(root, "ingress");
+    // if (controlNode != NULL) {
+    //     foundIngress = true;
+    //     controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_port_correction"));
+    // }
 //    controlNode = FindControlNode(root, "egress");
 //    if (controlNode != NULL) {
 //        controlNode -> controlBlock_ -> controlStatements_ -> push_back(createTableCall("ti_set_visited_type"));
