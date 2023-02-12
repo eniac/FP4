@@ -177,12 +177,16 @@ action set_egress_details(egress_spec) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
 }
 
+action on_miss_nexthop() {
+    drop();
+}
+
 table nexthop {
     reads {
         ingress_metadata.nexthop_index : exact;
     }
     actions {
-        on_miss;
+        on_miss_nexthop;
         set_egress_details;
     }
     size : NEXTHOP_TABLE_SIZE;

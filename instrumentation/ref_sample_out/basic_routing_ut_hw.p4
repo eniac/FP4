@@ -164,12 +164,17 @@ action set_egress_details(egress_spec) {
     modify_field(fp4_visited.set_egress_details, 1);
 }
 
+action on_miss_nexthop() {
+    modify_field(fp4_visited.on_miss_nexthop, 1);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+}
+
 table nexthop {
     reads {
         ingress_metadata.nexthop_index : exact;
     }
     actions {
-        on_miss_fp4_nexthop;
+        on_miss_nexthop;
         set_egress_details;
     }
     size:32768;
@@ -236,10 +241,6 @@ action fib_hit_nexthop_fp4_ipv4_fib_lpm(nexthop_index) {
     modify_field(fp4_visited.fib_hit_nexthop_fp4_ipv4_fib_lpm, 1);
 }
 
-action on_miss_fp4_nexthop() {
-    modify_field(fp4_visited.on_miss_fp4_nexthop, 1);
-}
-
 action on_miss_fp4_rewrite_mac() {
     modify_field(fp4_visited.on_miss_fp4_rewrite_mac, 1);
 }
@@ -252,8 +253,8 @@ header_type fp4_visited_t {
         fib_hit_nexthop_fp4_ipv4_fib_lpm : 1;
         on_miss_fp4_ipv4_fib : 1;
         on_miss_fp4_ipv4_fib_lpm : 1;
-        on_miss_fp4_nexthop : 1;
         on_miss_fp4_rewrite_mac : 1;
+        on_miss_nexthop : 1;
         rewrite_src_dst_mac : 1;
         set_bd : 1;
         set_egress_details : 1;

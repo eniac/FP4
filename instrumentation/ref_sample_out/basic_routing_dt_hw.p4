@@ -135,6 +135,7 @@ metadata ingress_metadata_t ingress_metadata;
 
 
 
+
 control ingress {
   if (fp4_visited.pkt_type == 1 || fp4_visited.pkt_type == 3) {
     apply(ti_get_reg_pos);
@@ -162,7 +163,6 @@ control ingress {
 
 
 
-
 header_type fp4_visited_t {
     fields {
         preamble : 48;
@@ -171,8 +171,8 @@ header_type fp4_visited_t {
         fib_hit_nexthop_fp4_ipv4_fib_lpm : 1;
         on_miss_fp4_ipv4_fib : 1;
         on_miss_fp4_ipv4_fib_lpm : 1;
-        on_miss_fp4_nexthop : 1;
         on_miss_fp4_rewrite_mac : 1;
+        on_miss_nexthop : 1;
         rewrite_src_dst_mac : 1;
         set_bd : 1;
         set_egress_details : 1;
@@ -254,8 +254,8 @@ field_list fi_bf_hash_fields_16 {
   fp4_visited.fib_hit_nexthop_fp4_ipv4_fib_lpm;
   fp4_visited.on_miss_fp4_ipv4_fib;
   fp4_visited.on_miss_fp4_ipv4_fib_lpm;
-  fp4_visited.on_miss_fp4_nexthop;
   fp4_visited.on_miss_fp4_rewrite_mac;
+  fp4_visited.on_miss_nexthop;
   fp4_visited.rewrite_src_dst_mac;
   fp4_visited.set_bd;
   fp4_visited.set_egress_details;
@@ -268,8 +268,8 @@ field_list fi_bf_hash_fields_32 {
   fp4_visited.fib_hit_nexthop_fp4_ipv4_fib_lpm;
   fp4_visited.on_miss_fp4_ipv4_fib;
   fp4_visited.on_miss_fp4_ipv4_fib_lpm;
-  fp4_visited.on_miss_fp4_nexthop;
   fp4_visited.on_miss_fp4_rewrite_mac;
+  fp4_visited.on_miss_nexthop;
   fp4_visited.rewrite_src_dst_mac;
   fp4_visited.set_bd;
   fp4_visited.set_egress_details;
@@ -352,8 +352,8 @@ action ai_recycle_packet() {
   modify_field(fp4_visited.fib_hit_nexthop_fp4_ipv4_fib_lpm, 0);
   modify_field(fp4_visited.on_miss_fp4_ipv4_fib, 0);
   modify_field(fp4_visited.on_miss_fp4_ipv4_fib_lpm, 0);
-  modify_field(fp4_visited.on_miss_fp4_nexthop, 0);
   modify_field(fp4_visited.on_miss_fp4_rewrite_mac, 0);
+  modify_field(fp4_visited.on_miss_nexthop, 0);
   modify_field(fp4_visited.rewrite_src_dst_mac, 0);
   modify_field(fp4_visited.set_bd, 0);
   modify_field(fp4_visited.set_egress_details, 0);
