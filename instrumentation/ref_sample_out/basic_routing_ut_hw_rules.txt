@@ -1,6 +1,6 @@
 pd ipv4_fib set_default_action on_miss_fp4_ipv4_fib
 pd ipv4_fib_lpm set_default_action on_miss_fp4_ipv4_fib_lpm
-pd nexthop set_default_action on_miss_fp4_nexthop_nexthop
+pd nexthop set_default_action ai_drop
 pd rewrite_mac set_default_action on_miss_fp4_rewrite_mac
 
 pd port_mapping add_entry set_bd ig_intr_md_ingress_port 0 action_bd 10

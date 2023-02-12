@@ -28,6 +28,9 @@
     },
     "visited": [
         {
+            "ai_drop": 1
+        },
+        {
             "fib_hit_nexthop_fp4_ipv4_fib": 1
         },
         {
@@ -41,9 +44,6 @@
         },
         {
             "on_miss_fp4_rewrite_mac": 1
-        },
-        {
-            "on_miss_nexthop": 1
         },
         {
             "rewrite_src_dst_mac": 1

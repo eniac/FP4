@@ -177,7 +177,7 @@ action set_egress_details(egress_spec) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
 }
 
-action on_miss_nexthop() {
+action ai_drop() {
     drop();
 }
 
@@ -186,7 +186,7 @@ table nexthop {
         ingress_metadata.nexthop_index : exact;
     }
     actions {
-        on_miss_nexthop;
+        ai_drop;
         set_egress_details;
     }
     size : NEXTHOP_TABLE_SIZE;
