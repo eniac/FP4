@@ -66,7 +66,7 @@ build_p4_14() {
     ./configure \
     --prefix=$SDE_INSTALL --enable-thrift --with-tofino --with-p4c=p4c \
     P4_NAME=$prog_name P4_PATH=$CURR/$1 P4_VERSION=p4-14  P4_ARCHITECTURE=tna &&
-    make clean && make && make install &&
+    make clean && make -j4 && make install &&
     # Retain the custom modifications
     # make && make install &&
 
