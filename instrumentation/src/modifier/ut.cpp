@@ -45,7 +45,7 @@ UTModifier::UTModifier(AstNode* root, char* target, const char* rules_in, const 
     RemoveNodes(root);
 
 	AssignAction2Bitmap();
-	addStatefulTblActions(root);
+	// addStatefulTblActions(root);  // Mark stateful actions inline
 	addModifyTables(root);
 	AddVisitedHdr();
 
@@ -189,11 +189,12 @@ void UTModifier::addModifyTablesRecurse(AstNode* root, P4ControlBlock* controlBl
     for (int i = 0; i < listSize; ++i) {
         controlStmt = controlBlock -> controlStatements_ -> list_ -> at(i);
         if (controlStmt -> stmtType_ == ControlStatement::TABLECALL) {
-            string tableName = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
-            if (tbl_2_state_action_.find(tableName) != tbl_2_state_action_.end()) {
-                controlBlock -> controlStatements_  -> insert(i+1, createTableCall("tstate_" + tableName));
-                listSize += 1;
-            }
+            // Avoid creating new tables to mark stateful actions
+            // string tableName = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
+            // if (tbl_2_state_action_.find(tableName) != tbl_2_state_action_.end()) {
+            //     controlBlock -> controlStatements_  -> insert(i+1, createTableCall("tstate_" + tableName));
+            //     listSize += 1;
+            // }
         } else if (controlStmt -> stmtType_ == ControlStatement::CONTROL) {
             P4ControlNode* controlNode = FindControlNode(root, dynamic_cast<NameNode*>(controlStmt -> stmt_) -> toString());
             addModifyTablesRecurse(root, controlNode -> controlBlock_);
@@ -387,10 +388,11 @@ void UTModifier::markActionVisited(AstNode* head) {
             PRINT_VERBOSE("Skip marking for removed action %s\n", key.c_str());
             return;  
         }
-
-        if (state_action_2_tbl_.find(key) != state_action_2_tbl_.end()) {
-            return;
-        }
+        
+        // Don't skip stateful actions, mark them inline
+        // if (state_action_2_tbl_.find(key) != state_action_2_tbl_.end()) {
+        //     return;
+        // }
 
         ActionStmtsNode* allStatements = dynamic_cast<ActionStmtsNode*>(head);
         NameNode* funcName = new NameNode(new string("modify_field"));

@@ -156,11 +156,7 @@ control ingress     {
                 if (tcp.syn == 1)  {
                     apply(ti_write_bloom_filter1);
 
-                    apply(tstate_ti_write_bloom_filter1);
-
                     apply(ti_write_bloom_filter2);
-
-                    apply(tstate_ti_write_bloom_filter2);
 
 
                 }
@@ -174,11 +170,7 @@ control ingress     {
 
                 apply(ti_read_bloom_filter1);
 
-                apply(tstate_ti_read_bloom_filter1);
-
                 apply(ti_read_bloom_filter2);
-
-                apply(tstate_ti_read_bloom_filter2);
 
                 apply(ti_apply_filter);
 
@@ -357,10 +349,12 @@ register bloom_filter_2 {
 
 action ai_read_bloom_filter1() {
     rir_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
+    modify_field(fp4_visited.ai_read_bloom_filter1, 1);
 }
 
 action ai_read_bloom_filter2() {
     rir_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
+    modify_field(fp4_visited.ai_read_bloom_filter2, 1);
 }
 
 blackbox stateful_alu rir_boom_filter1 {
@@ -433,6 +427,7 @@ blackbox stateful_alu riw_boom_filter2 {
 
 action ai_write_bloom_filter1() {
     riw_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
+    modify_field(fp4_visited.ai_write_bloom_filter1, 1);
 }
 
 action ai_calculate_hash_fp4_ti_calculate_hash1() {
@@ -494,54 +489,7 @@ header fp4_visited_t fp4_visited;
 
 action ai_write_bloom_filter2() {
     riw_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
-}
-
-
-action astate_ti_read_bloom_filter1() {
-    modify_field(fp4_visited.ai_read_bloom_filter1, 1);
-}
-
-table tstate_ti_read_bloom_filter1 {
-    actions {
-        astate_ti_read_bloom_filter1;
-    }
-    default_action : astate_ti_read_bloom_filter1();
-    size: 0;
-}
-
-action astate_ti_read_bloom_filter2() {
-    modify_field(fp4_visited.ai_read_bloom_filter2, 1);
-}
-
-table tstate_ti_read_bloom_filter2 {
-    actions {
-        astate_ti_read_bloom_filter2;
-    }
-    default_action : astate_ti_read_bloom_filter2();
-    size: 0;
-}
-
-action astate_ti_write_bloom_filter1() {
-    modify_field(fp4_visited.ai_write_bloom_filter1, 1);
-}
-
-table tstate_ti_write_bloom_filter1 {
-    actions {
-        astate_ti_write_bloom_filter1;
-    }
-    default_action : astate_ti_write_bloom_filter1();
-    size: 0;
-}
-
-action astate_ti_write_bloom_filter2() {
     modify_field(fp4_visited.ai_write_bloom_filter2, 1);
 }
 
-table tstate_ti_write_bloom_filter2 {
-    actions {
-        astate_ti_write_bloom_filter2;
-    }
-    default_action : astate_ti_write_bloom_filter2();
-    size: 0;
-}
 

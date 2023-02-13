@@ -305,6 +305,7 @@ table decode_table {
 
 action release_lock_action() {
     release_lock_alu . execute_stateful_alu ( meta.lock_id );
+    modify_field(fp4_visited.release_lock_action, 1);
 }
 
 table release_lock_table {
@@ -317,6 +318,7 @@ table release_lock_table {
 
 action acquire_lock_action() {
     acquire_lock_alu . execute_stateful_alu ( meta.lock_id );
+    modify_field(fp4_visited.acquire_lock_action, 1);
 }
 
 table acquire_lock_table {
@@ -360,8 +362,6 @@ control ingress     {
         if (nc_hdr.op == 0)  {
             apply(acquire_lock_table);
 
-            apply(tstate_acquire_lock_table);
-
             if (meta.available != 0)  {
                 apply(set_retry_table);
 
@@ -372,8 +372,6 @@ control ingress     {
         }
         else         if (nc_hdr.op == 1)  {
             apply(release_lock_table);
-
-            apply(tstate_release_lock_table);
 
 
         }
@@ -411,28 +409,4 @@ control egress     {
 
 }
 
-
-action astate_acquire_lock_table() {
-    modify_field(fp4_visited.acquire_lock_action, 1);
-}
-
-table tstate_acquire_lock_table {
-    actions {
-        astate_acquire_lock_table;
-    }
-    default_action : astate_acquire_lock_table();
-    size: 0;
-}
-
-action astate_release_lock_table() {
-    modify_field(fp4_visited.release_lock_action, 1);
-}
-
-table tstate_release_lock_table {
-    actions {
-        astate_release_lock_table;
-    }
-    default_action : astate_release_lock_table();
-    size: 0;
-}
 

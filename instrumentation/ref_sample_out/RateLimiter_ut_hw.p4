@@ -116,11 +116,7 @@ control egress     {
 
     apply(teWmaPhase1);
 
-    apply(tstate_teWmaPhase1);
-
     apply(teWmaPhase2);
-
-    apply(tstate_teWmaPhase2);
 
     apply(te_rate_limit);
 
@@ -200,6 +196,7 @@ table teWmaPhase1 {
 
 action aeWmaPhase1() {
     reWmaPhase1 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
+    modify_field(fp4_visited.aeWmaPhase1, 1);
 }
 
 blackbox stateful_alu reWmaPhase1 {
@@ -233,6 +230,7 @@ table teWmaPhase2 {
 
 action aeWmaPhase2() {
     reWmaPhase2 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
+    modify_field(fp4_visited.aeWmaPhase2, 1);
 }
 
 blackbox stateful_alu reWmaPhase2 {
@@ -278,6 +276,7 @@ register reg_interval_wma_egress {
 
 action ai_noOp() {
     modify_field(fp4_visited.ai_noOp, 1);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 table ipv4_lpm {
@@ -332,28 +331,4 @@ action ipv4_forward(dstAddr, port) {
     modify_field(fp4_visited.ipv4_forward, 1);
 }
 
-
-action astate_teWmaPhase1() {
-    modify_field(fp4_visited.aeWmaPhase1, 1);
-}
-
-table tstate_teWmaPhase1 {
-    actions {
-        astate_teWmaPhase1;
-    }
-    default_action : astate_teWmaPhase1();
-    size: 0;
-}
-
-action astate_teWmaPhase2() {
-    modify_field(fp4_visited.aeWmaPhase2, 1);
-}
-
-table tstate_teWmaPhase2 {
-    actions {
-        astate_teWmaPhase2;
-    }
-    default_action : astate_teWmaPhase2();
-    size: 0;
-}
 

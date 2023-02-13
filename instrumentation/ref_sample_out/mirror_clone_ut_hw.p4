@@ -167,6 +167,7 @@ blackbox stateful_alu bb_mirror_read {
 
 action aeReadMirror() {
     bb_mirror_read . execute_stateful_alu ( 0 );
+    modify_field(fp4_visited.aeReadMirror, 1);
 }
 
 table teReadMirror {
@@ -191,6 +192,7 @@ blackbox stateful_alu bb_mirror_update {
 
 action aeUpdateMirror() {
     bb_mirror_update . execute_stateful_alu ( 0 );
+    modify_field(fp4_visited.aeUpdateMirror, 1);
 }
 
 table teUpdateMirror {
@@ -213,6 +215,7 @@ blackbox stateful_alu bb_original_read {
 
 action aeReadOriginal() {
     bb_original_read . execute_stateful_alu ( 0 );
+    modify_field(fp4_visited.aeReadOriginal, 1);
 }
 
 table teReadOriginal {
@@ -237,6 +240,7 @@ blackbox stateful_alu bb_original_update {
 
 action aeUpdateOriginal() {
     bb_original_update . execute_stateful_alu ( 0 );
+    modify_field(fp4_visited.aeUpdateOriginal, 1);
 }
 
 table teUpdateOriginal {
@@ -284,22 +288,14 @@ control egress     {
     if (eg_intr_md.egress_port == 40)  {
         apply(teUpdateMirror);
 
-        apply(tstate_teUpdateMirror);
-
         apply(teReadOriginal);
-
-        apply(tstate_teReadOriginal);
 
 
     }
     else  {
         apply(teReadMirror);
 
-        apply(tstate_teReadMirror);
-
         apply(teUpdateOriginal);
-
-        apply(tstate_teUpdateOriginal);
 
 
     }
@@ -309,52 +305,4 @@ control egress     {
 
 }
 
-
-action astate_teReadMirror() {
-    modify_field(fp4_visited.aeReadMirror, 1);
-}
-
-table tstate_teReadMirror {
-    actions {
-        astate_teReadMirror;
-    }
-    default_action : astate_teReadMirror();
-    size: 0;
-}
-
-action astate_teReadOriginal() {
-    modify_field(fp4_visited.aeReadOriginal, 1);
-}
-
-table tstate_teReadOriginal {
-    actions {
-        astate_teReadOriginal;
-    }
-    default_action : astate_teReadOriginal();
-    size: 0;
-}
-
-action astate_teUpdateMirror() {
-    modify_field(fp4_visited.aeUpdateMirror, 1);
-}
-
-table tstate_teUpdateMirror {
-    actions {
-        astate_teUpdateMirror;
-    }
-    default_action : astate_teUpdateMirror();
-    size: 0;
-}
-
-action astate_teUpdateOriginal() {
-    modify_field(fp4_visited.aeUpdateOriginal, 1);
-}
-
-table tstate_teUpdateOriginal {
-    actions {
-        astate_teUpdateOriginal;
-    }
-    default_action : astate_teUpdateOriginal();
-    size: 0;
-}
 
