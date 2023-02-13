@@ -1,0 +1,17 @@
+Program & Stages & Tables & sALUs & SRAM (KB) & TCAM (KB) & Metadata (b) \\
+=== SUT before instrumentation ===
+Firewall & 7 & 12 & 2 & 160 & 2.56 & 1043 \\
+LoadBalance & 2 & 4 & 0 & 144 & 2.56 & 948 \\
+RateLimiter & 5 & 7 & 3 & 128 & 2.56 & 755 \\
+basic_routing & 6 & 9 & 0 & 2080 & 81.92 & 647 \\
+dv_router & 3 & 11 & 0 & 352 & 2.56 & 949 \\
+mirror_clone & 1 & 7 & 2 & 128 & 0.0 & 651 \\
+netchain & 3 & 6 & 1 & 544 & 1.28 & 1084 \\
+=== SUT before instrumentation ===
+Firewall_ut_hw & 7 & 12 & 2 & 160 & 2.56 & 1186 \\
+LoadBalance_ut_hw & 2 & 4 & 0 & 144 & 2.56 & 1056 \\
+RateLimiter_ut_hw & 5 & 7 & 3 & 128 & 2.56 & 879 \\
+basic_routing_ut_hw & 7 & 9 & 0 & 2080 & 81.92 & 777 \\
+dv_router_ut_hw & 3 & 11 & 0 & 352 & 2.56 & 1076 \\
+mirror_clone_ut_hw & 3 & 7 & 2 & 128 & 0.0 & 781 \\
+netchain_ut_hw & 5 & 6 & 1 & 544 & 1.28 & 1203 \\
