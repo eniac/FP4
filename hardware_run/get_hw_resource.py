@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import sys
 # import subprocess
 # from subprocess import run
 import argparse
@@ -18,8 +19,8 @@ prog_names = [
 
 prefix="/home/leoyu/bf-sde-9.2.0/pkgsrc/p4-build/tofino/"
 suffix="/logs/"
-ut_dt_suffix="_ut_hw"
-#ut_dt_suffix="_dt_hw"
+ut_suffix="_ut_hw"
+dt_suffix="_dt_hw"
 
 def main():
 
@@ -30,12 +31,19 @@ def main():
 
     tbl_header = " & ".join(metrics) + " \\\\"
     print (tbl_header)
-    print("=== SUT before instrumentation ===")
-    for index in range(len(prog_names)):
-    	printMetric(prog_names[index], metrics)
-    print("=== SUT before instrumentation ===")
-    for index in range(len(prog_names)):
-    	printMetric(prog_names[index]+ut_dt_suffix, metrics)
+    if sys.argv[1] == "SUT":
+        print("=== SUT before instrumentation ===")
+        for index in range(len(prog_names)):
+    	    printMetric(prog_names[index], metrics)
+        print("=== SUT before instrumentation ===")
+        for index in range(len(prog_names)):
+    	    printMetric(prog_names[index]+ut_suffix, metrics)
+    elif sys.argv[1] == "SDT":
+        print("=== SDT ===")
+        for index in range(len(prog_names)):
+    	    printMetric(prog_names[index]+dt_suffix, metrics)
+    else:
+        print("Unknown arg")
 
 def printMetric(prog_name, metrics):
     log_dir = prefix+prog_name+suffix

@@ -1,5 +1,5 @@
 Program & Stages & Tables & sALUs & SRAM (KB) & TCAM (KB) & Metadata (b) \\
-=== SUT before instrumentation ===
+=== SDT ===
 Firewall_dt_hw & 9 & 22 & 3 & 352 & 10.24 & 2093 \\
 LoadBalance_dt_hw & 9 & 22 & 3 & 352 & 10.24 & 2061 \\
 RateLimiter_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1433 \\
