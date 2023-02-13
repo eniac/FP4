@@ -56,7 +56,7 @@ if [ $rebuild -eq 1 ]; then
   else
     cmake  .. 
   fi
-  make
+  make -j4
   cd ..
 fi
 
