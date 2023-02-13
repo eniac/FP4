@@ -1,0 +1,20 @@
+# Config file for automatic testing at travis-ci.org
+
+sudo: required
+dist: trusty
+
+language: generic
+
+addons:
+    apt:
+        packages:
+            - clang-3.6
+            - clang-format-3.6
+    ssh_known_hosts:
+        - github.com
+
+before_install:
+    - git clone git@github.com:barefootnetworks/sandals.git
+
+script:
+    - python sandals/jenkins/clang-format-check.py -r

@@ -1,0 +1,19 @@
+{
+    "trunk_intf_ports":[0, 32, 48, 60],
+    "access_intf_ports":[12, 44],
+    "lag_group":[8, 40, 52, 56],
+    "fabric_enable":0,
+    "mpls_ports":[28, 36],
+    "vrf_port_id":20,
+    "iu_port_id1":20,
+    "iu_port_id2":24,
+    "iu_port_id3":36,
+    "iu_port_id4":4,
+    "iu_port_id5":16,
+    "access_port_vlan":3,
+    "mac_type":2,
+    "vnis":[5999],
+    "max_vlans":5,
+    "rmac_addr":"00:77:66:55:44:33",
+    "verify_packets":1
+}

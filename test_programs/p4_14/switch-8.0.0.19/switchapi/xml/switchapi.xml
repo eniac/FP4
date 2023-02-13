@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLISH_MODULE xmlns="http://clish.sourceforge.net/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://clish.sourceforge.net/XMLSchema
+  http://clish.sourceforge.net/XMLSchema/clish.xsd">
+
+<!-- switchapi type -->
+<PTYPE name="SWITCHAPI_HANDLE_TYPE"
+  method="select"
+  pattern="port(1) lag(2) lag-member(3) interface(4) vrf(5) bd(6) nhop(7) neighbor(8) rmac(9) vlan(10) stp(11) mgid(12) acl(13) mgid-ecmp(14) urpf(15) hostif-group(16) hostif(17) ace(18) mirror(19) meter(20) sflow(21) sflow-ace(22) acl-counter(23) qos-map(24) ppg(25) queue(26) scheduler(27) buffer-pool(28) buffer-profile(29) label(30) bd-member(31) ln(32) bfd(33) tunnel-mapper(34) hash(35) wred(36) range(37) ecmp-member(38) stp-port(39) hostif-trap(40) rpf-group(41) mac(42) route(43) device(44) mtu(45) acl-group(46) acl-group-member(47) rif(48) hostif-rx-filter(49) hostif-tx-filter(50) pkt-rx-filter(51) pkt-tx-filter(52) tunnel(60) tunnel-encap(61) tunnel-term(62) tunnel-mapper-entry(63) mpls-inseg(64) mpls-label-stack(65)"
+  help="Handle type"/>
+
+<PTYPE name="SWITCHAPI_TYPE"
+  method="select"
+  pattern="port(1) l2(2) bd(3) vrf(4) l3(5) rmac(6) interface(7) lag(8) nhop(9) neighbor(10) tunnel(11) mcast(12) hostif(13) acl(14) mirror(15) meter(!6) sflow(17) dtel(18) stp(19) vlan(20) qos(21) queue(22) ln(23) nat(24) buffer(25) bfd(26) hash(27) wred(28) ila(29) failover(30) label(31) rpf(32) rif(34) pkt-driver(35) scheduler(36) mpls(37)"
+  help="API type"/>
+
+<PTYPE name="SWITCHAPI_HASHTABLE_TYPE"
+  method="select"
+  pattern="mac(0) route(1) nhop(2) neighbor-dmac(3) neighbor-tunnel-dmac(4) hostif(5) smac(6) nat(7) ingress-vni(8) egress-vni(9) src-ip(10) dst-ip(11) vlan-pv(12)"
+  help="Hashtable type"/>
+
+<PTYPE name="SWITCHAPI_PORT_SPEED"
+  method="select"
+  pattern="10G(1) 25G(2) 40G(3) 50G(4) 100G(5)"
+  help="Port Speed"/>
+
+<PTYPE name="SWITCHAPI_LOG_LEVEL"
+  method="select"
+  pattern="none(0) critical(1) error(2) warn(3) info(4) debug(5)"
+  help="Log Level"/>
+
+<!-- enter switchapi view -->
+<VIEW name="root-view">
+  <COMMAND name="switchapi" help="switchAPI commands"
+    view="switchapi-view" viewid="device_id=${device_id}">
+    <PARAM name="device" help="Device ID" optional="true"
+      mode="subcommand" ptype="SUBCOMMAND">
+      <PARAM name="device_id" help="Device ID" ptype="UINT8" default="0"/>
+    </PARAM>
+  </COMMAND>
+</VIEW>
+
+<!--switchapi view top level commands -->
+<VIEW name="switchapi-view"
+  prompt="switchapi:${device_id}&gt; ">
+  <COMMAND name="end" help="End switchAPI sub-commands" view="root-view"/>
+  <COMMAND name="show" help="Show commands"/>
+  <COMMAND name="debug" help="Debug commands"/>
+  <COMMAND name="clear" help="Clear commands"/>
+</VIEW>
+
+<!--show handl commands -->
+<VIEW name="switchapi-view">
+  <COMMAND name="show handle" help="Show switchAPI handle">
+    <PARAM name="handle_type" help="Handle type" ptype="SWITCHAPI_HANDLE_TYPE">
+      <PARAM name="handle_value" help="switchAPI Handle" ptype="UINT"
+        optional="true"/>
+    </PARAM>
+    <ACTION builtin="switchapi_show_handle"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="show port" help="Show port ">
+    <PARAM name="show_port_sc" help="port stats" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="stats" help="port stats" ptype="SUBCOMMAND" mode="subcommand"/>
+        <PARAM name="info" help="port info" ptype="SUBCOMMAND" mode="subcommand"/>
+    </PARAM>
+    <PARAM name="port_handle_sc" help="port handle/num" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="handle" help="port handle" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="handle_value" help="switchAPI Handle" ptype="UINT"/>
+        </PARAM>
+        <PARAM name="port-num" help="port number" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_num" help="switchAPI Port Number" ptype="UINT"/>
+        </PARAM>
+    </PARAM>
+    <ACTION builtin="switchapi_show_port_dump"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="show vlan" help="Show vlan ">
+    <PARAM name="vlan_sc" help="port handle/num" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="handle" help="vlan handle" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="handle_value" help="vlan handle" ptype="UINT"/>
+        </PARAM>
+        <PARAM name="id" help="vlan id" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="vlan_id" help="VLAN ID" pattern="[1-4095]" ptype="UINT"/>
+        </PARAM>
+    </PARAM>
+    <ACTION builtin="switchapi_show_vlan_dump"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="port" help="Port level commands">
+      <PARAM name="port_sc" help="port add/delete" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="add" help="port add" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="port-num" help="port number" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_num" help="port number" ptype="UINT"/>
+          </PARAM>
+          <PARAM name="port-speed" help="port speed" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_speed" help="port speed" ptype="SWITCHAPI_PORT_SPEED"/>
+          </PARAM>
+        </PARAM>
+        <PARAM name="delete" help="port delete" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="port-num" help="port number" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_num" help="port number" ptype="UINT"/>
+          </PARAM>
+        </PARAM>
+        <PARAM name="enable" help="port enable" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="port-num" help="port number" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_num" help="port number" ptype="UINT"/>
+          </PARAM>
+        </PARAM>
+        <PARAM name="disable" help="port disable" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="port-num" help="port number" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_num" help="port number" ptype="UINT"/>
+          </PARAM>
+        </PARAM>
+      </PARAM>
+    <ACTION builtin="switchapi_port_add_delete"/>
+  </COMMAND>
+</VIEW>
+
+<!--show packet commands -->
+<VIEW name="switchapi-view">
+    <COMMAND name="show packet" help="Show packet driver dump">
+    <PARAM name="show_packet_sc" help="host interface" ptype="SUBCOMMAND" mode="switch">
+      <PARAM name="rc-cpu-counters" help="reason code counters" ptype="SUBCOMMAND" mode="subcommand"/>
+      <PARAM name="port-cpu-counters" help="port cpu counters" ptype="SUBCOMMAND" mode="subcommand"/>
+      <PARAM name="total-cpu-counters" help="total cpu rx/tx counters" ptype="SUBCOMMAND" mode="subcommand"/>
+      <PARAM name="bd-mapping" help="vlan to bd mapping" ptype="SUBCOMMAND" mode="subcommand"/>
+    </PARAM>
+  <ACTION builtin="switchapi_show_packet_driver_dump"/>
+  </COMMAND>
+</VIEW>
+
+<!--show hostif commands -->
+<VIEW name="switchapi-view">
+    <COMMAND name="show hostif" help="Show host interface">
+      <PARAM name="show_hostif_sc" help="host interface" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="intf-name" help="interface name" ptype="SUBCOMMAND" mode="subcommand">
+          <PARAM name="hostif_str" help="hostif interface name string" ptype="STRING"/>
+        </PARAM>
+      </PARAM>
+  <ACTION builtin="switchapi_show_hostif_interface"/>
+  </COMMAND>
+</VIEW>
+
+<!--debug commands -->
+<VIEW name="switchapi-view">
+    <COMMAND name="debug packet" help="debug packet">
+    <PARAM name="debug_paket_rx_tx" help="packet rx/tx" ptype="SUBCOMMAND" mode="switch">
+      <PARAM name="rx" help="rx packet trace" ptype="SUBCOMMAND" mode="subcommand"/>
+      <PARAM name="tx" help="tx packet trace" ptype="SUBCOMMAND" mode="subcommand"/>
+    </PARAM>
+    <PARAM name="debug_packet_enable_sc" help="pkt trace enable/disable" ptype="SUBCOMMAND" mode="switch">
+      <PARAM name="enable" help="packet trace enable" ptype="SUBCOMMAND" mode="subcommand"/>
+      <PARAM name="disable" help="packet trace disable" ptype="SUBCOMMAND" mode="subcommand"/>
+    </PARAM>
+    <ACTION builtin="switchapi_debug_pktdriver_trace_enable_disable"/>
+  </COMMAND>
+</VIEW>
+
+<!--clear commands -->
+<VIEW name="switchapi-view">
+    <COMMAND name="clear port" help="clear port stats">
+    <PARAM name="clear_port_sc" help="port stats" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="stats" help="port stats" ptype="SUBCOMMAND" mode="subcommand"/>
+    </PARAM>
+    <PARAM name="port_handle_sc" help="port handle/num" ptype="SUBCOMMAND" mode="switch">
+        <PARAM name="handle" help="port handle" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="handle_value" help="switchAPI Handle" ptype="UINT"/>
+        </PARAM>
+        <PARAM name="port-num" help="port number" ptype="SUBCOMMAND" mode="subcommand">
+            <PARAM name="port_num" help="switchAPI Port Number" ptype="UINT"/>
+        </PARAM>
+    </PARAM>
+    <ACTION builtin="switchapi_port_stats_clear"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="debug log-level-set" help="debug log level set">
+    <PARAM name="log_level" help="log level" ptype="SWITCHAPI_LOG_LEVEL"/>
+    <ACTION builtin="switchapi_debug_log_level_set"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="show drop-stats" help="Show drop stats">
+    <ACTION builtin="switchapi_show_drop_stats"/>
+  </COMMAND>
+</VIEW>
+
+<!--show device commands -->
+<VIEW name="switchapi-view">
+  <COMMAND name="show device" help="Show device info">
+    <PARAM name="device_sc" help="device_sc" ptype="SUBCOMMAND" mode="switch">
+      <PARAM name="info" help="device info" ptype="SUBCOMMAND" mode="subcommand"/>
+      <PARAM name="api" help="API type" ptype="SUBCOMMAND" mode="subcommand">
+        <PARAM name="api_type" help="switchAPI type" ptype="SWITCHAPI_TYPE"/>
+      </PARAM>
+    </PARAM>
+    <ACTION builtin="switchapi_show_device"/>
+  </COMMAND>
+</VIEW>
+
+
+<!--show table commands -->
+<VIEW name="switchapi-view">
+  <COMMAND name="show table-info" help="Show table info">
+    <ACTION builtin="switchapi_show_table_info"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="show config-info" help="Show config info">
+    <ACTION builtin="switchapi_show_config_info"/>
+  </COMMAND>
+</VIEW>
+
+<VIEW name="switchapi-view">
+  <COMMAND name="show hashtable" help="Show Hashtable">
+    <PARAM name="hashtable_type" help="Hashtable type" ptype="SWITCHAPI_HASHTABLE_TYPE"/>
+    <ACTION builtin="switchapi_show_hashtable_info"/>
+  </COMMAND>
+</VIEW>
+
+<PLUGIN name="switchapi"/>
+
+</CLISH_MODULE>

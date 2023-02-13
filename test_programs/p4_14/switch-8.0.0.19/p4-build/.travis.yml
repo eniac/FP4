@@ -1,0 +1,71 @@
+# Config file for automatic testing at travis-ci.org
+
+sudo: false
+
+language: cpp
+
+addons:
+  apt:
+    sources:
+      - boost-latest
+      - ubuntu-toolchain-r-test
+    packages:
+      - libjudy-dev
+      - libgmp-dev
+      - libpcap-dev
+      - libboost1.55-dev
+      - libboost-test1.55-dev
+      - libboost-program-options1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev
+      - libboost-thread1.55-dev
+      - libevent-dev
+      - automake
+      - libtool
+      - flex 
+      - bison
+      - pkg-config
+      - g++-4.8
+      - libssl-dev
+      - libnl-3-dev
+      - libc6
+
+before_install:
+  - wget https://s3-us-west-2.amazonaws.com/p4lang/thrift_bin.tar.gz
+  - tar -xzvf thrift_bin.tar.gz -C $HOME/
+  - export PATH=$PATH:$HOME/thrift/bin/
+  - export LDFLAGS="$LDFLAGS -L$HOME/thrift/lib"
+  - export CPPFLAGS="$CPPFLAGS -I$HOME/thrift/include"
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/thrift/lib
+  - bash CI/travis/install-nanomsg.sh
+  - export LDFLAGS="$LDFLAGS -L$HOME/nanomsg/lib"
+  - export CPPFLAGS="$CPPFLAGS -I$HOME/nanomsg/include"
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/nanomsg/lib
+  - bash CI/travis/install-bmv2.sh
+  - bash CI/travis/install-p4c-bmv2.sh
+  - bash CI/travis/install-p4ofagent.sh
+  - export PATH=$PATH:$HOME/bmv2/bin/
+  - export LDFLAGS="$LDFLAGS -L$HOME/bmv2/lib -L$HOME/p4ofagent/lib"
+  - export CPPFLAGS="$CPPFLAGS -I$HOME/bmv2/include -I$HOME/p4ofagent/include"
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/bmv2/lib
+
+cache:
+  directories:
+    - $HOME/nanomsg
+
+install:
+  - ./autogen.sh; 
+
+script:
+  - export P4_NAME="pdtest"
+  - export P4_PREFIX="pdtest"
+  - export P4_PATH="`pwd`/bmv2/tests/pdtest/pdtest.p4"
+  - ./configure 'CXX=g++-4.8' --with-bmv2; make -j2
+  - make check
+  - make clean
+  - export P4_NAME="oftest"
+  - export P4_PREFIX="oftest"
+  - export P4_PATH="`pwd`/bmv2/tests/openflow/oftest.p4"
+  - export P4C_BM_FLAGS="--plugin of --openflow-mapping-dir `pwd`/bmv2/tests/openflow --openflow-mapping-mod oftest"
+  - ./configure 'CXX=g++-4.8' --with-bmv2 --with-of; make -j2
+  - make check

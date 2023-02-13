@@ -1,0 +1,301 @@
+[
+  {
+    "type": "host",
+    "name": "aah42",
+    "role": "2",
+    "ip_address": "10.12.11.42",
+    "netmask": "255.255.255.254",
+    "gateway": "10.12.10.1",
+    "mgmt_iface": "eno1",
+    "interfaces": [
+      {
+        "name": "ens2f1",
+        "role": "1",
+        "connected_to_switch_role": "3"
+      },
+      {
+        "name": "ens2f0",
+        "role": "2",
+        "connected_to_switch_role": "3"
+      },
+      {
+        "name": "ens1f1",
+        "role": "3",
+        "connected_to_switch_role": "3"
+      },
+      {
+        "name": "ens1f0",
+        "role": "1",
+        "connected_to_switch_role": "4"
+      }
+    ]
+  },
+
+  {
+    "type": "host",
+    "name": "aah43",
+    "role": "2",
+    "ip_address": "10.12.11.43",
+    "netmask": "255.255.255.254",
+    "gateway": "10.12.10.1",
+    "mgmt_iface": "eno1",
+    "interfaces": [
+      {
+        "name": "ens2f1",
+        "role": "1",
+        "connected_to_switch_role": "4"
+      },
+      {
+        "name": "ens2f0",
+        "role": "2",
+        "connected_to_switch_role": "4"
+      },
+      {
+        "name": "ens1f1",
+        "role": "3",
+        "connected_to_switch_role": "4"
+      },
+      {
+        "name": "ens1f0",
+        "role": "1",
+        "connected_to_switch_role": "3"
+      }
+    ]
+  },
+
+  {
+    "type": "host",
+    "name": "aah44",
+    "role": "4",
+    "ip_address": "10.12.11.44",
+    "netmask": "255.255.255.254",
+    "gateway": "10.12.10.1",
+    "mgmt_iface": "eno1",
+    "interfaces": [
+      {
+        "name": "enp4s0f0",
+        "role": "1",
+        "connected_to_switch_role": "4"
+      },
+      {
+        "name": "enp4s0f1",
+        "role": "2",
+        "connected_to_switch_role": "4"
+      },
+      {
+        "name": "enp5s0f1",
+        "role": "3",
+        "connected_to_switch_role": "4"
+      },
+      {
+        "name": "enp5s0f0",
+        "role": "1",
+        "connected_to_switch_role": "3"
+      }
+    ]
+  },
+
+  {
+    "type": "switch",
+    "name": "aasw35",
+    "role": "1",
+    "ip_address": "10.12.11.35",
+    "ports": [
+      {
+        "name": "22/-",
+        "speed": "40G",
+        "connected_to_switch_role": "2",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "23/-",
+        "speed": "40G",
+        "connected_to_switch_role": "3",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "24/-",
+        "speed": "40G",
+        "connected_to_switch_role": "4",
+        "connected_to_interface_role": "1"
+      }
+    ]
+  },
+
+  {
+    "type": "switch",
+    "name": "aasw36",
+    "role": "2",
+    "ip_address": "10.12.11.36",
+    "ports": [
+      {
+        "name": "21/-",
+        "speed": "40G",
+        "connected_to_switch_role": "1",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "23/-",
+        "speed": "40G",
+        "connected_to_switch_role": "3",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "24/-",
+        "speed": "40G",
+        "connected_to_switch_role": "4",
+        "connected_to_interface_role": "1"
+      }
+    ]
+  },
+
+  {
+    "type": "switch",
+    "name": "aasw37",
+    "role": "3",
+    "ip_address": "10.12.11.37",
+    "ports": [
+      {
+        "name": "1/0",
+        "speed": "25G",
+        "connected_to_host_role": "1",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "1/1",
+        "speed": "25G",
+        "connected_to_host_role": "1",
+        "connected_to_interface_role": "2"
+      },
+      {
+        "name": "1/2",
+        "speed": "25G",
+        "connected_to_host_role": "2",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "1/3",
+        "speed": "25G",
+        "connected_to_host_role": "2",
+        "connected_to_interface_role": "2"
+      },
+      {
+        "name": "11/-",
+        "speed": "40G",
+        "connected_to_host_role": "1",
+        "connected_to_interface_role": "3"
+      },
+      {
+        "name": "12/-",
+        "speed": "40G",
+        "connected_to_host_role": "2",
+        "connected_to_interface_role": "3"
+      },
+      {
+        "name": "13/-",
+        "speed": "40G",
+        "connected_to_host_role": "3",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "14/-",
+        "speed": "40G",
+        "connected_to_host_role": "4",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "21/-",
+        "speed": "40G",
+        "connected_to_switch_role": "1",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "22/-",
+        "speed": "40G",
+        "connected_to_switch_role": "2",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "24/-",
+        "speed": "40G",
+        "connected_to_switch_role": "4",
+        "connected_to_interface_role": "1"
+      }
+    ]
+  },
+
+  {
+    "type": "switch",
+    "name": "aasw38",
+    "role": "4",
+    "ip_address": "10.12.11.38",
+    "ports": [
+      {
+        "name": "1/0",
+        "speed": "25G",
+        "connected_to_host_role": "3",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "1/1",
+        "speed": "25G",
+        "connected_to_host_role": "3",
+        "connected_to_interface_role": "2"
+      },
+      {
+        "name": "1/2",
+        "speed": "25G",
+        "connected_to_host_role": "4",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "1/3",
+        "speed": "25G",
+        "connected_to_host_role": "4",
+        "connected_to_interface_role": "2"
+      },
+      {
+        "name": "11/-",
+        "speed": "40G",
+        "connected_to_host_role": "1",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "12/-",
+        "speed": "40G",
+        "connected_to_host_role": "2",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "13/-",
+        "speed": "40G",
+        "connected_to_host_role": "3",
+        "connected_to_interface_role": "3"
+      },
+      {
+        "name": "14/-",
+        "speed": "40G",
+        "connected_to_host_role": "4",
+        "connected_to_interface_role": "3"
+      },
+      {
+        "name": "21/-",
+        "speed": "40G",
+        "connected_to_switch_role": "1",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "22/-",
+        "speed": "40G",
+        "connected_to_switch_role": "2",
+        "connected_to_interface_role": "1"
+      },
+      {
+        "name": "23/-",
+        "speed": "40G",
+        "connected_to_switch_role": "3",
+        "connected_to_interface_role": "1"
+      }
+    ]
+  }
+]
