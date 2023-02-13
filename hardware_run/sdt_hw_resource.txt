@@ -1,0 +1,9 @@
+Program & Stages & Tables & sALUs & SRAM (KB) & TCAM (KB) & Metadata (b) \\
+=== SUT before instrumentation ===
+Firewall_dt_hw & 9 & 22 & 3 & 352 & 10.24 & 2093 \\
+LoadBalance_dt_hw & 9 & 22 & 3 & 352 & 10.24 & 2061 \\
+RateLimiter_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1433 \\
+basic_routing_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1433 \\
+dv_router_dt_hw & 9 & 23 & 3 & 368 & 10.24 & 1775 \\
+mirror_clone_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1417 \\
+netchain_dt_hw & 9 & 23 & 3 & 384 & 10.24 & 2377 \\
