@@ -30,7 +30,10 @@ def main():
 
     tbl_header = " & ".join(metrics) + " \\\\"
     print (tbl_header)
-
+    print("=== SUT before instrumentation ===")
+    for index in range(len(prog_names)):
+    	printMetric(prog_names[index], metrics)
+    print("=== SUT before instrumentation ===")
     for index in range(len(prog_names)):
     	printMetric(prog_names[index]+ut_dt_suffix, metrics)
 
