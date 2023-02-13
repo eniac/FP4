@@ -214,6 +214,7 @@ action drop_packet() {
 }
 
 action ai_noOp() {
+    drop(); // Equivalent
 }
 
 table ipv4_lpm {
