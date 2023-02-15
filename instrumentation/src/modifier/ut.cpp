@@ -399,7 +399,7 @@ void UTModifier::markActionVisited(AstNode* head) {
         }
 
         ActionStmtsNode* allStatements = dynamic_cast<ActionStmtsNode*>(head);
-        NameNode* funcName = new NameNode(new string("add"));
+        NameNode* funcName = new NameNode(new string("add_to_field"));
         ArgsNode* argList = new ArgsNode();
 
         string* fieldName = new string("encoding"+action_2_encoding_field_[key]);
@@ -410,19 +410,10 @@ void UTModifier::markActionVisited(AstNode* head) {
                 NULL)
             );
 
-        string* fieldName1 = new string("encoding"+action_2_encoding_field_[key]);
-        BodyWordNode* updateField1 = new BodyWordNode(BodyWordNode::FIELD, 
-            new FieldNode(
-                new NameNode(new string(sig_+"_visited")), 
-                new NameNode(fieldName1),
-                NULL)
-            );
-
         string* numToAdd = new string(action_2_encoding_incr_[key]);
         BodyWordNode* bitToFlip = new BodyWordNode(BodyWordNode::INTEGER, new IntegerNode(numToAdd));
 
         argList -> push_back(updateField);
-        argList -> push_back(updateField1);
         argList -> push_back(bitToFlip);
 
         ActionStmtNode* newStatement = new ActionStmtNode(funcName, argList, ActionStmtNode::NAME_ARGLIST, NULL, NULL);

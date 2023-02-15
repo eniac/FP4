@@ -213,7 +213,7 @@ action ai_get_incoming_pos() {
     modify_field(meta.second, ipv4.dstAddr);
     modify_field(meta.third, tcp.srcPort);
     modify_field(meta.fourth, tcp.dstPort);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 32);
+    add_to_field(fp4_visited.encoding0, 32);
 }
 
 action ai_get_outgoing_pos() {
@@ -221,7 +221,7 @@ action ai_get_outgoing_pos() {
     modify_field(meta.second, ipv4.srcAddr);
     modify_field(meta.third, tcp.dstPort);
     modify_field(meta.fourth, tcp.srcPort);
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 1);
+    add_to_field(fp4_visited.encoding1, 1);
 }
 
 table ti_calculate_hash1 {
@@ -288,7 +288,7 @@ action ipv4_forward(dstAddr, port) {
     modify_field(ethernet.srcAddr, dstAddr);
     modify_field(ethernet.dstAddr, dstAddr);
     subtract_from_field(ipv4.ttl, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
+    add_to_field(fp4_visited.encoding0, 1);
 }
 
 table check_ports {
@@ -308,13 +308,13 @@ table check_ports {
 action set_direction(dir) {
     modify_field(meta.direction, dir);
     modify_field(meta.check_ports_hit, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
+    add_to_field(fp4_visited.encoding0, 8);
 }
 
 action set_hit() {
     modify_field(meta.check_ports_hit, 1);
     modify_field(meta.direction, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 16);
+    add_to_field(fp4_visited.encoding0, 16);
 }
 
 table ti_read_bloom_filter1 {
@@ -349,12 +349,12 @@ register bloom_filter_2 {
 
 action ai_read_bloom_filter1() {
     rir_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 256);
+    add_to_field(fp4_visited.encoding0, 256);
 }
 
 action ai_read_bloom_filter2() {
     rir_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 128);
+    add_to_field(fp4_visited.encoding0, 128);
 }
 
 blackbox stateful_alu rir_boom_filter1 {
@@ -427,37 +427,37 @@ blackbox stateful_alu riw_boom_filter2 {
 
 action ai_write_bloom_filter1() {
     riw_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 8);
+    add_to_field(fp4_visited.encoding1, 8);
 }
 
 action ai_calculate_hash_fp4_ti_calculate_hash1() {
     modify_field_with_hash_based_offset(meta.reg_pos_one, 0, hasher_64, 1);
     modify_field_with_hash_based_offset(meta.reg_pos_two, 0, hasher_32, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 64);
+    add_to_field(fp4_visited.encoding0, 64);
 }
 
 action ai_calculate_hash_fp4_ti_calculate_hash2() {
     modify_field_with_hash_based_offset(meta.reg_pos_one, 0, hasher_64, 1);
     modify_field_with_hash_based_offset(meta.reg_pos_two, 0, hasher_32, 1);
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 2);
+    add_to_field(fp4_visited.encoding1, 2);
 }
 
 action drop_packet_fp4_ipv4_lpm() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
+    add_to_field(fp4_visited.encoding0, 2);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_noOp_fp4_ipv4_lpm() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
+    add_to_field(fp4_visited.encoding0, 4);
 }
 
 action drop_packet_fp4_ti_apply_filter() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 512);
+    add_to_field(fp4_visited.encoding0, 512);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_noOp_fp4_ti_apply_filter() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 1024);
+    add_to_field(fp4_visited.encoding0, 1024);
 }
 
 header_type fp4_visited_t {
@@ -476,7 +476,7 @@ header fp4_visited_t fp4_visited;
 
 action ai_write_bloom_filter2() {
     riw_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 4);
+    add_to_field(fp4_visited.encoding1, 4);
 }
 
 

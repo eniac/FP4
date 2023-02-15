@@ -231,7 +231,7 @@ parser parse_nc_hdr {
 action set_egress(egress_spec) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
     add_to_field(ipv4.ttl, -1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
+    add_to_field(fp4_visited.encoding0, 4);
 }
 
 table ipv4_route {
@@ -248,7 +248,7 @@ table ipv4_route {
 
 
 action drop_action() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
+    add_to_field(fp4_visited.encoding0, 8);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -292,7 +292,7 @@ register lock_status_register {
 
 action decode_action() {
     modify_field(meta.lock_id, nc_hdr.lock);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
+    add_to_field(fp4_visited.encoding0, 1);
 }
 
 table decode_table {
@@ -305,7 +305,7 @@ table decode_table {
 
 action release_lock_action() {
     release_lock_alu . execute_stateful_alu ( meta.lock_id );
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 2);
+    add_to_field(fp4_visited.encoding1, 2);
 }
 
 table release_lock_table {
@@ -318,7 +318,7 @@ table release_lock_table {
 
 action acquire_lock_action() {
     acquire_lock_alu . execute_stateful_alu ( meta.lock_id );
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
+    add_to_field(fp4_visited.encoding0, 2);
 }
 
 table acquire_lock_table {
@@ -331,7 +331,7 @@ table acquire_lock_table {
 
 action set_retry_action() {
     modify_field(nc_hdr.op, 5);
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 4);
+    add_to_field(fp4_visited.encoding1, 4);
 }
 
 table set_retry_table {
@@ -344,7 +344,7 @@ table set_retry_table {
 
 action reply_to_client_action() {
     modify_field(ipv4.dstAddr, ipv4.srcAddr);
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 1);
+    add_to_field(fp4_visited.encoding1, 1);
 }
 
 table reply_to_client_table {

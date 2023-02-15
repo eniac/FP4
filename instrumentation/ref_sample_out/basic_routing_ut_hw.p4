@@ -102,7 +102,7 @@ metadata ingress_metadata_t ingress_metadata;
 
 action set_bd(bd) {
     modify_field(ingress_metadata.bd, bd);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
+    add_to_field(fp4_visited.encoding0, 1);
 }
 
 table port_mapping {
@@ -118,7 +118,7 @@ table port_mapping {
 
 action set_vrf(vrf) {
     modify_field(ingress_metadata.vrf, vrf);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
+    add_to_field(fp4_visited.encoding0, 2);
 }
 
 table bd {
@@ -161,11 +161,11 @@ table ipv4_fib_lpm {
 
 action set_egress_details(egress_spec) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 32);
+    add_to_field(fp4_visited.encoding0, 32);
 }
 
 action ai_drop() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 16);
+    add_to_field(fp4_visited.encoding0, 16);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -206,7 +206,7 @@ control ingress     {
 action rewrite_src_dst_mac(smac, dmac) {
     modify_field(ethernet.srcAddr, smac);
     modify_field(ethernet.dstAddr, dmac);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 128);
+    add_to_field(fp4_visited.encoding0, 128);
 }
 
 table rewrite_mac {
@@ -222,27 +222,27 @@ table rewrite_mac {
 
 
 action on_miss_fp4_ipv4_fib() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
+    add_to_field(fp4_visited.encoding0, 4);
 }
 
 action fib_hit_nexthop_fp4_ipv4_fib(nexthop_index) {
     modify_field(ingress_metadata.nexthop_index, nexthop_index);
     subtract_from_field(ipv4.ttl, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
+    add_to_field(fp4_visited.encoding0, 8);
 }
 
 action on_miss_fp4_ipv4_fib_lpm() {
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 1);
+    add_to_field(fp4_visited.encoding1, 1);
 }
 
 action fib_hit_nexthop_fp4_ipv4_fib_lpm(nexthop_index) {
     modify_field(ingress_metadata.nexthop_index, nexthop_index);
     subtract_from_field(ipv4.ttl, 1);
-    add(fp4_visited.encoding1, fp4_visited.encoding1, 2);
+    add_to_field(fp4_visited.encoding1, 2);
 }
 
 action on_miss_fp4_rewrite_mac() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 64);
+    add_to_field(fp4_visited.encoding0, 64);
 }
 
 header_type fp4_visited_t {

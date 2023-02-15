@@ -156,7 +156,7 @@ table ecmp_group {
 
 action set_ecmp_select() {
     modify_field_with_hash_based_offset(meta.ecmp_select, 0, ecmp_hasher, 2);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
+    add_to_field(fp4_visited.encoding0, 2);
 }
 
 field_list ecmp_fields {
@@ -192,7 +192,7 @@ action set_nhop(nhop_dmac, nhop_ipv4, port) {
     modify_field(ipv4.dstAddr, nhop_ipv4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
     subtract_from_field(ipv4.ttl, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
+    add_to_field(fp4_visited.encoding0, 8);
 }
 
 control egress     {
@@ -214,17 +214,17 @@ table send_frame {
 
 
 action drop_packet_fp4_ecmp_group() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
+    add_to_field(fp4_visited.encoding0, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action drop_packet_fp4_ecmp_nhop() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
+    add_to_field(fp4_visited.encoding0, 4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action drop_packet_fp4_send_frame() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 32);
+    add_to_field(fp4_visited.encoding0, 32);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -243,7 +243,7 @@ header fp4_visited_t fp4_visited;
 
 action rewrite_mac(smac) {
     modify_field(ethernet.srcAddr, smac);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 16);
+    add_to_field(fp4_visited.encoding0, 16);
 }
 
 

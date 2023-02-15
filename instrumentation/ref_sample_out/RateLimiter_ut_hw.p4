@@ -149,7 +149,7 @@ table te_rate_limit {
 
 action ae_rate_limit(x) {
     subtract(meta.current_reading, x, meta.current_reading);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 64);
+    add_to_field(fp4_visited.encoding0, 64);
 }
 
 table teInitializeWma {
@@ -164,7 +164,7 @@ table teInitializeWma {
 action aeInitializeWma() {
     modify_field(meta.cur_ts, eg_intr_md_from_parser_aux.egress_global_tstamp);
     reBitCounter . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
+    add_to_field(fp4_visited.encoding0, 8);
 }
 
 blackbox stateful_alu reBitCounter {
@@ -196,7 +196,7 @@ table teWmaPhase1 {
 
 action aeWmaPhase1() {
     reWmaPhase1 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 16);
+    add_to_field(fp4_visited.encoding0, 16);
 }
 
 blackbox stateful_alu reWmaPhase1 {
@@ -230,7 +230,7 @@ table teWmaPhase2 {
 
 action aeWmaPhase2() {
     reWmaPhase2 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 32);
+    add_to_field(fp4_visited.encoding0, 32);
 }
 
 blackbox stateful_alu reWmaPhase2 {
@@ -275,7 +275,7 @@ register reg_interval_wma_egress {
 
 
 action ai_noOp() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
+    add_to_field(fp4_visited.encoding0, 4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -294,12 +294,12 @@ table ipv4_lpm {
 
 
 action drop_packet_fp4_te_drop() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 128);
+    add_to_field(fp4_visited.encoding0, 128);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action drop_packet_fp4_ipv4_lpm() {
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
+    add_to_field(fp4_visited.encoding0, 2);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -321,7 +321,7 @@ action ipv4_forward(dstAddr, port) {
     modify_field(ethernet.srcAddr, dstAddr);
     modify_field(ethernet.dstAddr, dstAddr);
     subtract_from_field(ipv4.ttl, 1);
-    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
+    add_to_field(fp4_visited.encoding0, 1);
 }
 
 
