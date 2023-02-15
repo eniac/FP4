@@ -314,23 +314,10 @@ blackbox stateful_alu riw_boom_filter2 {
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
+        encoding1 : 32;
         pkt_type : 2;
-        ai_calculate_hash_fp4_ti_calculate_hash1 : 1;
-        ai_calculate_hash_fp4_ti_calculate_hash2 : 1;
-        ai_get_incoming_pos : 1;
-        ai_get_outgoing_pos : 1;
-        ai_noOp_fp4_ipv4_lpm : 1;
-        ai_noOp_fp4_ti_apply_filter : 1;
-        ai_read_bloom_filter1 : 1;
-        ai_read_bloom_filter2 : 1;
-        ai_write_bloom_filter1 : 1;
-        ai_write_bloom_filter2 : 1;
-        drop_packet_fp4_ipv4_lpm : 1;
-        drop_packet_fp4_ti_apply_filter : 1;
-        ipv4_forward : 1;
-        set_direction : 1;
-        set_hit : 1;
-        __pad : 7;
+        __pad : 6;
     }
 }
 

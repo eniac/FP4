@@ -102,7 +102,7 @@ metadata ingress_metadata_t ingress_metadata;
 
 action set_bd(bd) {
     modify_field(ingress_metadata.bd, bd);
-    modify_field(fp4_visited.set_bd, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
 }
 
 table port_mapping {
@@ -118,7 +118,7 @@ table port_mapping {
 
 action set_vrf(vrf) {
     modify_field(ingress_metadata.vrf, vrf);
-    modify_field(fp4_visited.set_vrf, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
 }
 
 table bd {
@@ -161,11 +161,11 @@ table ipv4_fib_lpm {
 
 action set_egress_details(egress_spec) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
-    modify_field(fp4_visited.set_egress_details, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 32);
 }
 
 action ai_drop() {
-    modify_field(fp4_visited.ai_drop, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 16);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -206,7 +206,7 @@ control ingress     {
 action rewrite_src_dst_mac(smac, dmac) {
     modify_field(ethernet.srcAddr, smac);
     modify_field(ethernet.dstAddr, dmac);
-    modify_field(fp4_visited.rewrite_src_dst_mac, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 128);
 }
 
 table rewrite_mac {
@@ -222,44 +222,36 @@ table rewrite_mac {
 
 
 action on_miss_fp4_ipv4_fib() {
-    modify_field(fp4_visited.on_miss_fp4_ipv4_fib, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
 }
 
 action fib_hit_nexthop_fp4_ipv4_fib(nexthop_index) {
     modify_field(ingress_metadata.nexthop_index, nexthop_index);
     subtract_from_field(ipv4.ttl, 1);
-    modify_field(fp4_visited.fib_hit_nexthop_fp4_ipv4_fib, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
 }
 
 action on_miss_fp4_ipv4_fib_lpm() {
-    modify_field(fp4_visited.on_miss_fp4_ipv4_fib_lpm, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 1);
 }
 
 action fib_hit_nexthop_fp4_ipv4_fib_lpm(nexthop_index) {
     modify_field(ingress_metadata.nexthop_index, nexthop_index);
     subtract_from_field(ipv4.ttl, 1);
-    modify_field(fp4_visited.fib_hit_nexthop_fp4_ipv4_fib_lpm, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 2);
 }
 
 action on_miss_fp4_rewrite_mac() {
-    modify_field(fp4_visited.on_miss_fp4_rewrite_mac, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 64);
 }
 
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
+        encoding1 : 32;
         pkt_type : 2;
-        ai_drop : 1;
-        fib_hit_nexthop_fp4_ipv4_fib : 1;
-        fib_hit_nexthop_fp4_ipv4_fib_lpm : 1;
-        on_miss_fp4_ipv4_fib : 1;
-        on_miss_fp4_ipv4_fib_lpm : 1;
-        on_miss_fp4_rewrite_mac : 1;
-        rewrite_src_dst_mac : 1;
-        set_bd : 1;
-        set_egress_details : 1;
-        set_vrf : 1;
-        __pad : 4;
+        __pad : 6;
     }
 }
 

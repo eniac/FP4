@@ -29,7 +29,7 @@ program2plan_json = {
     "LoadBalance.p4": "/home/leoyu/FP4/instrumentation/ilp/LoadBalance_plan.json",
     "mirror_clone.p4": "/home/leoyu/FP4/instrumentation/ilp/mirror_clone_plan.json",
     "netchain.p4": "/home/leoyu/FP4/instrumentation/ilp/netchain_plan.json",
-    "RateLimiter.p4": "/home/leoyu/FP4/instrumentation/RateLimiter_plan.json"
+    "RateLimiter.p4": "/home/leoyu/FP4/instrumentation/ilp/RateLimiter_plan.json"
 }
 plan_json = None
 for program in program2plan_json.keys():

@@ -128,7 +128,7 @@ parser parse_routing {
 
 action aiForMe() {
     modify_field(cis553_metadata.forMe, 1);
-    modify_field(fp4_visited.aiForMe, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
 }
 
 
@@ -157,7 +157,7 @@ action aiHandleOutgoingRouting(egress_port) {
     modify_field(ethernet.dstAddr, 0xffffffffffff);
     modify_field(ethernet.etherType, 0x553);
     modify_field(cis553_metadata.forMe, 0);
-    modify_field(fp4_visited.aiHandleOutgoingRouting, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 1);
 }
 
 table tiHandleOutgoingRouting {
@@ -178,7 +178,7 @@ action aiHandleIncomingArpReqest_part_one(mac_sa) {
     modify_field(arp.targetHA, arp.senderHA);
     modify_field(arp.senderHA, mac_sa);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, ig_intr_md.ingress_port);
-    modify_field(fp4_visited.aiHandleIncomingArpReqest_part_one, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 2);
 }
 
 table tiHandleIncomingArpReqest_part_one {
@@ -195,7 +195,7 @@ table tiHandleIncomingArpReqest_part_one {
 action aiHandleIncomingArpReqest_part_two() {
     modify_field(arp.targetPA, arp.senderPA);
     modify_field(arp.senderPA, cis553_metadata.temp);
-    modify_field(fp4_visited.aiHandleIncomingArpReqest_part_two, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, -1);
 }
 
 table tiHandleIncomingArpReqest_part_two {
@@ -212,7 +212,7 @@ table tiHandleIncomingArpReqest_part_two {
 
 action aiHandleIncomingArpResponse() {
     clone_i2e(98);
-    modify_field(fp4_visited.aiHandleIncomingArpResponse, 1);
+    add(fp4_visited.encoding2, fp4_visited.encoding2, 1);
 }
 
 table tiHandleIncomingArpResponse {
@@ -224,12 +224,12 @@ table tiHandleIncomingArpResponse {
 
 action aiFindNextL3Hop(nextHop) {
     modify_field(cis553_metadata.nextHop, nextHop);
-    modify_field(fp4_visited.aiFindNextL3Hop, 1);
+    add(fp4_visited.encoding4, fp4_visited.encoding4, 1);
 }
 
 action aiSendToLastHop() {
     modify_field(cis553_metadata.nextHop, ipv4.dstAddr);
-    modify_field(fp4_visited.aiSendToLastHop, 1);
+    add(fp4_visited.encoding4, fp4_visited.encoding4, 2);
 }
 
 table tiHandleIpv4 {
@@ -248,7 +248,7 @@ action aiForward(mac_sa, mac_da, egress_port) {
     modify_field(ethernet.srcAddr, mac_sa);
     modify_field(ethernet.dstAddr, mac_da);
     modify_field(standard_metadata.egress_spec, egress_port);
-    modify_field(fp4_visited.aiForward, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 4);
 }
 
 action aiArpMiss(local_ip, local_mac, local_port) {
@@ -266,7 +266,7 @@ action aiArpMiss(local_ip, local_mac, local_port) {
     modify_field(arp.senderPA, local_ip);
     modify_field(arp.targetHA, 0);
     modify_field(arp.targetPA, cis553_metadata.nextHop);
-    modify_field(fp4_visited.aiArpMiss, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 8);
 }
 
 table tiHandleOutgoingEthernet {
@@ -282,7 +282,7 @@ table tiHandleOutgoingEthernet {
 
 action aiHandleIncomingRouting() {
     clone_i2e(98);
-    modify_field(fp4_visited.aiHandleIncomingRouting, 1);
+    add(fp4_visited.encoding3, fp4_visited.encoding3, 1);
 }
 
 table tiHandleIncomingRouting {
@@ -367,43 +367,35 @@ field_list_calculation ipv4_checksum {
 }
 
 action aDrop_fp4_tiDrop() {
-    modify_field(fp4_visited.aDrop_fp4_tiDrop, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action aDrop_fp4_tiHandleIncomingEthernet() {
-    modify_field(fp4_visited.aDrop_fp4_tiHandleIncomingEthernet, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action aDrop_fp4_tiHandleIncomingArpReqest_part_two() {
-    modify_field(fp4_visited.aDrop_fp4_tiHandleIncomingArpReqest_part_two, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action aDrop_fp4_tiHandleIpv4() {
-    modify_field(fp4_visited.aDrop_fp4_tiHandleIpv4, 1);
+    add(fp4_visited.encoding4, fp4_visited.encoding4, 4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
+        encoding4 : 32;
+        encoding1 : 32;
+        encoding2 : 32;
+        encoding3 : 32;
         pkt_type : 2;
-        aDrop_fp4_tiDrop : 1;
-        aDrop_fp4_tiHandleIncomingArpReqest_part_two : 1;
-        aDrop_fp4_tiHandleIncomingEthernet : 1;
-        aDrop_fp4_tiHandleIpv4 : 1;
-        aiArpMiss : 1;
-        aiFindNextL3Hop : 1;
-        aiForMe : 1;
-        aiForward : 1;
-        aiHandleIncomingArpReqest_part_one : 1;
-        aiHandleIncomingArpReqest_part_two : 1;
-        aiHandleIncomingArpResponse : 1;
-        aiHandleIncomingRouting : 1;
-        aiHandleOutgoingRouting : 1;
-        aiSendToLastHop : 1;
+        __pad : 6;
     }
 }
 

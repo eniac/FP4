@@ -225,15 +225,13 @@ blackbox stateful_alu bb_original_update {
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
+        encoding1 : 32;
+        encoding2 : 32;
+        encoding3 : 32;
+        encoding4 : 32;
         pkt_type : 2;
-        aeGetDiff : 1;
-        aeReadMirror : 1;
-        aeReadOriginal : 1;
-        aeUpdateMirror : 1;
-        aeUpdateOriginal : 1;
-        aiSendClone : 1;
-        aiSetOutputPort : 1;
-        __pad : 7;
+        __pad : 6;
     }
 }
 

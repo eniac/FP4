@@ -227,13 +227,9 @@ control egress {
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
         pkt_type : 2;
-        drop_packet_fp4_ecmp_group : 1;
-        drop_packet_fp4_ecmp_nhop : 1;
-        drop_packet_fp4_send_frame : 1;
-        rewrite_mac : 1;
-        set_ecmp_select : 1;
-        set_nhop : 1;
+        __pad : 6;
     }
 }
 

@@ -45,46 +45,22 @@
     },
     "visited": [
         {
-            "aDrop_fp4_tiDrop": 1
+            "encoding0": 32
         },
         {
-            "aDrop_fp4_tiHandleIncomingArpReqest_part_two": 1
+            "encoding4": 32
         },
         {
-            "aDrop_fp4_tiHandleIncomingEthernet": 1
+            "encoding1": 32
         },
         {
-            "aDrop_fp4_tiHandleIpv4": 1
+            "encoding2": 32
         },
         {
-            "aiArpMiss": 1
+            "encoding3": 32
         },
         {
-            "aiFindNextL3Hop": 1
-        },
-        {
-            "aiForMe": 1
-        },
-        {
-            "aiForward": 1
-        },
-        {
-            "aiHandleIncomingArpReqest_part_one": 1
-        },
-        {
-            "aiHandleIncomingArpReqest_part_two": 1
-        },
-        {
-            "aiHandleIncomingArpResponse": 1
-        },
-        {
-            "aiHandleIncomingRouting": 1
-        },
-        {
-            "aiHandleOutgoingRouting": 1
-        },
-        {
-            "aiSendToLastHop": 1
+            "__pad": 6
         }
     ],
     "number_of_extract_paths": 5,

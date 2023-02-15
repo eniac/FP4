@@ -28,37 +28,13 @@
     },
     "visited": [
         {
-            "ai_drop": 1
+            "encoding0": 32
         },
         {
-            "fib_hit_nexthop_fp4_ipv4_fib": 1
+            "encoding1": 32
         },
         {
-            "fib_hit_nexthop_fp4_ipv4_fib_lpm": 1
-        },
-        {
-            "on_miss_fp4_ipv4_fib": 1
-        },
-        {
-            "on_miss_fp4_ipv4_fib_lpm": 1
-        },
-        {
-            "on_miss_fp4_rewrite_mac": 1
-        },
-        {
-            "rewrite_src_dst_mac": 1
-        },
-        {
-            "set_bd": 1
-        },
-        {
-            "set_egress_details": 1
-        },
-        {
-            "set_vrf": 1
-        },
-        {
-            "__pad": 4
+            "__pad": 6
         }
     ],
     "number_of_extract_paths": 2,

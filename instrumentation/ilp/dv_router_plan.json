@@ -1,0 +1,58 @@
+{
+    "aiForMe": {
+      "field": "0",
+      "increment": "1"
+    },
+    "aDrop_fp4_tiHandleIncomingEthernet": {
+      "field": "0",
+      "increment": "2"
+    },
+    "aiHandleOutgoingRouting": {
+      "field": "1",
+      "increment": "1"
+    },
+    "aDrop_fp4_tiDrop": {
+      "field": "0",
+      "increment": "4"
+    },
+    "aiHandleIncomingArpReqest_part_one": {
+      "field": "1",
+      "increment": "2"
+    },
+    "aiHandleIncomingArpResponse": {
+      "field": "2",
+      "increment": "1"
+    },
+    "aiHandleIncomingRouting": {
+      "field": "3",
+      "increment": "1"
+    },
+    "aiFindNextL3Hop": {
+      "field": "4",
+      "increment": "1"
+    },
+    "aiSendToLastHop": {
+      "field": "4",
+      "increment": "2"
+    },
+    "aDrop_fp4_tiHandleIpv4": {
+      "field": "4",
+      "increment": "4"
+    },
+    "aiHandleIncomingArpReqest_part_two": {
+      "field": "0",
+      "increment": "-1"
+    },
+    "aDrop_fp4_tiHandleIncomingArpReqest_part_two": {
+      "field": "0",
+      "increment": "8"
+    },
+    "aiForward": {
+      "field": "1",
+      "increment": "4"
+    },
+    "aiArpMiss": {
+      "field": "1",
+      "increment": "8"
+    }
+  }

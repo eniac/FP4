@@ -11,28 +11,22 @@
     },
     "visited": [
         {
-            "aeGetDiff": 1
+            "encoding0": 32
         },
         {
-            "aeReadMirror": 1
+            "encoding1": 32
         },
         {
-            "aeReadOriginal": 1
+            "encoding2": 32
         },
         {
-            "aeUpdateMirror": 1
+            "encoding3": 32
         },
         {
-            "aeUpdateOriginal": 1
+            "encoding4": 32
         },
         {
-            "aiSendClone": 1
-        },
-        {
-            "aiSetOutputPort": 1
-        },
-        {
-            "__pad": 7
+            "__pad": 6
         }
     ],
     "number_of_extract_paths": 2,

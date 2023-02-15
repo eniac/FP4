@@ -149,7 +149,7 @@ table te_rate_limit {
 
 action ae_rate_limit(x) {
     subtract(meta.current_reading, x, meta.current_reading);
-    modify_field(fp4_visited.ae_rate_limit, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 64);
 }
 
 table teInitializeWma {
@@ -164,7 +164,7 @@ table teInitializeWma {
 action aeInitializeWma() {
     modify_field(meta.cur_ts, eg_intr_md_from_parser_aux.egress_global_tstamp);
     reBitCounter . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-    modify_field(fp4_visited.aeInitializeWma, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 8);
 }
 
 blackbox stateful_alu reBitCounter {
@@ -196,7 +196,7 @@ table teWmaPhase1 {
 
 action aeWmaPhase1() {
     reWmaPhase1 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-    modify_field(fp4_visited.aeWmaPhase1, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 16);
 }
 
 blackbox stateful_alu reWmaPhase1 {
@@ -230,7 +230,7 @@ table teWmaPhase2 {
 
 action aeWmaPhase2() {
     reWmaPhase2 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-    modify_field(fp4_visited.aeWmaPhase2, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 32);
 }
 
 blackbox stateful_alu reWmaPhase2 {
@@ -275,7 +275,7 @@ register reg_interval_wma_egress {
 
 
 action ai_noOp() {
-    modify_field(fp4_visited.ai_noOp, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -294,27 +294,20 @@ table ipv4_lpm {
 
 
 action drop_packet_fp4_te_drop() {
-    modify_field(fp4_visited.drop_packet_fp4_te_drop, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 128);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action drop_packet_fp4_ipv4_lpm() {
-    modify_field(fp4_visited.drop_packet_fp4_ipv4_lpm, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
         pkt_type : 2;
-        aeInitializeWma : 1;
-        aeWmaPhase1 : 1;
-        aeWmaPhase2 : 1;
-        ae_rate_limit : 1;
-        ai_noOp : 1;
-        drop_packet_fp4_ipv4_lpm : 1;
-        drop_packet_fp4_te_drop : 1;
-        ipv4_forward : 1;
         __pad : 6;
     }
 }
@@ -328,7 +321,7 @@ action ipv4_forward(dstAddr, port) {
     modify_field(ethernet.srcAddr, dstAddr);
     modify_field(ethernet.dstAddr, dstAddr);
     subtract_from_field(ipv4.ttl, 1);
-    modify_field(fp4_visited.ipv4_forward, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
 }
 
 

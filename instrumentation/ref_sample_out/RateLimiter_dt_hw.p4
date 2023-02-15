@@ -255,15 +255,8 @@ register reg_interval_wma_egress {
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
         pkt_type : 2;
-        aeInitializeWma : 1;
-        aeWmaPhase1 : 1;
-        aeWmaPhase2 : 1;
-        ae_rate_limit : 1;
-        ai_noOp : 1;
-        drop_packet_fp4_ipv4_lpm : 1;
-        drop_packet_fp4_te_drop : 1;
-        ipv4_forward : 1;
         __pad : 6;
     }
 }

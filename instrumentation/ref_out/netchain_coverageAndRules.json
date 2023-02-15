@@ -24,28 +24,13 @@
     },
     "visited": [
         {
-            "acquire_lock_action": 1
+            "encoding0": 32
         },
         {
-            "decode_action": 1
+            "encoding1": 32
         },
         {
-            "drop_action": 1
-        },
-        {
-            "release_lock_action": 1
-        },
-        {
-            "reply_to_client_action": 1
-        },
-        {
-            "set_egress": 1
-        },
-        {
-            "set_retry_action": 1
-        },
-        {
-            "__pad": 7
+            "__pad": 6
         }
     ],
     "number_of_extract_paths": 5,

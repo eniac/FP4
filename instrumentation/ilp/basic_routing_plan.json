@@ -1,0 +1,42 @@
+{
+    "set_bd": {
+      "field": "0",
+      "increment": "1"
+    },
+    "set_vrf": {
+      "field": "0",
+      "increment": "2"
+    },
+    "on_miss_fp4_ipv4_fib": {
+      "field": "0",
+      "increment": "4"
+    },
+    "fib_hit_nexthop_fp4_ipv4_fib": {
+      "field": "0",
+      "increment": "8"
+    },
+    "on_miss_fp4_ipv4_fib_lpm": {
+      "field": "1",
+      "increment": "1"
+    },
+    "fib_hit_nexthop_fp4_ipv4_fib_lpm": {
+      "field": "1",
+      "increment": "2"
+    },
+    "ai_drop": {
+      "field": "0",
+      "increment": "16"
+    },
+    "set_egress_details": {
+      "field": "0",
+      "increment": "32"
+    },
+    "on_miss_fp4_rewrite_mac": {
+      "field": "0",
+      "increment": "64"
+    },
+    "rewrite_src_dst_mac": {
+      "field": "0",
+      "increment": "128"
+    }
+}

@@ -359,15 +359,10 @@ control ingress {
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
+        encoding1 : 32;
         pkt_type : 2;
-        acquire_lock_action : 1;
-        decode_action : 1;
-        drop_action : 1;
-        release_lock_action : 1;
-        reply_to_client_action : 1;
-        set_egress : 1;
-        set_retry_action : 1;
-        __pad : 7;
+        __pad : 6;
     }
 }
 

@@ -103,7 +103,7 @@ parser parse_ipv4 {
 
 action aiSetOutputPort() {
     add_to_field(ig_intr_md_for_tm.ucast_egress_port, 4);
-    modify_field(fp4_visited.aiSetOutputPort, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 1);
 }
 
 table tiSetOutputPort {
@@ -121,7 +121,7 @@ field_list flLastSeen {
 
 action aiSendClone() {
     clone_i2e(98, flLastSeen);
-    modify_field(fp4_visited.aiSendClone, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 1);
 }
 
 table tiSendClone {
@@ -167,7 +167,7 @@ blackbox stateful_alu bb_mirror_read {
 
 action aeReadMirror() {
     bb_mirror_read . execute_stateful_alu ( 0 );
-    modify_field(fp4_visited.aeReadMirror, 1);
+    add(fp4_visited.encoding1, fp4_visited.encoding1, 2);
 }
 
 table teReadMirror {
@@ -192,7 +192,7 @@ blackbox stateful_alu bb_mirror_update {
 
 action aeUpdateMirror() {
     bb_mirror_update . execute_stateful_alu ( 0 );
-    modify_field(fp4_visited.aeUpdateMirror, 1);
+    add(fp4_visited.encoding3, fp4_visited.encoding3, 1);
 }
 
 table teUpdateMirror {
@@ -215,7 +215,7 @@ blackbox stateful_alu bb_original_read {
 
 action aeReadOriginal() {
     bb_original_read . execute_stateful_alu ( 0 );
-    modify_field(fp4_visited.aeReadOriginal, 1);
+    add(fp4_visited.encoding2, fp4_visited.encoding2, 1);
 }
 
 table teReadOriginal {
@@ -240,7 +240,7 @@ blackbox stateful_alu bb_original_update {
 
 action aeUpdateOriginal() {
     bb_original_update . execute_stateful_alu ( 0 );
-    modify_field(fp4_visited.aeUpdateOriginal, 1);
+    add(fp4_visited.encoding4, fp4_visited.encoding4, 1);
 }
 
 table teUpdateOriginal {
@@ -254,7 +254,7 @@ table teUpdateOriginal {
 action aeGetDiff() {
     subtract(meta.diff1, meta.count_original, meta.count_mirror);
     subtract(meta.diff2, meta.count_mirror, meta.count_original);
-    modify_field(fp4_visited.aeGetDiff, 1);
+    add(fp4_visited.encoding0, fp4_visited.encoding0, 2);
 }
 
 table teGetDiff {
@@ -268,15 +268,13 @@ table teGetDiff {
 header_type fp4_visited_t {
     fields {
         preamble : 48;
+        encoding0 : 32;
+        encoding1 : 32;
+        encoding2 : 32;
+        encoding3 : 32;
+        encoding4 : 32;
         pkt_type : 2;
-        aeGetDiff : 1;
-        aeReadMirror : 1;
-        aeReadOriginal : 1;
-        aeUpdateMirror : 1;
-        aeUpdateOriginal : 1;
-        aiSendClone : 1;
-        aiSetOutputPort : 1;
-        __pad : 7;
+        __pad : 6;
     }
 }
 

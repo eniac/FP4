@@ -17,22 +17,10 @@
     },
     "visited": [
         {
-            "drop_packet_fp4_ecmp_group": 1
+            "encoding0": 32
         },
         {
-            "drop_packet_fp4_ecmp_nhop": 1
-        },
-        {
-            "drop_packet_fp4_send_frame": 1
-        },
-        {
-            "rewrite_mac": 1
-        },
-        {
-            "set_ecmp_select": 1
-        },
-        {
-            "set_nhop": 1
+            "__pad": 6
         }
     ],
     "number_of_extract_paths": 3,
