@@ -394,10 +394,15 @@ void UTModifier::markActionVisited(AstNode* head) {
         //     return;
         // }
 
+        if (action_2_encoding_field_.find(key) == action_2_encoding_field_.end()) {
+            cout << "ERR: encoding for action not found " << key << std::endl;
+        }
+
         ActionStmtsNode* allStatements = dynamic_cast<ActionStmtsNode*>(head);
-        NameNode* funcName = new NameNode(new string("modify_field"));
+        NameNode* funcName = new NameNode(new string("add"));
         ArgsNode* argList = new ArgsNode();
-        string* fieldName = new string(key);
+
+        string* fieldName = new string("encoding"+action_2_encoding_field_[key]);
         BodyWordNode* updateField = new BodyWordNode(BodyWordNode::FIELD, 
             new FieldNode(
                 new NameNode(new string(sig_+"_visited")), 
@@ -405,16 +410,47 @@ void UTModifier::markActionVisited(AstNode* head) {
                 NULL)
             );
 
-        string* numToAdd = new string(to_string(1));
+        string* fieldName1 = new string("encoding"+action_2_encoding_field_[key]);
+        BodyWordNode* updateField1 = new BodyWordNode(BodyWordNode::FIELD, 
+            new FieldNode(
+                new NameNode(new string(sig_+"_visited")), 
+                new NameNode(fieldName1),
+                NULL)
+            );
+
+        string* numToAdd = new string(action_2_encoding_incr_[key]);
         BodyWordNode* bitToFlip = new BodyWordNode(BodyWordNode::INTEGER, new IntegerNode(numToAdd));
 
         argList -> push_back(updateField);
+        argList -> push_back(updateField1);
         argList -> push_back(bitToFlip);
 
         ActionStmtNode* newStatement = new ActionStmtNode(funcName, argList, ActionStmtNode::NAME_ARGLIST, NULL, NULL);
 
         allStatements -> push_back(newStatement);
         PRINT_VERBOSE("%s, %s, %s\n", dynamic_cast<ActionNode*>(allStatements -> parent_) -> name_ -> toString().c_str(), (*fieldName).c_str(), (*numToAdd).c_str());
+
+        // ActionStmtsNode* allStatements = dynamic_cast<ActionStmtsNode*>(head);
+        // NameNode* funcName = new NameNode(new string("modify_field"));
+        // ArgsNode* argList = new ArgsNode();
+        // string* fieldName = new string(key);
+        // BodyWordNode* updateField = new BodyWordNode(BodyWordNode::FIELD, 
+        //     new FieldNode(
+        //         new NameNode(new string(sig_+"_visited")), 
+        //         new NameNode(fieldName),
+        //         NULL)
+        //     );
+
+        // string* numToAdd = new string(to_string(1));
+        // BodyWordNode* bitToFlip = new BodyWordNode(BodyWordNode::INTEGER, new IntegerNode(numToAdd));
+
+        // argList -> push_back(updateField);
+        // argList -> push_back(bitToFlip);
+
+        // ActionStmtNode* newStatement = new ActionStmtNode(funcName, argList, ActionStmtNode::NAME_ARGLIST, NULL, NULL);
+
+        // allStatements -> push_back(newStatement);
+        // PRINT_VERBOSE("%s, %s, %s\n", dynamic_cast<ActionNode*>(allStatements -> parent_) -> name_ -> toString().c_str(), (*fieldName).c_str(), (*numToAdd).c_str());
     }
 }
 
