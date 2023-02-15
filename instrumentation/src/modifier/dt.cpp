@@ -1397,7 +1397,7 @@ void DTModifier::ProcessUTSim(AstNode* root) {
             continue;
         } else {
             tmp.push_back(it->second);
-            oss << "  modify_field(" << kVisitedMetadata << "." << it->second << ", 0);\n";
+            oss << "  modify_field(" << kVisitedMetadata << ".encoding" << it->second << ", 0);\n";
         }
     }
     // for (int i = 0; i < tbl_action_stmt_.size(); i++ ) {
