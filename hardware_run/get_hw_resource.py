@@ -35,7 +35,7 @@ def main():
         print("=== SUT before instrumentation ===")
         for index in range(len(prog_names)):
     	    printMetric(prog_names[index], metrics)
-        print("=== SUT before instrumentation ===")
+        print("=== SUT after instrumentation ===")
         for index in range(len(prog_names)):
     	    printMetric(prog_names[index]+ut_suffix, metrics)
     elif sys.argv[1] == "SDT":
