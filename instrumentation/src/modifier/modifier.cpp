@@ -5,7 +5,7 @@
 
 using namespace std;
 
-P4Modifier::P4Modifier(AstNode* root, char* target, int num_assertions, char* out_fn_base) {
+P4Modifier::P4Modifier(AstNode* root, char* target, char* plan, int num_assertions, char* out_fn_base) {
 	PRINT_INFO("================= Modifier =================\n");
     target_ = target;
     root_ = root;
@@ -14,6 +14,15 @@ P4Modifier::P4Modifier(AstNode* root, char* target, int num_assertions, char* ou
     std::vector<string> fileName = split(program_name_, '/');
     program_name_ = fileName.back();
     // cout << "program_name_: " << program_name_ << endl;
+
+    std::ifstream f(plan);
+    nlohmann::json plan_json = nlohmann::json::parse(f);
+
+    for (nlohmann::json::iterator it = plan_json.begin(); it != plan_json.end(); ++it) {
+        action_2_encoding_field_.insert({it.key(), std::string(it.value()["field"])});
+        action_2_encoding_incr_.insert({it.key(), std::string(it.value()["increment"])});
+    }    
+
 }
 
 
@@ -197,19 +206,25 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
     currentField = new FieldDecNode(name_, size_, NULL);
     field_list -> push_back(currentField);
 
+    std::vector<std::string> added {};
+    for (auto it = action_2_encoding_field_.begin(); it != action_2_encoding_field_.end(); it++) {
+        if (std::find(added.begin(), added.end(), it->second) != added.end()) {
+            continue;
+        } else {
+            added.push_back(it->second);
+            name_ = new NameNode(new string("encoding"+it->second));
+            size_ = new IntegerNode(new string("32"));
+            currentField = new FieldDecNode(name_, size_, NULL);
+            field_list -> push_back(currentField);
+            AddFieldToJson("encoding"+it->second, 32);
+        }
+    }
+
     // Add 2b packet type: generate new packet, check for assertion, forward to UT without change
     name_ = new NameNode(new string("pkt_type"));
     size_ = new IntegerNode(new string(to_string(2)));
     currentField = new FieldDecNode(name_, size_, NULL);
     field_list -> push_back(currentField);
-
-    for (int i = 0; i < tbl_action_stmt_.size(); i++) {
-        name_ = new NameNode(new string(tbl_action_stmt_[i]));
-        size_ = new IntegerNode(new string(to_string(1)));
-        currentField = new FieldDecNode(name_, size_, NULL);
-        field_list -> push_back(currentField);
-        AddFieldToJson(tbl_action_stmt_[i], 1);
-    }
 
     // cout << "Modifier.cpp line 214 num_assertions_: " << num_assertions_ << endl;
     for (int i = 0; i < num_assertions_; i++) {
