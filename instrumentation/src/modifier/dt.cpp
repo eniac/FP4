@@ -1208,9 +1208,19 @@ void DTModifier::ProcessUTSim(AstNode* root) {
     // int bitsToAdd = roundUp(num_tbl_action_stmt_, 8);
     // int counter = 0;
     oss << "field_list " << kFiBloomFilterHashFieldsSim << "_16 {\n";
-    for (int i = 0; i < tbl_action_stmt_.size(); i++) {
-        oss << "  " << kVisitedMetadata << "." << tbl_action_stmt_[i] << ";\n";
+    std::vector<std::string> added_16 {};
+    for (auto it = action_2_encoding_field_.begin(); it != action_2_encoding_field_.end(); it++) {
+        if (std::find(added_16.begin(), added_16.end(), it->second) != added_16.end()) {
+            continue;
+        } else {
+            added_16.push_back(it->second);
+            oss << "  " << kVisitedMetadata << ".encoding" << it->second << ";\n";
+        }
     }
+    // for (int i = 0; i < tbl_action_stmt_.size(); i++) {
+    //     oss << "  " << kVisitedMetadata << "." << tbl_action_stmt_[i] << ";\n";
+    // }
+
     // while (bitsToAdd >= 32) {
     //     oss << "  " << kVisitedMetadata << ".field" << to_string(counter) << ";\n";
     //     bitsToAdd = bitsToAdd - 32;
@@ -1226,9 +1236,19 @@ void DTModifier::ProcessUTSim(AstNode* root) {
     // bitsToAdd = roundUp(num_tbl_action_stmt_, 8);
     // counter = 0;
     oss << "field_list " << kFiBloomFilterHashFieldsSim << "_32 {\n";
-    for (int i = 0; i < tbl_action_stmt_.size(); i++) {
-        oss << "  " << kVisitedMetadata << "." << tbl_action_stmt_[i] << ";\n";
+    std::vector<std::string> added_32 {};
+    for (auto it = action_2_encoding_field_.begin(); it != action_2_encoding_field_.end(); it++) {
+        if (std::find(added_32.begin(), added_32.end(), it->second) != added_32.end()) {
+            continue;
+        } else {
+            added_32.push_back(it->second);
+            oss << "  " << kVisitedMetadata << ".encoding" << it->second << ";\n";
+        }
     }
+    // for (int i = 0; i < tbl_action_stmt_.size(); i++) {
+    //     oss << "  " << kVisitedMetadata << "." << tbl_action_stmt_[i] << ";\n";
+    // }
+
     // while (bitsToAdd >= 32) {
     //     oss << "  " << kVisitedMetadata << ".field" << to_string(counter) << ";\n";
     //     bitsToAdd = bitsToAdd - 32;
@@ -1371,9 +1391,19 @@ void DTModifier::ProcessUTSim(AstNode* root) {
         }
     }  
     oss << "  modify_field(" << kVisitedMetadata << ".pkt_type, 0);\n";
-    for (int i = 0; i < tbl_action_stmt_.size(); i++ ) {
-        oss << "  modify_field(" << kVisitedMetadata << "." << tbl_action_stmt_[i] << ", 0);\n";
+    std::vector<std::string> tmp {};
+    for (auto it = action_2_encoding_field_.begin(); it != action_2_encoding_field_.end(); it++) {
+        if (std::find(tmp.begin(), tmp.end(), it->second) != tmp.end()) {
+            continue;
+        } else {
+            tmp.push_back(it->second);
+            oss << "  modify_field(" << kVisitedMetadata << "." << it->second << ", 0);\n";
+        }
     }
+    // for (int i = 0; i < tbl_action_stmt_.size(); i++ ) {
+    //     oss << "  modify_field(" << kVisitedMetadata << "." << tbl_action_stmt_[i] << ", 0);\n";
+    // }
+
     // TODO: Currently, field0 is hardcoded, replace it with a loop later
         // << "  modify_field(" << kVisitedMetadata << ".field0, 0);\n"
     oss << "}\n";
