@@ -235,7 +235,8 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
         AddFieldToJson("assertion" + to_string(i), 1);
     }
 
-    int leftoverBits = ((num_tbl_action_stmt_ + num_assertions_ + 50) % 8);
+    // int leftoverBits = ((num_tbl_action_stmt_ + num_assertions_ + 50) % 8);
+    int leftoverBits = ((num_assertions_ + 50) % 8);
     if (leftoverBits > 0) {
         name_ = new NameNode(new string("__pad"));
         size_ = new IntegerNode(new string(to_string(8 - leftoverBits)));
