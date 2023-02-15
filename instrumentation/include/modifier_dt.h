@@ -89,7 +89,7 @@ public:
     map<string, vector<string> > tbl2readfields_ {};
     map<string, HeaderTypeDeclarationNode*> instance_2_header_type_ {};
 
-    DTModifier(AstNode* head, char* target, int num_assertions, char* out_fn_base);
+    DTModifier(AstNode* head, char* target, char* plan, int num_assertions, char* out_fn_base);
     
     set<string> AddControlBlock(AstNode* root, DAG* dag, P4ControlBlock* controlBlock, set<string> parents, bool evaluationResult);
     void AddFieldToJson(string fieldName, int numBit);

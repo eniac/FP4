@@ -40,6 +40,9 @@ public:
     vector<UnanchoredNode*> unanchored_nodes_;
     set<AstNode*> work_set_;
 
+	map<string, string> action_2_encoding_field_;
+	map<string, string> action_2_encoding_incr_;
+
 	// Functions
 	P4Modifier(AstNode* head, char* target, int num_assertions, char* out_fn_base);
 
