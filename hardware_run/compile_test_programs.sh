@@ -1,3 +1,10 @@
+#! /bin/bash
+
+if [[ $EUID -eq 0 ]]; then
+   echo "This script must NOT be run as root" 
+   exit 1
+fi
+
 cp compile_p4_14.sh $HOME/FP4/test_programs/p4_14/Firewall
 cd $HOME/FP4/test_programs/p4_14/Firewall
 rm *.c
