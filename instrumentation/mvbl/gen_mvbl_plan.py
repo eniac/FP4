@@ -10,70 +10,76 @@ import sys
 
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
+
+def remove_special_chars(label):
+    if ';' in label:
+        label = label.replace(';','')
+    if '"' in label:
+        label = label.replace('"','')
+    if "()" in label and "." not in label:
+        label = label.replace("()",'')
+        label = cnt_blk+'.'+label
+    return label
+
 import json
 def pretty_print_dict(dictionary):
     print(json.dumps(dictionary, indent=4, sort_keys=True))
 
+
 class GraphParser(object):
     def __init__(self, dotfile, jsonfile, input_type='bmv2'):
 
+        # Extract node name to label mapping, filtering START, EXIT, and renaming labels with special chars
         node2label_dict = self.get_nodes_from_dot(dotfile)
-        nodes = node2label_dict.values()
-        tables_and_conditions = nodes
-        return
 
-        # Step 2
-        edges = self.get_edges(dotfile, node2label_dict)
+        # Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT
+        renamed_edges = self.get_edges_from_dot(dotfile, node2label_dict)
 
-        # Step 3
-        edges_tuples = []
-        for e in edges:
-            edges_tuples.append((e['src'], e['dst'], 0))
-        edges_tuples = list(set(edges_tuples))
+        # Create a table graph with 0 weights
+        edges_tuples, table_graph = self.get_table_graph(renamed_edges)
 
-        table_graph = nx.DiGraph()
-        table_graph.add_weighted_edges_from(edges_tuples)
+        if input_type == 'p414':
+            # Each action is renamed to table_name__action_name s.t. actions are unique to a table
+            stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values())
+        else:
+        # if input_type == 'bmv2':
+            # conditions_to_nextstep = self.extract_conditionals(jsonfile)
+            # actions = self.extract_actions_bmv2(jsonfile)
+            # table2actions_dict = self.extract_tables_actions_bmv2(jsonfile, actions)
+            print("Support only p414")
+            sys.exit()
 
-        if input_type == 'bmv2':
-            conditions_to_nextstep = self.extract_conditionals(jsonfile)
-
-            actions = self.extract_actions_bmv2(jsonfile)
-
-            table_actions = self.extract_tables_actions_bmv2(jsonfile, actions)
-
-        elif input_type == 'p414':
-            # Step 4
-            stage_to_tables_dict, table_actions = self.extract_stages_p4_14(jsonfile, nodes)
-            actions = []
-            for action_list in table_actions.values():
-                actions.extend(action_list)
-            actions = list(set(actions))
+        all_actions = []
+        for action_list in table2actions_dict.values():
+            all_actions.extend(action_list)
+        all_actions = list(set(all_actions))
+        print("====== Print all_actions ======")
+        print(all_actions)
 
         # Step 5 - filter out tables for different pipeline
-        for stage, table_list in stage_to_tables_dict.items():
-            stage_to_tables_dict[stage] = [x for x in table_list if x in table_graph.nodes]
+        for stage, table_list in stage2tables_dict.items():
+            stage2tables_dict[stage] = [x for x in table_list if x in table_graph.nodes]
 
-
-        if input_type == 'bmv2':
-            stage_to_tables_dict = self.estimate_stages(table_graph)
+        # if input_type == 'bmv2':
+        #     stage2tables_dict = self.estimate_stages(table_graph)
 
 
         # Step 6 - Find leaves
         leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
 
         # Step 7 - Add edges from tables to actions
-        updates_edges = self.append_missing_edges(table_actions, edges, leaf_nodes)
+        updates_edges = self.append_missing_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
         edges_to_remove = []
 
 
         # Step 8 - Remove table to table edge
         for e in updates_edges:
-            if e['src'] in table_actions and e['dst'] in table_actions:
+            if e['src'] in table2actions_dict and e['dst'] in table2actions_dict:
                 edges_to_remove.append(e)
-            elif e['src'] in table_actions and e['dst'] in tables_and_conditions:
+            elif e['src'] in table2actions_dict and e['dst'] in node2label_dict.values():
                 edges_to_remove.append(e)
-            elif e['dst'] in table_actions and e['src'] in tables_and_conditions:
+            elif e['dst'] in table2actions_dict and e['src'] in node2label_dict.values():
                 edges_to_remove.append(e)
 
         for edge in edges_to_remove:
@@ -94,13 +100,11 @@ class GraphParser(object):
         table_graph = nx.relabel_nodes(table_graph, new_node_mapping)
         full_graph =  nx.relabel_nodes(full_graph, new_node_mapping)
 
-
         for old_name, new_name in new_node_mapping.items():
-            if old_name in table_actions:
-                table_actions[new_name] = table_actions.pop(old_name)
+            if old_name in table2actions_dict:
+                table2actions_dict[new_name] = table2actions_dict.pop(old_name)
 
-
-        for stage, table_list in stage_to_tables_dict.items():
+        for stage, table_list in stage2tables_dict.items():
             for i, n in enumerate(table_list):
                 if n in new_node_mapping:
                     table_list[i] = new_node_mapping[n]
@@ -118,7 +122,7 @@ class GraphParser(object):
         # Step 12
         from pulp_solver import PulpSolver
         print("******  Going in PulpSolver  **********")
-        pulpSolver = PulpSolver(table_graph, full_graph, stage_to_tables_dict, table_actions)
+        pulpSolver = PulpSolver(table_graph, full_graph, stage2tables_dict, table2actions_dict)
         print("******   Out of PulpSolver   **********")
 
 
@@ -174,7 +178,7 @@ class GraphParser(object):
             for e in edges_with_weights:
                 edges.append((e['src'], e['dst'], e['weight']))
             graph_with_weights[-1].add_weighted_edges_from(edges)
-        
+
     def get_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         print("====== get_nodes_from_dot: {} ======".format(dotfile))
         node_name_label = {}
@@ -185,13 +189,7 @@ class GraphParser(object):
                 label = n.obj_dict["attributes"]['label']
                 print("--- name: {0}, label {1} ---".format(n.get_name(), label))
                 if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__']:
-                    if ';' in label:
-                        label = label.replace(';','')
-                    if '"' in label:
-                        label = label.replace('"','')
-                    if "()" in label and "." not in label:
-                        label = label.replace("()",'')
-                        label = cnt_blk+'.'+label
+                    label = remove_special_chars(label)
                     if label not in node_name_label.values():
                         print("Write: {0}:{1}".format(n.get_name(), label))
                         node_name_label[n.get_name()] = label
@@ -214,6 +212,70 @@ class GraphParser(object):
                         #   cnt = int(node_name_label[ind].split("##")[1])
         pretty_print_dict(node_name_label)
         return node_name_label
+
+    def get_table_graph(self, renamed_edges):
+        print("====== get_table_graph ======")
+        edges_tuples = []
+        for e in renamed_edges:
+            edges_tuples.append((e['src'], e['dst'], 0))
+        edges_tuples = list(set(edges_tuples))
+        table_graph = nx.DiGraph()
+        table_graph.add_weighted_edges_from(edges_tuples)
+        return edges_tuples, table_graph
+ 
+    def extract_stages_p4_14(self, contextFile, nodes):
+        print("====== extract_stages_p4_14 ======")
+        context_data = None
+        with open(contextFile, 'r') as f:
+            context_data = json.load(f)
+
+        stage2tables_dict = {}
+        table2actions_dict = {}
+        
+        for table_information in context_data['tables']:
+            table_name = table_information['name']
+            table_type = table_information['table_type']
+            direction = table_information["direction"]
+            print("--- table_name: {0}, table_type: {1}, direction: {2} ---".format(table_name, table_type, direction))
+            if table_type == "condition":
+                if 'cond' in table_information['name']:
+                    # Bug here in `get_condition_stage` function when there are multiple conditions in the if statement
+                    # print('table_information:', table_information['condition'])
+                    # exit()
+                    for node in nodes:
+                        if table_information['condition'][1:-1] in node:
+                            for stage_information in table_information['stage_tables']:
+                                stage_number = stage_information['stage_number']
+                                if stage_number not in stage2tables_dict:
+                                    stage2tables_dict[stage_number] = []
+                                stage2tables_dict[stage_number].append(node)
+                                # stage2tables_dict[stage_number].append(table_information['name'])
+
+                if 'cond' in table_information['name'] and 'valid' in table_information['condition']:
+                    header_name, valid_field = table_information['condition'][1:-1].split('$')
+                    for node in nodes:
+                        if header_name in node and (valid_field in node or ('1' in valid_field and 'isValid' in node and ('!' not in node))):
+                            for stage_information in table_information['stage_tables']:
+                                stage_number = stage_information['stage_number']
+                                if stage_number not in stage2tables_dict:
+                                    stage2tables_dict[stage_number] = []
+                                stage2tables_dict[stage_number].append(node)
+            elif table_type == "match":
+                if table_name not in table2actions_dict:
+                    table2actions_dict[table_name] = []
+                for action in table_information['actions']:
+                    table2actions_dict[table_name].append(table_name + "__" + action['name'])
+                for stage_information in table_information['match_attributes']['stage_tables']:
+                    stage_number = stage_information['stage_number']
+                    if stage_number not in stage2tables_dict:
+                        stage2tables_dict[stage_number] = []
+                    stage2tables_dict[stage_number].append(table_information['name'])
+            elif table_type == "action":
+                print("Skipped")
+            else:
+                print("Unknown table_type!")
+                sys.exit()
+        return stage2tables_dict, table2actions_dict
 
 
     def get_new_node_mapping(self, graph):
@@ -255,33 +317,33 @@ class GraphParser(object):
         graph = copy.deepcopy(original_graph)
         
         latest_stage = 0
-        stage_to_tables_dict = dict()
+        stage2tables_dict = dict()
         table_to_stage_dict = dict()
 
         # print(len(graph.nodes))
 
         while (len(graph.nodes) > 0):
             current_nodes = [v for v, d in graph.in_degree() if d == 0]
-            stage_to_tables_dict[latest_stage] = current_nodes
+            stage2tables_dict[latest_stage] = current_nodes
             for node in current_nodes:
                 graph.remove_node(node)
 
             latest_stage += 1
 
-        return stage_to_tables_dict
+        return stage2tables_dict
 
 
-    def append_missing_edges(self, table_actions, edges, leaf_nodes):
+    def append_missing_edges(self, table2actions_dict, edges, leaf_nodes):
         new_edges = []
         ed_to_del = []
         for e in edges:
-            if e['src'] in table_actions.keys():
+            if e['src'] in table2actions_dict.keys():
                 ed_to_del.append(e)
-                for ac in table_actions[e['src']]:
+                for ac in table2actions_dict[e['src']]:
                     new_edges.append({'src':e['src'], 'dst':ac, 'label':''})
                     new_edges.append({'src':ac, 'dst':e['dst'], 'label':''})
-            elif e['dst'] in leaf_nodes and e['dst'] in table_actions.keys():
-                for ac_1 in table_actions[e['dst']]:
+            elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
+                for ac_1 in table2actions_dict[e['dst']]:
                     new_edges.append({'src':e['dst'], 'dst':ac_1, 'label':''})
 
         edges = edges + new_edges
@@ -323,84 +385,17 @@ class GraphParser(object):
                     tbl_to_table[str(table["name"])] = [str(x) for x in table["next_tables"].values()]
         return name_to_action
 
-
-    def get_condition_stage(self, stage_to_tables_dict, table_information, nodes):
-        # breakout = False
-        if 'cond' in table_information['name']:
-            # print('table_information:', table_information['condition'])
-            # exit()
-            for node in nodes:
-                if table_information['condition'][1:-1] in node:
-                    for stage_information in table_information['stage_tables']:
-                        stage_number = stage_information['stage_number']
-                        if stage_number not in stage_to_tables_dict:
-                            stage_to_tables_dict[stage_number] = []
-                        stage_to_tables_dict[stage_number].append(node)
-                        # stage_to_tables_dict[stage_number].append(table_information['name'])
-                        # breakout = True
-
-        if 'cond' in table_information['name'] and 'valid' in table_information['condition']:
-
-            header_name, valid_field = table_information['condition'][1:-1].split('$')
-
-            for node in nodes:
-                if header_name in node and (valid_field in node or ('1' in valid_field and 'isValid' in node and ('!' not in node))):
-                    for stage_information in table_information['stage_tables']:
-                        stage_number = stage_information['stage_number']
-                        if stage_number not in stage_to_tables_dict:
-                            stage_to_tables_dict[stage_number] = []
-                        stage_to_tables_dict[stage_number].append(node)
-
-        return stage_to_tables_dict
-            
-
-    def extract_stages_p4_14(self, contextFile, nodes):
-        
-        data = None
-        with open(contextFile, 'r') as f:
-            data = json.load(f)
-
-        stage_to_tables_dict = {}
-        table_actions = {}
-        
-        for table_information in data['tables']:
-            if 'match_attributes' not in table_information:
-                stage_to_tables_dict = self.get_condition_stage(stage_to_tables_dict, table_information, nodes)
-                continue
-
-            table_name = table_information['name']
-            
-
-            if table_name not in table_actions:
-                table_actions[table_name] = []
-
-            for action in table_information['actions']:
-                table_actions[table_name].append(table_name + "__" + action['name'])
-                
-            for stage_information in table_information['match_attributes']['stage_tables']:
-                stage_number = stage_information['stage_number']
-                if stage_number not in stage_to_tables_dict:
-                    stage_to_tables_dict[stage_number] = []
-
-                stage_to_tables_dict[stage_number].append(table_information['name'])
-                
-        return stage_to_tables_dict, table_actions
-
     def extract_stages_bmv2(self, contextFile):
         data = None
         with open(contextFile, 'r') as f:
             data = json.load(f)
-
 
         for pipeline in data['pipelines']:
             for table_information in pipeline['tables']:
                 for key, item in table_information.items():
                     print("key", key)
                     print("item", item)
-
         exit()
-
-
 
     def extract_conditionals(self, filename):
         """This function creates dictionary of conditionals with its 
@@ -499,27 +494,25 @@ class GraphParser(object):
         return action_list
 
 
-    def get_edges(self, dotfile, nodes):
-        """ 
-        This method takes .dot file path and returns a dictionary having Edge Source Node Name and
-        Edge details like destination node name, edge label. Extracting edge information.
-        It is restricted to conditions and tables only.
-        """
-        edge_src_details = {}
-        edge_src_names = {}
-        edges = []
+    def get_edges_from_dot(self, dotfile, nodes):
+        print("====== get_edges_from_dot ======")
+        original_src_dst_label = []
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
-        count = 0   
         for subGraph in dot_graph.get_subgraphs():
             for e in subGraph.get_edge_list():
-                edge_src_details[count] = {"src":e.get_source(),"dst":e.get_destination(), "label":e.obj_dict["attributes"]['label']}
-                edge_src_names[count] = {"src":e.get_source(),"dst":e.get_destination(), "label":e.obj_dict["attributes"]['label']}
-                count+=1
+                # print("--- src: {0}, dst: {1}, label: {2} ---".format(e.get_source(), e.get_destination(), e.obj_dict["attributes"]['label']))
+                original_src_dst_label.append({"src":e.get_source(),"dst":e.get_destination(), "label":e.obj_dict["attributes"]['label']})
 
-        for e in edge_src_details.keys():
-            if(edge_src_details[e]['src'] in nodes.keys() and edge_src_details[e]['dst'] in nodes.keys()):
-                edges.append({'src':nodes[edge_src_details[e]['src']], 'dst':nodes[edge_src_details[e]['dst']], 'label': edge_src_details[e]['label'].replace('"','')})
-        return edges
+        renamed_src_dst_label = []
+        for e in original_src_dst_label:
+            print("--- src: {0}, dst: {1}, label: {2} ---".format(e['src'], e['dst'], e['label']))
+            if(e['src'] in nodes.keys() and e['dst'] in nodes.keys()):
+                renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label'].replace('"','')})
+            else:
+                print("[WARNING] Skipped due to unidentified node ID (typically START or EXIT))!")
+                # sys.exit()
+        pretty_print_dict(renamed_src_dst_label)
+        return renamed_src_dst_label
 
 
 def parse_arguments():
