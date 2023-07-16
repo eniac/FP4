@@ -11,7 +11,7 @@ import sys
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
 
-def remove_special_chars(label):
+def remove_special_chars(label, cnt_blk):
     if ';' in label:
         label = label.replace(';','')
     if '"' in label:
@@ -27,27 +27,23 @@ def pretty_print_dict(dictionary):
 
 
 class GraphParser(object):
-    def __init__(self, dotfile, jsonfile, input_type='bmv2'):
+    def __init__(self, dotfile_ing, jsonfile, input_type='p414'):
 
         # Extract node name to label mapping, filtering START, EXIT, and renaming labels with special chars
-        node2label_dict = self.get_nodes_from_dot(dotfile)
+        node2label_dict = self.get_nodes_from_dot(dotfile_ing)
 
         # Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT
-        renamed_edges = self.get_edges_from_dot(dotfile, node2label_dict)
+        renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict)
 
         # Create a table graph with 0 weights
         edges_tuples, table_graph = self.get_table_graph(renamed_edges)
 
-        if input_type == 'p414':
-            # Each action is renamed to table_name__action_name s.t. actions are unique to a table
-            stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values())
-        else:
+        # Each action is renamed to table_name__action_name s.t. actions are unique to a table
+        stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values())
         # if input_type == 'bmv2':
             # conditions_to_nextstep = self.extract_conditionals(jsonfile)
             # actions = self.extract_actions_bmv2(jsonfile)
             # table2actions_dict = self.extract_tables_actions_bmv2(jsonfile, actions)
-            print("Support only p414")
-            sys.exit()
 
         all_actions = []
         for action_list in table2actions_dict.values():
@@ -189,7 +185,7 @@ class GraphParser(object):
                 label = n.obj_dict["attributes"]['label']
                 print("--- name: {0}, label {1} ---".format(n.get_name(), label))
                 if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__']:
-                    label = remove_special_chars(label)
+                    label = remove_special_chars(label, cnt_blk)
                     if label not in node_name_label.values():
                         print("Write: {0}:{1}".format(n.get_name(), label))
                         node_name_label[n.get_name()] = label
@@ -223,7 +219,8 @@ class GraphParser(object):
         table_graph.add_weighted_edges_from(edges_tuples)
         return edges_tuples, table_graph
  
-    def extract_stages_p4_14(self, contextFile, nodes):
+    # Bug when there are multiple conditions in the if statement
+    def extract_stages_p4_14(self, contextFile, node_labels, target_direction="ingress"):
         print("====== extract_stages_p4_14 ======")
         context_data = None
         with open(contextFile, 'r') as f:
@@ -237,46 +234,54 @@ class GraphParser(object):
             table_type = table_information['table_type']
             direction = table_information["direction"]
             print("--- table_name: {0}, table_type: {1}, direction: {2} ---".format(table_name, table_type, direction))
+            if target_direction != direction:
+                print("Skipped")
+                continue
+            matched_to_node = False
             if table_type == "condition":
-                if 'cond' in table_information['name']:
-                    # Bug here in `get_condition_stage` function when there are multiple conditions in the if statement
-                    # print('table_information:', table_information['condition'])
-                    # exit()
-                    for node in nodes:
-                        if table_information['condition'][1:-1] in node:
-                            for stage_information in table_information['stage_tables']:
-                                stage_number = stage_information['stage_number']
-                                if stage_number not in stage2tables_dict:
-                                    stage2tables_dict[stage_number] = []
-                                stage2tables_dict[stage_number].append(node)
-                                # stage2tables_dict[stage_number].append(table_information['name'])
-
-                if 'cond' in table_information['name'] and 'valid' in table_information['condition']:
-                    header_name, valid_field = table_information['condition'][1:-1].split('$')
-                    for node in nodes:
-                        if header_name in node and (valid_field in node or ('1' in valid_field and 'isValid' in node and ('!' not in node))):
-                            for stage_information in table_information['stage_tables']:
-                                stage_number = stage_information['stage_number']
-                                if stage_number not in stage2tables_dict:
-                                    stage2tables_dict[stage_number] = []
-                                stage2tables_dict[stage_number].append(node)
+                # Rename the condition before matching
+                renamed_condition = table_information['condition'][1:-1]
+                if '$valid' in table_information['condition']:
+                    renamed_condition = renamed_condition.replace("$valid", "isValid()")
+                if ' == 1' in table_information['condition']:
+                    renamed_condition = renamed_condition.replace(" == 1", "")
+                print("raw condition: {0}, renamed: {1}".format(table_information['condition'], renamed_condition))
+                for node_label in node_labels:
+                    # print("Try matching to node_label: {}".format(node_label))
+                    if renamed_condition in node_label:
+                        print("Fuzzy matched to node_label: {}".format(node_label))
+                        matched_to_node = True
+                        for stage_information in table_information['stage_tables']:
+                            stage_number = stage_information['stage_number']
+                            if stage_number not in stage2tables_dict:
+                                stage2tables_dict[stage_number] = []
+                            stage2tables_dict[stage_number].append(node_label)
             elif table_type == "match":
-                if table_name not in table2actions_dict:
-                    table2actions_dict[table_name] = []
-                for action in table_information['actions']:
-                    table2actions_dict[table_name].append(table_name + "__" + action['name'])
-                for stage_information in table_information['match_attributes']['stage_tables']:
-                    stage_number = stage_information['stage_number']
-                    if stage_number not in stage2tables_dict:
-                        stage2tables_dict[stage_number] = []
-                    stage2tables_dict[stage_number].append(table_information['name'])
+                for node_label in node_labels:
+                    if table_name == node_label:
+                        print("Exact matched to node_label: {}".format(node_label))
+                        matched_to_node = True
+                        if table_name not in table2actions_dict:
+                            table2actions_dict[table_name] = []
+                        for action in table_information['actions']:
+                            table2actions_dict[table_name].append(table_name + "__" + action['name'])
+                        for stage_information in table_information['match_attributes']['stage_tables']:
+                            stage_number = stage_information['stage_number']
+                            if stage_number not in stage2tables_dict:
+                                stage2tables_dict[stage_number] = []
+                            stage2tables_dict[stage_number].append(table_information['name'])
             elif table_type == "action":
+                matched_to_node = True
                 print("Skipped")
             else:
                 print("Unknown table_type!")
                 sys.exit()
+            if not matched_to_node:
+                print("Unmatched table! Exit")
+                sys.exit()
+        pretty_print_dict(stage2tables_dict)
+        pretty_print_dict(table2actions_dict)
         return stage2tables_dict, table2actions_dict
-
 
     def get_new_node_mapping(self, graph):
         new_node_mapping = {}
