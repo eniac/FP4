@@ -14,6 +14,7 @@ program_list=(
    "load_balance"
    "rate_limiter"
    "basic_routing"
+   "basic_routing_old"
    "dv_router"
    "mirror_clone"
    "netchain"

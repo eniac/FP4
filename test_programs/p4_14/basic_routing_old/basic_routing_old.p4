@@ -108,7 +108,6 @@ header_type ingress_metadata_t {
         vrf : VRF_BIT_WIDTH;                   /* VRF */
         bd : BD_BIT_WIDTH;                     /* ingress BD */
         nexthop_index : 16;                    /* final next hop index */
-        on_miss_ipv4_fib : 1;
     }
 }
 
@@ -150,17 +149,13 @@ action fib_hit_nexthop(nexthop_index) {
     subtract_from_field(ipv4.ttl, 1);
 }
 
-action on_miss_ipv4_fib() {
-    modify_field(ingress_metadata.on_miss_ipv4_fib, 1); 
-}
-
 table ipv4_fib {
     reads {
         ingress_metadata.vrf : exact;
         ipv4.dstAddr : exact;
     }
     actions {
-        on_miss_ipv4_fib;
+        on_miss;
         fib_hit_nexthop;
     }
     size : IPV4_HOST_TABLE_SIZE;
@@ -206,10 +201,10 @@ control ingress {
         apply(bd);
 
         /* fib lookup, set ingress_metadata.nexthop_index */
-        apply(ipv4_fib);
-        
-        if (ingress_metadata.on_miss_ipv4_fib == 1) {
-            apply(ipv4_fib_lpm);
+        apply(ipv4_fib) {
+            on_miss {
+                apply(ipv4_fib_lpm);
+            }
         }
 
         /* derive standard_metadata.egress_spec from ingress_metadata.nexthop_index */
