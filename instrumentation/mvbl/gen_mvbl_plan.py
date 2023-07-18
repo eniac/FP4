@@ -66,22 +66,8 @@ class GraphParser(object):
         leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
         print(leaf_nodes)
 
-        print("====== Add edges from tables to actions, actions to the next table, preserving the labels for conditionals ======")
+        print("====== Add edges from tables to actions, actions to the next table ======")
         updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
-
-        edges_to_remove = []
-        # Step 8 - Remove table to table edge
-        for e in updated_edges:
-            if e['src'] in table2actions_dict and e['dst'] in table2actions_dict:
-                edges_to_remove.append(e)
-            elif e['src'] in table2actions_dict and e['dst'] in node2label_dict.values():
-                edges_to_remove.append(e)
-            elif e['dst'] in table2actions_dict and e['src'] in node2label_dict.values():
-                edges_to_remove.append(e)
-
-        for edge in edges_to_remove:
-            if edge in updated_edges:
-                updated_edges.remove(edge)
 
         # Step 9 - create graph with 0 weight
         for e in updated_edges:
@@ -338,21 +324,35 @@ class GraphParser(object):
 
 
     def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
-        new_edges = []
-        edge_to_del = []
+        # LC_TODO: Assuming no table predication logic for now, otherwise, need to match the action name to the edge label, which can be error prone
+        edges_to_del = []
+        edges_to_add = []
         for e in edges:
             print("--- {} ---".format(e))
+            # dst can be a conditional or table
             if e['src'] in table2actions_dict.keys():
-                edge_to_del.append(e)
-                for ac in table2actions_dict[e['src']]:
-                    new_edges.append({'src':e['src'], 'dst':ac, 'label':''})
-                    new_edges.append({'src':ac, 'dst':e['dst'], 'label':''})
+                print("Del")
+                edges_to_del.append(e)
+                for action in table2actions_dict[e['src']]:
+                    edges_to_add.append({'src': e['src'], 'dst': action, 'label': ''})
+                    edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
+                    print("Append {}".format({'src': e['src'], 'dst': action, 'label': ''}))
+                    print("Append {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
+            # Otherwise, only if the destination is a leaf table
             elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
-                for ac_1 in table2actions_dict[e['dst']]:
-                    new_edges.append({'src':e['dst'], 'dst':ac_1, 'label':''})
+                for action in table2actions_dict[e['dst']]:
+                    edges_to_add.append({'src': e['src'], 'dst': action, 'label': ''})
+                    edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
+                    print("Append {}".format({'src': e['src'], 'dst': action, 'label': ''}))
+                    print("Append {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
 
-        edges = edges + new_edges
-        for de in edge_to_del:
+            elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
+                for action in table2actions_dict[e['dst']]:
+                    edges_to_add.append({'src': e['dst'], 'dst': action, 'label': ''})
+                    print("Append {}".format({'src': e['dst'], 'dst': action, 'label': ''}))
+
+        edges = edges + edges_to_add
+        for de in edges_to_del:
             if de in edges:
                 edges.remove(de)
         return edges
