@@ -66,13 +66,12 @@ class GraphParser(object):
         leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
         print(leaf_nodes)
 
-        print("====== Add edges from tables to actions ======")
-        updates_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
+        print("====== Add edges from tables to actions, actions to the next table, preserving the labels for conditionals ======")
+        updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
         edges_to_remove = []
-
         # Step 8 - Remove table to table edge
-        for e in updates_edges:
+        for e in updated_edges:
             if e['src'] in table2actions_dict and e['dst'] in table2actions_dict:
                 edges_to_remove.append(e)
             elif e['src'] in table2actions_dict and e['dst'] in node2label_dict.values():
@@ -81,11 +80,11 @@ class GraphParser(object):
                 edges_to_remove.append(e)
 
         for edge in edges_to_remove:
-            if edge in updates_edges:
-                updates_edges.remove(edge)
+            if edge in updated_edges:
+                updated_edges.remove(edge)
 
         # Step 9 - create graph with 0 weight
-        for e in updates_edges:
+        for e in updated_edges:
             edges_tuples.append((e['src'], e['dst'], 0))
         edges_tuples = list(set(edges_tuples))
 
@@ -340,10 +339,11 @@ class GraphParser(object):
 
     def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
         new_edges = []
-        ed_to_del = []
+        edge_to_del = []
         for e in edges:
+            print("--- {} ---".format(e))
             if e['src'] in table2actions_dict.keys():
-                ed_to_del.append(e)
+                edge_to_del.append(e)
                 for ac in table2actions_dict[e['src']]:
                     new_edges.append({'src':e['src'], 'dst':ac, 'label':''})
                     new_edges.append({'src':ac, 'dst':e['dst'], 'label':''})
@@ -352,7 +352,7 @@ class GraphParser(object):
                     new_edges.append({'src':e['dst'], 'dst':ac_1, 'label':''})
 
         edges = edges + new_edges
-        for de in ed_to_del:
+        for de in edge_to_del:
             if de in edges:
                 edges.remove(de)
         return edges
