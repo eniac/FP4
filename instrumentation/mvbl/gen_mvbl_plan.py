@@ -29,8 +29,8 @@ def pretty_print_dict(dictionary):
 class GraphParser(object):
     def __init__(self, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
 
-        print("====== Extract node name to label mapping, filtering START, EXIT, and renaming labels with special chars ======")
-        node2label_dict = self.get_nodes_from_dot(dotfile_ing)
+        print("====== Extract node name to label mapping, filtering START, EXIT ======")
+        node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
 
         print("====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
         renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict)
@@ -69,38 +69,46 @@ class GraphParser(object):
         print("====== Add edges from tables to actions, actions to the next table ======")
         updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
-        # Step 9 - create graph with 0 weight
+        print("====== Crete full graph ======")
         for e in updated_edges:
             edges_tuples.append((e['src'], e['dst'], 0))
         edges_tuples = list(set(edges_tuples))
-
         full_graph = nx.DiGraph()
         full_graph.add_weighted_edges_from(edges_tuples)
 
-        # Step 10 - rename nodes
-        new_node_mapping = self.get_new_node_mapping(full_graph)
+        print("====== Sanitize special chars ([^a-zA-Z0-9_], e.g., \`.\`,\(,\),) for all nodes (actually for conditionals) for pulp ======")
+        new_node_mapping = self.sanitize_node_name(full_graph)
 
+        print("====== Create a sanitized graph ======")
         table_graph = nx.relabel_nodes(table_graph, new_node_mapping)
         full_graph =  nx.relabel_nodes(full_graph, new_node_mapping)
 
+        print("=== Update table names in table2actions_dict ===")
         for old_name, new_name in new_node_mapping.items():
             if old_name in table2actions_dict:
-                table2actions_dict[new_name] = table2actions_dict.pop(old_name)
-
+                if old_name != new_name:
+                    print("Unexpected rename of table old_name: {0} -> new_name: {1}".format(old_name, new_name))
+                    table2actions_dict[new_name] = table2actions_dict.pop(old_name)
+        print("=== Update table names in stage2tables_dict ===")
         for stage, table_list in stage2tables_dict.items():
-            for i, n in enumerate(table_list):
-                if n in new_node_mapping:
-                    table_list[i] = new_node_mapping[n]
+            for i, table_or_condtional in enumerate(table_list):
+                if table_or_condtional in new_node_mapping:
+                    if table_or_condtional != new_node_mapping[table_or_condtional]:
+                        print("Must be a rename of conditional old_name: {0} -> new_name: {1}".format(table_or_condtional, new_node_mapping[table_or_condtional]))
+                        table_list[i] = new_node_mapping[table]
+                else:
+                    print("table_or_condtional {} not found in new_node_mapping!".format(table_or_condtional))
+                    sys.exit()
 
-        # Step 11 - check for cycles
+        print("====== Check for cycles... ======")
         cycles = list(nx.simple_cycles(full_graph))
         if cycles:
-            print("****** cycles found ********")
+            print("****** cycles found! ********")
             for cycle in cycles:
                 print(cycle)
             print("****** end cycles found ********")
             print("****** It should be a DAG ********")
-            exit()
+            sys.exit()
 
         # Step 12
         from pulp_solver import PulpSolver
@@ -162,7 +170,7 @@ class GraphParser(object):
                 edges.append((e['src'], e['dst'], e['weight']))
             graph_with_weights[-1].add_weighted_edges_from(edges)
 
-    def get_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
+    def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
         subgraphs = dot_graph.get_subgraphs()  
@@ -171,7 +179,8 @@ class GraphParser(object):
                 label = n.obj_dict["attributes"]['label']
                 print("--- name: {0}, label {1} ---".format(n.get_name(), label))
                 if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__']:
-                    label = remove_special_chars(label, cnt_blk)
+                    # Do one function at a time
+                    # label = remove_special_chars(label, cnt_blk)
                     if label not in node_name_label.values():
                         print("Write: {0}:{1}".format(n.get_name(), label))
                         node_name_label[n.get_name()] = label
@@ -264,15 +273,17 @@ class GraphParser(object):
             if not matched_to_node:
                 print("Unmatched table! Exit")
                 sys.exit()
+        print("--- stage2tables_dict ---")
         pretty_print_dict(stage2tables_dict)
+        print("--- table2actions_dict ---")
         pretty_print_dict(table2actions_dict)
         return stage2tables_dict, table2actions_dict
 
-    def get_new_node_mapping(self, graph):
+    def sanitize_node_name(self, graph):
         new_node_mapping = {}
-
         for node in graph.nodes:
             new_node = re.sub(r'\W+', '', node)
+            print("--- {0} mapped to {1} ---".format(node, new_node))
             new_node_mapping[node] = new_node
         return new_node_mapping
 
@@ -324,7 +335,8 @@ class GraphParser(object):
 
 
     def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
-        # LC_TODO: Assuming no table predication logic for now, otherwise, need to match the action name to the edge label, which can be error prone
+        # LC_TODO: Assuming no table predication logic for now, i.e., nodes are tables or conditionals, and edges are T/F.
+        # One could extend it later to match the edge label to the (renamed) action name and add action nodes selectively
         edges_to_del = []
         edges_to_add = []
         for e in edges:
@@ -511,7 +523,8 @@ class GraphParser(object):
         for e in original_src_dst_label:
             print("--- src: {0}, dst: {1}, label: {2} ---".format(e['src'], e['dst'], e['label']))
             if(e['src'] in nodes.keys() and e['dst'] in nodes.keys()):
-                renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label'].replace('"','')})
+                # renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label'].replace('"','')})
+                renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']})
             else:
                 print("[WARNING] Skipped due to unidentified node ID (typically START or EXIT))!")
                 # sys.exit()
