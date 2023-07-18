@@ -1,0 +1,46 @@
+digraph ingress {
+subgraph cluster {
+graph [
+label="", labeljust=r, style=bold];
+0[label=__START__, margin="", shape=rectangle, style=solid];
+1[label=__EXIT__, margin="", shape=rectangle, style=solid];
+2[label="hdr.ipv4.isValid();", margin="", shape=rectangle, style=solid];
+3[label=ipv4_lpm, margin="", shape=ellipse, style=solid];
+4[label=check_ports, margin="", shape=ellipse, style=solid];
+5[label="meta.meta.check_ports_hit == 1;", margin="", shape=rectangle, style=solid];
+6[label="meta.meta.direction == 0;", margin="", shape=rectangle, style=solid];
+7[label=ti_get_incoming_pos, margin="", shape=ellipse, style=solid];
+8[label=ti_calculate_hash1, margin="", shape=ellipse, style=solid];
+9[label="hdr.tcp.syn == 1;", margin="", shape=rectangle, style=solid];
+10[label=ti_write_bloom_filter1, margin="", shape=ellipse, style=solid];
+11[label=ti_write_bloom_filter2, margin="", shape=ellipse, style=solid];
+12[label="meta.meta.direction == 1;", margin="", shape=rectangle, style=solid];
+13[label=ti_get_outgoing_pos, margin="", shape=ellipse, style=solid];
+14[label=ti_calculate_hash2, margin="", shape=ellipse, style=solid];
+15[label=ti_read_bloom_filter1, margin="", shape=ellipse, style=solid];
+16[label=ti_read_bloom_filter2, margin="", shape=ellipse, style=solid];
+17[label=ti_apply_filter, margin="", shape=ellipse, style=solid];
+0 -> 2[label=""];
+2 -> 3[label=TRUE];
+2 -> 1[label=FALSE];
+3 -> 4[label=""];
+4 -> 5[label=""];
+5 -> 6[label=TRUE];
+5 -> 1[label=FALSE];
+6 -> 7[label=TRUE];
+6 -> 12[label=FALSE];
+7 -> 8[label=""];
+8 -> 9[label=""];
+9 -> 10[label=TRUE];
+9 -> 1[label=FALSE];
+10 -> 11[label=""];
+11 -> 1[label=""];
+12 -> 13[label=TRUE];
+12 -> 1[label=FALSE];
+13 -> 14[label=""];
+14 -> 15[label=""];
+15 -> 16[label=""];
+16 -> 17[label=""];
+17 -> 1[label=""];
+}
+}

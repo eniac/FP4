@@ -1,0 +1,22 @@
+digraph egress {
+subgraph cluster {
+graph [
+label="", labeljust=r, style=bold];
+0[label=__START__, margin="", shape=rectangle, style=solid];
+1[label=__EXIT__, margin="", shape=rectangle, style=solid];
+2[label="eg_intr_md.egress_port == 40;", margin="", shape=rectangle, style=solid];
+3[label=teUpdateMirror, margin="", shape=ellipse, style=solid];
+4[label=teReadOriginal, margin="", shape=ellipse, style=solid];
+5[label=teReadMirror, margin="", shape=ellipse, style=solid];
+6[label=teUpdateOriginal, margin="", shape=ellipse, style=solid];
+7[label=teGetDiff, margin="", shape=ellipse, style=solid];
+0 -> 2[label=""];
+2 -> 3[label=TRUE];
+2 -> 5[label=FALSE];
+3 -> 4[label=""];
+4 -> 7[label=""];
+5 -> 6[label=""];
+6 -> 7[label=""];
+7 -> 1[label=""];
+}
+}
