@@ -27,47 +27,49 @@ def pretty_print_dict(dictionary):
 
 
 class GraphParser(object):
-    def __init__(self, dotfile_ing, jsonfile, input_type='p414'):
+    def __init__(self, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
 
-        # Extract node name to label mapping, filtering START, EXIT, and renaming labels with special chars
+        print("====== Extract node name to label mapping, filtering START, EXIT, and renaming labels with special chars ======")
         node2label_dict = self.get_nodes_from_dot(dotfile_ing)
 
-        # Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT
+        print("====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
         renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict)
 
-        # Create a table graph with 0 weights
+        print("====== Create a table graph with 0 weights ======")
         edges_tuples, table_graph = self.get_table_graph(renamed_edges)
 
-        # Each action is renamed to table_name__action_name s.t. actions are unique to a table
-        stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values())
+        print("====== extract_stages_p4_14 ======")
+        stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values(), direction)
         # if input_type == 'bmv2':
             # conditions_to_nextstep = self.extract_conditionals(jsonfile)
             # actions = self.extract_actions_bmv2(jsonfile)
             # table2actions_dict = self.extract_tables_actions_bmv2(jsonfile, actions)
 
+        print("====== Print all_actions ======")
         all_actions = []
         for action_list in table2actions_dict.values():
             all_actions.extend(action_list)
         all_actions = list(set(all_actions))
-        print("====== Print all_actions ======")
         print(all_actions)
 
-        # Step 5 - filter out tables for different pipeline
+        print("====== Check the consistency of the outputs from context.json and .dot ======")
         for stage, table_list in stage2tables_dict.items():
-            stage2tables_dict[stage] = [x for x in table_list if x in table_graph.nodes]
+            for table in table_list:
+                if table not in table_graph.nodes:
+                    print("table: {} NOT in table_graph.nodes!".format(table))
+                    sys.exit()
 
         # if input_type == 'bmv2':
         #     stage2tables_dict = self.estimate_stages(table_graph)
 
-
-        # Step 6 - Find leaves
+        print("====== Print leaf_nodes ======")
         leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
+        print(leaf_nodes)
 
-        # Step 7 - Add edges from tables to actions
-        updates_edges = self.append_missing_edges(table2actions_dict, renamed_edges, leaf_nodes)
+        print("====== Add edges from tables to actions ======")
+        updates_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
         edges_to_remove = []
-
 
         # Step 8 - Remove table to table edge
         for e in updates_edges:
@@ -176,7 +178,6 @@ class GraphParser(object):
             graph_with_weights[-1].add_weighted_edges_from(edges)
 
     def get_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
-        print("====== get_nodes_from_dot: {} ======".format(dotfile))
         node_name_label = {}
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
         subgraphs = dot_graph.get_subgraphs()  
@@ -210,7 +211,6 @@ class GraphParser(object):
         return node_name_label
 
     def get_table_graph(self, renamed_edges):
-        print("====== get_table_graph ======")
         edges_tuples = []
         for e in renamed_edges:
             edges_tuples.append((e['src'], e['dst'], 0))
@@ -220,8 +220,7 @@ class GraphParser(object):
         return edges_tuples, table_graph
  
     # Bug when there are multiple conditions in the if statement
-    def extract_stages_p4_14(self, contextFile, node_labels, target_direction="ingress"):
-        print("====== extract_stages_p4_14 ======")
+    def extract_stages_p4_14(self, contextFile, node_labels, target_direction):
         context_data = None
         with open(contextFile, 'r') as f:
             context_data = json.load(f)
@@ -264,6 +263,7 @@ class GraphParser(object):
                         if table_name not in table2actions_dict:
                             table2actions_dict[table_name] = []
                         for action in table_information['actions']:
+                            # Each action is renamed to table_name__action_name s.t. actions are unique to a table
                             table2actions_dict[table_name].append(table_name + "__" + action['name'])
                         for stage_information in table_information['match_attributes']['stage_tables']:
                             stage_number = stage_information['stage_number']
@@ -338,7 +338,7 @@ class GraphParser(object):
         return stage2tables_dict
 
 
-    def append_missing_edges(self, table2actions_dict, edges, leaf_nodes):
+    def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
         new_edges = []
         ed_to_del = []
         for e in edges:
@@ -500,7 +500,6 @@ class GraphParser(object):
 
 
     def get_edges_from_dot(self, dotfile, nodes):
-        print("====== get_edges_from_dot ======")
         original_src_dst_label = []
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
         for subGraph in dot_graph.get_subgraphs():
