@@ -29,6 +29,7 @@ def pretty_print_dict(dictionary):
 
 class GraphParser(object):
     def __init__(self, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
+        print("\n====== dotfile_ing: {0}, jsonfile: {1}, direction: {2} ======".format(dotfile_ing, jsonfile, direction))
 
         print("\n====== Extract node name to label mapping, filtering START, EXIT ======")
         node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
@@ -123,15 +124,19 @@ class GraphParser(object):
                     table2actions_dict[new_name] = table2actions_dict.pop(old_name)
 
         print("\n=== Update table names in stage2tables_dict ===")
+        print("--- stage2tables_dict original ---")
+        pretty_print_dict(stage2tables_dict)
         for stage, table_list in stage2tables_dict.items():
             for i, table_or_condtional in enumerate(table_list):
                 if table_or_condtional in new_node_mapping:
                     if table_or_condtional != new_node_mapping[table_or_condtional]:
                         print("Must be a rename of conditional old_name: {0} -> new_name: {1}".format(table_or_condtional, new_node_mapping[table_or_condtional]))
-                        table_list[i] = new_node_mapping[table]
+                        table_list[i] = new_node_mapping[table_or_condtional]
                 else:
                     print("table_or_condtional {} not found in new_node_mapping!".format(table_or_condtional))
                     sys.exit()
+        print("--- stage2tables_dict after ---")
+        pretty_print_dict(stage2tables_dict)
 
         print("\n====== Check for cycles... ======")
         cycles = list(nx.simple_cycles(full_graph))
@@ -188,7 +193,7 @@ class GraphParser(object):
                 for dst in candidate_dsts:
                     if nx.has_path(full_graph, src, dst):
                         if nx.has_path(full_graph, dst, src):
-                            print("ERR! bi-directional has_path!")
+                            print("ERR! bi-directional has_path between {0} and {1}!".format(src, dst))
                             sys.exit()
                         else:
                             new_subgraph_edges.append((src, dst, 0))
@@ -369,6 +374,7 @@ class GraphParser(object):
                     weighted_edges[ind]['weight'] = num_path[v]
                     num_path[v] = num_path[v] + num_path[e[1]]
 
+        print("--- printing edges with non-0 weights from total {} edges ---".format(len(weighted_edges)))
         for edge in weighted_edges:
             if edge['weight'] == 0:
                 continue
@@ -412,7 +418,7 @@ class GraphParser(object):
                     edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
                     print("Append {}".format({'src': e['src'], 'dst': action, 'label': ''}))
                     print("Append {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
-                # Note the edge case when the dst if also a left table
+                # Note the edge case when the dst if also a leaf table
                 if e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
                     for action in table2actions_dict[e['dst']]:
                         edges_to_add.append({'src': e['dst'], 'dst': action, 'label': ''})

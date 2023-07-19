@@ -7,6 +7,9 @@ class PulpSolver(object):
         
         cfgModel = pulp.LpProblem("CFG_Partition_Problem", pulp.LpMinimize)
 
+        print("--- stage_to_tables_dict ---")
+        print(stage_to_tables_dict)
+
         # K: assume the number of sub-graphs to be the max number of tables for a stage
         numk = max([len(x) for x in stage_to_tables_dict.values()])
         print("--- K as max number of tables for a stage: {} ---".format(numk))
@@ -34,9 +37,24 @@ class PulpSolver(object):
             # Constraint 4: sum of paths (in log) should be smaller than the var bit size
             cfgModel += pulp.lpSum(self.log_outgoing_edges(graph_wo_actions, table_actions, table_name) * assignment[(var, table_name)] for table_name in graph_wo_actions.nodes) <= var_size[var]
 
+            constraint4_str = ""
+            for table_name in graph_wo_actions.nodes:
+                constraint4_str += (str(self.log_outgoing_edges(graph_wo_actions, table_actions, table_name)) + "*" + str(assignment[(var, table_name)]) + " + ")
+            constraint4_str += ("<=" + str(var_size[var]))
+            print("--- constraint4_str ---")
+            print(constraint4_str)
+            
+
             for stage, table_list in stage_to_tables_dict.items():
                 # Constraint 2: For each stage S and sub-DAG j (variable v), only one table from Ts is assigned to sub-DAG j (variable v)
                 cfgModel += pulp.lpSum(assignment[var, t] for t in table_list) <= 1
+
+                constraint2_str = ""
+                for t in table_list:
+                    constraint2_str += (str(assignment[var, t])+" + ")
+                constraint2_str += " <= 1"
+                print("--- constraint2_str ---")
+                print(constraint2_str)
 
         for table_name in graph_wo_actions.nodes:
             # Constraint 3: Each table t is assigned to a single sub-DAG j (variable v)
