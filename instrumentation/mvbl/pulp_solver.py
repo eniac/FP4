@@ -1,43 +1,43 @@
-import pulp as plp
+import pulp
 import math
 
 
 class PulpSolver(object):
     def __init__(self, graph_wo_actions, graph_with_actions, stage_to_tables_dict, table_actions):
         
-        cfgModel = plp.LpProblem("CFG Partition Problem", plp.LpMinimize)
+        cfgModel = pulp.LpProblem("CFG Partition Problem", pulp.LpMinimize)
 
-        # K in section 4 of the Tracking P4 Program Execution in the Data Plane. It is the number of sub-dags.
+        # K: assume the number of sub-graphs to be the max number of tables for a stage
         numk = max([len(x) for x in stage_to_tables_dict.values()])
+        print("--- K as max number of tables for a stage: {} ---".format(numk))
         variables = [i for i in range(numk)]
 
         # Number of variables
-        var_size = plp.LpVariable.dicts(name='metaVariables', indices=variables, lowBound=0)
+        var_size = pulp.LpVariable.dicts(name='metaVariables', indices=variables, lowBound=0)
 
         # Objective function
-        cfgModel += (plp.lpSum(var_size[v] for v in var_size), 'minimize the total number of bits')
+        cfgModel += (pulp.lpSum(var_size[v] for v in var_size), 'minimize the total number of bits')
 
         # Possible assignment for each table
         assignment_keys = [(v, t) for v in variables for t in graph_wo_actions.nodes]
 
-        assignment = plp.LpVariable.dicts(name="assignmentVar", indices=assignment_keys, cat='Binary')
+        assignment = pulp.LpVariable.dicts(name="assignmentVar", indices=assignment_keys, cat='Binary')
 
         for var in variables:
-            # First constraint in the paper. Maximum bits can be 32 for each variable.
+            # Constraint 1: maximum bits can be 32 for each variable.
             cfgModel += var_size[var] <= 32
 
-            # Constraint 4
-            cfgModel += plp.lpSum(self.log_outgoing_edges(graph_wo_actions, table_actions, table_name) * assignment[(var, table_name)] for table_name in graph_wo_actions.nodes) <= var_size[var]
+            # Constraint 4: sum of paths (in log) should be smaller than the var bit size
+            cfgModel += pulp.lpSum(self.log_outgoing_edges(graph_wo_actions, table_actions, table_name) * assignment[(var, table_name)] for table_name in graph_wo_actions.nodes) <= var_size[var]
 
             for stage, table_list in stage_to_tables_dict.items():
-                # Constraint For each stage S and sub-DAG j (variable v), only one table from Ts is assigned to sub-DAG j (variable v). - Number 2
-                cfgModel += plp.lpSum(assignment[var, t] for t in table_list) <= 1
+                # Constraint 2: For each stage S and sub-DAG j (variable v), only one table from Ts is assigned to sub-DAG j (variable v)
+                cfgModel += pulp.lpSum(assignment[var, t] for t in table_list) <= 1
 
         for table_name in graph_wo_actions.nodes:
-            # Each table t is assigned to a single sub-DAG j (variable v). - Constraint Number 3
+            # Constraint 3: Each table t is assigned to a single sub-DAG j (variable v)
             # print('table_name', table_name)
-            cfgModel += plp.lpSum(assignment[(var, table_name)] for var in var_size) == 1
-
+            cfgModel += pulp.lpSum(assignment[(var, table_name)] for var in var_size) == 1
 
         cfgModel.solve()
         
@@ -62,11 +62,7 @@ class PulpSolver(object):
         print("subgraph to tables:\n", self.subgraph_to_tables)
         print("variable to variable size. Index is variable, value is the number of bits:\n", self.var_to_bits)
 
-
-
-    
     # def find_number_of_paths(self, graph_with_actions):
-        
 
     def summarize_log_outgoing_edges(self, graph_wo_actions, table_actions):
         table_edge_values = dict()

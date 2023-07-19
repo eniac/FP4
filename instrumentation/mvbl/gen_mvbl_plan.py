@@ -110,18 +110,14 @@ class GraphParser(object):
             print("****** It should be a DAG ********")
             sys.exit()
 
-        # Step 12
         from pulp_solver import PulpSolver
-        print("******  Going in PulpSolver  **********")
+        print("====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, full_graph, stage2tables_dict, table2actions_dict)
-        print("******   Out of PulpSolver   **********")
 
-
-        # Step 13 - construct the subgraphs
+        print("====== Constructing subgraphs for MVBL ======")
         new_graph_edges = []
         for _ in range(len(pulpSolver.var_to_bits)):
             new_graph_edges.append([])
-
         
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
             for edge in full_graph.edges:
@@ -158,8 +154,7 @@ class GraphParser(object):
             new_graphs.append(nx.DiGraph())
             new_graphs[-1].add_weighted_edges_from(graph_edges)
 
-        
-        # Step 14
+        print("====== Running BL for each subgraph ======")
         graph_with_weights = []
         for idx, graph in enumerate(new_graphs):
             print("----- Variable {0} additions------".format(idx))
