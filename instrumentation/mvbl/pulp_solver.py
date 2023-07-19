@@ -5,7 +5,7 @@ import math
 class PulpSolver(object):
     def __init__(self, graph_wo_actions, stage_to_tables_dict, table_actions):
         
-        cfgModel = pulp.LpProblem("CFG Partition Problem", pulp.LpMinimize)
+        cfgModel = pulp.LpProblem("CFG_Partition_Problem", pulp.LpMinimize)
 
         # K: assume the number of sub-graphs to be the max number of tables for a stage
         numk = max([len(x) for x in stage_to_tables_dict.values()])
@@ -14,12 +14,15 @@ class PulpSolver(object):
 
         # Decision variable: number of bits per sub-DAG
         var_size = pulp.LpVariable.dicts(name='metaVariables', indices=variables, lowBound=0)
+        print("--- {} ---".format(var_size))
 
         # Objective function
-        cfgModel += (pulp.lpSum(var_size[v] for v in var_size), 'minimize the total number of bits')
+        cfgModel += (pulp.lpSum(var_size[v] for v in var_size), 'Minimize_the_total_number_of_bits')
 
         # Decision variable: per sub-DAG, per table/conditional assignment tuple
         assignment_keys = [(v, t) for v in variables for t in graph_wo_actions.nodes]
+        for assignment_key in assignment_keys:
+            print(assignment_key)
 
         assignment = pulp.LpVariable.dicts(name="assignmentVar", indices=assignment_keys, cat='Binary')
 
