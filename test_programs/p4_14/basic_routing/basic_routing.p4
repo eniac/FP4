@@ -127,7 +127,7 @@ table port_mapping {
     }
     actions {
         set_bd;
-        on_miss()
+        on_miss;
     }
     default_action: on_miss();
     size : PORT_VLAN_TABLE_SIZE;

@@ -27,9 +27,15 @@ def pretty_print_dict(dictionary):
     print(json.dumps(dictionary, indent=4, sort_keys=True))
 
 
+JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT = "action_to_increment"
+JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
+JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
+
+
 class GraphParser(object):
-    def __init__(self, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
-        print("\n====== dotfile_ing: {0}, jsonfile: {1}, direction: {2} ======".format(dotfile_ing, jsonfile, direction))
+    def __init__(self, prog_name, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
+        print("\n====== program_name: {3}, dotfile_ing: {0}, jsonfile: {1}, direction: {2} ======".format(dotfile_ing, jsonfile, direction, prog_name))
+        json_output_dict = {}
 
         print("\n====== Extract node name to label mapping, filtering START, EXIT, tbl_act ======")
         node2label_dict, ignored_node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
@@ -152,10 +158,14 @@ class GraphParser(object):
         print("\n====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, stage2tables_dict, table2actions_dict)
 
+        json_output_dict["num_vars"] = len(pulpSolver.var_to_bits)
         # Based on the solver result, construct the sub-DAGs with only the tables and edges involved
         # Note that dummy edges should be handled properly
         new_subgraphs = []
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
+            json_output_dict[str(graph_number)] = {
+                "num_bits": number_of_bits
+            }
             print("\n====== Constructing subgraph {0} for MVBL based on table_graph and pulp result ======".format(graph_number))
             print("--- List of (table/conditonal) nodes included from pulp ---")
             included_table_conditional = pulpSolver.subgraph_to_tables[graph_number]
@@ -208,15 +218,19 @@ class GraphParser(object):
         for idx, graph in enumerate(new_subgraphs):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT] = {}
             edges_with_weights = self.ball_larus(graph)
             graph_with_weights = nx.DiGraph()
             edges = []
             for e in edges_with_weights:
                 edges.append((e['src'], e['dst'], e['weight']))
+                if e['weight'] != 0:
+                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT][e['dst']] = e['weight']
             graph_with_weights.add_weighted_edges_from(edges)
             graphs_with_weights.append(graph_with_weights)
         
         for idx, graph in enumerate(graphs_with_weights):
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT] = {}
             print("\n====== Printing path to encoding for sub-DAG {0} ======".format(idx))
             subdag_root_nodes = [v for v, d in graph.in_degree() if d == 0]
             subdag_leaf_nodes = [v for v, d in graph.out_degree() if d == 0]
@@ -232,8 +246,13 @@ class GraphParser(object):
                         weight = sum(graph.get_edge_data(path[i], path[i + 1])['weight'] for i in range(len(path) - 1))
                         all_paths_weights.append((path, weight))
             all_paths_weights.sort(key=lambda x: x[1])
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_PATHS] = len(all_paths_weights)
             for path, weight in all_paths_weights:
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
+                json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path
+        
+        with open("mvbl_plan/"+prog_name+"_"+direction+".json", 'w') as f:
+            json.dump(json_output_dict, f, indent=4, sort_keys=True)
 
     def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
@@ -390,7 +409,11 @@ class GraphParser(object):
         for edge in weighted_edges:
             if edge['weight'] == 0:
                 continue
-            print(edge)
+            else:
+                print(edge)
+                if "__" not in edge['dst']:
+                    print("Target instrumentation point is NOT an action!")
+                    raise Exception("ERR!")
 
         return weighted_edges
 
@@ -636,14 +659,16 @@ class GraphParser(object):
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Ball_larus split')
+    parser.add_argument('-p','--prog', help='Program name', required=True)
     parser.add_argument('-d','--dotfile', help='Dot file of the program', required=True)
+    parser.add_argument('-g','--gress', help='Ingress or egress', required=True)
     parser.add_argument('-c','--contextfile', help='Context json file of the program', required=True)
     parser.add_argument('-t','--target', help='Pick one from bmv2, p414, p416', choices=['bmv2', 'p414', 'p416'], default='p414')
     return parser.parse_args()
 
 def main():
     args = parse_arguments()
-    GraphParser(args.dotfile, args.contextfile, args.target)
+    GraphParser(args.prog, args.dotfile, args.contextfile, args.target, args.gress)
 
 
 if __name__ == '__main__':
