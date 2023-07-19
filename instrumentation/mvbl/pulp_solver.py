@@ -65,8 +65,11 @@ class PulpSolver(object):
                 self.var_to_bits[subgraph_number] = int(variable.varValue)
                 print("Assign subgraph {0} to {1}b".format(subgraph_number, int(variable.varValue)))
 
-        print("subgraph to tables:\n", self.subgraph_to_tables)
-        print("variable to variable size. Index is variable, value is the number of bits:\n", self.var_to_bits)
+        print("\n--- subgraph_to_tables ---")
+        print(self.subgraph_to_tables)
+
+        print("\n--- var_to_bits ---")
+        print(self.var_to_bits)
 
     def summarize_log_outgoing_edges(self, graph_wo_actions, table_actions):
         table_edge_values = dict()

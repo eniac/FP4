@@ -192,38 +192,6 @@ class GraphParser(object):
                 # print(line)
                 u, v = line.split('$')
                 print("{0} --> {1}".format(u, v))
-        #     for edge in full_graph.nodes:
-        #         print("--- {0} ---".format(edge))
-        #         src = edge[0]
-        #         dst = edge[1]
-
-        #         node_src = src
-        #         if '__' in src:
-        #             node_src = src.split('__')[0]
-        #         if node_src in pulpSolver.subgraph_to_tables[graph_number]:
-        #             new_src = src
-        #         else:
-        #             new_src = node_src
-
-        #         node_dst = dst
-        #         if '__' in dst:
-        #             node_dst = dst.split('__')[0]
-        #         if node_dst in pulpSolver.subgraph_to_tables[graph_number]:
-        #             new_dst = dst
-        #         else:
-        #             new_dst = node_dst
-
-        #         if new_src == new_dst:
-        #             print("new_src {0} == new_dst {1}!!!".format(new_src, new_dst))
-        #             continue
-        #         new_graph_edge = (new_src, new_dst, 0)
-        #         print("new_graph_edge: {0}".format(new_graph_edge))
-        #         new_graph_edges[graph_number].append(new_graph_edge)
-        # new_graphs = []
-        # for graph_edges in new_graph_edges:
-        #     new_graph = nx.DiGraph()
-        #     new_graph.add_weighted_edges_from(graph_edges)
-        #     new_graphs.append(new_graph)
 
         graphs_with_weights = []
         for idx, graph in enumerate(new_subgraphs):
@@ -245,7 +213,16 @@ class GraphParser(object):
             print(subdag_root_nodes)
             print("--- subdag_leaf_nodes ---")
             print(subdag_leaf_nodes)
-            # LC_TODO: print path to encoding
+            all_paths_weights = []
+            for root in subdag_root_nodes:
+                for leaf in subdag_leaf_nodes:
+                    paths = list(nx.all_simple_paths(graph, root, leaf))
+                    for path in paths:
+                        weight = sum(graph.get_edge_data(path[i], path[i + 1])['weight'] for i in range(len(path) - 1))
+                        all_paths_weights.append((path, weight))
+            all_paths_weights.sort(key=lambda x: x[1])
+            for path, weight in all_paths_weights:
+                print("Path: {0}, Total Weight: {1}".format(path, weight))
 
     def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
