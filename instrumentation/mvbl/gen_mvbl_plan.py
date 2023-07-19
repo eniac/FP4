@@ -65,7 +65,7 @@ class GraphParser(object):
             for table in table_list:
                 if table not in table_graph.nodes:
                     print("table: {} NOT in table_graph.nodes!".format(table))
-                    sys.exit()
+                    raise Exception("ERR!")
 
         # if input_type == 'bmv2':
         #     stage2tables_dict = self.estimate_stages(table_graph)
@@ -134,7 +134,7 @@ class GraphParser(object):
                         table_list[i] = new_node_mapping[table_or_condtional]
                 else:
                     print("table_or_condtional {} not found in new_node_mapping!".format(table_or_condtional))
-                    sys.exit()
+                    raise Exception("ERR!")
         print("--- stage2tables_dict after ---")
         pretty_print_dict(stage2tables_dict)
 
@@ -146,7 +146,7 @@ class GraphParser(object):
                 print(cycle)
             print("****** end cycles found ********")
             print("****** It should be a DAG ********")
-            sys.exit()
+            raise Exception("ERR!")
 
         from pulp_solver import PulpSolver
         print("\n====== Running PulpSolver ======")
@@ -252,7 +252,7 @@ class GraphParser(object):
                         node_name_label[n.get_name()] = label
                     else:
                         print("TODO: Duplicate label, exit!!!")
-                        sys.exit()
+                        raise Exception("ERR!")
                         cnt = 1
                         key = list(node_name_label.keys())
                         values = list(node_name_label.values())
@@ -341,10 +341,10 @@ class GraphParser(object):
                 print("Skipped")
             else:
                 print("Unknown table_type!")
-                sys.exit()
+                raise Exception("ERR!")
             if not matched_to_node:
                 print("Unmatched table! Exit")
-                sys.exit()
+                raise Exception("ERR!")
         print("--- stage2tables_dict ---")
         pretty_print_dict(stage2tables_dict)
         print("--- table2actions_dict ---")
@@ -602,26 +602,27 @@ class GraphParser(object):
                 print("Append to renamed_src_dst_label: {}".format({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']}))
                 renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']})
             elif e['src'] in nodes.keys() and e['dst'] not in nodes.keys():
-                print("Skipped {}".format({'src':nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
+                print("[WARNING] Skipped {}".format({'src':nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
                 if ignored_nodes[e['dst']] == "__EXIT__" or ignored_nodes[e['dst']] == "tbl_act":
                     continue
                 else:
                     print("[ERROR] Unexpected edge!")
-                    sys.exit()
+                    raise Exception("ERR!")
             elif e['src'] not in nodes.keys() and e['dst'] in nodes.keys():
-                print("Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']}))
-                if ignored_nodes[e['src']] == "__START__" or ignored_nodes[e['src']] == "tbl_act":
+                print("[WARNING] Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']}))
+                if ignored_nodes[e['src']] == "__START__":
                     continue
                 else:
+                    # Can't be ignored_nodes[e['src']] == "tbl_act"!
                     print("[ERROR] Unexpected edge!")
-                    sys.exit()
+                    raise Exception("ERR!")
             else:
-                print("Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
+                print("[WARNING] Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
                 if (ignored_nodes[e['src']] == "tbl_act" and ignored_nodes[e['dst']] == "__EXIT__") or (ignored_nodes[e['src']] == "__START__" and ignored_nodes[e['dst']] == "__EXIT__"):
                     continue
                 else:
                     print("[ERROR] Unexpected edge!")
-                    sys.exit()
+                    raise Exception("ERR!")
         print("--- renamed_src_dst_label ---")
         pretty_print_dict(renamed_src_dst_label)
         return renamed_src_dst_label

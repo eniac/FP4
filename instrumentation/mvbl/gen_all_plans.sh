@@ -1,18 +1,24 @@
+#! /bin/bash
+
+set -ex
+
 SDE_PREFIX=/home/leoyu/bf-sde-9.2.0/pkgsrc/p4-build/tofino
 
 program_list=(
-#    "firewall"
-#    "load_balance"
-#    "rate_limiter"
    "basic_routing"
-#    "dv_router"
-#    "mirror_clone"
-#    "netchain"
+   # "firewall"
+   # "load_balance"
+   # "rate_limiter"
+   # "basic_routing_old"
+   # "dv_router"
+   # "mirror_clone"
+   # "netchain"
 )
 
 context_dot_cache_dir="context_dot_cache"
 
 rm -rf $context_dot_cache_dir
+mkdir $context_dot_cache_dir
 
 for program in "${program_list[@]}"
 do
