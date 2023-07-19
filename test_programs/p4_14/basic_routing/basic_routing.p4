@@ -127,7 +127,9 @@ table port_mapping {
     }
     actions {
         set_bd;
+        on_miss()
     }
+    default_action: on_miss();
     size : PORT_VLAN_TABLE_SIZE;
 }
 
@@ -141,7 +143,9 @@ table bd {
     }
     actions {
         set_vrf;
+        on_miss;
     }
+    default_action: on_miss();
     size : BD_TABLE_SIZE;
 }
 
@@ -163,6 +167,7 @@ table ipv4_fib {
         on_miss_ipv4_fib;
         fib_hit_nexthop;
     }
+    default_action: on_miss_ipv4_fib();
     size : IPV4_HOST_TABLE_SIZE;
 }
 
@@ -175,6 +180,7 @@ table ipv4_fib_lpm {
         on_miss;
         fib_hit_nexthop;
     }
+    default_action: on_miss();
     size : IPV4_LPM_TABLE_SIZE;
 }
 
@@ -194,6 +200,7 @@ table nexthop {
         ai_drop;
         set_egress_details;
     }
+    default_action: ai_drop();
     size : NEXTHOP_TABLE_SIZE;
 }
 
@@ -230,6 +237,7 @@ table rewrite_mac {
         on_miss;
         rewrite_src_dst_mac;
     }
+    default_action: on_miss();
     size : REWRITE_MAC_TABLE_SIZE;
 }
 
