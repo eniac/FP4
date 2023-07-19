@@ -412,6 +412,11 @@ class GraphParser(object):
                     edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
                     print("Append {}".format({'src': e['src'], 'dst': action, 'label': ''}))
                     print("Append {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
+                # Note the edge case when the dst if also a left table
+                if e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
+                    for action in table2actions_dict[e['dst']]:
+                        edges_to_add.append({'src': e['dst'], 'dst': action, 'label': ''})
+                        print("Append {}".format({'src': e['dst'], 'dst': action, 'label': ''}))                    
             # Otherwise, only if the destination is a leaf table
             elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
                 for action in table2actions_dict[e['dst']]:
