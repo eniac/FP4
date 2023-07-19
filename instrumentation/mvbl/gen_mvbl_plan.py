@@ -31,11 +31,11 @@ class GraphParser(object):
     def __init__(self, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
         print("\n====== dotfile_ing: {0}, jsonfile: {1}, direction: {2} ======".format(dotfile_ing, jsonfile, direction))
 
-        print("\n====== Extract node name to label mapping, filtering START, EXIT ======")
-        node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
+        print("\n====== Extract node name to label mapping, filtering START, EXIT, tbl_act ======")
+        node2label_dict, ignored_node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
 
         print("\n====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
-        renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict)
+        renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict, ignored_node2label_dict)
 
         print("\n====== Create a table graph with 0 weights ======")
         table_graph_edges_tuples, table_graph = self.get_table_graph(renamed_edges)
@@ -207,7 +207,7 @@ class GraphParser(object):
         graphs_with_weights = []
         for idx, graph in enumerate(new_subgraphs):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
-            print("----- Variable {0} additions------".format(idx))
+            print("----- Get BL plan for variable {0} additions------".format(idx))
             edges_with_weights = self.ball_larus(graph)
             graph_with_weights = nx.DiGraph()
             edges = []
@@ -237,13 +237,14 @@ class GraphParser(object):
 
     def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
+        ignored_node_name_label = {}
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
         subgraphs = dot_graph.get_subgraphs()  
         for subG in subgraphs:
             for n in subG.get_node_list():
                 label = n.obj_dict["attributes"]['label']
                 print("--- name: {0}, label {1} ---".format(n.get_name(), label))
-                if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__']:
+                if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__', 'tbl_act']:
                     # Do one function at a time
                     # label = remove_special_chars(label, cnt_blk)
                     if label not in node_name_label.values():
@@ -266,8 +267,13 @@ class GraphParser(object):
                         node_name_label[n.get_name()] = label
                         # if "##" in node_name_label[ind]:
                         #   cnt = int(node_name_label[ind].split("##")[1])
+                else:
+                    ignored_node_name_label[n.get_name()] = label
+        print("--- node_name_label ---")
         pretty_print_dict(node_name_label)
-        return node_name_label
+        print("--- ignored_node_name_label ---")
+        pretty_print_dict(ignored_node_name_label)
+        return node_name_label, ignored_node_name_label
 
     def get_table_graph(self, renamed_edges):
         edges_tuples = []
@@ -314,6 +320,7 @@ class GraphParser(object):
                             if stage_number not in stage2tables_dict:
                                 stage2tables_dict[stage_number] = []
                             stage2tables_dict[stage_number].append(node_label)
+            # Which is similar to a branch point
             elif table_type == "match":
                 for node_label in node_labels:
                     if table_name == node_label:
@@ -579,7 +586,8 @@ class GraphParser(object):
         return action_list
 
 
-    def get_edges_from_dot(self, dotfile, nodes):
+    def get_edges_from_dot(self, dotfile, nodes, ignored_nodes):
+        print("--- get_edges_from_dot ---")
         original_src_dst_label = []
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
         for subGraph in dot_graph.get_subgraphs():
@@ -590,12 +598,31 @@ class GraphParser(object):
         renamed_src_dst_label = []
         for e in original_src_dst_label:
             print("--- src: {0}, dst: {1}, label: {2} ---".format(e['src'], e['dst'], e['label']))
-            if(e['src'] in nodes.keys() and e['dst'] in nodes.keys()):
-                # renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label'].replace('"','')})
+            if e['src'] in nodes.keys() and e['dst'] in nodes.keys():
+                print("Append to renamed_src_dst_label: {}".format({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']}))
                 renamed_src_dst_label.append({'src':nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']})
+            elif e['src'] in nodes.keys() and e['dst'] not in nodes.keys():
+                print("Skipped {}".format({'src':nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
+                if ignored_nodes[e['dst']] == "__EXIT__" or ignored_nodes[e['dst']] == "tbl_act":
+                    continue
+                else:
+                    print("[ERROR] Unexpected edge!")
+                    sys.exit()
+            elif e['src'] not in nodes.keys() and e['dst'] in nodes.keys():
+                print("Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':nodes[e['dst']], 'label': e['label']}))
+                if ignored_nodes[e['src']] == "__START__" or ignored_nodes[e['src']] == "tbl_act":
+                    continue
+                else:
+                    print("[ERROR] Unexpected edge!")
+                    sys.exit()
             else:
-                print("[WARNING] Skipped due to unidentified node ID (typically START or EXIT))!")
-                # sys.exit()
+                print("Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
+                if (ignored_nodes[e['src']] == "tbl_act" and ignored_nodes[e['dst']] == "__EXIT__") or (ignored_nodes[e['src']] == "__START__" and ignored_nodes[e['dst']] == "__EXIT__"):
+                    continue
+                else:
+                    print("[ERROR] Unexpected edge!")
+                    sys.exit()
+        print("--- renamed_src_dst_label ---")
         pretty_print_dict(renamed_src_dst_label)
         return renamed_src_dst_label
 

@@ -43,10 +43,10 @@ class PulpSolver(object):
             constraint4_str += ("<=" + str(var_size[var]))
             print("--- constraint4_str ---")
             print(constraint4_str)
-            
 
             for stage, table_list in stage_to_tables_dict.items():
                 # Constraint 2: For each stage S and sub-DAG j (variable v), only one table from Ts is assigned to sub-DAG j (variable v)
+                # LC_TODO: one won't instrument the conditional node, maybe the conditional node can be ommited in this constraint?
                 cfgModel += pulp.lpSum(assignment[var, t] for t in table_list) <= 1
 
                 constraint2_str = ""
@@ -104,6 +104,7 @@ class PulpSolver(object):
             next_nodes = 1
         if table_name in table_actions:
             next_nodes = next_nodes * len(table_actions[table_name])
+            print("table_actions[{0}]: {1}".format(table_name, table_actions[table_name]))
         print("# of out edges (w actions): {}".format(next_nodes))
         # LC_TODO: Don't need to take ceil? maybe subject to over estimation.
         # It is OK to be 0 (rather than 1)?
