@@ -78,6 +78,7 @@ class GraphParser(object):
 
         print("====== Sanitize special chars ([^a-zA-Z0-9_], e.g., \`.\`,\(,\),) for all nodes (actually for conditionals) for pulp ======")
         new_node_mapping = self.sanitize_node_name(full_graph)
+        # LC_TODO: get reverse mapping as well and validate it
 
         print("====== Create a sanitized graph ======")
         table_graph = nx.relabel_nodes(table_graph, new_node_mapping)
@@ -114,56 +115,57 @@ class GraphParser(object):
         print("====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, full_graph, stage2tables_dict, table2actions_dict)
 
-        print("====== Constructing subgraphs for MVBL ======")
         new_graph_edges = []
         for _ in range(len(pulpSolver.var_to_bits)):
             new_graph_edges.append([])
-        
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
+            print("====== Constructing subgraph {0} for MVBL ======".format(graph_number))
             for edge in full_graph.edges:
+                print("--- {0} ---".format(edge))
                 src = edge[0]
                 dst = edge[1]
 
+                node_src = src
                 if '__' in src:
-                    table_src = src.split('__')[0]
-                else:
-                    table_src = src
-
-                if table_src in pulpSolver.subgraph_to_tables[graph_number]:
+                    node_src = src.split('__')[0]
+                if node_src in pulpSolver.subgraph_to_tables[graph_number]:
                     new_src = src
                 else:
-                    new_src = table_src
+                    new_src = node_src
 
+                node_dst = dst
                 if '__' in dst:
-                    table_dst = dst.split('__')[0]
-                else:
-                    table_dst = dst
-
-                if table_dst in pulpSolver.subgraph_to_tables[graph_number]:
+                    node_dst = dst.split('__')[0]
+                if node_dst in pulpSolver.subgraph_to_tables[graph_number]:
                     new_dst = dst
                 else:
-                    new_dst = table_dst
+                    new_dst = node_dst
 
                 if new_src == new_dst:
+                    print("new_src {0} == new_dst {1}!!!".format(new_src, new_dst))
                     continue
-
-                new_graph_edges[graph_number].append((new_src, new_dst, 0))
+                new_graph_edge = (new_src, new_dst, 0)
+                print("new_graph_edge: {0}".format(new_graph_edge))
+                new_graph_edges[graph_number].append(new_graph_edge)
 
         new_graphs = []
         for graph_edges in new_graph_edges:
-            new_graphs.append(nx.DiGraph())
-            new_graphs[-1].add_weighted_edges_from(graph_edges)
+            new_graph = nx.DiGraph()
+            new_graph.add_weighted_edges_from(graph_edges)
+            new_graphs.append(new_graph)
 
         print("====== Running BL for each subgraph ======")
-        graph_with_weights = []
+        graphs_with_weights = []
         for idx, graph in enumerate(new_graphs):
             print("----- Variable {0} additions------".format(idx))
             edges_with_weights = self.ball_larus(graph)
-            graph_with_weights.append(nx.DiGraph())
+            graph_with_weights = nx.DiGraph()
             edges = []
             for e in edges_with_weights:
                 edges.append((e['src'], e['dst'], e['weight']))
-            graph_with_weights[-1].add_weighted_edges_from(edges)
+            graph_with_weights.add_weighted_edges_from(edges)
+            graphs_with_weights.append(graph_with_weights)
+            # LC_TODO: print the mapping of values to paths using networkx
 
     def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
