@@ -26,6 +26,16 @@ import json
 def pretty_print_dict(dictionary):
     print(json.dumps(dictionary, indent=4, sort_keys=True))
 
+def visualize_digraph(graph, name):
+    print("\n====== Visualize {} ======".format(name))
+    print("--- nodelist ---")
+    for node in graph.nodes:
+        print(node)
+    print("--- edgelist ---")
+    for line in nx.generate_edgelist(graph, delimiter='$', data=False):
+        u, v = line.split('$')
+        print("{0} --> {1}".format(u, v))
+
 
 JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT = "action_to_increment"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
@@ -44,13 +54,9 @@ class GraphParser(object):
         renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict, ignored_node2label_dict)
 
         print("\n====== Create a table graph with 0 weights ======")
-        table_graph_edges_tuples, table_graph = self.get_table_graph(renamed_edges)
+        table_graph_edges_tuples, table_graph = self.get_table_graph(node2label_dict, renamed_edges)
 
-        print("\n====== Visialuze table_graph ======")
-        for line in nx.generate_edgelist(table_graph, delimiter='$', data=False):
-            # print(line)
-            u, v = line.split('$')
-            print("{0} --> {1}".format(u, v))
+        visualize_digraph(table_graph, "table_graph")
 
         print("\n====== extract_stages_p4_14 ======")
         stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values(), direction)
@@ -97,11 +103,7 @@ class GraphParser(object):
         full_graph = nx.DiGraph()
         full_graph.add_weighted_edges_from(full_graph_edges_tuples)
 
-        print("\n====== Visualize full_graph ======")
-        for line in nx.generate_edgelist(full_graph, delimiter='$', data=False):
-            # print(line)
-            u, v = line.split('$')
-            print("{0} --> {1}".format(u, v))
+        visualize_digraph(full_graph, "full_graph")
 
         print("\n====== Sanitize special chars ([^a-zA-Z0-9_], e.g., \`.\`,\(,\),) for all nodes (actually for conditionals) for pulp ======")
         new_node_mapping, reverse_new_node_mapping = self.sanitize_node_name(full_graph)
@@ -208,11 +210,7 @@ class GraphParser(object):
                             new_subgraph_edges.append((src, dst, 0))
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             new_subgraphs.append(new_subgraph)
-            print("--- Visualize new_subgraph ---")
-            for line in nx.generate_edgelist(new_subgraph, delimiter='$', data=False):
-                # print(line)
-                u, v = line.split('$')
-                print("{0} --> {1}".format(u, v))
+            visualize_digraph(new_subgraph, "new_subgraph")
 
         graphs_with_weights = []
         for idx, graph in enumerate(new_subgraphs):
@@ -294,12 +292,15 @@ class GraphParser(object):
         pretty_print_dict(ignored_node_name_label)
         return node_name_label, ignored_node_name_label
 
-    def get_table_graph(self, renamed_edges):
+    def get_table_graph(self, node2label_dict, renamed_edges):
+        print("--- get_table_graph ---")
         edges_tuples = []
         for e in renamed_edges:
             edges_tuples.append((e['src'], e['dst'], 0))
         edges_tuples = list(set(edges_tuples))
         table_graph = nx.DiGraph()
+        print("add_nodes_from: {}".format(list(node2label_dict.values())))
+        table_graph.add_nodes_from(list(node2label_dict.values()))
         table_graph.add_weighted_edges_from(edges_tuples)
         return edges_tuples, table_graph
  
