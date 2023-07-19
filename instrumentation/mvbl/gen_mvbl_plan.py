@@ -37,7 +37,7 @@ class GraphParser(object):
         renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict)
 
         print("\n====== Create a table graph with 0 weights ======")
-        edges_tuples, table_graph = self.get_table_graph(renamed_edges)
+        table_graph_edges_tuples, table_graph = self.get_table_graph(renamed_edges)
 
         print("\n====== Visialuze table_graph ======")
         for line in nx.generate_edgelist(table_graph, delimiter='$', data=False):
@@ -81,13 +81,16 @@ class GraphParser(object):
         updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
         print("\n====== Create full graph ======")
+        print("--- from updated_edges ---")
+        print(updated_edges)
+        full_graph_edges_tuples = []  # Reset
         for e in updated_edges:
-            edges_tuples.append((e['src'], e['dst'], 0))
-        edges_tuples = list(set(edges_tuples))
+            full_graph_edges_tuples.append((e['src'], e['dst'], 0))
+        full_graph_edges_tuples = list(set(full_graph_edges_tuples))
         full_graph = nx.DiGraph()
-        full_graph.add_weighted_edges_from(edges_tuples)
+        full_graph.add_weighted_edges_from(full_graph_edges_tuples)
 
-        print("\n====== Visialuze full_graph ======")
+        print("\n====== Visualize full_graph ======")
         for line in nx.generate_edgelist(full_graph, delimiter='$', data=False):
             # print(line)
             u, v = line.split('$')
@@ -184,7 +187,11 @@ class GraphParser(object):
             for src in candidate_srcs:
                 for dst in candidate_dsts:
                     if nx.has_path(full_graph, src, dst):
-                        new_subgraph_edges.append((src, dst, 0))
+                        if nx.has_path(full_graph, dst, src):
+                            print("ERR! bi-directional has_path!")
+                            sys.exit()
+                        else:
+                            new_subgraph_edges.append((src, dst, 0))
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             new_subgraphs.append(new_subgraph)
             print("--- Visualize new_subgraph ---")
@@ -389,6 +396,7 @@ class GraphParser(object):
         return stage2tables_dict
 
     def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
+        print("--- append_table_action_edges ---")
         # LC_TODO: Assuming no table predication logic for now, i.e., nodes are tables or conditionals, and edges are T/F.
         # One could extend it later to match the edge label to the (renamed) action name and add action nodes selectively
         edges_to_del = []
@@ -397,7 +405,7 @@ class GraphParser(object):
             print("--- {} ---".format(e))
             # dst can be a conditional or table
             if e['src'] in table2actions_dict.keys():
-                print("Del")
+                print("Mark del")
                 edges_to_del.append(e)
                 for action in table2actions_dict[e['src']]:
                     edges_to_add.append({'src': e['src'], 'dst': action, 'label': ''})
@@ -412,8 +420,12 @@ class GraphParser(object):
 
         edges = edges + edges_to_add
         for de in edges_to_del:
+            print("de in edges_to_del: {}".format(de))
             if de in edges:
+                print("edges.remove: {}".format(de))
                 edges.remove(de)
+        print("--- edges updated from append_table_action_edges ---")
+        print(edges)
         return edges
 
     def eliminate_edge(self, edge, edges, nodes,edge_to_del):

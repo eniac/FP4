@@ -21,6 +21,7 @@ class PulpSolver(object):
 
         # Decision variable: per sub-DAG, per table/conditional assignment tuple
         assignment_keys = [(v, t) for v in variables for t in graph_wo_actions.nodes]
+        print("--- assignment_keys ---")
         for assignment_key in assignment_keys:
             print(assignment_key)
 
