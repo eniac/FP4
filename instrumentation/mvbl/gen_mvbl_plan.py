@@ -8,6 +8,7 @@ import copy
 import re
 import sys
 
+
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
 
@@ -29,16 +30,22 @@ def pretty_print_dict(dictionary):
 class GraphParser(object):
     def __init__(self, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
 
-        print("====== Extract node name to label mapping, filtering START, EXIT ======")
+        print("\n====== Extract node name to label mapping, filtering START, EXIT ======")
         node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
 
-        print("====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
+        print("\n====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
         renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict)
 
-        print("====== Create a table graph with 0 weights ======")
+        print("\n====== Create a table graph with 0 weights ======")
         edges_tuples, table_graph = self.get_table_graph(renamed_edges)
 
-        print("====== extract_stages_p4_14 ======")
+        print("\n====== Visialuze table_graph ======")
+        for line in nx.generate_edgelist(table_graph, delimiter='$', data=False):
+            # print(line)
+            u, v = line.split('$')
+            print("{0} --> {1}".format(u, v))
+
+        print("\n====== extract_stages_p4_14 ======")
         stage2tables_dict, table2actions_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values(), direction)
         # if input_type == 'bmv2':
             # conditions_to_nextstep = self.extract_conditionals(jsonfile)
@@ -52,7 +59,7 @@ class GraphParser(object):
         all_actions = list(set(all_actions))
         print(all_actions)
 
-        print("====== Check the consistency of the outputs from context.json and .dot ======")
+        print("\n====== Check the consistency of the outputs from context.json and .dot ======")
         for stage, table_list in stage2tables_dict.items():
             for table in table_list:
                 if table not in table_graph.nodes:
@@ -62,35 +69,57 @@ class GraphParser(object):
         # if input_type == 'bmv2':
         #     stage2tables_dict = self.estimate_stages(table_graph)
 
-        print("====== Print leaf_nodes ======")
+        print("\n====== Print roots and leaf_nodes ======")
+        root_nodes = [v for v, d in table_graph.in_degree() if d == 0]
         leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
+        print("--- root_nodes ---")
+        print(root_nodes)
+        print("--- leaf_nodes ---")
         print(leaf_nodes)
 
-        print("====== Add edges from tables to actions, actions to the next table ======")
+        print("\n====== Add edges from tables to actions, actions to the next table ======")
         updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
-        print("====== Create full graph ======")
+        print("\n====== Create full graph ======")
         for e in updated_edges:
             edges_tuples.append((e['src'], e['dst'], 0))
         edges_tuples = list(set(edges_tuples))
         full_graph = nx.DiGraph()
         full_graph.add_weighted_edges_from(edges_tuples)
 
-        print("====== Sanitize special chars ([^a-zA-Z0-9_], e.g., \`.\`,\(,\),) for all nodes (actually for conditionals) for pulp ======")
-        new_node_mapping = self.sanitize_node_name(full_graph)
-        # LC_TODO: get reverse mapping as well and validate it
+        print("\n====== Visialuze full_graph ======")
+        for line in nx.generate_edgelist(full_graph, delimiter='$', data=False):
+            # print(line)
+            u, v = line.split('$')
+            print("{0} --> {1}".format(u, v))
 
-        print("====== Create a sanitized graph ======")
+        print("\n====== Sanitize special chars ([^a-zA-Z0-9_], e.g., \`.\`,\(,\),) for all nodes (actually for conditionals) for pulp ======")
+        new_node_mapping, reverse_new_node_mapping = self.sanitize_node_name(full_graph)
+
+        print("\n====== Create a sanitized graph ======")
         table_graph = nx.relabel_nodes(table_graph, new_node_mapping)
         full_graph =  nx.relabel_nodes(full_graph, new_node_mapping)
 
-        print("=== Update table names in table2actions_dict ===")
+        print("\n====== Visialuze sanitized table_graph ======")
+        for line in nx.generate_edgelist(full_graph, delimiter='$', data=False):
+            # print(line)
+            u, v = line.split('$')
+            print("{0} --> {1}".format(u, v))
+
+        print("\n====== Visialuze sanitized full_graph ======")
+        for line in nx.generate_edgelist(full_graph, delimiter='$', data=False):
+            # print(line)
+            u, v = line.split('$')
+            print("{0} --> {1}".format(u, v))
+
+        print("\n=== Update table names in table2actions_dict ===")
         for old_name, new_name in new_node_mapping.items():
             if old_name in table2actions_dict:
                 if old_name != new_name:
                     print("Unexpected rename of table old_name: {0} -> new_name: {1}".format(old_name, new_name))
                     table2actions_dict[new_name] = table2actions_dict.pop(old_name)
-        print("=== Update table names in stage2tables_dict ===")
+
+        print("\n=== Update table names in stage2tables_dict ===")
         for stage, table_list in stage2tables_dict.items():
             for i, table_or_condtional in enumerate(table_list):
                 if table_or_condtional in new_node_mapping:
@@ -101,7 +130,7 @@ class GraphParser(object):
                     print("table_or_condtional {} not found in new_node_mapping!".format(table_or_condtional))
                     sys.exit()
 
-        print("====== Check for cycles... ======")
+        print("\n====== Check for cycles... ======")
         cycles = list(nx.simple_cycles(full_graph))
         if cycles:
             print("****** cycles found! ********")
@@ -112,17 +141,18 @@ class GraphParser(object):
             sys.exit()
 
         from pulp_solver import PulpSolver
-        print("====== Running PulpSolver ======")
+        print("\n====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, stage2tables_dict, table2actions_dict)
 
         # LC_TODO: maybe need to traverse the graph itself rather than edges to deal with dummy nodes (bypass them and direct connect)
         # Maybe directly use table_graph rather than full_graph (actually full_graph is useless even in pulp... as it is easy to go from a table_graph to full_graph)
-        # The current implementation doesn't make sense!
         new_graph_edges = []
         for _ in range(len(pulpSolver.var_to_bits)):
             new_graph_edges.append([])
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
-            print("====== Constructing subgraph {0} for MVBL ======".format(graph_number))
+            print("\n====== Constructing subgraph {0} for MVBL ======".format(graph_number))
+            print("--- List of nodes included ---")
+            print(pulpSolver.subgraph_to_tables[graph_number])
             for edge in full_graph.edges:
                 print("--- {0} ---".format(edge))
                 src = edge[0]
@@ -157,7 +187,7 @@ class GraphParser(object):
             new_graph.add_weighted_edges_from(graph_edges)
             new_graphs.append(new_graph)
 
-        print("====== Running BL for each subgraph ======")
+        print("\n====== Running BL for each subgraph ======")
         graphs_with_weights = []
         for idx, graph in enumerate(new_graphs):
             print("----- Variable {0} additions------".format(idx))
@@ -168,7 +198,16 @@ class GraphParser(object):
                 edges.append((e['src'], e['dst'], e['weight']))
             graph_with_weights.add_weighted_edges_from(edges)
             graphs_with_weights.append(graph_with_weights)
-            # LC_TODO: print the mapping of values to paths using networkx
+        
+        for idx, graph in enumerate(graphs_with_weights):
+            print("\n====== Printing path to encoding for sub-DAG {0} ======".format(idx))
+            subdag_root_nodes = [v for v, d in graph.in_degree() if d == 0]
+            subdag_leaf_nodes = [v for v, d in graph.out_degree() if d == 0]
+            print("--- subdag_root_nodes ---")
+            print(subdag_root_nodes)
+            print("--- subdag_leaf_nodes ---")
+            print(subdag_leaf_nodes)
+            # LC_TODO: print path to encoding
 
     def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
@@ -281,11 +320,13 @@ class GraphParser(object):
 
     def sanitize_node_name(self, graph):
         new_node_mapping = {}
+        reverse_new_node_mapping = {}
         for node in graph.nodes:
             new_node = re.sub(r'\W+', '', node)
             print("--- {0} mapped to {1} ---".format(node, new_node))
             new_node_mapping[node] = new_node
-        return new_node_mapping
+            reverse_new_node_mapping[new_node] = node
+        return new_node_mapping, reverse_new_node_mapping
 
     def ball_larus(self, graph):
         weighted_edges = []
@@ -306,7 +347,6 @@ class GraphParser(object):
                     weighted_edges[ind]['weight'] = num_path[v]
                     num_path[v] = num_path[v] + num_path[e[1]]
 
-        # print('------------')
         for edge in weighted_edges:
             if edge['weight'] == 0:
                 continue
@@ -332,7 +372,6 @@ class GraphParser(object):
             latest_stage += 1
 
         return stage2tables_dict
-
 
     def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
         # LC_TODO: Assuming no table predication logic for now, i.e., nodes are tables or conditionals, and edges are T/F.
