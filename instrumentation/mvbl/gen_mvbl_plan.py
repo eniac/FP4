@@ -322,6 +322,9 @@ class GraphParser(object):
                             stage2tables_dict[stage_number].append(node_label)
             # Which is similar to a branch point
             elif table_type == "match":
+                if table_name == "tbl_act":
+                    print("[WARNING] Skipped tbl_act")
+                    matched_to_node = True
                 for node_label in node_labels:
                     if table_name == node_label:
                         print("Exact matched to node_label: {}".format(node_label))
