@@ -193,8 +193,7 @@ class GraphParser(object):
                 for dst in candidate_dsts:
                     if nx.has_path(full_graph, src, dst):
                         if nx.has_path(full_graph, dst, src):
-                            print("ERR! bi-directional has_path between {0} and {1}!".format(src, dst))
-                            sys.exit()
+                            print("Skip when an included node is isolated: bi-directional has_path between {0} and {1}!".format(src, dst))
                         else:
                             new_subgraph_edges.append((src, dst, 0))
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
