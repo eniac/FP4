@@ -334,6 +334,9 @@ class GraphParser(object):
                         for action in table_information['actions']:
                             # Each action is renamed to table_name__action_name s.t. actions are unique to a table
                             table2actions_dict[table_name].append(table_name + "__" + action['name'])
+                            if action['name'] == "NoAction":
+                                print("[ERROR] NoAction! Check if it is from the user or the compiler!")
+                                raise Exception("ERR!")
                         for stage_information in table_information['match_attributes']['stage_tables']:
                             stage_number = stage_information['stage_number']
                             if stage_number not in stage2tables_dict:
