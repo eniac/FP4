@@ -12,13 +12,13 @@ class PulpSolver(object):
         print("--- K as max number of tables for a stage: {} ---".format(numk))
         variables = [i for i in range(numk)]
 
-        # Number of variables
+        # Decision variable: number of bits per sub-DAG
         var_size = pulp.LpVariable.dicts(name='metaVariables', indices=variables, lowBound=0)
 
         # Objective function
         cfgModel += (pulp.lpSum(var_size[v] for v in var_size), 'minimize the total number of bits')
 
-        # Possible assignment for each table
+        # Decision variable: per sub-DAG, per table/conditional assignment tuple
         assignment_keys = [(v, t) for v in variables for t in graph_wo_actions.nodes]
 
         assignment = pulp.LpVariable.dicts(name="assignmentVar", indices=assignment_keys, cat='Binary')
@@ -47,36 +47,41 @@ class PulpSolver(object):
         # Variable to Number of bits needed
         self.var_to_bits = [0 for _ in range(numk)]
 
-        # Get the output in the required format
+        print("--- Iterate solver variables ---")
         for variable in cfgModel.variables():
+            print("--- name: {0}, value: {1} ---".format(variable.name, variable.varValue))
             if 'assignmentVar' in variable.name and float(variable.varValue) == 1.0:
                 subgraph_number = int(variable.name.split('_')[1][1:-1])
+                node_name = variable.name.split('\'')[1]
                 if subgraph_number not in self.subgraph_to_tables:
                     self.subgraph_to_tables[subgraph_number] = set()
-
-                self.subgraph_to_tables[subgraph_number].add(variable.name.split('\'')[1])
+                self.subgraph_to_tables[subgraph_number].add(node_name)
+                print("Add node {0} to sub-DAG {1}".format(node_name, subgraph_number))
             elif "metaVariables" in variable.name:
-                self.var_to_bits[int(variable.name.split('_')[1])] = int(variable.varValue)
-
+                subgraph_number = int(variable.name.split('_')[1])
+                self.var_to_bits[subgraph_number] = int(variable.varValue)
+                print("Assign subgraph {0} to {1}b".format(subgraph_number, int(variable.varValue)))
 
         print("subgraph to tables:\n", self.subgraph_to_tables)
         print("variable to variable size. Index is variable, value is the number of bits:\n", self.var_to_bits)
-
-    # def find_number_of_paths(self, graph_with_actions):
 
     def summarize_log_outgoing_edges(self, graph_wo_actions, table_actions):
         table_edge_values = dict()
         for table_name in graph_wo_actions.nodes:
             table_edge_values[table_name] = self.log_outgoing_edges(graph_wo_actions, table_actions, table_name)
-
         return table_edge_values
 
     def log_outgoing_edges(self, graph_wo_actions, table_actions, table_name):
+        print("--- log_outgoing_edges {0} ---".format(table_name))
         next_nodes = len(graph_wo_actions.out_edges(table_name))
+        print("# of out_edge in graph_wo_actions: {}".format(next_nodes))
         if next_nodes == 0:
             next_nodes = 1
         if table_name in table_actions:
             next_nodes = next_nodes * len(table_actions[table_name])
-
-        # print(next_nodes)
-        return max( int(math.ceil(math.log(next_nodes))), 1)
+        print("# of out edges (w actions): {}".format(next_nodes))
+        # LC_TODO: Don't need to take ceil? maybe subject to over estimation.
+        # It is OK to be 0 (rather than 1)?
+        log_next_nodes = max( int(math.ceil(math.log(next_nodes))), 1)
+        print("log of # of out edges (w actions): {}".format(log_next_nodes))
+        return log_next_nodes
