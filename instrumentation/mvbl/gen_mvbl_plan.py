@@ -144,52 +144,90 @@ class GraphParser(object):
         print("\n====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, stage2tables_dict, table2actions_dict)
 
-        # LC_TODO: maybe need to traverse the graph itself rather than edges to deal with dummy nodes (bypass them and direct connect)
-        # Maybe directly use table_graph rather than full_graph (actually full_graph is useless even in pulp... as it is easy to go from a table_graph to full_graph)
-        new_graph_edges = []
-        for _ in range(len(pulpSolver.var_to_bits)):
-            new_graph_edges.append([])
+        # Based on the solver result, construct the sub-DAGs with only the tables and edges involved
+        # Note that dummy edges should be handled properly
+        new_subgraphs = []
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
-            print("\n====== Constructing subgraph {0} for MVBL ======".format(graph_number))
-            print("--- List of nodes included ---")
-            print(pulpSolver.subgraph_to_tables[graph_number])
-            for edge in full_graph.edges:
-                print("--- {0} ---".format(edge))
-                src = edge[0]
-                dst = edge[1]
+            print("\n====== Constructing subgraph {0} for MVBL based on table_graph and pulp result ======".format(graph_number))
+            print("--- List of (table/conditonal) nodes included from pulp ---")
+            included_table_conditional = pulpSolver.subgraph_to_tables[graph_number]
+            print(included_table_conditional)
+            included_table_conditional_action = []
+            for node in full_graph.nodes:
+                if node in included_table_conditional:
+                    included_table_conditional_action.append(node)
+                elif '__' in node and node.split('__')[0] in included_table_conditional:
+                    included_table_conditional_action.append(node)
+            print("--- included_table_conditional_action ---")
+            print(included_table_conditional_action)
 
-                node_src = src
-                if '__' in src:
-                    node_src = src.split('__')[0]
-                if node_src in pulpSolver.subgraph_to_tables[graph_number]:
-                    new_src = src
-                else:
-                    new_src = node_src
-
-                node_dst = dst
-                if '__' in dst:
-                    node_dst = dst.split('__')[0]
-                if node_dst in pulpSolver.subgraph_to_tables[graph_number]:
-                    new_dst = dst
-                else:
-                    new_dst = node_dst
-
-                if new_src == new_dst:
-                    print("new_src {0} == new_dst {1}!!!".format(new_src, new_dst))
+            # Construct the new graph using included_table_conditional_action
+            new_subgraph = nx.DiGraph()
+            new_subgraph.add_nodes_from(included_table_conditional_action)
+            candidate_srcs = set()
+            candidate_dsts = set()
+            new_subgraph_edges = []
+            for src, dst in full_graph.edges():
+                if src in included_table_conditional_action and dst in included_table_conditional_action:
+                    new_subgraph_edges.append((src, dst, 0))
+                elif src not in included_table_conditional_action and dst not in included_table_conditional_action:
                     continue
-                new_graph_edge = (new_src, new_dst, 0)
-                print("new_graph_edge: {0}".format(new_graph_edge))
-                new_graph_edges[graph_number].append(new_graph_edge)
+                else:
+                    if src in included_table_conditional_action:
+                        candidate_srcs.add(src)
+                    if dst in included_table_conditional_action:
+                        candidate_dsts.add(dst)
+            print("--- candidate_srcs ---")
+            print(candidate_srcs)
+            print("--- candidate_dsts ---")
+            print(candidate_dsts)
+            for src in candidate_srcs:
+                for dst in candidate_dsts:
+                    if nx.has_path(full_graph, src, dst):
+                        new_subgraph_edges.append((src, dst, 0))
+            new_subgraph.add_weighted_edges_from(new_subgraph_edges)
+            new_subgraphs.append(new_subgraph)
+            print("--- Visualize new_subgraph ---")
+            for line in nx.generate_edgelist(new_subgraph, delimiter='$', data=False):
+                # print(line)
+                u, v = line.split('$')
+                print("{0} --> {1}".format(u, v))
+        #     for edge in full_graph.nodes:
+        #         print("--- {0} ---".format(edge))
+        #         src = edge[0]
+        #         dst = edge[1]
 
-        new_graphs = []
-        for graph_edges in new_graph_edges:
-            new_graph = nx.DiGraph()
-            new_graph.add_weighted_edges_from(graph_edges)
-            new_graphs.append(new_graph)
+        #         node_src = src
+        #         if '__' in src:
+        #             node_src = src.split('__')[0]
+        #         if node_src in pulpSolver.subgraph_to_tables[graph_number]:
+        #             new_src = src
+        #         else:
+        #             new_src = node_src
 
-        print("\n====== Running BL for each subgraph ======")
+        #         node_dst = dst
+        #         if '__' in dst:
+        #             node_dst = dst.split('__')[0]
+        #         if node_dst in pulpSolver.subgraph_to_tables[graph_number]:
+        #             new_dst = dst
+        #         else:
+        #             new_dst = node_dst
+
+        #         if new_src == new_dst:
+        #             print("new_src {0} == new_dst {1}!!!".format(new_src, new_dst))
+        #             continue
+        #         new_graph_edge = (new_src, new_dst, 0)
+        #         print("new_graph_edge: {0}".format(new_graph_edge))
+        #         new_graph_edges[graph_number].append(new_graph_edge)
+        # new_graphs = []
+        # for graph_edges in new_graph_edges:
+        #     new_graph = nx.DiGraph()
+        #     new_graph.add_weighted_edges_from(graph_edges)
+        #     new_graphs.append(new_graph)
+
         graphs_with_weights = []
-        for idx, graph in enumerate(new_graphs):
+        for idx, graph in enumerate(new_subgraphs):
+            print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Variable {0} additions------".format(idx))
             edges_with_weights = self.ball_larus(graph)
             graph_with_weights = nx.DiGraph()
