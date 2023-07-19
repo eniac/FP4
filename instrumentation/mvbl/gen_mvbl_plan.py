@@ -69,7 +69,7 @@ class GraphParser(object):
         print("====== Add edges from tables to actions, actions to the next table ======")
         updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
 
-        print("====== Crete full graph ======")
+        print("====== Create full graph ======")
         for e in updated_edges:
             edges_tuples.append((e['src'], e['dst'], 0))
         edges_tuples = list(set(edges_tuples))
@@ -113,8 +113,11 @@ class GraphParser(object):
 
         from pulp_solver import PulpSolver
         print("====== Running PulpSolver ======")
-        pulpSolver = PulpSolver(table_graph, full_graph, stage2tables_dict, table2actions_dict)
+        pulpSolver = PulpSolver(table_graph, stage2tables_dict, table2actions_dict)
 
+        # LC_TODO: maybe need to traverse the graph itself rather than edges to deal with dummy nodes (bypass them and direct connect)
+        # Maybe directly use table_graph rather than full_graph (actually full_graph is useless even in pulp... as it is easy to go from a table_graph to full_graph)
+        # The current implementation doesn't make sense!
         new_graph_edges = []
         for _ in range(len(pulpSolver.var_to_bits)):
             new_graph_edges.append([])
@@ -350,13 +353,6 @@ class GraphParser(object):
             # Otherwise, only if the destination is a leaf table
             elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
                 for action in table2actions_dict[e['dst']]:
-                    edges_to_add.append({'src': e['src'], 'dst': action, 'label': ''})
-                    edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
-                    print("Append {}".format({'src': e['src'], 'dst': action, 'label': ''}))
-                    print("Append {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
-
-            elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
-                for action in table2actions_dict[e['dst']]:
                     edges_to_add.append({'src': e['dst'], 'dst': action, 'label': ''})
                     print("Append {}".format({'src': e['dst'], 'dst': action, 'label': ''}))
 
@@ -365,7 +361,6 @@ class GraphParser(object):
             if de in edges:
                 edges.remove(de)
         return edges
-
 
     def eliminate_edge(self, edge, edges, nodes,edge_to_del):
         if edge['dst'] in nodes:

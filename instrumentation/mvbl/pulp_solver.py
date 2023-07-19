@@ -3,7 +3,7 @@ import math
 
 
 class PulpSolver(object):
-    def __init__(self, graph_wo_actions, graph_with_actions, stage_to_tables_dict, table_actions):
+    def __init__(self, graph_wo_actions, stage_to_tables_dict, table_actions):
         
         cfgModel = pulp.LpProblem("CFG Partition Problem", pulp.LpMinimize)
 
