@@ -498,7 +498,7 @@ class GraphParser(object):
             print("de in edges_to_del: {}".format(de))
             if de in edges:
                 print("edges.remove: {}".format(de))
-                edges.remove(de)
+                full_graph_edges.remove(de)
         print("--- full_graph_nodes ---")
         print(full_graph_nodes)
         print("--- full_graph_edges ---")
