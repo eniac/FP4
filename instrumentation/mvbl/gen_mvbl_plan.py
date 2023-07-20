@@ -91,16 +91,19 @@ class GraphParser(object):
         print(leaf_nodes)
 
         print("\n====== Add edges from tables to actions, actions to the next table ======")
-        updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes)
+        updated_nodes, updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes, root_nodes, node2label_dict)
 
         print("\n====== Create full graph ======")
-        print("--- from updated_edges ---")
+        print("--- updated_nodes ---")
+        print(updated_nodes)
+        print("--- updated_edges ---")
         print(updated_edges)
         full_graph_edges_tuples = []  # Reset
         for e in updated_edges:
             full_graph_edges_tuples.append((e['src'], e['dst'], 0))
         full_graph_edges_tuples = list(set(full_graph_edges_tuples))
         full_graph = nx.DiGraph()
+        full_graph.add_nodes_from(updated_nodes)
         full_graph.add_weighted_edges_from(full_graph_edges_tuples)
 
         visualize_digraph(full_graph, "full_graph")
@@ -183,7 +186,7 @@ class GraphParser(object):
 
             # Construct the new graph using included_table_conditional_action
             new_subgraph = nx.DiGraph()
-            new_subgraph.add_nodes_from(included_table_conditional_action)
+            new_subgraph.add_nodes_from(included_table_conditional_action)  # Always create from node first
             candidate_srcs = set()
             candidate_dsts = set()
             new_subgraph_edges = []
@@ -217,8 +220,9 @@ class GraphParser(object):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT] = {}
-            edges_with_weights = self.ball_larus(graph)
+            nodes_unmodified, edges_with_weights = self.ball_larus(graph)
             graph_with_weights = nx.DiGraph()
+            graph_with_weights.add_nodes_from(nodes_unmodified)
             edges = []
             for e in edges_with_weights:
                 edges.append((e['src'], e['dst'], e['weight']))
@@ -413,10 +417,10 @@ class GraphParser(object):
             else:
                 print(edge)
                 if "__" not in edge['dst']:
-                    print("Target instrumentation point is NOT an action!")
+                    print("Target instrumentation point {} is NOT an action!".format(edge['dst']))
                     raise Exception("ERR!")
 
-        return weighted_edges
+        return graph.nodes, weighted_edges
 
     def estimate_stages(self, original_graph):
         graph = copy.deepcopy(original_graph)
@@ -437,8 +441,13 @@ class GraphParser(object):
 
         return stage2tables_dict
 
-    def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes):
+    def append_table_action_edges(self, table2actions_dict, edges, leaf_nodes, root_nodes, node2label_dict):
         print("--- append_table_action_edges ---")
+
+        full_graph_nodes = list(node2label_dict.values())
+        print("--- full_graph_nodes inherited from the original table_graph ---") 
+        print(full_graph_nodes)
+
         # LC_TODO: Assuming no table predication logic for now, i.e., nodes are tables or conditionals, and edges are T/F.
         # One could extend it later to match the edge label to the (renamed) action name and add action nodes selectively
         edges_to_del = []
@@ -452,28 +461,50 @@ class GraphParser(object):
                 for action in table2actions_dict[e['src']]:
                     edges_to_add.append({'src': e['src'], 'dst': action, 'label': ''})
                     edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
-                    print("Append {}".format({'src': e['src'], 'dst': action, 'label': ''}))
-                    print("Append {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
+                    print("Append edge {}".format({'src': e['src'], 'dst': action, 'label': ''}))
+                    print("Append edge {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
+                    full_graph_nodes.append(action)
+                    print("Append node: {}".format(action))
                 # Note the edge case when the dst if also a leaf table
                 if e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
                     for action in table2actions_dict[e['dst']]:
                         edges_to_add.append({'src': e['dst'], 'dst': action, 'label': ''})
-                        print("Append {}".format({'src': e['dst'], 'dst': action, 'label': ''}))                    
+                        print("Append edge {}".format({'src': e['dst'], 'dst': action, 'label': ''}))
+                        full_graph_nodes.append(action)
+                        print("Append node: {}".format(action))                        
             # Otherwise, only if the destination is a leaf table
             elif e['dst'] in leaf_nodes and e['dst'] in table2actions_dict.keys():
                 for action in table2actions_dict[e['dst']]:
                     edges_to_add.append({'src': e['dst'], 'dst': action, 'label': ''})
-                    print("Append {}".format({'src': e['dst'], 'dst': action, 'label': ''}))
+                    print("Append edge {}".format({'src': e['dst'], 'dst': action, 'label': ''}))
+                    full_graph_nodes.append(action)
+                    print("Append node: {}".format(action)) 
 
-        edges = edges + edges_to_add
+        print("--- Consider the edge case when a node is isolated ---")
+        for node in full_graph_nodes:
+            if node in leaf_nodes and node in root_nodes:
+                print("[INFO] Identified isolated node: {}".format(node))
+                if node in table2actions_dict.keys():
+                    for action in table2actions_dict[node]:
+                        edges_to_add.append({'src': node, 'dst': action, 'label': ''})
+                        print("Append edge {}".format({'src': node, 'dst': action, 'label': ''}))
+                        full_graph_nodes.append(action)
+                        print("Append node: {}".format(action)) 
+                else:
+                    raise Exception("node {} not in table2actions_dict.keys()!".format(node))
+
+        full_graph_edges = edges + edges_to_add
         for de in edges_to_del:
             print("de in edges_to_del: {}".format(de))
             if de in edges:
                 print("edges.remove: {}".format(de))
                 edges.remove(de)
-        print("--- edges updated from append_table_action_edges ---")
-        print(edges)
-        return edges
+        print("--- full_graph_nodes ---")
+        print(full_graph_nodes)
+        print("--- full_graph_edges ---")
+        print(full_graph_edges)
+
+        return full_graph_nodes, full_graph_edges
 
     def eliminate_edge(self, edge, edges, nodes,edge_to_del):
         if edge['dst'] in nodes:
