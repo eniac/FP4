@@ -1,16 +1,16 @@
 {
     "0": {
         "action_to_increment": {
-            "rewrite_mac__rewrite_src_dst_mac": 1
+            "rewrite_mac__on_miss": 1
         },
         "encoding_to_path": {
             "0": [
                 "rewrite_mac",
-                "rewrite_mac__on_miss"
+                "rewrite_mac__rewrite_src_dst_mac"
             ],
             "1": [
                 "rewrite_mac",
-                "rewrite_mac__rewrite_src_dst_mac"
+                "rewrite_mac__on_miss"
             ]
         },
         "num_bits": 1,

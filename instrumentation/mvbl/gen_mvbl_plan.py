@@ -337,16 +337,21 @@ class GraphParser(object):
 
         stage2tables_dict = {}
         table2actions_dict = {}
+
+        # Goal: every label should be matched
+        label2matched = {}
+        for label in node_labels:
+            label2matched[label] = 0
         
         for table_information in context_data['tables']:
             table_name = table_information['name']
             table_type = table_information['table_type']
             direction = table_information["direction"]
-            print("--- table_name: {0}, table_type: {1}, direction: {2} ---".format(table_name, table_type, direction))
+            print("--- name: {0}, table_type: {1}, direction: {2} ---".format(table_name, table_type, direction))
+            is_matched = False
             if target_direction != direction:
                 print("Skipped")
                 continue
-            matched_to_node = False
             if table_type == "condition":
                 # Rename the condition before matching
                 renamed_condition = table_information['condition'][1:-1]
@@ -359,21 +364,29 @@ class GraphParser(object):
                     # print("Try matching to node_label: {}".format(node_label))
                     if renamed_condition in node_label:
                         print("[INFO] Fuzzy matched to node_label: {}".format(node_label))
-                        matched_to_node = True
+                        is_matched = True
+                        if label2matched[node_label] == 0:
+                            label2matched[node_label] = 1
+                        else:
+                            raise Exception("[ERROR] Double matched!")
                         for stage_information in table_information['stage_tables']:
                             stage_number = stage_information['stage_number']
                             if stage_number not in stage2tables_dict:
                                 stage2tables_dict[stage_number] = []
                             stage2tables_dict[stage_number].append(node_label)
+                        break
             # Which is similar to a branch point
             elif table_type == "match":
                 if table_name == "tbl_act":
                     print("[WARNING] Skipped tbl_act")
-                    matched_to_node = True
                 for node_label in node_labels:
                     if table_name == node_label:
                         print("Exact matched to node_label: {}".format(node_label))
-                        matched_to_node = True
+                        is_matched = True
+                        if label2matched[node_label] == 0:
+                            label2matched[node_label] = 1
+                        else:
+                            raise Exception("[ERROR] Double matched!")
                         if table_name not in table2actions_dict:
                             table2actions_dict[table_name] = []
                         for action in table_information['actions']:
@@ -388,17 +401,20 @@ class GraphParser(object):
                                 stage2tables_dict[stage_number] = []
                             stage2tables_dict[stage_number].append(table_information['name'])
             elif table_type == "stateful":
-                matched_to_node = True
                 print("Skipped")
             elif table_type == "action":
-                matched_to_node = True
                 print("Skipped")
             else:
                 print("Unknown table_type!")
                 raise Exception("ERR!")
-            if not matched_to_node:
-                print("Unmatched table! Exit")
-                raise Exception("ERR!")
+            if not is_matched:
+                print("[WARNING] Unmatched!")
+
+        print("--- Check if every nodes from dot are matched ---")
+        for label in node_labels:
+            if label2matched[label] == 0:
+                raise Exception("{} unmatched!".format(label))
+
         print("--- stage2tables_dict ---")
         pretty_print_dict(stage2tables_dict)
         print("--- table2actions_dict ---")

@@ -1,18 +1,18 @@
 {
     "0": {
         "action_to_increment": {
-            "ipv4_fib_lpm__fib_hit_nexthop": 1
+            "ipv4_fib_lpm__on_miss": 1
         },
         "encoding_to_path": {
             "0": [
                 "hdripv4isValid",
                 "ipv4_fib_lpm",
-                "ipv4_fib_lpm__on_miss"
+                "ipv4_fib_lpm__fib_hit_nexthop"
             ],
             "1": [
                 "hdripv4isValid",
                 "ipv4_fib_lpm",
-                "ipv4_fib_lpm__fib_hit_nexthop"
+                "ipv4_fib_lpm__on_miss"
             ]
         },
         "num_bits": 2,
@@ -20,9 +20,9 @@
     },
     "1": {
         "action_to_increment": {
-            "bd__set_vrf": 4,
+            "bd__on_miss": 4,
             "ipv4_fib__on_miss_ipv4_fib": 2,
-            "nexthop__ai_drop": 1,
+            "nexthop__set_egress_details": 1,
             "port_mapping__set_bd": 8
         },
         "encoding_to_path": {
@@ -30,177 +30,177 @@
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "1": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "10": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "11": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "12": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "13": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "14": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "15": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "2": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "3": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "4": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "5": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "6": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__set_egress_details"
+                "nexthop__ai_drop"
             ],
             "7": [
                 "port_mapping",
                 "port_mapping__on_miss",
                 "bd",
-                "bd__set_vrf",
+                "bd__on_miss",
                 "ipv4_fib",
                 "ipv4_fib__on_miss_ipv4_fib",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
-                "nexthop__ai_drop"
+                "nexthop__set_egress_details"
             ],
             "8": [
                 "port_mapping",
                 "port_mapping__set_bd",
                 "bd",
-                "bd__on_miss",
-                "ipv4_fib",
-                "ipv4_fib__fib_hit_nexthop",
-                "metaingress_metadataon_miss_ipv4_fib1",
-                "nexthop",
-                "nexthop__set_egress_details"
-            ],
-            "9": [
-                "port_mapping",
-                "port_mapping__set_bd",
-                "bd",
-                "bd__on_miss",
+                "bd__set_vrf",
                 "ipv4_fib",
                 "ipv4_fib__fib_hit_nexthop",
                 "metaingress_metadataon_miss_ipv4_fib1",
                 "nexthop",
                 "nexthop__ai_drop"
+            ],
+            "9": [
+                "port_mapping",
+                "port_mapping__set_bd",
+                "bd",
+                "bd__set_vrf",
+                "ipv4_fib",
+                "ipv4_fib__fib_hit_nexthop",
+                "metaingress_metadataon_miss_ipv4_fib1",
+                "nexthop",
+                "nexthop__set_egress_details"
             ]
         },
         "num_bits": 5,

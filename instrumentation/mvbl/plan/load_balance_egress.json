@@ -1,16 +1,16 @@
 {
     "0": {
         "action_to_increment": {
-            "send_frame__drop_packet": 1
+            "send_frame__rewrite_mac": 1
         },
         "encoding_to_path": {
             "0": [
                 "send_frame",
-                "send_frame__rewrite_mac"
+                "send_frame__drop_packet"
             ],
             "1": [
                 "send_frame",
-                "send_frame__drop_packet"
+                "send_frame__rewrite_mac"
             ]
         },
         "num_bits": 1,
