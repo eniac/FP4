@@ -272,7 +272,7 @@ class GraphParser(object):
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
                 json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path
         
-        with open("mvbl_plan/"+prog_name+"_"+direction+".json", 'w') as f:
+        with open("plan/"+prog_name+"_"+direction+".json", 'w') as f:
             json.dump(json_output_dict, f, indent=4, sort_keys=True)
         
         print("====== Completed ======")

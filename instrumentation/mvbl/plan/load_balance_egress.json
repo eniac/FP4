@@ -1,0 +1,20 @@
+{
+    "0": {
+        "action_to_increment": {
+            "send_frame__drop_packet": 1
+        },
+        "encoding_to_path": {
+            "0": [
+                "send_frame",
+                "send_frame__rewrite_mac"
+            ],
+            "1": [
+                "send_frame",
+                "send_frame__drop_packet"
+            ]
+        },
+        "num_bits": 1,
+        "num_paths": 2
+    },
+    "num_vars": 1
+}

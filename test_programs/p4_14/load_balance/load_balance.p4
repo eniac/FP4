@@ -133,6 +133,7 @@ table ecmp_group {
         drop_packet;
         set_ecmp_select;
     }
+    default_action: drop_packet();
     size : 1024;
 }
 
@@ -170,6 +171,7 @@ table ecmp_nhop {
         drop_packet;
         set_nhop;
     }
+    default_action: drop_packet();
     size : 2;
 }
 
@@ -193,6 +195,7 @@ table send_frame {
         rewrite_mac;
         drop_packet;
     }
+    default_action: drop_packet();
     size : 256;
 }
 

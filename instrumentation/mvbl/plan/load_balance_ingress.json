@@ -1,0 +1,47 @@
+{
+    "0": {
+        "action_to_increment": {
+            "ecmp_group__drop_packet": 2,
+            "ecmp_nhop__drop_packet": 1
+        },
+        "encoding_to_path": {
+            "0": [
+                "ecmp_group",
+                "ecmp_group__set_ecmp_select",
+                "ecmp_nhop",
+                "ecmp_nhop__set_nhop"
+            ],
+            "1": [
+                "ecmp_group",
+                "ecmp_group__set_ecmp_select",
+                "ecmp_nhop",
+                "ecmp_nhop__drop_packet"
+            ],
+            "2": [
+                "ecmp_group",
+                "ecmp_group__drop_packet",
+                "ecmp_nhop",
+                "ecmp_nhop__set_nhop"
+            ],
+            "3": [
+                "ecmp_group",
+                "ecmp_group__drop_packet",
+                "ecmp_nhop",
+                "ecmp_nhop__drop_packet"
+            ]
+        },
+        "num_bits": 2,
+        "num_paths": 4
+    },
+    "1": {
+        "action_to_increment": {},
+        "encoding_to_path": {
+            "0": [
+                "hdripv4isValid"
+            ]
+        },
+        "num_bits": 1,
+        "num_paths": 1
+    },
+    "num_vars": 2
+}
