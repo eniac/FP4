@@ -215,6 +215,18 @@ class GraphParser(object):
             new_subgraphs.append(new_subgraph)
             visualize_digraph(new_subgraph, "new_subgraph")
 
+        print("\n====== Check if each subgraph is a DAG and weakly connected ======")
+        for idx, graph in enumerate(new_subgraphs):
+            cycles = list(nx.simple_cycles(graph))
+            print("Graph {0} cycle num: {1}".format(idx, len(cycles)))
+            is_strong = nx.is_strongly_connected(graph)
+            print('Graph {0} is strongly connected: {1}'.format(idx, is_strong))
+            is_weak = nx.is_weakly_connected(graph)
+            print('Graph {0} is weakly connected: {1}'.format(idx, is_weak))
+            if not is_weak or len(cycles) != 0:
+                raise Exception("Not weekly connected or with loops!")
+                sys.exit()
+
         graphs_with_weights = []
         for idx, graph in enumerate(new_subgraphs):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
@@ -243,6 +255,8 @@ class GraphParser(object):
             all_paths_weights = []
             for root in subdag_root_nodes:
                 for leaf in subdag_leaf_nodes:
+                    if root == leaf:
+                        all_paths_weights.append(([root], 0))
                     paths = list(nx.all_simple_paths(graph, root, leaf))
                     for path in paths:
                         weight = sum(graph.get_edge_data(path[i], path[i + 1])['weight'] for i in range(len(path) - 1))
@@ -255,6 +269,8 @@ class GraphParser(object):
         
         with open("mvbl_plan/"+prog_name+"_"+direction+".json", 'w') as f:
             json.dump(json_output_dict, f, indent=4, sort_keys=True)
+        
+        print("====== Completed ======")
 
     def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'):
         node_name_label = {}
@@ -331,13 +347,13 @@ class GraphParser(object):
                 renamed_condition = table_information['condition'][1:-1]
                 if '$valid' in table_information['condition']:
                     renamed_condition = renamed_condition.replace("$valid", "isValid()")
-                if ' == 1' in table_information['condition']:
-                    renamed_condition = renamed_condition.replace(" == 1", "")
+                    if ' == 1' in table_information['condition']:
+                        renamed_condition = renamed_condition.replace(" == 1", "")
                 print("raw condition: {0}, renamed: {1}".format(table_information['condition'], renamed_condition))
                 for node_label in node_labels:
                     # print("Try matching to node_label: {}".format(node_label))
                     if renamed_condition in node_label:
-                        print("Fuzzy matched to node_label: {}".format(node_label))
+                        print("[INFO] Fuzzy matched to node_label: {}".format(node_label))
                         matched_to_node = True
                         for stage_information in table_information['stage_tables']:
                             stage_number = stage_information['stage_number']
@@ -366,6 +382,9 @@ class GraphParser(object):
                             if stage_number not in stage2tables_dict:
                                 stage2tables_dict[stage_number] = []
                             stage2tables_dict[stage_number].append(table_information['name'])
+            elif table_type == "stateful":
+                matched_to_node = True
+                print("Skipped")
             elif table_type == "action":
                 matched_to_node = True
                 print("Skipped")
