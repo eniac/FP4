@@ -1,5 +1,5 @@
 {
-  "build_date": "Tue Jul 18 05:58:40 2023",
+  "build_date": "Wed Jul 19 22:43:04 2023",
   "schema_version": "1.11.0",
   "compiler_version": "9.2.0",
   "target": "tofino",
@@ -12233,23 +12233,6 @@
             ],
             "action_format": [
               {
-                "action_name": "NoAction",
-                "action_handle": 536870914,
-                "table_name": "--END_OF_PIPELINE--",
-                "next_table": 4294967295,
-                "next_table_full": 16,
-                "vliw_instruction": -1,
-                "vliw_instruction_full": 64,
-                "next_tables": [
-                  {
-                    "next_table_name": "bd",
-                    "next_table_logical_id": 0,
-                    "next_table_stage_no": 1
-                  }
-                ],
-                "immediate_fields": []
-              },
-              {
                 "action_name": "set_bd",
                 "action_handle": 536870913,
                 "table_name": "--END_OF_PIPELINE--",
@@ -12273,6 +12256,23 @@
                     "dest_width": 16
                   }
                 ]
+              },
+              {
+                "action_name": "on_miss",
+                "action_handle": 536870914,
+                "table_name": "--END_OF_PIPELINE--",
+                "next_table": 0,
+                "next_table_full": 16,
+                "vliw_instruction": 2,
+                "vliw_instruction_full": 64,
+                "next_tables": [
+                  {
+                    "next_table_name": "bd",
+                    "next_table_logical_id": 0,
+                    "next_table_stage_no": 1
+                  }
+                ],
+                "immediate_fields": []
               }
             ],
             "result_physical_buses": [ 13 ],
@@ -12303,13 +12303,13 @@
                           "msb_mem_word_idx": 0,
                           "source": "immediate",
                           "enable_pfe": false,
-                          "lsb_mem_word_offset": 1,
+                          "lsb_mem_word_offset": 2,
                           "field_name": "immediate",
                           "match_mode": "unused"
                         },
                         {
                           "start_bit": 0,
-                          "field_width": 1,
+                          "field_width": 2,
                           "lsb_mem_word_idx": 0,
                           "msb_mem_word_idx": 0,
                           "source": "instr",
@@ -12361,7 +12361,7 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 1,
+                            "field_width": 2,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
@@ -12377,7 +12377,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 1,
+                            "lsb_mem_word_offset": 2,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -12394,13 +12394,13 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 95,
+                            "field_width": 94,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 17,
-                            "field_name": "--padding_17_111--",
+                            "lsb_mem_word_offset": 18,
+                            "field_name": "--padding_18_111--",
                             "match_mode": "unused"
                           },
                           {
@@ -12438,28 +12438,6 @@
       },
       "actions": [
         {
-          "name": "NoAction",
-          "handle": 536870914,
-          "primitives": [],
-          "direct_resources": [],
-          "indirect_resources": [],
-          "allowed_as_hit_action": false,
-          "allowed_as_default_action": true,
-          "is_compiler_added_action": false,
-          "constant_default_action": false,
-          "p4_parameters": [],
-          "override_meter_addr": false,
-          "override_meter_addr_pfe": false,
-          "override_meter_full_addr": 0,
-          "override_stat_addr": false,
-          "override_stat_addr_pfe": false,
-          "override_stat_full_addr": 0,
-          "override_stateful_addr": false,
-          "override_stateful_addr_pfe": false,
-          "override_stateful_full_addr": 0,
-          "is_action_meter_color_aware": false
-        },
-        {
           "name": "set_bd",
           "handle": 536870913,
           "primitives": [
@@ -12474,10 +12452,33 @@
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
-          "allowed_as_default_action": true,
+          "allowed_as_default_action": false,
+          "disallowed_as_default_action_reason": "has_const_default_action",
           "is_compiler_added_action": false,
           "constant_default_action": false,
           "p4_parameters": [ { "name": "bd", "start_bit": 0, "position": 0, "bit_width": 16 } ],
+          "override_meter_addr": false,
+          "override_meter_addr_pfe": false,
+          "override_meter_full_addr": 0,
+          "override_stat_addr": false,
+          "override_stat_addr_pfe": false,
+          "override_stat_full_addr": 0,
+          "override_stateful_addr": false,
+          "override_stateful_addr_pfe": false,
+          "override_stateful_full_addr": 0,
+          "is_action_meter_color_aware": false
+        },
+        {
+          "name": "on_miss",
+          "handle": 536870914,
+          "primitives": [],
+          "direct_resources": [],
+          "indirect_resources": [],
+          "allowed_as_hit_action": true,
+          "allowed_as_default_action": true,
+          "is_compiler_added_action": false,
+          "constant_default_action": true,
+          "p4_parameters": [],
           "override_meter_addr": false,
           "override_meter_addr_pfe": false,
           "override_meter_full_addr": 0,
@@ -12530,7 +12531,7 @@
       "meter_table_refs": [],
       "statistics_table_refs": [],
       "stateful_table_refs": [],
-      "default_action_handle": 536870929,
+      "default_action_handle": 536870924,
       "action_profile": "",
       "default_next_table_mask": 0,
       "default_next_table_default": 0,
@@ -13840,19 +13841,8 @@
             ],
             "action_format": [
               {
-                "action_name": "NoAction",
-                "action_handle": 536870929,
-                "table_name": "--END_OF_PIPELINE--",
-                "next_table": 4294967295,
-                "next_table_full": 255,
-                "vliw_instruction": -1,
-                "vliw_instruction_full": 66,
-                "next_tables": [],
-                "immediate_fields": []
-              },
-              {
                 "action_name": "on_miss",
-                "action_handle": 536870927,
+                "action_handle": 536870924,
                 "table_name": "--END_OF_PIPELINE--",
                 "next_table": 0,
                 "next_table_full": 255,
@@ -13863,7 +13853,7 @@
               },
               {
                 "action_name": "rewrite_src_dst_mac",
-                "action_handle": 536870928,
+                "action_handle": 536870925,
                 "table_name": "--END_OF_PIPELINE--",
                 "next_table": 0,
                 "next_table_full": 255,
@@ -14823,37 +14813,15 @@
       },
       "actions": [
         {
-          "name": "NoAction",
-          "handle": 536870929,
-          "primitives": [],
-          "direct_resources": [],
-          "indirect_resources": [],
-          "allowed_as_hit_action": false,
-          "allowed_as_default_action": true,
-          "is_compiler_added_action": false,
-          "constant_default_action": false,
-          "p4_parameters": [],
-          "override_meter_addr": false,
-          "override_meter_addr_pfe": false,
-          "override_meter_full_addr": 0,
-          "override_stat_addr": false,
-          "override_stat_addr_pfe": false,
-          "override_stat_full_addr": 0,
-          "override_stateful_addr": false,
-          "override_stateful_addr_pfe": false,
-          "override_stateful_full_addr": 0,
-          "is_action_meter_color_aware": false
-        },
-        {
           "name": "on_miss",
-          "handle": 536870927,
+          "handle": 536870924,
           "primitives": [],
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
           "allowed_as_default_action": true,
           "is_compiler_added_action": false,
-          "constant_default_action": false,
+          "constant_default_action": true,
           "p4_parameters": [],
           "override_meter_addr": false,
           "override_meter_addr_pfe": false,
@@ -14868,7 +14836,7 @@
         },
         {
           "name": "rewrite_src_dst_mac",
-          "handle": 536870928,
+          "handle": 536870925,
           "primitives": [
             {
               "name": "ModifyFieldPrimitive",
@@ -14888,7 +14856,8 @@
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
-          "allowed_as_default_action": true,
+          "allowed_as_default_action": false,
+          "disallowed_as_default_action_reason": "has_const_default_action",
           "is_compiler_added_action": false,
           "constant_default_action": false,
           "p4_parameters": [
@@ -14943,31 +14912,7 @@
                   ]
                 }
               ],
-              "action_handle": 536870929
-            },
-            {
-              "memory_word_width": 128,
-              "table_word_width": 128,
-              "entries_per_table_word": 1,
-              "number_memory_units_per_table_word": 1,
-              "entries": [
-                {
-                  "entry_number": 0,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 128,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 0,
-                      "field_name": "--padding_0_127--"
-                    }
-                  ]
-                }
-              ],
-              "action_handle": 536870927
+              "action_handle": 536870924
             },
             {
               "memory_word_width": 128,
@@ -15031,7 +14976,7 @@
                   ]
                 }
               ],
-              "action_handle": 536870928
+              "action_handle": 536870925
             }
           ],
           "memory_resource_allocation": {
@@ -15074,11 +15019,10 @@
         }
       ],
       "actions": [
-        { "name": "NoAction", "handle": 536870929, "p4_parameters": [] },
-        { "name": "on_miss", "handle": 536870927, "p4_parameters": [] },
+        { "name": "on_miss", "handle": 536870924, "p4_parameters": [] },
         {
           "name": "rewrite_src_dst_mac",
-          "handle": 536870928,
+          "handle": 536870925,
           "p4_parameters": [
             { "name": "smac", "start_bit": 0, "position": 0, "bit_width": 48 },
             { "name": "dmac", "start_bit": 48, "position": 1, "bit_width": 48 }
@@ -16394,23 +16338,6 @@
             ],
             "action_format": [
               {
-                "action_name": "NoAction",
-                "action_handle": 536870916,
-                "table_name": "--END_OF_PIPELINE--",
-                "next_table": 4294967295,
-                "next_table_full": 32,
-                "vliw_instruction": -1,
-                "vliw_instruction_full": 64,
-                "next_tables": [
-                  {
-                    "next_table_name": "ipv4_fib",
-                    "next_table_logical_id": 0,
-                    "next_table_stage_no": 2
-                  }
-                ],
-                "immediate_fields": []
-              },
-              {
                 "action_name": "set_vrf",
                 "action_handle": 536870915,
                 "table_name": "--END_OF_PIPELINE--",
@@ -16434,6 +16361,23 @@
                     "dest_width": 4
                   }
                 ]
+              },
+              {
+                "action_name": "on_miss",
+                "action_handle": 536870916,
+                "table_name": "--END_OF_PIPELINE--",
+                "next_table": 0,
+                "next_table_full": 32,
+                "vliw_instruction": 1,
+                "vliw_instruction_full": 64,
+                "next_tables": [
+                  {
+                    "next_table_name": "ipv4_fib",
+                    "next_table_logical_id": 0,
+                    "next_table_stage_no": 2
+                  }
+                ],
+                "immediate_fields": []
               }
             ],
             "result_physical_buses": [ 14, 12 ],
@@ -16464,7 +16408,7 @@
                           "msb_mem_word_idx": 0,
                           "source": "immediate",
                           "enable_pfe": false,
-                          "lsb_mem_word_offset": 0,
+                          "lsb_mem_word_offset": 5,
                           "field_name": "immediate",
                           "match_mode": "unused"
                         },
@@ -16479,6 +16423,17 @@
                           "match_mode": "unused",
                           "enable_pfe": false,
                           "field_width": 6
+                        },
+                        {
+                          "start_bit": 0,
+                          "field_width": 1,
+                          "lsb_mem_word_idx": 0,
+                          "msb_mem_word_idx": 0,
+                          "source": "instr",
+                          "enable_pfe": false,
+                          "lsb_mem_word_offset": 0,
+                          "field_name": "action",
+                          "match_mode": "unused"
                         }
                       ]
                     }
@@ -16523,12 +16478,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16539,7 +16505,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -16562,12 +16528,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16601,12 +16578,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16640,12 +16628,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16679,12 +16678,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16713,13 +16723,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -16780,12 +16801,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16796,7 +16828,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -16819,12 +16851,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16858,12 +16901,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16897,12 +16951,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16936,12 +17001,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -16970,13 +17046,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -17037,12 +17124,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17053,7 +17151,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -17076,12 +17174,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17115,12 +17224,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17154,12 +17274,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17193,12 +17324,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17227,13 +17369,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -17294,12 +17447,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17310,7 +17474,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -17333,12 +17497,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17372,12 +17547,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17411,12 +17597,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17450,12 +17647,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17484,13 +17692,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -17551,12 +17770,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17567,7 +17797,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -17590,12 +17820,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17629,12 +17870,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17668,12 +17920,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17707,12 +17970,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17741,13 +18015,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -17808,12 +18093,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17824,7 +18120,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -17847,12 +18143,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17886,12 +18193,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17925,12 +18243,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17964,12 +18293,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -17998,13 +18338,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -18065,12 +18416,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 4,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 21,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -18081,7 +18443,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "version",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 24,
+                            "lsb_mem_word_offset": 72,
                             "field_name": "version",
                             "match_mode": "s1q0"
                           },
@@ -18104,12 +18466,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 3,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 12,
+                            "lsb_mem_word_offset": 17,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -18143,12 +18516,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 2,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 8,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -18182,12 +18566,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 9,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -18221,12 +18616,23 @@
                         "fields": [
                           {
                             "start_bit": 0,
+                            "field_width": 1,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "instr",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 0,
+                            "field_name": "action",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
                             "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "immediate",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 0,
+                            "lsb_mem_word_offset": 5,
                             "field_name": "immediate",
                             "match_mode": "unused"
                           },
@@ -18255,13 +18661,24 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 4,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
-                            "field_name": "--padding_4_33--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_4--",
+                            "match_mode": "unused"
+                          },
+                          {
+                            "start_bit": 0,
+                            "field_width": 25,
+                            "lsb_mem_word_idx": 0,
+                            "msb_mem_word_idx": 0,
+                            "source": "zero",
+                            "enable_pfe": false,
+                            "lsb_mem_word_offset": 9,
+                            "field_name": "--padding_9_33--",
                             "match_mode": "unused"
                           },
                           {
@@ -18310,28 +18727,6 @@
       },
       "actions": [
         {
-          "name": "NoAction",
-          "handle": 536870916,
-          "primitives": [],
-          "direct_resources": [],
-          "indirect_resources": [],
-          "allowed_as_hit_action": false,
-          "allowed_as_default_action": true,
-          "is_compiler_added_action": false,
-          "constant_default_action": false,
-          "p4_parameters": [],
-          "override_meter_addr": false,
-          "override_meter_addr_pfe": false,
-          "override_meter_full_addr": 0,
-          "override_stat_addr": false,
-          "override_stat_addr_pfe": false,
-          "override_stat_full_addr": 0,
-          "override_stateful_addr": false,
-          "override_stateful_addr_pfe": false,
-          "override_stateful_full_addr": 0,
-          "is_action_meter_color_aware": false
-        },
-        {
           "name": "set_vrf",
           "handle": 536870915,
           "primitives": [
@@ -18346,10 +18741,33 @@
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
-          "allowed_as_default_action": true,
+          "allowed_as_default_action": false,
+          "disallowed_as_default_action_reason": "has_const_default_action",
           "is_compiler_added_action": false,
           "constant_default_action": false,
           "p4_parameters": [ { "name": "vrf", "start_bit": 0, "position": 0, "bit_width": 12 } ],
+          "override_meter_addr": false,
+          "override_meter_addr_pfe": false,
+          "override_meter_full_addr": 0,
+          "override_stat_addr": false,
+          "override_stat_addr_pfe": false,
+          "override_stat_full_addr": 0,
+          "override_stateful_addr": false,
+          "override_stateful_addr_pfe": false,
+          "override_stateful_full_addr": 0,
+          "is_action_meter_color_aware": false
+        },
+        {
+          "name": "on_miss",
+          "handle": 536870916,
+          "primitives": [],
+          "direct_resources": [],
+          "indirect_resources": [],
+          "allowed_as_hit_action": true,
+          "allowed_as_default_action": true,
+          "is_compiler_added_action": false,
+          "constant_default_action": true,
+          "p4_parameters": [],
           "override_meter_addr": false,
           "override_meter_addr_pfe": false,
           "override_meter_full_addr": 0,
@@ -18368,11 +18786,11 @@
       "handle": 33554433,
       "name": "bd$action",
       "table_type": "action",
-      "size": 65536,
+      "size": 81920,
       "stage_tables": [
         {
           "stage_number": 1,
-          "size": 65536,
+          "size": 81920,
           "stage_table_type": "action_data",
           "logical_table_id": 0,
           "pack_format": [
@@ -18881,13 +19299,14 @@
               { "memory_units": [ 95 ], "vpns": [ 0 ] },
               { "memory_units": [ 78 ], "vpns": [ 1 ] },
               { "memory_units": [ 79 ], "vpns": [ 2 ] },
-              { "memory_units": [ 80 ], "vpns": [ 3 ] }
+              { "memory_units": [ 80 ], "vpns": [ 3 ] },
+              { "memory_units": [ 81 ], "vpns": [ 4 ] }
             ]
           }
         }
       ],
       "actions": [
-        { "name": "NoAction", "handle": 536870916, "p4_parameters": [] },
+        { "name": "on_miss", "handle": 536870916, "p4_parameters": [] },
         {
           "name": "set_vrf",
           "handle": 536870915,
@@ -18914,7 +19333,7 @@
       "meter_table_refs": [],
       "statistics_table_refs": [],
       "stateful_table_refs": [],
-      "default_action_handle": 536870919,
+      "default_action_handle": 536870917,
       "action_profile": "",
       "default_next_table_mask": 0,
       "default_next_table_default": 0,
@@ -24922,23 +25341,6 @@
             ],
             "action_format": [
               {
-                "action_name": "NoAction",
-                "action_handle": 536870919,
-                "table_name": "--END_OF_PIPELINE--",
-                "next_table": 4294967295,
-                "next_table_full": 48,
-                "vliw_instruction": -1,
-                "vliw_instruction_full": 64,
-                "next_tables": [
-                  {
-                    "next_table_name": "ipv4_fib_lpm",
-                    "next_table_logical_id": 0,
-                    "next_table_stage_no": 3
-                  }
-                ],
-                "immediate_fields": []
-              },
-              {
                 "action_name": "on_miss_ipv4_fib",
                 "action_handle": 536870917,
                 "table_name": "--END_OF_PIPELINE--",
@@ -27387,28 +27789,6 @@
       },
       "actions": [
         {
-          "name": "NoAction",
-          "handle": 536870919,
-          "primitives": [],
-          "direct_resources": [],
-          "indirect_resources": [],
-          "allowed_as_hit_action": false,
-          "allowed_as_default_action": true,
-          "is_compiler_added_action": false,
-          "constant_default_action": false,
-          "p4_parameters": [],
-          "override_meter_addr": false,
-          "override_meter_addr_pfe": false,
-          "override_meter_full_addr": 0,
-          "override_stat_addr": false,
-          "override_stat_addr_pfe": false,
-          "override_stat_full_addr": 0,
-          "override_stateful_addr": false,
-          "override_stateful_addr_pfe": false,
-          "override_stateful_full_addr": 0,
-          "is_action_meter_color_aware": false
-        },
-        {
           "name": "on_miss_ipv4_fib",
           "handle": 536870917,
           "primitives": [
@@ -27425,7 +27805,7 @@
           "allowed_as_hit_action": true,
           "allowed_as_default_action": true,
           "is_compiler_added_action": false,
-          "constant_default_action": false,
+          "constant_default_action": true,
           "p4_parameters": [],
           "override_meter_addr": false,
           "override_meter_addr_pfe": false,
@@ -27461,7 +27841,8 @@
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
-          "allowed_as_default_action": true,
+          "allowed_as_default_action": false,
+          "disallowed_as_default_action_reason": "has_const_default_action",
           "is_compiler_added_action": false,
           "constant_default_action": false,
           "p4_parameters": [
@@ -27498,135 +27879,6 @@
           "stage_table_type": "action_data",
           "logical_table_id": 0,
           "pack_format": [
-            {
-              "memory_word_width": 128,
-              "table_word_width": 128,
-              "entries_per_table_word": 8,
-              "number_memory_units_per_table_word": 1,
-              "entries": [
-                {
-                  "entry_number": 7,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 112,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 6,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 96,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 5,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 80,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 4,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 64,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 3,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 48,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 2,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 32,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 1,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 16,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                },
-                {
-                  "entry_number": 0,
-                  "fields": [
-                    {
-                      "start_bit": 0,
-                      "field_width": 16,
-                      "lsb_mem_word_idx": 0,
-                      "msb_mem_word_idx": 0,
-                      "source": "zero",
-                      "enable_pfe": false,
-                      "lsb_mem_word_offset": 0,
-                      "field_name": "--padding_0_15--"
-                    }
-                  ]
-                }
-              ],
-              "action_handle": 536870919
-            },
             {
               "memory_word_width": 128,
               "table_word_width": 128,
@@ -27911,7 +28163,6 @@
         }
       ],
       "actions": [
-        { "name": "NoAction", "handle": 536870919, "p4_parameters": [] },
         {
           "name": "fib_hit_nexthop",
           "handle": 536870918,
@@ -28241,25 +28492,8 @@
               },
               "action_format": [
                 {
-                  "action_name": "NoAction",
-                  "action_handle": 536870922,
-                  "table_name": "--END_OF_PIPELINE--",
-                  "next_table": 4294967295,
-                  "next_table_full": 96,
-                  "vliw_instruction": -1,
-                  "vliw_instruction_full": 66,
-                  "next_tables": [
-                    {
-                      "next_table_name": "nexthop",
-                      "next_table_logical_id": 0,
-                      "next_table_stage_no": 6
-                    }
-                  ],
-                  "immediate_fields": []
-                },
-                {
                   "action_name": "on_miss",
-                  "action_handle": 536870920,
+                  "action_handle": 536870919,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 96,
@@ -28276,7 +28510,7 @@
                 },
                 {
                   "action_name": "fib_hit_nexthop",
-                  "action_handle": 536870921,
+                  "action_handle": 536870920,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 96,
@@ -28606,25 +28840,8 @@
               },
               "action_format": [
                 {
-                  "action_name": "NoAction",
-                  "action_handle": 536870922,
-                  "table_name": "--END_OF_PIPELINE--",
-                  "next_table": 4294967295,
-                  "next_table_full": 96,
-                  "vliw_instruction": -1,
-                  "vliw_instruction_full": 66,
-                  "next_tables": [
-                    {
-                      "next_table_name": "nexthop",
-                      "next_table_logical_id": 0,
-                      "next_table_stage_no": 6
-                    }
-                  ],
-                  "immediate_fields": []
-                },
-                {
                   "action_name": "on_miss",
-                  "action_handle": 536870920,
+                  "action_handle": 536870919,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 96,
@@ -28641,7 +28858,7 @@
                 },
                 {
                   "action_name": "fib_hit_nexthop",
-                  "action_handle": 536870921,
+                  "action_handle": 536870920,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 96,
@@ -28964,25 +29181,8 @@
               },
               "action_format": [
                 {
-                  "action_name": "NoAction",
-                  "action_handle": 536870922,
-                  "table_name": "--END_OF_PIPELINE--",
-                  "next_table": 4294967295,
-                  "next_table_full": 96,
-                  "vliw_instruction": -1,
-                  "vliw_instruction_full": 66,
-                  "next_tables": [
-                    {
-                      "next_table_name": "nexthop",
-                      "next_table_logical_id": 0,
-                      "next_table_stage_no": 6
-                    }
-                  ],
-                  "immediate_fields": []
-                },
-                {
                   "action_name": "on_miss",
-                  "action_handle": 536870920,
+                  "action_handle": 536870919,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 96,
@@ -28999,7 +29199,7 @@
                 },
                 {
                   "action_name": "fib_hit_nexthop",
-                  "action_handle": 536870921,
+                  "action_handle": 536870920,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 96,
@@ -29035,38 +29235,15 @@
       "stateful_table_refs": [],
       "actions": [
         {
-          "name": "NoAction",
-          "handle": 536870922,
-          "primitives": [],
-          "direct_resources": [],
-          "indirect_resources": [],
-          "allowed_as_hit_action": false,
-          "allowed_as_default_action": true,
-          "is_compiler_added_action": false,
-          "constant_default_action": false,
-          "disallowed_as_default_action_reason": "",
-          "p4_parameters": [],
-          "override_meter_addr": false,
-          "override_meter_addr_pfe": false,
-          "override_meter_full_addr": 0,
-          "override_stat_addr": false,
-          "override_stat_addr_pfe": false,
-          "override_stat_full_addr": 0,
-          "override_stateful_addr": false,
-          "override_stateful_addr_pfe": false,
-          "override_stateful_full_addr": 0,
-          "is_action_meter_color_aware": false
-        },
-        {
           "name": "on_miss",
-          "handle": 536870920,
+          "handle": 536870919,
           "primitives": [],
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
           "allowed_as_default_action": true,
           "is_compiler_added_action": false,
-          "constant_default_action": false,
+          "constant_default_action": true,
           "disallowed_as_default_action_reason": "",
           "p4_parameters": [],
           "override_meter_addr": false,
@@ -29082,7 +29259,7 @@
         },
         {
           "name": "fib_hit_nexthop",
-          "handle": 536870921,
+          "handle": 536870920,
           "primitives": [
             {
               "name": "ModifyFieldPrimitive",
@@ -29104,9 +29281,9 @@
           "indirect_resources": [],
           "allowed_as_hit_action": true,
           "allowed_as_default_action": true,
+          "disallowed_as_default_action_reason": "",
           "is_compiler_added_action": false,
           "constant_default_action": false,
-          "disallowed_as_default_action_reason": "",
           "p4_parameters": [
             {
               "name": "nexthop_index",
@@ -29127,7 +29304,7 @@
           "is_action_meter_color_aware": false
         }
       ],
-      "default_action_handle": 536870922,
+      "default_action_handle": 536870919,
       "action_profile": "",
       "default_next_table_mask": 0,
       "default_next_table_default": 0,
@@ -29199,7 +29376,7 @@
       "meter_table_refs": [],
       "statistics_table_refs": [],
       "stateful_table_refs": [],
-      "default_action_handle": 536870925,
+      "default_action_handle": 536870921,
       "action_profile": "",
       "default_next_table_mask": 0,
       "default_next_table_default": 0,
@@ -30516,25 +30693,8 @@
             ],
             "action_format": [
               {
-                "action_name": "NoAction",
-                "action_handle": 536870925,
-                "table_name": "--END_OF_PIPELINE--",
-                "next_table": 4294967295,
-                "next_table_full": 97,
-                "vliw_instruction": -1,
-                "vliw_instruction_full": 64,
-                "next_tables": [
-                  {
-                    "next_table_name": "tbl_act",
-                    "next_table_logical_id": 1,
-                    "next_table_stage_no": 6
-                  }
-                ],
-                "immediate_fields": []
-              },
-              {
                 "action_name": "ai_drop",
-                "action_handle": 536870923,
+                "action_handle": 536870921,
                 "table_name": "--END_OF_PIPELINE--",
                 "next_table": 0,
                 "next_table_full": 97,
@@ -30551,7 +30711,7 @@
               },
               {
                 "action_name": "set_egress_details",
-                "action_handle": 536870924,
+                "action_handle": 536870922,
                 "table_name": "--END_OF_PIPELINE--",
                 "next_table": 0,
                 "next_table_full": 97,
@@ -31953,30 +32113,8 @@
       },
       "actions": [
         {
-          "name": "NoAction",
-          "handle": 536870925,
-          "primitives": [],
-          "direct_resources": [],
-          "indirect_resources": [],
-          "allowed_as_hit_action": false,
-          "allowed_as_default_action": true,
-          "is_compiler_added_action": false,
-          "constant_default_action": false,
-          "p4_parameters": [],
-          "override_meter_addr": false,
-          "override_meter_addr_pfe": false,
-          "override_meter_full_addr": 0,
-          "override_stat_addr": false,
-          "override_stat_addr_pfe": false,
-          "override_stat_full_addr": 0,
-          "override_stateful_addr": false,
-          "override_stateful_addr_pfe": false,
-          "override_stateful_full_addr": 0,
-          "is_action_meter_color_aware": false
-        },
-        {
           "name": "ai_drop",
-          "handle": 536870923,
+          "handle": 536870921,
           "primitives": [
             {
               "name": "DropPrimitive",
@@ -31989,7 +32127,7 @@
           "allowed_as_hit_action": true,
           "allowed_as_default_action": true,
           "is_compiler_added_action": false,
-          "constant_default_action": false,
+          "constant_default_action": true,
           "p4_parameters": [],
           "override_meter_addr": false,
           "override_meter_addr_pfe": false,
@@ -32004,7 +32142,7 @@
         },
         {
           "name": "set_egress_details",
-          "handle": 536870924,
+          "handle": 536870922,
           "primitives": [
             {
               "name": "ModifyFieldPrimitive",
@@ -32017,7 +32155,8 @@
           "direct_resources": [],
           "indirect_resources": [],
           "allowed_as_hit_action": true,
-          "allowed_as_default_action": true,
+          "allowed_as_default_action": false,
+          "disallowed_as_default_action_reason": "has_const_default_action",
           "is_compiler_added_action": false,
           "constant_default_action": false,
           "p4_parameters": [
@@ -32910,7 +33049,7 @@
               "action_format": [
                 {
                   "action_name": "act",
-                  "action_handle": 536870926,
+                  "action_handle": 536870923,
                   "table_name": "--END_OF_PIPELINE--",
                   "next_table": 0,
                   "next_table_full": 255,
@@ -32933,7 +33072,7 @@
       "actions": [
         {
           "name": "act",
-          "handle": 536870926,
+          "handle": 536870923,
           "primitives": [
             {
               "name": "AddHeaderPrimitive",
@@ -32970,7 +33109,7 @@
           "is_action_meter_color_aware": false
         }
       ],
-      "default_action_handle": 536870926,
+      "default_action_handle": 536870923,
       "action_profile": "",
       "default_next_table_mask": 0,
       "default_next_table_default": 0,
@@ -33293,6 +33432,6 @@
       ]
     }
   ],
-  "run_id": "afa5bb374612fc9e",
+  "run_id": "02437135726e73c3",
   "driver_options": { "hash_parity_enabled": false, "high_availability_enabled": true }
 }

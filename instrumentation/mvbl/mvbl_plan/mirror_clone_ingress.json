@@ -1,0 +1,25 @@
+{
+    "0": {
+        "action_to_increment": {},
+        "encoding_to_path": {
+            "0": [
+                "tiSendClone",
+                "tiSendClone__aiSendClone"
+            ]
+        },
+        "num_bits": 1,
+        "num_paths": 1
+    },
+    "1": {
+        "action_to_increment": {},
+        "encoding_to_path": {
+            "0": [
+                "tiSetOutputPort",
+                "tiSetOutputPort__aiSetOutputPort"
+            ]
+        },
+        "num_bits": 1,
+        "num_paths": 1
+    },
+    "num_vars": 2
+}
