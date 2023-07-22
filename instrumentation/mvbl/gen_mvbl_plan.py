@@ -255,12 +255,17 @@ class GraphParser(object):
             all_paths_weights = []
             for root in subdag_root_nodes:
                 for leaf in subdag_leaf_nodes:
+                    # This sub-dag must be a single (conditional) node
                     if root == leaf:
+                        if len(subdag_root_nodes) != 1 or len(subdag_leaf_nodes) != 1:
+                            raise Exception("len(subdag_root_nodes) != 1 or len(subdag_leaf_nodes) != 1!")
+                            sys.exit()
                         all_paths_weights.append(([root], 0))
-                    paths = list(nx.all_simple_paths(graph, root, leaf))
-                    for path in paths:
-                        weight = sum(graph.get_edge_data(path[i], path[i + 1])['weight'] for i in range(len(path) - 1))
-                        all_paths_weights.append((path, weight))
+                    else:
+                        paths = list(nx.all_simple_paths(graph, root, leaf))
+                        for path in paths:
+                            weight = sum(graph.get_edge_data(path[i], path[i + 1])['weight'] for i in range(len(path) - 1))
+                            all_paths_weights.append((path, weight))
             all_paths_weights.sort(key=lambda x: x[1])
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_PATHS] = len(all_paths_weights)
             for path, weight in all_paths_weights:
