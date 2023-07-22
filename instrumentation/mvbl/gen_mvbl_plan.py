@@ -40,6 +40,8 @@ def visualize_digraph(graph, name):
 JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT = "action_to_increment"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
 JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
+JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL = "stage2tables_dict"
+JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_SANITIZED = "stage2tables_dict_sanitized"
 
 
 class GraphParser(object):
@@ -64,6 +66,8 @@ class GraphParser(object):
             # conditions_to_nextstep = self.extract_conditionals(jsonfile)
             # actions = self.extract_actions_bmv2(jsonfile)
             # table2actions_dict = self.extract_tables_actions_bmv2(jsonfile, actions)
+        stage2tables_dict_original = copy.deepcopy(stage2tables_dict)
+        json_output_dict[JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL] = stage2tables_dict_original
 
         print("====== Print all_actions ======")
         all_actions = []
@@ -148,6 +152,8 @@ class GraphParser(object):
                     raise Exception("ERR!")
         print("--- stage2tables_dict after ---")
         pretty_print_dict(stage2tables_dict)
+
+        json_output_dict[JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_SANITIZED] = stage2tables_dict
 
         print("\n====== Check for cycles... ======")
         cycles = list(nx.simple_cycles(full_graph))

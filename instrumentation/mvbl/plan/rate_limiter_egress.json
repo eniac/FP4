@@ -28,5 +28,41 @@
         "num_bits": 5,
         "num_paths": 1
     },
-    "num_vars": 2
+    "num_vars": 2,
+    "stage2tables_dict": {
+        "0": [
+            "teInitializeWma"
+        ],
+        "1": [
+            "teWmaPhase1"
+        ],
+        "2": [
+            "teWmaPhase2"
+        ],
+        "3": [
+            "te_rate_limit"
+        ],
+        "4": [
+            "te_drop",
+            "\"meta.meta.current_reading == 0;\""
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "teInitializeWma"
+        ],
+        "1": [
+            "teWmaPhase1"
+        ],
+        "2": [
+            "teWmaPhase2"
+        ],
+        "3": [
+            "te_rate_limit"
+        ],
+        "4": [
+            "te_drop",
+            "metametacurrent_reading0"
+        ]
+    }
 }

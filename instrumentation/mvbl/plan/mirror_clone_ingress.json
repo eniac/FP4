@@ -21,5 +21,17 @@
         "num_bits": 1,
         "num_paths": 1
     },
-    "num_vars": 2
+    "num_vars": 2,
+    "stage2tables_dict": {
+        "0": [
+            "tiSetOutputPort",
+            "tiSendClone"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "tiSetOutputPort",
+            "tiSendClone"
+        ]
+    }
 }

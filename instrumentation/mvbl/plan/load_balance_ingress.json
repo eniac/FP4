@@ -1,33 +1,33 @@
 {
     "0": {
         "action_to_increment": {
-            "ecmp_group__drop_packet": 2,
-            "ecmp_nhop__drop_packet": 1
+            "ecmp_group__set_ecmp_select": 2,
+            "ecmp_nhop__set_nhop": 1
         },
         "encoding_to_path": {
             "0": [
                 "ecmp_group",
-                "ecmp_group__set_ecmp_select",
+                "ecmp_group__drop_packet",
                 "ecmp_nhop",
-                "ecmp_nhop__set_nhop"
+                "ecmp_nhop__drop_packet"
             ],
             "1": [
                 "ecmp_group",
-                "ecmp_group__set_ecmp_select",
-                "ecmp_nhop",
-                "ecmp_nhop__drop_packet"
-            ],
-            "2": [
-                "ecmp_group",
                 "ecmp_group__drop_packet",
                 "ecmp_nhop",
                 "ecmp_nhop__set_nhop"
             ],
-            "3": [
+            "2": [
                 "ecmp_group",
-                "ecmp_group__drop_packet",
+                "ecmp_group__set_ecmp_select",
                 "ecmp_nhop",
                 "ecmp_nhop__drop_packet"
+            ],
+            "3": [
+                "ecmp_group",
+                "ecmp_group__set_ecmp_select",
+                "ecmp_nhop",
+                "ecmp_nhop__set_nhop"
             ]
         },
         "num_bits": 2,
@@ -43,5 +43,23 @@
         "num_bits": 1,
         "num_paths": 1
     },
-    "num_vars": 2
+    "num_vars": 2,
+    "stage2tables_dict": {
+        "0": [
+            "ecmp_group",
+            "\"hdr.ipv4.isValid();\""
+        ],
+        "1": [
+            "ecmp_nhop"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "ecmp_group",
+            "hdripv4isValid"
+        ],
+        "1": [
+            "ecmp_nhop"
+        ]
+    }
 }

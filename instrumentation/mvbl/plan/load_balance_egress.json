@@ -16,5 +16,15 @@
         "num_bits": 1,
         "num_paths": 2
     },
-    "num_vars": 1
+    "num_vars": 1,
+    "stage2tables_dict": {
+        "0": [
+            "send_frame"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "send_frame"
+        ]
+    }
 }

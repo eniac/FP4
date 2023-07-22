@@ -64,5 +64,25 @@
         "num_bits": 1,
         "num_paths": 1
     },
-    "num_vars": 6
+    "num_vars": 6,
+    "stage2tables_dict": {
+        "0": [
+            "teGetDiff",
+            "teReadOriginal",
+            "\"eg_intr_md.egress_port == 40;\"",
+            "teUpdateOriginal",
+            "teReadMirror",
+            "teUpdateMirror"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "teGetDiff",
+            "teReadOriginal",
+            "eg_intr_mdegress_port40",
+            "teUpdateOriginal",
+            "teReadMirror",
+            "teUpdateMirror"
+        ]
+    }
 }
