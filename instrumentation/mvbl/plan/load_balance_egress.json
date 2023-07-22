@@ -1,18 +1,27 @@
 {
     "0": {
         "action_to_increment": {
-            "send_frame__rewrite_mac": 1
+            "send_frame__drop_packet": 1
         },
+        "edges": [
+            "send_frame -> send_frame__rewrite_mac",
+            "send_frame -> send_frame__drop_packet"
+        ],
         "encoding_to_path": {
             "0": [
                 "send_frame",
-                "send_frame__drop_packet"
+                "send_frame__rewrite_mac"
             ],
             "1": [
                 "send_frame",
-                "send_frame__rewrite_mac"
+                "send_frame__drop_packet"
             ]
         },
+        "nodes": [
+            "send_frame__rewrite_mac",
+            "send_frame",
+            "send_frame__drop_packet"
+        ],
         "num_bits": 1,
         "num_paths": 2
     },

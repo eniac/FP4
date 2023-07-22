@@ -1,19 +1,28 @@
 {
     "0": {
         "action_to_increment": {},
+        "edges": [],
         "encoding_to_path": {
             "0": [
                 "hdripv4isValid"
             ]
         },
+        "nodes": [
+            "hdripv4isValid"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "1": {
         "action_to_increment": {
-            "ipv4_lpm__ai_noOp": 1,
-            "ipv4_lpm__drop_packet": 2
+            "ipv4_lpm__ai_noOp": 2,
+            "ipv4_lpm__drop_packet": 1
         },
+        "edges": [
+            "ipv4_lpm -> ipv4_lpm__ipv4_forward",
+            "ipv4_lpm -> ipv4_lpm__drop_packet",
+            "ipv4_lpm -> ipv4_lpm__ai_noOp"
+        ],
         "encoding_to_path": {
             "0": [
                 "ipv4_lpm",
@@ -21,13 +30,19 @@
             ],
             "1": [
                 "ipv4_lpm",
-                "ipv4_lpm__ai_noOp"
+                "ipv4_lpm__drop_packet"
             ],
             "2": [
                 "ipv4_lpm",
-                "ipv4_lpm__drop_packet"
+                "ipv4_lpm__ai_noOp"
             ]
         },
+        "nodes": [
+            "ipv4_lpm",
+            "ipv4_lpm__ipv4_forward",
+            "ipv4_lpm__ai_noOp",
+            "ipv4_lpm__drop_packet"
+        ],
         "num_bits": 2,
         "num_paths": 3
     },

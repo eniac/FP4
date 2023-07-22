@@ -1,16 +1,31 @@
 {
     "0": {
         "action_to_increment": {},
+        "edges": [],
         "encoding_to_path": {
             "0": [
                 "metametacurrent_reading0"
             ]
         },
+        "nodes": [
+            "metametacurrent_reading0"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "1": {
         "action_to_increment": {},
+        "edges": [
+            "teWmaPhase2 -> teWmaPhase2__aeWmaPhase2",
+            "teWmaPhase1__aeWmaPhase1 -> teWmaPhase2",
+            "teWmaPhase2__aeWmaPhase2 -> te_rate_limit",
+            "te_rate_limit__ae_rate_limit -> te_drop",
+            "teInitializeWma -> teInitializeWma__aeInitializeWma",
+            "teWmaPhase1 -> teWmaPhase1__aeWmaPhase1",
+            "teInitializeWma__aeInitializeWma -> teWmaPhase1",
+            "te_rate_limit -> te_rate_limit__ae_rate_limit",
+            "te_drop -> te_drop__drop_packet"
+        ],
         "encoding_to_path": {
             "0": [
                 "teInitializeWma",
@@ -25,6 +40,18 @@
                 "te_drop__drop_packet"
             ]
         },
+        "nodes": [
+            "teWmaPhase2",
+            "teWmaPhase1__aeWmaPhase1",
+            "teWmaPhase2__aeWmaPhase2",
+            "te_rate_limit__ae_rate_limit",
+            "teInitializeWma",
+            "teWmaPhase1",
+            "te_drop__drop_packet",
+            "teInitializeWma__aeInitializeWma",
+            "te_rate_limit",
+            "te_drop"
+        ],
         "num_bits": 5,
         "num_paths": 1
     },

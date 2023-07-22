@@ -1,0 +1,158 @@
+{
+    "0": {
+        "action_to_increment": {},
+        "edges": [
+            "release_lock_table -> release_lock_table__release_lock_action",
+            "decode_table__decode_action -> release_lock_table",
+            "decode_table -> decode_table__decode_action"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "decode_table",
+                "decode_table__decode_action",
+                "release_lock_table",
+                "release_lock_table__release_lock_action"
+            ]
+        },
+        "nodes": [
+            "release_lock_table__release_lock_action",
+            "release_lock_table",
+            "decode_table__decode_action",
+            "decode_table"
+        ],
+        "num_bits": 2,
+        "num_paths": 1
+    },
+    "1": {
+        "action_to_increment": {
+            "hdrnc_hdrop1": 1
+        },
+        "edges": [
+            "hdrnc_hdrisValid -> metametaavailable0",
+            "hdrnc_hdrisValid -> hdrnc_hdrop1"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "hdrnc_hdrisValid",
+                "metametaavailable0"
+            ],
+            "1": [
+                "hdrnc_hdrisValid",
+                "hdrnc_hdrop1"
+            ]
+        },
+        "nodes": [
+            "metametaavailable0",
+            "hdrnc_hdrop1",
+            "hdrnc_hdrisValid"
+        ],
+        "num_bits": 3,
+        "num_paths": 2
+    },
+    "2": {
+        "action_to_increment": {
+            "ipv4_route__set_egress": 1
+        },
+        "edges": [
+            "ipv4_route -> ipv4_route__drop_action",
+            "ipv4_route -> ipv4_route__set_egress",
+            "hdrnc_hdrop0 -> ipv4_route"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "hdrnc_hdrop0",
+                "ipv4_route",
+                "ipv4_route__drop_action"
+            ],
+            "1": [
+                "hdrnc_hdrop0",
+                "ipv4_route",
+                "ipv4_route__set_egress"
+            ]
+        },
+        "nodes": [
+            "ipv4_route__drop_action",
+            "ipv4_route__set_egress",
+            "ipv4_route",
+            "hdrnc_hdrop0"
+        ],
+        "num_bits": 2,
+        "num_paths": 2
+    },
+    "3": {
+        "action_to_increment": {
+            "reply_to_client_table": 1
+        },
+        "edges": [
+            "acquire_lock_table -> acquire_lock_table__acquire_lock_action",
+            "reply_to_client_table -> reply_to_client_table__reply_to_client_action",
+            "acquire_lock_table__acquire_lock_action -> set_retry_table",
+            "acquire_lock_table__acquire_lock_action -> reply_to_client_table",
+            "set_retry_table -> set_retry_table__set_retry_action",
+            "set_retry_table__set_retry_action -> reply_to_client_table"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "acquire_lock_table",
+                "acquire_lock_table__acquire_lock_action",
+                "set_retry_table",
+                "set_retry_table__set_retry_action",
+                "reply_to_client_table",
+                "reply_to_client_table__reply_to_client_action"
+            ],
+            "1": [
+                "acquire_lock_table",
+                "acquire_lock_table__acquire_lock_action",
+                "reply_to_client_table",
+                "reply_to_client_table__reply_to_client_action"
+            ]
+        },
+        "nodes": [
+            "acquire_lock_table",
+            "reply_to_client_table",
+            "acquire_lock_table__acquire_lock_action",
+            "set_retry_table",
+            "reply_to_client_table__reply_to_client_action",
+            "set_retry_table__set_retry_action"
+        ],
+        "num_bits": 3,
+        "num_paths": 2
+    },
+    "num_vars": 4,
+    "stage2tables_dict": {
+        "0": [
+            "decode_table",
+            "\"hdr.nc_hdr.isValid();\"",
+            "reply_to_client_table"
+        ],
+        "1": [
+            "acquire_lock_table",
+            "\"hdr.nc_hdr.op == 0;\"",
+            "release_lock_table",
+            "\"hdr.nc_hdr.op == 1;\""
+        ],
+        "2": [
+            "set_retry_table",
+            "\"meta.meta.available != 0;\"",
+            "ipv4_route"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "decode_table",
+            "hdrnc_hdrisValid",
+            "reply_to_client_table"
+        ],
+        "1": [
+            "acquire_lock_table",
+            "hdrnc_hdrop0",
+            "release_lock_table",
+            "hdrnc_hdrop1"
+        ],
+        "2": [
+            "set_retry_table",
+            "metametaavailable0",
+            "ipv4_route"
+        ]
+    }
+}

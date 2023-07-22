@@ -4,6 +4,14 @@
             "ecmp_group__set_ecmp_select": 2,
             "ecmp_nhop__set_nhop": 1
         },
+        "edges": [
+            "ecmp_group__drop_packet -> ecmp_nhop",
+            "ecmp_group__set_ecmp_select -> ecmp_nhop",
+            "ecmp_group -> ecmp_group__drop_packet",
+            "ecmp_group -> ecmp_group__set_ecmp_select",
+            "ecmp_nhop -> ecmp_nhop__drop_packet",
+            "ecmp_nhop -> ecmp_nhop__set_nhop"
+        ],
         "encoding_to_path": {
             "0": [
                 "ecmp_group",
@@ -30,16 +38,28 @@
                 "ecmp_nhop__set_nhop"
             ]
         },
+        "nodes": [
+            "ecmp_group__drop_packet",
+            "ecmp_nhop__drop_packet",
+            "ecmp_group__set_ecmp_select",
+            "ecmp_nhop__set_nhop",
+            "ecmp_group",
+            "ecmp_nhop"
+        ],
         "num_bits": 2,
         "num_paths": 4
     },
     "1": {
         "action_to_increment": {},
+        "edges": [],
         "encoding_to_path": {
             "0": [
                 "hdripv4isValid"
             ]
         },
+        "nodes": [
+            "hdripv4isValid"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },

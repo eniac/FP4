@@ -1,66 +1,105 @@
 {
     "0": {
         "action_to_increment": {},
+        "edges": [
+            "teGetDiff -> teGetDiff__aeGetDiff"
+        ],
         "encoding_to_path": {
             "0": [
                 "teGetDiff",
                 "teGetDiff__aeGetDiff"
             ]
         },
+        "nodes": [
+            "teGetDiff",
+            "teGetDiff__aeGetDiff"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "1": {
         "action_to_increment": {},
+        "edges": [],
         "encoding_to_path": {
             "0": [
                 "eg_intr_mdegress_port40"
             ]
         },
+        "nodes": [
+            "eg_intr_mdegress_port40"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "2": {
         "action_to_increment": {},
+        "edges": [
+            "teReadMirror -> teReadMirror__aeReadMirror"
+        ],
         "encoding_to_path": {
             "0": [
                 "teReadMirror",
                 "teReadMirror__aeReadMirror"
             ]
         },
+        "nodes": [
+            "teReadMirror",
+            "teReadMirror__aeReadMirror"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "3": {
         "action_to_increment": {},
+        "edges": [
+            "teUpdateOriginal -> teUpdateOriginal__aeUpdateOriginal"
+        ],
         "encoding_to_path": {
             "0": [
                 "teUpdateOriginal",
                 "teUpdateOriginal__aeUpdateOriginal"
             ]
         },
+        "nodes": [
+            "teUpdateOriginal__aeUpdateOriginal",
+            "teUpdateOriginal"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "4": {
         "action_to_increment": {},
+        "edges": [
+            "teReadOriginal -> teReadOriginal__aeReadOriginal"
+        ],
         "encoding_to_path": {
             "0": [
                 "teReadOriginal",
                 "teReadOriginal__aeReadOriginal"
             ]
         },
+        "nodes": [
+            "teReadOriginal",
+            "teReadOriginal__aeReadOriginal"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },
     "5": {
         "action_to_increment": {},
+        "edges": [
+            "teUpdateMirror -> teUpdateMirror__aeUpdateMirror"
+        ],
         "encoding_to_path": {
             "0": [
                 "teUpdateMirror",
                 "teUpdateMirror__aeUpdateMirror"
             ]
         },
+        "nodes": [
+            "teUpdateMirror__aeUpdateMirror",
+            "teUpdateMirror"
+        ],
         "num_bits": 1,
         "num_paths": 1
     },

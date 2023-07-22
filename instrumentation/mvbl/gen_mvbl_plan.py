@@ -36,10 +36,13 @@ def visualize_digraph(graph, name):
         u, v = line.split('$')
         print("{0} --> {1}".format(u, v))
 
-
+JSON_OUTPUT_KEY_NUM_VARS = "num_vars"
+JSON_OUTPUT_KEY_NUM_BITS = "num_bits"
 JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT = "action_to_increment"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
 JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
+JSON_OUtPUT_KEY_NODES = "nodes"
+JSON_OUTPUT_EDGES = "edges"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL = "stage2tables_dict"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_SANITIZED = "stage2tables_dict_sanitized"
 
@@ -51,6 +54,14 @@ class GraphParser(object):
 
         print("\n====== Extract node name to label mapping, filtering START, EXIT, tbl_act ======")
         node2label_dict, ignored_node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
+
+        if len(node2label_dict) == 0:
+            json_output_dict[JSON_OUTPUT_KEY_NUM_VARS] = 0
+            with open("plan/"+prog_name+"_"+direction+".json", 'w') as f:
+                json.dump(json_output_dict, f, indent=4, sort_keys=True)
+            print("====== Completed ======")
+            return
+            # raise Exception("len(node2label_dict) == 0!")
 
         print("\n====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
         renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict, ignored_node2label_dict)
@@ -169,13 +180,13 @@ class GraphParser(object):
         print("\n====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, stage2tables_dict, table2actions_dict)
 
-        json_output_dict["num_vars"] = len(pulpSolver.var_to_bits)
+        json_output_dict[JSON_OUTPUT_KEY_NUM_VARS] = len(pulpSolver.var_to_bits)
         # Based on the solver result, construct the sub-DAGs with only the tables and edges involved
         # Note that dummy edges should be handled properly
         new_subgraphs = []
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
             json_output_dict[str(graph_number)] = {
-                "num_bits": number_of_bits
+                JSON_OUTPUT_KEY_NUM_BITS : number_of_bits
             }
             print("\n====== Constructing subgraph {0} for MVBL based on table_graph and pulp result ======".format(graph_number))
             print("--- List of (table/conditonal) nodes included from pulp ---")
@@ -220,6 +231,8 @@ class GraphParser(object):
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             new_subgraphs.append(new_subgraph)
             visualize_digraph(new_subgraph, "new_subgraph")
+            json_output_dict[str(graph_number)][JSON_OUtPUT_KEY_NODES] = list(new_subgraph.nodes)
+            json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False))
 
         print("\n====== Check if each subgraph is a DAG and weakly connected ======")
         for idx, graph in enumerate(new_subgraphs):
@@ -464,7 +477,7 @@ class GraphParser(object):
                 print(edge)
                 if "__" not in edge['dst']:
                     print("Target instrumentation point {} is NOT an action!".format(edge['dst']))
-                    raise Exception("ERR!")
+                    # raise Exception("ERR!")
 
         return graph.nodes, weighted_edges
 

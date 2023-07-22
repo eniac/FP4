@@ -3,6 +3,10 @@
         "action_to_increment": {
             "rewrite_mac__on_miss": 1
         },
+        "edges": [
+            "rewrite_mac -> rewrite_mac__rewrite_src_dst_mac",
+            "rewrite_mac -> rewrite_mac__on_miss"
+        ],
         "encoding_to_path": {
             "0": [
                 "rewrite_mac",
@@ -13,6 +17,11 @@
                 "rewrite_mac__on_miss"
             ]
         },
+        "nodes": [
+            "rewrite_mac__rewrite_src_dst_mac",
+            "rewrite_mac",
+            "rewrite_mac__on_miss"
+        ],
         "num_bits": 1,
         "num_paths": 2
     },
