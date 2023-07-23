@@ -11,8 +11,8 @@
             ]
         },
         "nodes": [
-            "teGetDiff__aeGetDiff",
-            "teGetDiff"
+            "teGetDiff",
+            "teGetDiff__aeGetDiff"
         ],
         "nonaction_to_increment": [],
         "num_bits": 1,

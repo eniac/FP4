@@ -39,9 +39,9 @@
             ]
         },
         "nodes": [
+            "ipv4_lpm",
             "ipv4_lpm__ipv4_forward",
             "ipv4_lpm__drop_packet",
-            "ipv4_lpm",
             "ipv4_lpm__ai_noOp"
         ],
         "nonaction_to_increment": [],

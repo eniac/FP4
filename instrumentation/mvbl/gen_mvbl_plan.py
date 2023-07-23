@@ -282,9 +282,14 @@ class GraphParser(object):
                             all_paths_weights.append((path, weight))
             all_paths_weights.sort(key=lambda x: x[1])
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_PATHS] = len(all_paths_weights)
+            print("--- Expecting all_path_weights with weight from 0 to {} ---".format(len(all_paths_weights)))
+            expected_weight = 0
             for path, weight in all_paths_weights:
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
                 json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path
+                if weight != expected_weight:
+                    raise Exception("Unexpected weight! Possibly mis-assigned weights")
+                expected_weight += 1
         
         with open("plan/"+prog_name+"_"+direction+".json", 'w') as f:
             json.dump(json_output_dict, f, indent=4, sort_keys=True)

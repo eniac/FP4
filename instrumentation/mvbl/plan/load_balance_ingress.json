@@ -5,12 +5,12 @@
             "ecmp_nhop__set_nhop": 1
         },
         "edges": [
-            "ecmp_group__set_ecmp_select -> ecmp_nhop",
             "ecmp_group__drop_packet -> ecmp_nhop",
-            "ecmp_nhop -> ecmp_nhop__drop_packet",
-            "ecmp_nhop -> ecmp_nhop__set_nhop",
             "ecmp_group -> ecmp_group__drop_packet",
-            "ecmp_group -> ecmp_group__set_ecmp_select"
+            "ecmp_group -> ecmp_group__set_ecmp_select",
+            "ecmp_group__set_ecmp_select -> ecmp_nhop",
+            "ecmp_nhop -> ecmp_nhop__drop_packet",
+            "ecmp_nhop -> ecmp_nhop__set_nhop"
         ],
         "encoding_to_path": {
             "0": [
@@ -39,11 +39,11 @@
             ]
         },
         "nodes": [
-            "ecmp_group__set_ecmp_select",
             "ecmp_group__drop_packet",
-            "ecmp_nhop__drop_packet",
-            "ecmp_nhop",
             "ecmp_group",
+            "ecmp_nhop__drop_packet",
+            "ecmp_group__set_ecmp_select",
+            "ecmp_nhop",
             "ecmp_nhop__set_nhop"
         ],
         "nonaction_to_increment": [],

@@ -19,8 +19,8 @@
         },
         "nodes": [
             "send_frame__rewrite_mac",
-            "send_frame",
-            "send_frame__drop_packet"
+            "send_frame__drop_packet",
+            "send_frame"
         ],
         "nonaction_to_increment": [],
         "num_bits": 1,

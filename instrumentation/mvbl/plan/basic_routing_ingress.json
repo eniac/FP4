@@ -1,30 +1,30 @@
 {
     "0": {
         "edge_dst_to_increment": {
-            "ipv4_fib_lpm__fib_hit_nexthop": 1
+            "ipv4_fib_lpm__on_miss": 1
         },
         "edges": [
             "hdripv4isValid -> ipv4_fib_lpm",
-            "ipv4_fib_lpm -> ipv4_fib_lpm__on_miss",
-            "ipv4_fib_lpm -> ipv4_fib_lpm__fib_hit_nexthop"
+            "ipv4_fib_lpm -> ipv4_fib_lpm__fib_hit_nexthop",
+            "ipv4_fib_lpm -> ipv4_fib_lpm__on_miss"
         ],
         "encoding_to_path": {
             "0": [
                 "hdripv4isValid",
                 "ipv4_fib_lpm",
-                "ipv4_fib_lpm__on_miss"
+                "ipv4_fib_lpm__fib_hit_nexthop"
             ],
             "1": [
                 "hdripv4isValid",
                 "ipv4_fib_lpm",
-                "ipv4_fib_lpm__fib_hit_nexthop"
+                "ipv4_fib_lpm__on_miss"
             ]
         },
         "nodes": [
+            "ipv4_fib_lpm__fib_hit_nexthop",
             "ipv4_fib_lpm__on_miss",
             "hdripv4isValid",
-            "ipv4_fib_lpm",
-            "ipv4_fib_lpm__fib_hit_nexthop"
+            "ipv4_fib_lpm"
         ],
         "nonaction_to_increment": [],
         "num_bits": 2,
@@ -39,18 +39,18 @@
         },
         "edges": [
             "metaingress_metadataon_miss_ipv4_fib1 -> nexthop",
-            "bd__set_vrf -> ipv4_fib",
             "ipv4_fib__fib_hit_nexthop -> metaingress_metadataon_miss_ipv4_fib1",
-            "port_mapping__on_miss -> bd",
-            "bd__on_miss -> ipv4_fib",
+            "port_mapping__set_bd -> bd",
             "ipv4_fib -> ipv4_fib__fib_hit_nexthop",
             "ipv4_fib -> ipv4_fib__on_miss_ipv4_fib",
-            "port_mapping__set_bd -> bd",
+            "ipv4_fib__on_miss_ipv4_fib -> metaingress_metadataon_miss_ipv4_fib1",
+            "bd__set_vrf -> ipv4_fib",
             "port_mapping -> port_mapping__set_bd",
             "port_mapping -> port_mapping__on_miss",
             "bd -> bd__on_miss",
             "bd -> bd__set_vrf",
-            "ipv4_fib__on_miss_ipv4_fib -> metaingress_metadataon_miss_ipv4_fib1",
+            "port_mapping__on_miss -> bd",
+            "bd__on_miss -> ipv4_fib",
             "nexthop -> nexthop__set_egress_details",
             "nexthop -> nexthop__ai_drop"
         ],
@@ -233,18 +233,18 @@
             ]
         },
         "nodes": [
+            "nexthop__ai_drop",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "bd__set_vrf",
             "ipv4_fib__fib_hit_nexthop",
-            "nexthop__set_egress_details",
-            "port_mapping__on_miss",
-            "bd__on_miss",
-            "ipv4_fib",
             "port_mapping__set_bd",
+            "ipv4_fib",
+            "ipv4_fib__on_miss_ipv4_fib",
+            "bd__set_vrf",
+            "nexthop__set_egress_details",
             "port_mapping",
             "bd",
-            "ipv4_fib__on_miss_ipv4_fib",
-            "nexthop__ai_drop",
+            "port_mapping__on_miss",
+            "bd__on_miss",
             "nexthop"
         ],
         "nonaction_to_increment": [],

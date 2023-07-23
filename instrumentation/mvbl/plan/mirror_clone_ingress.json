@@ -11,8 +11,8 @@
             ]
         },
         "nodes": [
-            "tiSendClone",
-            "tiSendClone__aiSendClone"
+            "tiSendClone__aiSendClone",
+            "tiSendClone"
         ],
         "nonaction_to_increment": [],
         "num_bits": 1,
