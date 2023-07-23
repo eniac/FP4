@@ -1,6 +1,6 @@
 {
     "0": {
-        "action_to_increment": {},
+        "edge_dst_to_increment": {},
         "edges": [],
         "encoding_to_path": {
             "0": [
@@ -10,11 +10,12 @@
         "nodes": [
             "hdripv4isValid"
         ],
+        "nonaction_to_increment": [],
         "num_bits": 1,
         "num_paths": 1
     },
     "1": {
-        "action_to_increment": {
+        "edge_dst_to_increment": {
             "ipv4_lpm__ai_noOp": 2,
             "ipv4_lpm__drop_packet": 1
         },
@@ -38,11 +39,12 @@
             ]
         },
         "nodes": [
-            "ipv4_lpm",
             "ipv4_lpm__ipv4_forward",
-            "ipv4_lpm__ai_noOp",
-            "ipv4_lpm__drop_packet"
+            "ipv4_lpm__drop_packet",
+            "ipv4_lpm",
+            "ipv4_lpm__ai_noOp"
         ],
+        "nonaction_to_increment": [],
         "num_bits": 2,
         "num_paths": 3
     },

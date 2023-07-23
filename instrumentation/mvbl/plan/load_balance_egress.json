@@ -1,6 +1,6 @@
 {
     "0": {
-        "action_to_increment": {
+        "edge_dst_to_increment": {
             "send_frame__drop_packet": 1
         },
         "edges": [
@@ -22,6 +22,7 @@
             "send_frame",
             "send_frame__drop_packet"
         ],
+        "nonaction_to_increment": [],
         "num_bits": 1,
         "num_paths": 2
     },

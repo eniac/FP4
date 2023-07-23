@@ -1,6 +1,6 @@
 {
     "0": {
-        "action_to_increment": {},
+        "edge_dst_to_increment": {},
         "edges": [
             "tiSendClone -> tiSendClone__aiSendClone"
         ],
@@ -14,11 +14,12 @@
             "tiSendClone",
             "tiSendClone__aiSendClone"
         ],
+        "nonaction_to_increment": [],
         "num_bits": 1,
         "num_paths": 1
     },
     "1": {
-        "action_to_increment": {},
+        "edge_dst_to_increment": {},
         "edges": [
             "tiSetOutputPort -> tiSetOutputPort__aiSetOutputPort"
         ],
@@ -32,6 +33,7 @@
             "tiSetOutputPort__aiSetOutputPort",
             "tiSetOutputPort"
         ],
+        "nonaction_to_increment": [],
         "num_bits": 1,
         "num_paths": 1
     },

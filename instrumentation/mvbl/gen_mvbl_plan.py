@@ -38,7 +38,8 @@ def visualize_digraph(graph, name):
 
 JSON_OUTPUT_KEY_NUM_VARS = "num_vars"
 JSON_OUTPUT_KEY_NUM_BITS = "num_bits"
-JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT = "action_to_increment"
+JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT = "edge_dst_to_increment"
+JSON_OUTPUT_KEY_NON_ACTION_INCREMENT_LIST = "nonaction_to_increment"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
 JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
 JSON_OUtPUT_KEY_NODES = "nodes"
@@ -250,16 +251,10 @@ class GraphParser(object):
         for idx, graph in enumerate(new_subgraphs):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
-            json_output_dict[str(idx)][JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT] = {}
-            nodes_unmodified, edges_with_weights = self.ball_larus(graph)
-            graph_with_weights = nx.DiGraph()
-            graph_with_weights.add_nodes_from(nodes_unmodified)
-            edges = []
-            for e in edges_with_weights:
-                edges.append((e['src'], e['dst'], e['weight']))
-                if e['weight'] != 0:
-                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ACTION_INCREMENT_DICT][e['dst']] = e['weight']
-            graph_with_weights.add_weighted_edges_from(edges)
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = {}
+            graph_with_weights, json_output_edge_dst_increment_dict, json_output_nonaction_increment_list = self.ball_larus(graph)
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = json_output_edge_dst_increment_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_NON_ACTION_INCREMENT_LIST] = json_output_nonaction_increment_list
             graphs_with_weights.append(graph_with_weights)
         
         for idx, graph in enumerate(graphs_with_weights):
@@ -464,22 +459,45 @@ class GraphParser(object):
                 num_path[v] = 1
             else:
                 num_path[v] = 0
-                for e in graph.out_edges(v):
+                out_edges = graph.out_edges(v)
+                # Sort the edges in rev_topological_order
+                print("--- out_edges for {} ---".format(v))
+                print(out_edges)
+                sorted_out_edges = sorted(out_edges, key=lambda e: rev_topological_order.index(e[1]))
+                print("--- sorted_out_edges for {} ---".format(v))
+                print(sorted_out_edges)
+                if list(sorted_out_edges) != list(out_edges):
+                    print("[WARNING] sorted_out_edges != out_edges")
+                if set(out_edges) != set(sorted_out_edges):
+                    raise Exception("set(out_edges) != set(sorted_out_edges)")
+                for e in sorted_out_edges:
                     ind = weighted_edges.index({'src':e[0], 'dst':e[1],'weight': 0})
                     weighted_edges[ind]['weight'] = num_path[v]
                     num_path[v] = num_path[v] + num_path[e[1]]
 
         print("--- printing edges with non-0 weights from total {} edges ---".format(len(weighted_edges)))
+
+        json_output_edge_dst_increment_dict = {}
+        json_output_nonaction_increment_list = []
         for edge in weighted_edges:
             if edge['weight'] == 0:
                 continue
             else:
+                json_output_edge_dst_increment_dict[edge['dst']] = edge['weight']
                 print(edge)
                 if "__" not in edge['dst']:
                     print("Target instrumentation point {} is NOT an action!".format(edge['dst']))
+                    json_output_nonaction_increment_list.append(edge['dst'])
+
                     # raise Exception("ERR!")
 
-        return graph.nodes, weighted_edges
+        graph_with_weights = nx.DiGraph()
+        graph_with_weights.add_nodes_from(graph.nodes)
+        edges = []
+        for e in weighted_edges:
+            edges.append((e['src'], e['dst'], e['weight']))
+        graph_with_weights.add_weighted_edges_from(edges)
+        return graph_with_weights, json_output_edge_dst_increment_dict, json_output_nonaction_increment_list
 
     def estimate_stages(self, original_graph):
         graph = copy.deepcopy(original_graph)

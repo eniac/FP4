@@ -47,6 +47,7 @@ class PulpSolver(object):
             for stage, table_list in stage_to_tables_dict.items():
                 # Constraint 2: For each stage S and sub-DAG j (variable v), only one table from Ts is assigned to sub-DAG j (variable v)
                 # LC_TODO: one won't instrument the conditional node, maybe the conditional node can be ommited in this constraint?
+                # Idea: actually, it is OK to have 2 tables (each with 1 action) to be allocated to the same sub-DAG even though they are in the same stage, because BL will only instrument one of the edges...?
                 cfgModel += pulp.lpSum(assignment[var, t] for t in table_list) <= 1
 
                 constraint2_str = ""
@@ -62,6 +63,8 @@ class PulpSolver(object):
             cfgModel += pulp.lpSum(assignment[(var, table_name)] for var in var_size) == 1
 
         cfgModel.solve()
+        print("--- status ---")
+        print(pulp.LpStatus[cfgModel.status])
         
         # Dictionary - subgraph to table name
         self.subgraph_to_tables = dict()
