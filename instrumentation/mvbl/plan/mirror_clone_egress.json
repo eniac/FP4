@@ -10,11 +10,13 @@
                 "teGetDiff__aeGetDiff"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
-            "teGetDiff",
-            "teGetDiff__aeGetDiff"
+            "teGetDiff__aeGetDiff",
+            "teGetDiff"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -26,10 +28,12 @@
                 "eg_intr_mdegress_port40"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "eg_intr_mdegress_port40"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -44,11 +48,13 @@
                 "teReadMirror__aeReadMirror"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "teReadMirror__aeReadMirror",
             "teReadMirror"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -63,11 +69,13 @@
                 "teUpdateOriginal__aeUpdateOriginal"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "teUpdateOriginal",
             "teUpdateOriginal__aeUpdateOriginal"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -82,11 +90,13 @@
                 "teReadOriginal__aeReadOriginal"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "teReadOriginal__aeReadOriginal",
             "teReadOriginal"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -101,11 +111,13 @@
                 "teUpdateMirror__aeUpdateMirror"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
-            "teUpdateMirror__aeUpdateMirror",
-            "teUpdateMirror"
+            "teUpdateMirror",
+            "teUpdateMirror__aeUpdateMirror"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -128,6 +140,23 @@
             "teUpdateOriginal",
             "teReadMirror",
             "teUpdateMirror"
+        ]
+    },
+    "table2actions_dict": {
+        "teGetDiff": [
+            "teGetDiff__aeGetDiff"
+        ],
+        "teReadMirror": [
+            "teReadMirror__aeReadMirror"
+        ],
+        "teReadOriginal": [
+            "teReadOriginal__aeReadOriginal"
+        ],
+        "teUpdateMirror": [
+            "teUpdateMirror__aeUpdateMirror"
+        ],
+        "teUpdateOriginal": [
+            "teUpdateOriginal__aeUpdateOriginal"
         ]
     }
 }

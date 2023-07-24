@@ -10,11 +10,13 @@
                 "tiSendClone__aiSendClone"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "tiSendClone__aiSendClone",
             "tiSendClone"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -29,11 +31,13 @@
                 "tiSetOutputPort__aiSetOutputPort"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "tiSetOutputPort__aiSetOutputPort",
             "tiSetOutputPort"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
@@ -48,6 +52,14 @@
         "0": [
             "tiSetOutputPort",
             "tiSendClone"
+        ]
+    },
+    "table2actions_dict": {
+        "tiSendClone": [
+            "tiSendClone__aiSendClone"
+        ],
+        "tiSetOutputPort": [
+            "tiSetOutputPort__aiSetOutputPort"
         ]
     }
 }

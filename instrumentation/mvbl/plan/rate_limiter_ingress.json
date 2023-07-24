@@ -7,27 +7,29 @@
                 "hdripv4isValid"
             ]
         },
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
         "nodes": [
             "hdripv4isValid"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 1
     },
     "1": {
         "edge_dst_to_increment": {
-            "ipv4_lpm__ai_noOp": 2,
-            "ipv4_lpm__drop_packet": 1
+            "ipv4_lpm__drop_packet": 1,
+            "ipv4_lpm__ipv4_forward": 2
         },
         "edges": [
-            "ipv4_lpm -> ipv4_lpm__ipv4_forward",
+            "ipv4_lpm -> ipv4_lpm__ai_noOp",
             "ipv4_lpm -> ipv4_lpm__drop_packet",
-            "ipv4_lpm -> ipv4_lpm__ai_noOp"
+            "ipv4_lpm -> ipv4_lpm__ipv4_forward"
         ],
         "encoding_to_path": {
             "0": [
                 "ipv4_lpm",
-                "ipv4_lpm__ipv4_forward"
+                "ipv4_lpm__ai_noOp"
             ],
             "1": [
                 "ipv4_lpm",
@@ -35,16 +37,21 @@
             ],
             "2": [
                 "ipv4_lpm",
-                "ipv4_lpm__ai_noOp"
+                "ipv4_lpm__ipv4_forward"
             ]
         },
+        "final_edge_dst_to_increment": {
+            "ipv4_lpm__drop_packet": 1,
+            "ipv4_lpm__ipv4_forward": 2
+        },
+        "final_non_action_to_increment": {},
         "nodes": [
-            "ipv4_lpm",
-            "ipv4_lpm__ipv4_forward",
+            "ipv4_lpm__ai_noOp",
             "ipv4_lpm__drop_packet",
-            "ipv4_lpm__ai_noOp"
+            "ipv4_lpm",
+            "ipv4_lpm__ipv4_forward"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 2,
         "num_paths": 3
     },
@@ -59,6 +66,13 @@
         "0": [
             "ipv4_lpm",
             "hdripv4isValid"
+        ]
+    },
+    "table2actions_dict": {
+        "ipv4_lpm": [
+            "ipv4_lpm__ipv4_forward",
+            "ipv4_lpm__drop_packet",
+            "ipv4_lpm__ai_noOp"
         ]
     }
 }

@@ -17,12 +17,16 @@
                 "rewrite_mac__on_miss"
             ]
         },
+        "final_edge_dst_to_increment": {
+            "rewrite_mac__on_miss": 1
+        },
+        "final_non_action_to_increment": {},
         "nodes": [
             "rewrite_mac__rewrite_src_dst_mac",
             "rewrite_mac",
             "rewrite_mac__on_miss"
         ],
-        "nonaction_to_increment": [],
+        "non_action_to_increment": {},
         "num_bits": 1,
         "num_paths": 2
     },
@@ -35,6 +39,12 @@
     "stage2tables_dict_sanitized": {
         "0": [
             "rewrite_mac"
+        ]
+    },
+    "table2actions_dict": {
+        "rewrite_mac": [
+            "rewrite_mac__on_miss",
+            "rewrite_mac__rewrite_src_dst_mac"
         ]
     }
 }
