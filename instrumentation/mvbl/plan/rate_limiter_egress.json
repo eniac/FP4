@@ -19,15 +19,15 @@
     "1": {
         "edge_dst_to_increment": {},
         "edges": [
-            "teWmaPhase2 -> teWmaPhase2__aeWmaPhase2",
-            "te_rate_limit__ae_rate_limit -> te_drop",
-            "teWmaPhase1__aeWmaPhase1 -> teWmaPhase2",
             "te_drop -> te_drop__drop_packet",
+            "teWmaPhase1__aeWmaPhase1 -> teWmaPhase2",
+            "te_rate_limit__ae_rate_limit -> te_drop",
             "teWmaPhase1 -> teWmaPhase1__aeWmaPhase1",
-            "teWmaPhase2__aeWmaPhase2 -> te_rate_limit",
+            "teWmaPhase2 -> teWmaPhase2__aeWmaPhase2",
+            "te_rate_limit -> te_rate_limit__ae_rate_limit",
             "teInitializeWma -> teInitializeWma__aeInitializeWma",
             "teInitializeWma__aeInitializeWma -> teWmaPhase1",
-            "te_rate_limit -> te_rate_limit__ae_rate_limit"
+            "teWmaPhase2__aeWmaPhase2 -> te_rate_limit"
         ],
         "encoding_to_path": {
             "0": [
@@ -46,16 +46,16 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "nodes": [
-            "teWmaPhase2",
-            "te_drop__drop_packet",
-            "te_rate_limit__ae_rate_limit",
-            "teWmaPhase1__aeWmaPhase1",
             "te_drop",
+            "teWmaPhase1__aeWmaPhase1",
+            "te_rate_limit__ae_rate_limit",
             "teWmaPhase1",
-            "teWmaPhase2__aeWmaPhase2",
+            "teWmaPhase2",
+            "te_rate_limit",
+            "te_drop__drop_packet",
             "teInitializeWma",
             "teInitializeWma__aeInitializeWma",
-            "te_rate_limit"
+            "teWmaPhase2__aeWmaPhase2"
         ],
         "non_action_to_increment": {},
         "num_bits": 5,

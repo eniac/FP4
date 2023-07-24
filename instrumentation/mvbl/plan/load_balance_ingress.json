@@ -1,55 +1,55 @@
 {
     "0": {
         "edge_dst_to_increment": {
-            "ecmp_group__set_ecmp_select": 2,
+            "ecmp_group__drop_packet": 2,
             "ecmp_nhop__set_nhop": 1
         },
         "edges": [
+            "ecmp_group__drop_packet -> ecmp_nhop",
+            "ecmp_group -> ecmp_group__set_ecmp_select",
+            "ecmp_group -> ecmp_group__drop_packet",
             "ecmp_nhop -> ecmp_nhop__drop_packet",
             "ecmp_nhop -> ecmp_nhop__set_nhop",
-            "ecmp_group -> ecmp_group__drop_packet",
-            "ecmp_group -> ecmp_group__set_ecmp_select",
-            "ecmp_group__drop_packet -> ecmp_nhop",
             "ecmp_group__set_ecmp_select -> ecmp_nhop"
         ],
         "encoding_to_path": {
             "0": [
                 "ecmp_group",
-                "ecmp_group__drop_packet",
+                "ecmp_group__set_ecmp_select",
                 "ecmp_nhop",
                 "ecmp_nhop__drop_packet"
             ],
             "1": [
                 "ecmp_group",
-                "ecmp_group__drop_packet",
+                "ecmp_group__set_ecmp_select",
                 "ecmp_nhop",
                 "ecmp_nhop__set_nhop"
             ],
             "2": [
                 "ecmp_group",
-                "ecmp_group__set_ecmp_select",
+                "ecmp_group__drop_packet",
                 "ecmp_nhop",
                 "ecmp_nhop__drop_packet"
             ],
             "3": [
                 "ecmp_group",
-                "ecmp_group__set_ecmp_select",
+                "ecmp_group__drop_packet",
                 "ecmp_nhop",
                 "ecmp_nhop__set_nhop"
             ]
         },
         "final_edge_dst_to_increment": {
-            "ecmp_group__set_ecmp_select": 2,
+            "ecmp_group__drop_packet": 2,
             "ecmp_nhop__set_nhop": 1
         },
         "final_non_action_to_increment": {},
         "nodes": [
-            "ecmp_nhop",
             "ecmp_nhop__set_nhop",
-            "ecmp_group",
             "ecmp_group__drop_packet",
-            "ecmp_nhop__drop_packet",
-            "ecmp_group__set_ecmp_select"
+            "ecmp_group",
+            "ecmp_nhop",
+            "ecmp_group__set_ecmp_select",
+            "ecmp_nhop__drop_packet"
         ],
         "non_action_to_increment": {},
         "num_bits": 2,

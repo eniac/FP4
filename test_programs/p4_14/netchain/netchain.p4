@@ -88,8 +88,10 @@ control ingress {
                 apply(set_retry_table);
             }
         }
-        else if (nc_hdr.op == RELEASE_LOCK) {
-            apply(release_lock_table);
+        else {
+            if (nc_hdr.op == RELEASE_LOCK) {
+                apply(release_lock_table);
+            }
         }
         apply(reply_to_client_table);
     }

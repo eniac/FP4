@@ -34,8 +34,8 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "nodes": [
-            "tiSetOutputPort__aiSetOutputPort",
-            "tiSetOutputPort"
+            "tiSetOutputPort",
+            "tiSetOutputPort__aiSetOutputPort"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,

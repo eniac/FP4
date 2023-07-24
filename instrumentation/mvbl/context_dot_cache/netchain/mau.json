@@ -1,0 +1,311 @@
+{
+    "build_date": "Mon Jul 24 02:08:10 2023", 
+    "program_name": "netchain", 
+    "run_id": "ea5e51d769200a5a", 
+    "compiler_version": "9.2.0", 
+    "schema_version": "1.0.0", 
+    "tables": [
+        {
+            "name": "acquire_lock_table", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 8388608, 
+            "entries_allocated": 1, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "acquire_lock_action", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 1, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 4, 
+                            "table_type": "stateful", 
+                            "num_memories": 33
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": []
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "decode_table", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 0, 
+            "entries_allocated": 0, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "decode_action", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 0, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 0, 
+                            "memory_word_width": 44, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 0, 
+                            "entries_requested": 0, 
+                            "entries_allocated": 0, 
+                            "imm_bit_width_in_overhead_requested": 0, 
+                            "imm_bit_width_in_overhead_allocated": 0, 
+                            "entry_bit_width_requested": 0, 
+                            "entry_bit_width_allocated": 0, 
+                            "ideal_entries_per_table_word": 0, 
+                            "ideal_table_word_bit_width": 0
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": []
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "ipv4_route", 
+            "gress": "ingress", 
+            "lookup_types": [
+                "lpm"
+            ], 
+            "entries_requested": 256, 
+            "entries_allocated": 512, 
+            "match_fields": [
+                {
+                    "name": "ipv4.dstAddr", 
+                    "start_bit": 0, 
+                    "bit_width": 32, 
+                    "lookup_type": "lpm"
+                }
+            ], 
+            "action_parameters": [
+                {
+                    "action_name": "set_egress", 
+                    "parameters": [
+                        {
+                            "name": "egress_spec", 
+                            "bit_width": 9
+                        }
+                    ]
+                }, 
+                {
+                    "action_name": "drop_action", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 2, 
+                    "memories": [
+                        {
+                            "memory_type": "tcam", 
+                            "table_word_width": 44, 
+                            "memory_word_width": 44, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 1, 
+                            "entries_requested": 256, 
+                            "entries_allocated": 512, 
+                            "imm_bit_width_in_overhead_requested": 9, 
+                            "imm_bit_width_in_overhead_allocated": 9, 
+                            "entry_bit_width_requested": 36, 
+                            "entry_bit_width_allocated": 44, 
+                            "ideal_entries_per_table_word": 1, 
+                            "ideal_table_word_bit_width": 44
+                        }, 
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 8, 
+                            "table_type": "tind", 
+                            "num_memories": 1, 
+                            "entry_bit_width_requested": 9, 
+                            "entry_bit_width_allocated": 16
+                        }
+                    ], 
+                    "overhead_fields": [
+                        {
+                            "name": "immediate", 
+                            "bit_width": 9
+                        }
+                    ], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": [
+                                    {
+                                        "name": "--version--", 
+                                        "bit_width": 2, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 42
+                                    }, 
+                                    {
+                                        "name": "ipv4.dstAddr", 
+                                        "bit_width": 32, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "release_lock_table", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 8388608, 
+            "entries_allocated": 1, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "release_lock_action", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 1, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 4, 
+                            "table_type": "stateful", 
+                            "num_memories": 33
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": []
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "reply_to_client_table", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 0, 
+            "entries_allocated": 0, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "reply_to_client_action", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 0, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 0, 
+                            "memory_word_width": 44, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 0, 
+                            "entries_requested": 0, 
+                            "entries_allocated": 0, 
+                            "imm_bit_width_in_overhead_requested": 0, 
+                            "imm_bit_width_in_overhead_allocated": 0, 
+                            "entry_bit_width_requested": 0, 
+                            "entry_bit_width_allocated": 0, 
+                            "ideal_entries_per_table_word": 0, 
+                            "ideal_table_word_bit_width": 0
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": []
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "set_retry_table", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 0, 
+            "entries_allocated": 0, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "set_retry_action", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 2, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 0, 
+                            "memory_word_width": 44, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 0, 
+                            "entries_requested": 0, 
+                            "entries_allocated": 0, 
+                            "imm_bit_width_in_overhead_requested": 0, 
+                            "imm_bit_width_in_overhead_allocated": 0, 
+                            "entry_bit_width_requested": 0, 
+                            "entry_bit_width_allocated": 0, 
+                            "ideal_entries_per_table_word": 0, 
+                            "ideal_table_word_bit_width": 0
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": []
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }
+    ]
+}
