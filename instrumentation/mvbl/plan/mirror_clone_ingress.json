@@ -13,8 +13,8 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "nodes": [
-            "tiSendClone__aiSendClone",
-            "tiSendClone"
+            "tiSendClone",
+            "tiSendClone__aiSendClone"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,

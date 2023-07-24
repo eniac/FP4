@@ -51,8 +51,8 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "nodes": [
-            "teReadMirror__aeReadMirror",
-            "teReadMirror"
+            "teReadMirror",
+            "teReadMirror__aeReadMirror"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -93,8 +93,8 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "nodes": [
-            "teReadOriginal__aeReadOriginal",
-            "teReadOriginal"
+            "teReadOriginal",
+            "teReadOriginal__aeReadOriginal"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -114,8 +114,8 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "nodes": [
-            "teUpdateMirror__aeUpdateMirror",
-            "teUpdateMirror"
+            "teUpdateMirror",
+            "teUpdateMirror__aeUpdateMirror"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
