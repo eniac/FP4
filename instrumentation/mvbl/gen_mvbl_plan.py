@@ -236,8 +236,8 @@ class GraphParser(object):
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             new_subgraphs.append(new_subgraph)
             visualize_digraph(new_subgraph, "new_subgraph")
-            json_output_dict[str(graph_number)][JSON_OUtPUT_KEY_NODES] = list(new_subgraph.nodes)
-            json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False))
+            json_output_dict[str(graph_number)][JSON_OUtPUT_KEY_NODES] = sorted(list(new_subgraph.nodes), key=lambda e: e)
+            json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = sorted(list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False)), key=lambda e: e)
 
         print("\n====== Check if each subgraph is a DAG and weakly connected ======")
         for idx, graph in enumerate(new_subgraphs):
@@ -474,7 +474,10 @@ class GraphParser(object):
                 # Sort the edges in rev_topological_order
                 print("--- out_edges for {} ---".format(v))
                 print(out_edges)
-                sorted_out_edges = sorted(out_edges, key=lambda e: rev_topological_order.index(e[1]))
+                # To avoid randomness in the generated out_edges, include the alphabetical sort in the last key
+                # rev_topological sort only (in the sub-DAG) will still be random
+                # sorted_out_edges = sorted(out_edges, key=lambda e: (rev_topological_order.index(e[1]), e))
+                sorted_out_edges = sorted(out_edges, key=lambda e: e)
                 print("--- sorted_out_edges for {} ---".format(v))
                 print(sorted_out_edges)
                 if list(sorted_out_edges) != list(out_edges):
