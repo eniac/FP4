@@ -1,5 +1,8 @@
 {
     "0": {
+        "edge_dst_to_edge": {
+            "ipv4_fib_lpm__on_miss": "ipv4_fib_lpm -> ipv4_fib_lpm__on_miss"
+        },
         "edge_dst_to_increment": {
             "ipv4_fib_lpm__on_miss": 1
         },
@@ -20,10 +23,14 @@
                 "ipv4_fib_lpm__on_miss"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "ipv4_fib_lpm__on_miss": "ipv4_fib_lpm -> ipv4_fib_lpm__on_miss"
+        },
         "final_edge_dst_to_increment": {
             "ipv4_fib_lpm__on_miss": 1
         },
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "hdripv4isValid",
             "ipv4_fib_lpm",
@@ -35,6 +42,12 @@
         "num_paths": 2
     },
     "1": {
+        "edge_dst_to_edge": {
+            "bd__set_vrf": "bd -> bd__set_vrf",
+            "ipv4_fib__on_miss_ipv4_fib": "ipv4_fib -> ipv4_fib__on_miss_ipv4_fib",
+            "nexthop__set_egress_details": "nexthop -> nexthop__set_egress_details",
+            "port_mapping__set_bd": "port_mapping -> port_mapping__set_bd"
+        },
         "edge_dst_to_increment": {
             "bd__set_vrf": 4,
             "ipv4_fib__on_miss_ipv4_fib": 2,
@@ -236,6 +249,12 @@
                 "nexthop__set_egress_details"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "bd__set_vrf": "bd -> bd__set_vrf",
+            "ipv4_fib__on_miss_ipv4_fib": "ipv4_fib -> ipv4_fib__on_miss_ipv4_fib",
+            "nexthop__set_egress_details": "nexthop -> nexthop__set_egress_details",
+            "port_mapping__set_bd": "port_mapping -> port_mapping__set_bd"
+        },
         "final_edge_dst_to_increment": {
             "bd__set_vrf": 4,
             "ipv4_fib__on_miss_ipv4_fib": 2,
@@ -243,6 +262,7 @@
             "port_mapping__set_bd": 8
         },
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "bd",
             "bd__on_miss",

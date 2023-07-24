@@ -39,9 +39,12 @@ def visualize_digraph(graph, name):
 JSON_OUTPUT_KEY_NUM_VARS = "num_vars"
 JSON_OUTPUT_KEY_NUM_BITS = "num_bits"
 JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT = "edge_dst_to_increment"
+JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT = "edge_dst_to_edge"
 JSON_OUTPUT_KEY_NON_ACTION_INCREMENT_DICT = "non_action_to_increment"
-JSON_OUTPUT_KEY_FINAL_ACTION_INCREMENT_DICT = "final_edge_dst_to_increment"
+JSON_OUTPUT_KEY_FINAL_EDGE_DST_EDGE_DICT = "final_edge_dst_to_increment"
+JSON_OUTPUT_KEY_FINAL_EDGE_INCREMENT_DICT = "final_edge_dst_to_edge"
 JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_DICT = "final_non_action_to_increment"
+JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT = "final_non_action_to_increment_rootword"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
 JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
 JSON_OUtPUT_KEY_NODES = "nodes"
@@ -256,11 +259,14 @@ class GraphParser(object):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = {}
-            graph_with_weights, json_output_edge_dst_increment_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_non_action_increment_dict = self.ball_larus(graph, table2actions_dict)
+            graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict = self.ball_larus(graph, table2actions_dict, idx)
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = json_output_edge_dst_increment_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT] = json_output_edge_dst_edge_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NON_ACTION_INCREMENT_DICT] = json_output_non_action_increment_dict
-            json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_ACTION_INCREMENT_DICT] = json_output_final_edge_dst_increment_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_EDGE_DST_EDGE_DICT] = json_output_final_edge_dst_increment_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_EDGE_INCREMENT_DICT] = json_output_final_edge_dst_edge_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_DICT] = json_output_final_non_action_increment_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT] = json_output_final_non_action_increment_rootword_dict
             graphs_with_weights.append(graph_with_weights)
         
         for idx, graph in enumerate(graphs_with_weights):
@@ -456,7 +462,7 @@ class GraphParser(object):
             reverse_new_node_mapping[new_node] = node
         return new_node_mapping, reverse_new_node_mapping
 
-    def ball_larus(self, graph, table2actions_dict):
+    def ball_larus(self, graph, table2actions_dict, graph_idx):
         weighted_edges = []
         for e in graph.edges:
             # print(e)
@@ -502,15 +508,19 @@ class GraphParser(object):
         print("--- printing edges with non-0 weights from total {} edges ---".format(len(weighted_edges)))
 
         json_output_edge_dst_increment_dict = {}  # Original
+        json_output_edge_dst_edge_dict = {}  # Original
         json_output_non_action_increment_dict = {}  # Original
         json_output_final_edge_dst_increment_dict = {}
+        json_output_final_edge_dst_edge_dict = {}
         json_output_final_non_action_increment_dict = {}
+        json_output_final_non_action_increment_rootword_dict = {}
         # Get the original increment plan
         for edge in weighted_edges:
             if edge['weight'] == 0:
                 continue
             else:
                 json_output_edge_dst_increment_dict[edge['dst']] = edge['weight']
+                json_output_edge_dst_edge_dict[edge['dst']] = (edge['src']+" -> "+edge['dst'])
                 print(edge)
                 if "__" not in edge['dst']:
                     print("[WARNING] Target instrumentation point {} is NOT an action!".format(edge['dst']))
@@ -539,10 +549,12 @@ class GraphParser(object):
         for edge in graph_with_weights.edges(data=True):
             if edge[2]['weight'] != 0:
                 json_output_final_edge_dst_increment_dict[edge[1]] = edge[2]['weight']
+                json_output_final_edge_dst_edge_dict[edge[1]] = (edge[0]+" -> "+edge[1])
                 if "__" not in edge[1]:
                     json_output_final_non_action_increment_dict[edge[1]] = edge[2]['weight']
+                    json_output_final_non_action_increment_dict[edge[1]] = "mvbl_"+str(graph_idx)+"_"+edge[0]+"_"+edge[1]
 
-        return graph_with_weights, json_output_edge_dst_increment_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_non_action_increment_dict
+        return graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict
 
     def estimate_stages(self, original_graph):
         graph = copy.deepcopy(original_graph)

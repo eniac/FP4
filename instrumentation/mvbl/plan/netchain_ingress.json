@@ -1,5 +1,6 @@
 {
     "0": {
+        "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
             "decode_table -> decode_table__decode_action",
@@ -14,8 +15,10 @@
                 "release_lock_table__release_lock_action"
             ]
         },
+        "final_edge_dst_to_edge": {},
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "decode_table",
             "decode_table__decode_action",
@@ -27,6 +30,9 @@
         "num_paths": 1
     },
     "1": {
+        "edge_dst_to_edge": {
+            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
+        },
         "edge_dst_to_increment": {
             "metametaavailable0": 1
         },
@@ -44,12 +50,16 @@
                 "metametaavailable0"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
+        },
         "final_edge_dst_to_increment": {
             "metametaavailable0": 1
         },
         "final_non_action_to_increment": {
-            "metametaavailable0": 1
+            "metametaavailable0": "mvbl_1_hdrnc_hdrisValid_metametaavailable0"
         },
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "hdrnc_hdrisValid",
             "hdrnc_hdrop1",
@@ -62,6 +72,9 @@
         "num_paths": 2
     },
     "2": {
+        "edge_dst_to_edge": {
+            "ipv4_route__set_egress": "ipv4_route -> ipv4_route__set_egress"
+        },
         "edge_dst_to_increment": {
             "ipv4_route__set_egress": 1
         },
@@ -82,10 +95,14 @@
                 "ipv4_route__set_egress"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "ipv4_route__set_egress": "ipv4_route -> ipv4_route__set_egress"
+        },
         "final_edge_dst_to_increment": {
             "ipv4_route__set_egress": 1
         },
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "hdrnc_hdrop0",
             "ipv4_route",
@@ -97,6 +114,9 @@
         "num_paths": 2
     },
     "3": {
+        "edge_dst_to_edge": {
+            "set_retry_table": "acquire_lock_table__acquire_lock_action -> set_retry_table"
+        },
         "edge_dst_to_increment": {
             "set_retry_table": 1
         },
@@ -124,10 +144,14 @@
                 "reply_to_client_table__reply_to_client_action"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "set_retry_table__set_retry_action": "set_retry_table -> set_retry_table__set_retry_action"
+        },
         "final_edge_dst_to_increment": {
             "set_retry_table__set_retry_action": 1
         },
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "acquire_lock_table",
             "acquire_lock_table__acquire_lock_action",

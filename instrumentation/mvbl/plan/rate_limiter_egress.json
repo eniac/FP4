@@ -1,5 +1,6 @@
 {
     "0": {
+        "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [],
         "encoding_to_path": {
@@ -7,8 +8,10 @@
                 "metametacurrent_reading0"
             ]
         },
+        "final_edge_dst_to_edge": {},
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "metametacurrent_reading0"
         ],
@@ -17,6 +20,7 @@
         "num_paths": 1
     },
     "1": {
+        "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
             "teInitializeWma -> teInitializeWma__aeInitializeWma",
@@ -43,8 +47,10 @@
                 "te_drop__drop_packet"
             ]
         },
+        "final_edge_dst_to_edge": {},
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "teInitializeWma",
             "teInitializeWma__aeInitializeWma",

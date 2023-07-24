@@ -1,5 +1,9 @@
 {
     "0": {
+        "edge_dst_to_edge": {
+            "ecmp_group__set_ecmp_select": "ecmp_group -> ecmp_group__set_ecmp_select",
+            "ecmp_nhop__set_nhop": "ecmp_nhop -> ecmp_nhop__set_nhop"
+        },
         "edge_dst_to_increment": {
             "ecmp_group__set_ecmp_select": 2,
             "ecmp_nhop__set_nhop": 1
@@ -38,11 +42,16 @@
                 "ecmp_nhop__set_nhop"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "ecmp_group__set_ecmp_select": "ecmp_group -> ecmp_group__set_ecmp_select",
+            "ecmp_nhop__set_nhop": "ecmp_nhop -> ecmp_nhop__set_nhop"
+        },
         "final_edge_dst_to_increment": {
             "ecmp_group__set_ecmp_select": 2,
             "ecmp_nhop__set_nhop": 1
         },
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "ecmp_group",
             "ecmp_group__drop_packet",
@@ -56,6 +65,7 @@
         "num_paths": 4
     },
     "1": {
+        "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [],
         "encoding_to_path": {
@@ -63,8 +73,10 @@
                 "hdripv4isValid"
             ]
         },
+        "final_edge_dst_to_edge": {},
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "hdripv4isValid"
         ],

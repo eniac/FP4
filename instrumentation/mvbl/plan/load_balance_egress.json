@@ -1,5 +1,8 @@
 {
     "0": {
+        "edge_dst_to_edge": {
+            "send_frame__rewrite_mac": "send_frame -> send_frame__rewrite_mac"
+        },
         "edge_dst_to_increment": {
             "send_frame__rewrite_mac": 1
         },
@@ -17,10 +20,14 @@
                 "send_frame__rewrite_mac"
             ]
         },
+        "final_edge_dst_to_edge": {
+            "send_frame__rewrite_mac": "send_frame -> send_frame__rewrite_mac"
+        },
         "final_edge_dst_to_increment": {
             "send_frame__rewrite_mac": 1
         },
         "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "send_frame",
             "send_frame__drop_packet",
