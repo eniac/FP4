@@ -1,10 +1,173 @@
 {
-    "build_date": "Tue Jul 25 06:16:11 2023", 
-    "program_name": "rate_limiter", 
-    "run_id": "bf6bc1d25dda9a85", 
+    "build_date": "Tue Jul 25 06:14:25 2023", 
+    "program_name": "firewall", 
+    "run_id": "2f47a35fff8f6089", 
     "compiler_version": "9.2.0", 
     "schema_version": "1.0.0", 
     "tables": [
+        {
+            "name": "check_ports", 
+            "gress": "ingress", 
+            "lookup_types": [
+                "exact"
+            ], 
+            "entries_requested": 1024, 
+            "entries_allocated": 9216, 
+            "match_fields": [
+                {
+                    "name": "ig_intr_md.ingress_port", 
+                    "start_bit": 0, 
+                    "bit_width": 9, 
+                    "lookup_type": "exact"
+                }, 
+                {
+                    "name": "ig_intr_md_for_tm.ucast_egress_port", 
+                    "start_bit": 0, 
+                    "bit_width": 9, 
+                    "lookup_type": "exact"
+                }
+            ], 
+            "action_parameters": [
+                {
+                    "action_name": "set_direction", 
+                    "parameters": [
+                        {
+                            "name": "dir", 
+                            "bit_width": 1
+                        }
+                    ]
+                }, 
+                {
+                    "action_name": "set_hit", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 1, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 3, 
+                            "table_type": "match", 
+                            "num_memories": 3, 
+                            "entries_requested": 1024, 
+                            "entries_allocated": 9216, 
+                            "imm_bit_width_in_overhead_requested": 1, 
+                            "imm_bit_width_in_overhead_allocated": 1, 
+                            "entry_bit_width_requested": 23, 
+                            "entry_bit_width_allocated": 14, 
+                            "ideal_entries_per_table_word": 5, 
+                            "ideal_table_word_bit_width": 128
+                        }
+                    ], 
+                    "overhead_fields": [
+                        {
+                            "name": "immediate", 
+                            "bit_width": 1
+                        }, 
+                        {
+                            "name": "version/valid", 
+                            "bit_width": 4
+                        }
+                    ], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 2, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 2
+                                    }, 
+                                    {
+                                        "name": "immediate", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 5
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 120
+                                    }, 
+                                    {
+                                        "name": "ig_intr_md.ingress_port", 
+                                        "bit_width": 8, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 48
+                                    }
+                                ]
+                            }, 
+                            {
+                                "entry_number": 1, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 1
+                                    }, 
+                                    {
+                                        "name": "immediate", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 4
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 116
+                                    }, 
+                                    {
+                                        "name": "ig_intr_md.ingress_port", 
+                                        "bit_width": 8, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 40
+                                    }
+                                ]
+                            }, 
+                            {
+                                "entry_number": 0, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 0
+                                    }, 
+                                    {
+                                        "name": "immediate", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 3
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 112
+                                    }, 
+                                    {
+                                        "name": "ig_intr_md.ingress_port", 
+                                        "bit_width": 8, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 32
+                                    }
+                                ]
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
         {
             "name": "ipv4_lpm", 
             "gress": "ingress", 
@@ -265,45 +428,82 @@
             ]
         }, 
         {
-            "name": "tbl_act", 
+            "name": "ti_apply_filter", 
             "gress": "ingress", 
-            "lookup_types": [], 
-            "entries_requested": 0, 
-            "entries_allocated": 0, 
-            "match_fields": [], 
+            "lookup_types": [
+                "exact"
+            ], 
+            "entries_requested": 4, 
+            "entries_allocated": 1024, 
+            "match_fields": [
+                {
+                    "name": "meta.reg_val_one", 
+                    "start_bit": 0, 
+                    "bit_width": 1, 
+                    "lookup_type": "exact"
+                }, 
+                {
+                    "name": "meta.reg_val_two", 
+                    "start_bit": 0, 
+                    "bit_width": 1, 
+                    "lookup_type": "exact"
+                }
+            ], 
             "action_parameters": [
                 {
-                    "action_name": "act", 
+                    "action_name": "drop_packet", 
+                    "parameters": []
+                }, 
+                {
+                    "action_name": "ai_noOp", 
                     "parameters": []
                 }
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 0, 
+                    "stage_number": 6, 
                     "memories": [
                         {
                             "memory_type": "sram", 
-                            "table_word_width": 0, 
-                            "memory_word_width": 44, 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
                             "entries_per_table_word": 1, 
                             "table_type": "match", 
-                            "num_memories": 0, 
-                            "entries_requested": 0, 
-                            "entries_allocated": 0, 
+                            "num_memories": 1, 
+                            "entries_requested": 4, 
+                            "entries_allocated": 1024, 
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
-                            "entry_bit_width_requested": 0, 
-                            "entry_bit_width_allocated": 0, 
-                            "ideal_entries_per_table_word": 0, 
-                            "ideal_table_word_bit_width": 0
+                            "entry_bit_width_requested": 6, 
+                            "entry_bit_width_allocated": 5, 
+                            "ideal_entries_per_table_word": 5, 
+                            "ideal_table_word_bit_width": 128
                         }
                     ], 
-                    "overhead_fields": [], 
+                    "overhead_fields": [
+                        {
+                            "name": "version/valid", 
+                            "bit_width": 4
+                        }
+                    ], 
                     "match_format": {
                         "entries": [
                             {
                                 "entry_number": 0, 
-                                "fields": []
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 0
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 112
+                                    }
+                                ]
                             }
                         ]
                     }, 
@@ -312,31 +512,22 @@
             ]
         }, 
         {
-            "name": "teInitializeWma", 
-            "gress": "egress", 
+            "name": "ti_calculate_hash1", 
+            "gress": "ingress", 
             "lookup_types": [], 
             "entries_requested": 1, 
             "entries_allocated": 1, 
             "match_fields": [], 
             "action_parameters": [
                 {
-                    "action_name": "aeInitializeWma", 
+                    "action_name": "ai_calculate_hash", 
                     "parameters": []
                 }
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 0, 
-                    "memories": [
-                        {
-                            "memory_type": "sram", 
-                            "table_word_width": 128, 
-                            "memory_word_width": 128, 
-                            "entries_per_table_word": 16, 
-                            "table_type": "stateful", 
-                            "num_memories": 2
-                        }
-                    ], 
+                    "stage_number": 3, 
+                    "memories": [], 
                     "overhead_fields": [], 
                     "match_format": {
                         "entries": []
@@ -346,31 +537,22 @@
             ]
         }, 
         {
-            "name": "teWmaPhase1", 
-            "gress": "egress", 
+            "name": "ti_calculate_hash2", 
+            "gress": "ingress", 
             "lookup_types": [], 
             "entries_requested": 1, 
             "entries_allocated": 1, 
             "match_fields": [], 
             "action_parameters": [
                 {
-                    "action_name": "aeWmaPhase1", 
+                    "action_name": "ai_calculate_hash", 
                     "parameters": []
                 }
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 1, 
-                    "memories": [
-                        {
-                            "memory_type": "sram", 
-                            "table_word_width": 128, 
-                            "memory_word_width": 128, 
-                            "entries_per_table_word": 2, 
-                            "table_type": "stateful", 
-                            "num_memories": 2
-                        }
-                    ], 
+                    "stage_number": 3, 
+                    "memories": [], 
                     "overhead_fields": [], 
                     "match_format": {
                         "entries": []
@@ -380,15 +562,15 @@
             ]
         }, 
         {
-            "name": "teWmaPhase2", 
-            "gress": "egress", 
+            "name": "ti_get_incoming_pos", 
+            "gress": "ingress", 
             "lookup_types": [], 
             "entries_requested": 1, 
-            "entries_allocated": 1, 
+            "entries_allocated": 0, 
             "match_fields": [], 
             "action_parameters": [
                 {
-                    "action_name": "aeWmaPhase2", 
+                    "action_name": "ai_get_incoming_pos", 
                     "parameters": []
                 }
             ], 
@@ -398,37 +580,50 @@
                     "memories": [
                         {
                             "memory_type": "sram", 
-                            "table_word_width": 128, 
-                            "memory_word_width": 128, 
-                            "entries_per_table_word": 2, 
-                            "table_type": "stateful", 
-                            "num_memories": 2
+                            "table_word_width": 0, 
+                            "memory_word_width": 44, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 0, 
+                            "entries_requested": 0, 
+                            "entries_allocated": 0, 
+                            "imm_bit_width_in_overhead_requested": 0, 
+                            "imm_bit_width_in_overhead_allocated": 0, 
+                            "entry_bit_width_requested": 0, 
+                            "entry_bit_width_allocated": 0, 
+                            "ideal_entries_per_table_word": 0, 
+                            "ideal_table_word_bit_width": 0
                         }
                     ], 
                     "overhead_fields": [], 
                     "match_format": {
-                        "entries": []
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": []
+                            }
+                        ]
                     }, 
                     "action_formats": []
                 }
             ]
         }, 
         {
-            "name": "te_drop", 
-            "gress": "egress", 
+            "name": "ti_get_outgoing_pos", 
+            "gress": "ingress", 
             "lookup_types": [], 
             "entries_requested": 1, 
             "entries_allocated": 0, 
             "match_fields": [], 
             "action_parameters": [
                 {
-                    "action_name": "drop_packet", 
+                    "action_name": "ai_get_outgoing_pos", 
                     "parameters": []
                 }
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 4, 
+                    "stage_number": 2, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -461,57 +656,136 @@
             ]
         }, 
         {
-            "name": "te_rate_limit", 
-            "gress": "egress", 
+            "name": "ti_read_bloom_filter1", 
+            "gress": "ingress", 
             "lookup_types": [], 
             "entries_requested": 1, 
-            "entries_allocated": 0, 
+            "entries_allocated": 1, 
             "match_fields": [], 
             "action_parameters": [
                 {
-                    "action_name": "ae_rate_limit", 
-                    "parameters": [
-                        {
-                            "name": "x", 
-                            "bit_width": 32
-                        }
-                    ]
+                    "action_name": "ai_read_bloom_filter1", 
+                    "parameters": []
                 }
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 3, 
+                    "stage_number": 5, 
                     "memories": [
                         {
                             "memory_type": "sram", 
-                            "table_word_width": 0, 
-                            "memory_word_width": 44, 
-                            "entries_per_table_word": 1, 
-                            "table_type": "match", 
-                            "num_memories": 0, 
-                            "entries_requested": 0, 
-                            "entries_allocated": 0, 
-                            "imm_bit_width_in_overhead_requested": 32, 
-                            "imm_bit_width_in_overhead_allocated": 32, 
-                            "entry_bit_width_requested": 0, 
-                            "entry_bit_width_allocated": 0, 
-                            "ideal_entries_per_table_word": 0, 
-                            "ideal_table_word_bit_width": 0
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 128, 
+                            "table_type": "stateful", 
+                            "num_memories": 2
                         }
                     ], 
-                    "overhead_fields": [
-                        {
-                            "name": "immediate", 
-                            "bit_width": 32
-                        }
-                    ], 
+                    "overhead_fields": [], 
                     "match_format": {
-                        "entries": [
-                            {
-                                "entry_number": 0, 
-                                "fields": []
-                            }
-                        ]
+                        "entries": []
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "ti_read_bloom_filter2", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 1, 
+            "entries_allocated": 1, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "ai_read_bloom_filter2", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 4, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 128, 
+                            "table_type": "stateful", 
+                            "num_memories": 2
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": []
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "ti_write_bloom_filter1", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 1, 
+            "entries_allocated": 1, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "ai_write_bloom_filter1", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 5, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 128, 
+                            "table_type": "stateful", 
+                            "num_memories": 2
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": []
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "ti_write_bloom_filter2", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 1, 
+            "entries_allocated": 1, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "ai_write_bloom_filter2", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 4, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 128, 
+                            "table_type": "stateful", 
+                            "num_memories": 2
+                        }
+                    ], 
+                    "overhead_fields": [], 
+                    "match_format": {
+                        "entries": []
                     }, 
                     "action_formats": []
                 }
