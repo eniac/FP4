@@ -22,6 +22,16 @@ def remove_special_chars(label, cnt_blk):
         label = cnt_blk+'.'+label
     return label
 
+def check_dag_connected(new_subgraph):
+    cycles = list(nx.simple_cycles(new_subgraph))
+    print("cycle num: {}".format(len(cycles)))
+    is_strong = nx.is_strongly_connected(new_subgraph)
+    print('is strongly connected: {}'.format(is_strong))
+    is_weak = nx.is_weakly_connected(new_subgraph)
+    print('is weakly connected: {}'.format(is_weak))
+    # Each sub-DAG must be weakly connected DAG for BL to run
+    return is_weak, cycles
+
 import json
 def pretty_print_dict(dictionary):
     print(json.dumps(dictionary, indent=4, sort_keys=True))
@@ -66,6 +76,8 @@ context_to_dot_label_mapping = {
     "(tcp.syn == 1)": "\"hdr.tcp.syn == 1;\"",
     "(meta.check_ports_hit == 1)": "\"meta.meta.check_ports_hit == 1;\"",
     "(distance_vec.$valid == 1)": "\"hdr.distance_vec.isValid();\"",
+    "(arp.$valid == 1)": "\"hdr.arp.isValid();\"",
+    "(arp.oper == 1)": "\"hdr.arp.oper == 1;\"",
     "(arp.$valid == 1 && arp.oper == 1)": "\"hdr.arp.isValid() && hdr.arp.oper == 1;\"",
     "(ethernet.$valid == 1)": "\"hdr.ethernet.isValid();\"",
     "(arp.$valid == 1 && arp.oper == 2)": "\"hdr.arp.isValid() && hdr.arp.oper == 2;\"",
@@ -128,6 +140,9 @@ class GraphParser(object):
         leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
         print("--- root_nodes ---")
         print(root_nodes)
+        if len(root_nodes) != 1:
+            raise Exception("len(root_nodes) != 1")
+        global_root_node = root_nodes[0]
         print("--- leaf_nodes ---")
         print(leaf_nodes)
 
@@ -244,23 +259,18 @@ class GraphParser(object):
             print("--- new_subgraph_edges ---")
             print(new_subgraph_edges)
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
-            new_subgraphs.append(new_subgraph)
             visualize_digraph(new_subgraph, "new_subgraph")
-            json_output_dict[str(graph_number)][JSON_OUtPUT_KEY_NODES] = sorted(list(new_subgraph.nodes), key=lambda e: e)
-            json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = sorted(list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False)), key=lambda e: e)
 
-        print("\n====== Check if each subgraph is a DAG and weakly connected ======")
-        for idx, graph in enumerate(new_subgraphs):
-            cycles = list(nx.simple_cycles(graph))
-            print("Graph {0} cycle num: {1}".format(idx, len(cycles)))
-            is_strong = nx.is_strongly_connected(graph)
-            print('Graph {0} is strongly connected: {1}'.format(idx, is_strong))
-            is_weak = nx.is_weakly_connected(graph)
-            print('Graph {0} is weakly connected: {1}'.format(idx, is_weak))
-            # Each sub-DAG must be weakly connected DAG for BL to run
+            print("--- Check if each subgraph is a DAG and weakly connected ---")
+            is_weak, cycles = check_dag_connected(new_subgraph)
             if not is_weak or len(cycles) != 0:
                 raise Exception("Not weakly connected or with loops!")
                 sys.exit()
+            # LC_TODO: So there are randomness in the ILP plan, if one of the plan works, just cache it, otherwise, handle it by connecting the global_root to the roots here...
+
+            new_subgraphs.append(new_subgraph)
+            json_output_dict[str(graph_number)][JSON_OUtPUT_KEY_NODES] = sorted(list(new_subgraph.nodes), key=lambda e: e)
+            json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = sorted(list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False)), key=lambda e: e)
 
         graphs_with_weights = []
         for idx, graph in enumerate(new_subgraphs):
