@@ -143,7 +143,8 @@ control ingress {
                     apply(ti_write_bloom_filter1);
                     apply(ti_write_bloom_filter2);
                 }
-            } else if (meta.direction == 1) {
+            } // else if (meta.direction == 1) {
+            else {
                 apply(ti_get_outgoing_pos);
                 apply(ti_calculate_hash2);
                 apply(ti_read_bloom_filter1);
