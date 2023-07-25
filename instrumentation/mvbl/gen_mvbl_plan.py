@@ -212,30 +212,18 @@ class GraphParser(object):
             # Construct the new graph using included_table_conditional_action
             new_subgraph = nx.DiGraph()
             new_subgraph.add_nodes_from(included_table_conditional_action)  # Always create from node first
-            candidate_srcs = set()
-            candidate_dsts = set()
+            # Now consider whether to add an edge between the two nodes
             new_subgraph_edges = []
-            for src, dst in full_graph.edges():
-                if src in included_table_conditional_action and dst in included_table_conditional_action:
-                    new_subgraph_edges.append((src, dst, 0))
-                elif src not in included_table_conditional_action and dst not in included_table_conditional_action:
-                    continue
-                else:
-                    if src in included_table_conditional_action:
-                        candidate_srcs.add(src)
-                    if dst in included_table_conditional_action:
-                        candidate_dsts.add(dst)
-            print("--- candidate_srcs ---")
-            print(candidate_srcs)
-            print("--- candidate_dsts ---")
-            print(candidate_dsts)
-            for src in candidate_srcs:
-                for dst in candidate_dsts:
-                    if nx.has_path(full_graph, src, dst):
-                        if nx.has_path(full_graph, dst, src):
-                            print("Skip when an included node is isolated: bi-directional has_path between {0} and {1}!".format(src, dst))
-                        else:
-                            new_subgraph_edges.append((src, dst, 0))
+            for node_src in included_table_conditional_action:
+                for node_dst in included_table_conditional_action:
+                    if node_src != node_dst:
+                        all_simple_paths = nx.all_simple_paths(full_graph, node_src, node_dst)
+                        for path in all_simple_paths:
+                            if set(path[1:-1]).isdisjoint(included_table_conditional_action):
+                                new_subgraph_edges.append((node_src, node_dst, 0))
+                                break
+            print("--- new_subgraph_edges ---")
+            print(new_subgraph_edges)
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             new_subgraphs.append(new_subgraph)
             visualize_digraph(new_subgraph, "new_subgraph")
@@ -250,8 +238,9 @@ class GraphParser(object):
             print('Graph {0} is strongly connected: {1}'.format(idx, is_strong))
             is_weak = nx.is_weakly_connected(graph)
             print('Graph {0} is weakly connected: {1}'.format(idx, is_weak))
+            # Each sub-DAG must be weakly connected DAG for BL to run
             if not is_weak or len(cycles) != 0:
-                raise Exception("Not weekly connected or with loops!")
+                raise Exception("Not weakly connected or with loops!")
                 sys.exit()
 
         graphs_with_weights = []
@@ -552,7 +541,7 @@ class GraphParser(object):
                 json_output_final_edge_dst_edge_dict[edge[1]] = (edge[0]+" -> "+edge[1])
                 if "__" not in edge[1]:
                     json_output_final_non_action_increment_dict[edge[1]] = edge[2]['weight']
-                    json_output_final_non_action_increment_dict[edge[1]] = "mvbl_"+str(graph_idx)+"_"+edge[0]+"_"+edge[1]
+                    json_output_final_non_action_increment_rootword_dict[edge[1]] = "mvbl_"+str(graph_idx)+"_"+edge[0]+"_"+edge[1]
 
         return graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict
 
