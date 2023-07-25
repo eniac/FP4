@@ -130,10 +130,14 @@ action aDrop() {
     drop();
 }
 
+action ai_nop() {
+}
+
 table tiDrop {
     actions {
         aDrop;
     }
+    default_action: aDrop();
 }
 
 table tiHandleIncomingEthernet {
@@ -144,7 +148,9 @@ table tiHandleIncomingEthernet {
     actions {
         aiForMe;
         aDrop;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 
@@ -162,7 +168,9 @@ table tiHandleOutgoingRouting {
     }
     actions {
         aiHandleOutgoingRouting;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 
@@ -189,7 +197,9 @@ table tiHandleIncomingArpReqest_part_one {
     }
     actions {
         aiHandleIncomingArpReqest_part_one;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 action aiHandleIncomingArpReqest_part_two() {
@@ -205,7 +215,9 @@ table tiHandleIncomingArpReqest_part_two {
     actions {
         aiHandleIncomingArpReqest_part_two;
         aDrop;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 // field_list arp_digest {
@@ -224,7 +236,9 @@ action aiHandleIncomingArpResponse() {
 table tiHandleIncomingArpResponse {
     actions {
         aiHandleIncomingArpResponse;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 
@@ -244,7 +258,9 @@ table tiHandleIpv4 {
         aiFindNextL3Hop;
         aiSendToLastHop;
         aDrop;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 
@@ -281,7 +297,9 @@ table tiHandleOutgoingEthernet {
     actions {
         aiForward;
         aiArpMiss;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 
@@ -299,7 +317,9 @@ action aiHandleIncomingRouting() {
 table tiHandleIncomingRouting {
     actions {
         aiHandleIncomingRouting;
+        ai_nop;
     }
+    default_action: ai_nop();
 }
 
 
@@ -315,8 +335,8 @@ control ingress {
     if (cis553_metadata.forMe == 0) {
         // Don't do anything with it
     } else if (valid(ipv4)) {
-        apply(tiHandleIpv4);
-        apply(tiHandleOutgoingEthernet);
+       apply(tiHandleIpv4);
+       apply(tiHandleOutgoingEthernet);
     } else if (valid(arp) && arp.oper == 1) {
         apply(tiHandleIncomingArpReqest_part_one);
         apply(tiHandleIncomingArpReqest_part_two);
@@ -327,6 +347,24 @@ control ingress {
     } else {
         apply(tiDrop);
     }
+    // if (cis553_metadata.forMe == 0) {
+    //     // nop
+    // } else if (valid(ipv4)) {
+    //     apply(tiHandleIpv4);
+    //     apply(tiHandleOutgoingEthernet);
+    // } else if (valid(arp)) {
+    //     // Edge case, if valid(arp) but arp.oper == 3, it will go here rather than others (like drop etc)
+    //     if (arp.oper == 1) {
+    //         apply(tiHandleIncomingArpReqest_part_one);
+    //         apply(tiHandleIncomingArpReqest_part_two);
+    //     } else {
+    //         apply(tiHandleIncomingArpResponse);
+    //     }
+    // } else if (valid(distance_vec)) {
+    //     apply(tiHandleIncomingRouting);
+    // } else {
+    //     apply(tiDrop);
+    // }
 }
 
 
