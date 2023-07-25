@@ -57,9 +57,11 @@
             "metametaavailable0": 1
         },
         "final_non_action_to_increment": {
+            "metametaavailable0": 1
+        },
+        "final_non_action_to_increment_rootword": {
             "metametaavailable0": "mvbl_1_hdrnc_hdrisValid_metametaavailable0"
         },
-        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "hdrnc_hdrisValid",
             "hdrnc_hdrop1",

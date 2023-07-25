@@ -1,0 +1,396 @@
+{
+    "0": {
+        "edge_dst_to_edge": {
+            "check_ports__set_hit": "check_ports -> check_ports__set_hit",
+            "ti_calculate_hash2": "metametadirection0 -> ti_calculate_hash2"
+        },
+        "edge_dst_to_increment": {
+            "check_ports__set_hit": 2,
+            "ti_calculate_hash2": 1
+        },
+        "edges": [
+            "check_ports -> check_ports__set_direction",
+            "check_ports -> check_ports__set_hit",
+            "check_ports__set_direction -> metametadirection0",
+            "check_ports__set_hit -> metametadirection0",
+            "metametadirection0 -> hdrtcpsyn1",
+            "metametadirection0 -> ti_calculate_hash2",
+            "ti_calculate_hash2 -> ti_calculate_hash2__ai_calculate_hash",
+            "ti_calculate_hash2__ai_calculate_hash -> ti_read_bloom_filter1",
+            "ti_read_bloom_filter1 -> ti_read_bloom_filter1__ai_read_bloom_filter1"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "check_ports",
+                "check_ports__set_direction",
+                "metametadirection0",
+                "hdrtcpsyn1"
+            ],
+            "1": [
+                "check_ports",
+                "check_ports__set_direction",
+                "metametadirection0",
+                "ti_calculate_hash2",
+                "ti_calculate_hash2__ai_calculate_hash",
+                "ti_read_bloom_filter1",
+                "ti_read_bloom_filter1__ai_read_bloom_filter1"
+            ],
+            "2": [
+                "check_ports",
+                "check_ports__set_hit",
+                "metametadirection0",
+                "hdrtcpsyn1"
+            ],
+            "3": [
+                "check_ports",
+                "check_ports__set_hit",
+                "metametadirection0",
+                "ti_calculate_hash2",
+                "ti_calculate_hash2__ai_calculate_hash",
+                "ti_read_bloom_filter1",
+                "ti_read_bloom_filter1__ai_read_bloom_filter1"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "check_ports__set_hit": "check_ports -> check_ports__set_hit",
+            "ti_calculate_hash2__ai_calculate_hash": "ti_calculate_hash2 -> ti_calculate_hash2__ai_calculate_hash"
+        },
+        "final_edge_dst_to_increment": {
+            "check_ports__set_hit": 2,
+            "ti_calculate_hash2__ai_calculate_hash": 1
+        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "nodes": [
+            "check_ports",
+            "check_ports__set_direction",
+            "check_ports__set_hit",
+            "hdrtcpsyn1",
+            "metametadirection0",
+            "ti_calculate_hash2",
+            "ti_calculate_hash2__ai_calculate_hash",
+            "ti_read_bloom_filter1",
+            "ti_read_bloom_filter1__ai_read_bloom_filter1"
+        ],
+        "non_action_to_increment": {
+            "ti_calculate_hash2": 1
+        },
+        "num_bits": 5,
+        "num_paths": 4
+    },
+    "1": {
+        "edge_dst_to_edge": {
+            "ti_read_bloom_filter2": "hdripv4isValid -> ti_read_bloom_filter2"
+        },
+        "edge_dst_to_increment": {
+            "ti_read_bloom_filter2": 1
+        },
+        "edges": [
+            "hdripv4isValid -> ti_get_incoming_pos",
+            "hdripv4isValid -> ti_read_bloom_filter2",
+            "ti_get_incoming_pos -> ti_get_incoming_pos__ai_get_incoming_pos",
+            "ti_read_bloom_filter2 -> ti_read_bloom_filter2__ai_read_bloom_filter2"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "hdripv4isValid",
+                "ti_get_incoming_pos",
+                "ti_get_incoming_pos__ai_get_incoming_pos"
+            ],
+            "1": [
+                "hdripv4isValid",
+                "ti_read_bloom_filter2",
+                "ti_read_bloom_filter2__ai_read_bloom_filter2"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "ti_read_bloom_filter2__ai_read_bloom_filter2": "ti_read_bloom_filter2 -> ti_read_bloom_filter2__ai_read_bloom_filter2"
+        },
+        "final_edge_dst_to_increment": {
+            "ti_read_bloom_filter2__ai_read_bloom_filter2": 1
+        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "nodes": [
+            "hdripv4isValid",
+            "ti_get_incoming_pos",
+            "ti_get_incoming_pos__ai_get_incoming_pos",
+            "ti_read_bloom_filter2",
+            "ti_read_bloom_filter2__ai_read_bloom_filter2"
+        ],
+        "non_action_to_increment": {
+            "ti_read_bloom_filter2": 1
+        },
+        "num_bits": 3,
+        "num_paths": 2
+    },
+    "2": {
+        "edge_dst_to_edge": {},
+        "edge_dst_to_increment": {},
+        "edges": [
+            "ti_get_outgoing_pos -> ti_get_outgoing_pos__ai_get_outgoing_pos"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "ti_get_outgoing_pos",
+                "ti_get_outgoing_pos__ai_get_outgoing_pos"
+            ]
+        },
+        "final_edge_dst_to_edge": {},
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "nodes": [
+            "ti_get_outgoing_pos",
+            "ti_get_outgoing_pos__ai_get_outgoing_pos"
+        ],
+        "non_action_to_increment": {},
+        "num_bits": 1,
+        "num_paths": 1
+    },
+    "3": {
+        "edge_dst_to_edge": {
+            "ipv4_lpm__drop_packet": "ipv4_lpm -> ipv4_lpm__drop_packet",
+            "ipv4_lpm__ipv4_forward": "ipv4_lpm -> ipv4_lpm__ipv4_forward",
+            "ti_apply_filter__drop_packet": "ti_apply_filter -> ti_apply_filter__drop_packet",
+            "ti_calculate_hash1": "metametacheck_ports_hit1 -> ti_calculate_hash1"
+        },
+        "edge_dst_to_increment": {
+            "ipv4_lpm__drop_packet": 3,
+            "ipv4_lpm__ipv4_forward": 6,
+            "ti_apply_filter__drop_packet": 1,
+            "ti_calculate_hash1": 2
+        },
+        "edges": [
+            "ipv4_lpm -> ipv4_lpm__ai_noOp",
+            "ipv4_lpm -> ipv4_lpm__drop_packet",
+            "ipv4_lpm -> ipv4_lpm__ipv4_forward",
+            "ipv4_lpm__ai_noOp -> metametacheck_ports_hit1",
+            "ipv4_lpm__drop_packet -> metametacheck_ports_hit1",
+            "ipv4_lpm__ipv4_forward -> metametacheck_ports_hit1",
+            "metametacheck_ports_hit1 -> ti_apply_filter",
+            "metametacheck_ports_hit1 -> ti_calculate_hash1",
+            "ti_apply_filter -> ti_apply_filter__ai_noOp",
+            "ti_apply_filter -> ti_apply_filter__drop_packet",
+            "ti_calculate_hash1 -> ti_calculate_hash1__ai_calculate_hash",
+            "ti_calculate_hash1__ai_calculate_hash -> ti_write_bloom_filter1",
+            "ti_write_bloom_filter1 -> ti_write_bloom_filter1__ai_write_bloom_filter1",
+            "ti_write_bloom_filter1__ai_write_bloom_filter1 -> ti_write_bloom_filter2",
+            "ti_write_bloom_filter2 -> ti_write_bloom_filter2__ai_write_bloom_filter2"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "ipv4_lpm",
+                "ipv4_lpm__ai_noOp",
+                "metametacheck_ports_hit1",
+                "ti_apply_filter",
+                "ti_apply_filter__ai_noOp"
+            ],
+            "1": [
+                "ipv4_lpm",
+                "ipv4_lpm__ai_noOp",
+                "metametacheck_ports_hit1",
+                "ti_apply_filter",
+                "ti_apply_filter__drop_packet"
+            ],
+            "2": [
+                "ipv4_lpm",
+                "ipv4_lpm__ai_noOp",
+                "metametacheck_ports_hit1",
+                "ti_calculate_hash1",
+                "ti_calculate_hash1__ai_calculate_hash",
+                "ti_write_bloom_filter1",
+                "ti_write_bloom_filter1__ai_write_bloom_filter1",
+                "ti_write_bloom_filter2",
+                "ti_write_bloom_filter2__ai_write_bloom_filter2"
+            ],
+            "3": [
+                "ipv4_lpm",
+                "ipv4_lpm__drop_packet",
+                "metametacheck_ports_hit1",
+                "ti_apply_filter",
+                "ti_apply_filter__ai_noOp"
+            ],
+            "4": [
+                "ipv4_lpm",
+                "ipv4_lpm__drop_packet",
+                "metametacheck_ports_hit1",
+                "ti_apply_filter",
+                "ti_apply_filter__drop_packet"
+            ],
+            "5": [
+                "ipv4_lpm",
+                "ipv4_lpm__drop_packet",
+                "metametacheck_ports_hit1",
+                "ti_calculate_hash1",
+                "ti_calculate_hash1__ai_calculate_hash",
+                "ti_write_bloom_filter1",
+                "ti_write_bloom_filter1__ai_write_bloom_filter1",
+                "ti_write_bloom_filter2",
+                "ti_write_bloom_filter2__ai_write_bloom_filter2"
+            ],
+            "6": [
+                "ipv4_lpm",
+                "ipv4_lpm__ipv4_forward",
+                "metametacheck_ports_hit1",
+                "ti_apply_filter",
+                "ti_apply_filter__ai_noOp"
+            ],
+            "7": [
+                "ipv4_lpm",
+                "ipv4_lpm__ipv4_forward",
+                "metametacheck_ports_hit1",
+                "ti_apply_filter",
+                "ti_apply_filter__drop_packet"
+            ],
+            "8": [
+                "ipv4_lpm",
+                "ipv4_lpm__ipv4_forward",
+                "metametacheck_ports_hit1",
+                "ti_calculate_hash1",
+                "ti_calculate_hash1__ai_calculate_hash",
+                "ti_write_bloom_filter1",
+                "ti_write_bloom_filter1__ai_write_bloom_filter1",
+                "ti_write_bloom_filter2",
+                "ti_write_bloom_filter2__ai_write_bloom_filter2"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "ipv4_lpm__drop_packet": "ipv4_lpm -> ipv4_lpm__drop_packet",
+            "ipv4_lpm__ipv4_forward": "ipv4_lpm -> ipv4_lpm__ipv4_forward",
+            "ti_apply_filter__drop_packet": "ti_apply_filter -> ti_apply_filter__drop_packet",
+            "ti_calculate_hash1__ai_calculate_hash": "ti_calculate_hash1 -> ti_calculate_hash1__ai_calculate_hash"
+        },
+        "final_edge_dst_to_increment": {
+            "ipv4_lpm__drop_packet": 3,
+            "ipv4_lpm__ipv4_forward": 6,
+            "ti_apply_filter__drop_packet": 1,
+            "ti_calculate_hash1__ai_calculate_hash": 2
+        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "nodes": [
+            "ipv4_lpm",
+            "ipv4_lpm__ai_noOp",
+            "ipv4_lpm__drop_packet",
+            "ipv4_lpm__ipv4_forward",
+            "metametacheck_ports_hit1",
+            "ti_apply_filter",
+            "ti_apply_filter__ai_noOp",
+            "ti_apply_filter__drop_packet",
+            "ti_calculate_hash1",
+            "ti_calculate_hash1__ai_calculate_hash",
+            "ti_write_bloom_filter1",
+            "ti_write_bloom_filter1__ai_write_bloom_filter1",
+            "ti_write_bloom_filter2",
+            "ti_write_bloom_filter2__ai_write_bloom_filter2"
+        ],
+        "non_action_to_increment": {
+            "ti_calculate_hash1": 2
+        },
+        "num_bits": 7,
+        "num_paths": 9
+    },
+    "num_vars": 4,
+    "stage2tables_dict": {
+        "0": [
+            "ipv4_lpm",
+            "\"hdr.ipv4.isValid();\""
+        ],
+        "1": [
+            "check_ports"
+        ],
+        "2": [
+            "\"meta.meta.check_ports_hit == 1;\"",
+            "ti_get_outgoing_pos",
+            "\"meta.meta.direction == 0;\"",
+            "ti_get_incoming_pos"
+        ],
+        "3": [
+            "ti_calculate_hash2",
+            "ti_calculate_hash1"
+        ],
+        "4": [
+            "ti_read_bloom_filter2",
+            "ti_write_bloom_filter2",
+            "\"hdr.tcp.syn == 1;\""
+        ],
+        "5": [
+            "ti_read_bloom_filter1",
+            "ti_write_bloom_filter1"
+        ],
+        "6": [
+            "ti_apply_filter"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "ipv4_lpm",
+            "hdripv4isValid"
+        ],
+        "1": [
+            "check_ports"
+        ],
+        "2": [
+            "metametacheck_ports_hit1",
+            "ti_get_outgoing_pos",
+            "metametadirection0",
+            "ti_get_incoming_pos"
+        ],
+        "3": [
+            "ti_calculate_hash2",
+            "ti_calculate_hash1"
+        ],
+        "4": [
+            "ti_read_bloom_filter2",
+            "ti_write_bloom_filter2",
+            "hdrtcpsyn1"
+        ],
+        "5": [
+            "ti_read_bloom_filter1",
+            "ti_write_bloom_filter1"
+        ],
+        "6": [
+            "ti_apply_filter"
+        ]
+    },
+    "table2actions_dict": {
+        "check_ports": [
+            "check_ports__set_direction",
+            "check_ports__set_hit"
+        ],
+        "ipv4_lpm": [
+            "ipv4_lpm__ipv4_forward",
+            "ipv4_lpm__drop_packet",
+            "ipv4_lpm__ai_noOp"
+        ],
+        "ti_apply_filter": [
+            "ti_apply_filter__drop_packet",
+            "ti_apply_filter__ai_noOp"
+        ],
+        "ti_calculate_hash1": [
+            "ti_calculate_hash1__ai_calculate_hash"
+        ],
+        "ti_calculate_hash2": [
+            "ti_calculate_hash2__ai_calculate_hash"
+        ],
+        "ti_get_incoming_pos": [
+            "ti_get_incoming_pos__ai_get_incoming_pos"
+        ],
+        "ti_get_outgoing_pos": [
+            "ti_get_outgoing_pos__ai_get_outgoing_pos"
+        ],
+        "ti_read_bloom_filter1": [
+            "ti_read_bloom_filter1__ai_read_bloom_filter1"
+        ],
+        "ti_read_bloom_filter2": [
+            "ti_read_bloom_filter2__ai_read_bloom_filter2"
+        ],
+        "ti_write_bloom_filter1": [
+            "ti_write_bloom_filter1__ai_write_bloom_filter1"
+        ],
+        "ti_write_bloom_filter2": [
+            "ti_write_bloom_filter2__ai_write_bloom_filter2"
+        ]
+    }
+}
