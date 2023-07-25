@@ -53,6 +53,25 @@ JSON_OUTPUT_KEY_TABLE_TO_ACTIONS_DICT = "table2actions_dict"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL = "stage2tables_dict"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_SANITIZED = "stage2tables_dict_sanitized"
 
+context_to_dot_label_mapping = {
+    "(ingress_metadata.on_miss_ipv4_fib == 1)": "\"meta.ingress_metadata.on_miss_ipv4_fib == 1;\"",
+    "(ipv4.$valid == 1)": "\"hdr.ipv4.isValid();\"",
+    "(eg_intr_md.egress_port == 40)": "\"eg_intr_md.egress_port == 40;\"",
+    "(meta.current_reading == 0)": "\"meta.meta.current_reading == 0;\"",
+    "(meta.available != 0)": "\"meta.meta.available != 0;\"",    
+    "(nc_hdr.$valid == 1)": "\"hdr.nc_hdr.isValid();\"",
+    "(nc_hdr.op == 0)": "\"hdr.nc_hdr.op == 0;\"",
+    "(nc_hdr.op == 1)": "\"hdr.nc_hdr.op == 1;\"",
+    "(meta.direction == 0)": "\"meta.meta.direction == 0;\"",
+    "(tcp.syn == 1)": "\"hdr.tcp.syn == 1;\"",
+    "(meta.check_ports_hit == 1)": "\"meta.meta.check_ports_hit == 1;\"",
+    "(distance_vec.$valid == 1)": "\"hdr.distance_vec.isValid();\"",
+    "(arp.$valid == 1 && arp.oper == 1)": "\"hdr.arp.isValid() && hdr.arp.oper == 1;\"",
+    "(ethernet.$valid == 1)": "\"hdr.ethernet.isValid();\"",
+    "(arp.$valid == 1 && arp.oper == 2)": "\"hdr.arp.isValid() && hdr.arp.oper == 2;\"",
+    "(cis553_metadata.forMe == 0)": "\"meta.cis553_metadata.forMe == 0;\"",
+}
+
 
 class GraphParser(object):
     def __init__(self, prog_name, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
@@ -349,7 +368,6 @@ class GraphParser(object):
         table_graph.add_weighted_edges_from(edges_tuples)
         return edges_tuples, table_graph
  
-    # Bug when there are multiple conditions in the if statement
     def extract_stages_p4_14(self, contextFile, node_labels, target_direction):
         context_data = None
         with open(contextFile, 'r') as f:
@@ -374,16 +392,22 @@ class GraphParser(object):
                 continue
             if table_type == "condition":
                 # Rename the condition before matching
-                renamed_condition = table_information['condition'][1:-1]
-                if '$valid' in table_information['condition']:
-                    renamed_condition = renamed_condition.replace("$valid", "isValid()")
-                    if ' == 1' in table_information['condition']:
-                        renamed_condition = renamed_condition.replace(" == 1", "")
+                # We don't know the naming schema in context.json, also need to handle multi-conditonals
+                # renamed_condition = table_information['condition'][1:-1]
+                # if '$valid' in table_information['condition']:
+                #     renamed_condition = renamed_condition.replace("$valid", "isValid()")
+                #     if ' == 1' in table_information['condition']:
+                #         renamed_condition = renamed_condition.replace(" == 1", "")
+                # Safer to do in a dictionary manner
+                renamed_condition = table_information['condition']
+                if renamed_condition in context_to_dot_label_mapping:
+                    renamed_condition = context_to_dot_label_mapping[renamed_condition]
                 print("raw condition: {0}, renamed: {1}".format(table_information['condition'], renamed_condition))
                 for node_label in node_labels:
                     # print("Try matching to node_label: {}".format(node_label))
-                    if renamed_condition in node_label:
-                        print("[INFO] Fuzzy matched to node_label: {}".format(node_label))
+                    if renamed_condition == node_label:
+                        # print("[INFO] Fuzzy matched to node_label: {}".format(node_label))
+                        print("[INFO] Exact matched to node_label: {}".format(node_label))
                         is_matched = True
                         if label2matched[node_label] == 0:
                             label2matched[node_label] = 1
@@ -398,7 +422,7 @@ class GraphParser(object):
             # Which is similar to a branch point
             elif table_type == "match":
                 if table_name == "tbl_act":
-                    print("[WARNING] Skipped tbl_act")
+                    print("[INFO] Skipped")
                 for node_label in node_labels:
                     if table_name == node_label:
                         print("Exact matched to node_label: {}".format(node_label))
@@ -421,9 +445,9 @@ class GraphParser(object):
                                 stage2tables_dict[stage_number] = []
                             stage2tables_dict[stage_number].append(table_information['name'])
             elif table_type == "stateful":
-                print("Skipped")
+                print("[INFO] Skipped")
             elif table_type == "action":
-                print("Skipped")
+                print("[INFO] Skipped")
             else:
                 print("Unknown table_type!")
                 raise Exception("ERR!")
