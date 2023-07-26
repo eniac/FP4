@@ -21,20 +21,20 @@
  * $Id: $
  *
  ******************************************************************************/
-#ifdef __TARGET_BMV2__
-#define BMV2
-#endif
+// #ifdef __TARGET_BMV2__
+// #define BMV2
+// #endif
 
-#ifdef __TARGET_TOFINO__
+// #ifdef __TARGET_TOFINO__
 #include <tofino/constants.p4>
 #include <tofino/intrinsic_metadata.p4>
 #include <tofino/primitives.p4>
 #include <tofino/pktgen_headers.p4>
 #include <tofino/stateful_alu_blackbox.p4>
 #include <tofino/wred_blackbox.p4>
-#else
-#include "includes/tofino.p4"
-#endif
+// #else
+// #include "includes/tofino.p4"
+// #endif
 
 #include "includes/p4features.h"
 #include "includes/drop_reason_codes.h"
@@ -89,7 +89,7 @@ header_type egress_metadata_t {
 header_type intrinsic_metadata_t {
     fields {
         mcast_grp : 16;                           /* multicast group */
-        lf_field_list : 32;                       /* Learn filter field list */
+        // lf_field_list : 32;                       /* Learn filter field list */
         egress_rid : 16;                          /* replication index */
         ingress_global_timestamp : 32;
     }
@@ -410,8 +410,8 @@ control ingress {
     if (ingress_metadata.port_type != PORT_TYPE_FABRIC) {
 #endif /* FABRIC_ENABLE */
     /* update statistics */
-    process_ingress_bd_stats();
-    process_ingress_acl_stats();
+    // process_ingress_bd_stats();
+    // process_ingress_acl_stats();
     process_storm_control_stats();
 #ifndef L3_HEAVY_INT_LEAF_PROFILE
     /* decide final forwarding choice */
@@ -487,12 +487,12 @@ control ingress {
     process_dtel_queue_watchlist();
 
     /* RACL stats */
-    process_ingress_racl_stats();
+    // process_ingress_racl_stats();
 
-    if (ingress_metadata.port_type != PORT_TYPE_FABRIC) {
-        /* system acls */
-        process_system_acl();
-    }
+    // if (ingress_metadata.port_type != PORT_TYPE_FABRIC) {
+    //     /* system acls */
+    //     process_system_acl();
+    // }
 
     process_ecn_acl();
 }
