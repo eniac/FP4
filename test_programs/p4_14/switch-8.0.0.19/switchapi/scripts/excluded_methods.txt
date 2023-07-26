@@ -1,3 +1,0 @@
-switch_api_device_add
-switch_api_init
-switch_config_init

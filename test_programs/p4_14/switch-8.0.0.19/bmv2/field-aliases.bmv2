@@ -1,9 +1,0 @@
-standard_metadata.ingress_port ig_intr_md.ingress_port
-standard_metadata.egress_spec ig_intr_md_for_tm.ucast_egress_port
-standard_metadata.egress_port eg_intr_md.egress_port
-intrinsic_metadata.mcast_grp ig_intr_md_for_tm.mcast_grp_b
-intrinsic_metadata.egress_rid eg_intr_md.egress_rid
-queueing_metadata.enq_timestamp eg_intr_md.enq_tstamp
-queueing_metadata.enq_qdepth eg_intr_md.enq_qdepth
-queueing_metadata.deq_timedelta eg_intr_md.deq_timedelta
-queueing_metadata.deq_qdepth eg_intr_md.deq_qdepth

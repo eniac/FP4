@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if [ "@P4C_VERSION@" == "V5" ]; then
-    PYTHONPATH=@MY_PYTHONPATH@:$PYTHONPATH @P4C@ --gen-deps $1
-else
-    # no support for Brig at this point, dependency tracking won't work
-    echo $1
-fi
