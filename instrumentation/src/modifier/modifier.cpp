@@ -5,7 +5,7 @@
 
 using namespace std;
 
-P4Modifier::P4Modifier(AstNode* root, char* target, char* plan, int num_assertions, char* out_fn_base) {
+P4Modifier::P4Modifier(AstNode* root, char* target, char* ingress_plan, char* egress_plan, int num_assertions, char* out_fn_base) {
 	PRINT_INFO("================= Modifier =================\n");
     target_ = target;
     root_ = root;
@@ -15,13 +15,13 @@ P4Modifier::P4Modifier(AstNode* root, char* target, char* plan, int num_assertio
     program_name_ = fileName.back();
     // cout << "program_name_: " << program_name_ << endl;
 
-    std::ifstream f(plan);
-    nlohmann::json plan_json = nlohmann::json::parse(f);
+    std::ifstream f(ingress_plan);
+    nlohmann::json ingress_plan_json = nlohmann::json::parse(f);
 
-    for (nlohmann::json::iterator it = plan_json.begin(); it != plan_json.end(); ++it) {
-        action_2_encoding_field_.insert({it.key(), std::string(it.value()["field"])});
-        action_2_encoding_incr_.insert({it.key(), std::string(it.value()["increment"])});
-    }    
+    // for (nlohmann::json::iterator it = plan_json.begin(); it != plan_json.end(); ++it) {
+    //     action_2_encoding_field_.insert({it.key(), std::string(it.value()["field"])});
+    //     action_2_encoding_incr_.insert({it.key(), std::string(it.value()["increment"])});
+    // }    
 
 }
 

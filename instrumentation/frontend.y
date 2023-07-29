@@ -39,7 +39,8 @@ using namespace std;
 char* in_fn = NULL;
 char* out_fn_base = NULL;
 char* target = NULL;
-char* plan = NULL;
+char* ingress_plan = NULL;
+char* egress_plan = NULL;
 std::string p4_out_ut, p4_out_dt;
 FILE* in_file;
 char* rules = NULL;
@@ -67,8 +68,9 @@ void parseArgs(int argc, char* argv[]){
     out_fn_base = getCmdOption(argv, argv+argc, "-o");
     target = getCmdOption(argv, argv+argc, "-t");
     rules = getCmdOption(argv, argv+argc, "-r"); 
-    plan = getCmdOption(argv, argv+argc, "-p"); 
-    if ((in_fn == NULL) || (out_fn_base == NULL) || (target == NULL) || (plan == NULL)){
+    ingress_plan = getCmdOption(argv, argv+argc, "-p"); 
+    egress_plan = getCmdOption(argv, argv+argc, "-e");     
+    if ((in_fn == NULL) || (out_fn_base == NULL) || (target == NULL) || (ingress_plan == NULL) || (egress_plan == NULL)){
         cout << "expected arguments: "
              << argv[0]
              << " -i <input P4 filename> -o <output filename base> -t <target hw/sim>"
@@ -1715,7 +1717,7 @@ int main(int argc, char* argv[]) {
     ofstream os;
 
     os.open(p4_out_ut);
-    modifier = new UTModifier(root, target, plan, rules, ut_rules_out_fn.c_str(), num_assertions, out_fn_base);
+    modifier = new UTModifier(root, target, ingress_plan, egress_plan, rules, ut_rules_out_fn.c_str(), num_assertions, out_fn_base);
     os << root->toString() << endl << endl;
     os << modifier->GetUnanchoredNodesStr(); 
     os.close();
@@ -1729,7 +1731,7 @@ int main(int argc, char* argv[]) {
     yyin = fopen(in_fn, "r");
     yyparse();
     os.open(p4_out_dt);
-    modifier = new DTModifier(root, target, plan, num_assertions, out_fn_base);
+    modifier = new DTModifier(root, target, ingress_plan, egress_plan, num_assertions, out_fn_base);
     os << root->toString() << endl << endl;
     os << modifier->GetUnanchoredNodesStr(); 
     os.close();

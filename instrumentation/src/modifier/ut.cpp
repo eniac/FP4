@@ -5,7 +5,7 @@
 
 using namespace std;
 
-UTModifier::UTModifier(AstNode* root, char* target, char* plan, const char* rules_in, const char* rules_out, int num_assertions, char* out_fn_base) : P4Modifier(root, target, plan, num_assertions, out_fn_base) {
+UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* egress_plan, const char* rules_in, const char* rules_out, int num_assertions, char* out_fn_base) : P4Modifier(root, target, ingress_plan, egress_plan, num_assertions, out_fn_base) {
 	PRINT_INFO("============== UT ==================\n");
 	rules_in_ = rules_in;
     rules_out_ = rules_out;

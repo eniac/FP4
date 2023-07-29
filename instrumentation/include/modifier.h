@@ -44,7 +44,7 @@ public:
 	map<string, string> action_2_encoding_incr_;
 
 	// Functions
-	P4Modifier(AstNode* head, char* target, char* plan, int num_assertions, char* out_fn_base);
+	P4Modifier(AstNode* head, char* target, char* ingress_plan, char* egress_plan, int num_assertions, char* out_fn_base);
 
 	virtual void AddFieldToJson(string fieldName, int numBit);
 	void AddVisitedHdr();

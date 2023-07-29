@@ -17,7 +17,7 @@ public:
 	map<string, vector<string> > tbl_2_read_fields_ {};
 	vector<string> popular_actions_;
 
-	UTModifier(AstNode* head, char* target, char* plan, const char* rules_in, const char* rules_out, int num_assertions, char* out_fn_base);
+	UTModifier(AstNode* head, char* target, char* ingress_plan, char* egress_plan, const char* rules_in, const char* rules_out, int num_assertions, char* out_fn_base);
 
     string addAssertExpression(ExprNode* expr, int assertNum);
     void addAssertTable(AssertNode* tableStmt);

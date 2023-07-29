@@ -4,7 +4,7 @@
 #include "../../util/util.cpp"
 
 using namespace std;
-DTModifier::DTModifier(AstNode* root, char* target, char* plan, int num_assertions, char* out_fn_base) : P4Modifier(root, target, plan, num_assertions, out_fn_base) {
+DTModifier::DTModifier(AstNode* root, char* target, char* ingress_plan, char* egress_plan, int num_assertions, char* out_fn_base) : P4Modifier(root, target, ingress_plan, egress_plan, num_assertions, out_fn_base) {
     PRINT_INFO("================= DT =================\n");
     // Remove user table and action nodes
     work_set_.clear();
