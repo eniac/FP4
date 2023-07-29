@@ -37,6 +37,17 @@
         "num_bits": 1,
         "num_paths": 2
     },
+    "global_num_paths": 2,
+    "global_paths": [
+        [
+            "rewrite_mac",
+            "rewrite_mac__rewrite_src_dst_mac"
+        ],
+        [
+            "rewrite_mac",
+            "rewrite_mac__on_miss"
+        ]
+    ],
     "num_vars": 1,
     "stage2tables_dict": {
         "0": [

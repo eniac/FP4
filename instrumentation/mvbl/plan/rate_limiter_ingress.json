@@ -67,6 +67,24 @@
         "num_bits": 2,
         "num_paths": 3
     },
+    "global_num_paths": 3,
+    "global_paths": [
+        [
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ipv4_lpm__drop_packet"
+        ],
+        [
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ipv4_lpm__ai_noOp"
+        ],
+        [
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ipv4_lpm__ipv4_forward"
+        ]
+    ],
     "num_vars": 2,
     "stage2tables_dict": {
         "0": [

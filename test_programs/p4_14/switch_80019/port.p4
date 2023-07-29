@@ -390,7 +390,7 @@ counter ingress_bd_stats {
 }
 
 action update_ingress_bd_stats() {
-    count(ingress_bd_stats, l2_metadata.bd_stats_idx);
+    // count(ingress_bd_stats, l2_metadata.bd_stats_idx);
 }
 
 table ingress_bd_stats {

@@ -47,6 +47,15 @@
         "num_bits": 1,
         "num_paths": 1
     },
+    "global_num_paths": 1,
+    "global_paths": [
+        [
+            "tiSendClone",
+            "tiSendClone__aiSendClone",
+            "tiSetOutputPort",
+            "tiSetOutputPort__aiSetOutputPort"
+        ]
+    ],
     "num_vars": 2,
     "stage2tables_dict": {
         "0": [

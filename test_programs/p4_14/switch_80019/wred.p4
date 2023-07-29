@@ -96,7 +96,7 @@ counter wred_mark {
 }
 
 action set_ipv4_ecn_bits() {
-    count(wred_mark, wred_metadata.stats_index);
+    // count(wred_mark, wred_metadata.stats_index);
     modify_field(wred_metadata.drop_flag, FALSE);
     modify_field(ipv4.diffserv, ECN_CODEPOINT_CE, 0x03);
 }

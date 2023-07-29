@@ -37,6 +37,17 @@
         "num_bits": 1,
         "num_paths": 2
     },
+    "global_num_paths": 2,
+    "global_paths": [
+        [
+            "send_frame",
+            "send_frame__drop_packet"
+        ],
+        [
+            "send_frame",
+            "send_frame__rewrite_mac"
+        ]
+    ],
     "num_vars": 1,
     "stage2tables_dict": {
         "0": [

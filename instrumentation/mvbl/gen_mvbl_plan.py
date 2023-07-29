@@ -62,6 +62,10 @@ JSON_OUTPUT_EDGES = "edges"
 JSON_OUTPUT_KEY_TABLE_TO_ACTIONS_DICT = "table2actions_dict"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL = "stage2tables_dict"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_SANITIZED = "stage2tables_dict_sanitized"
+JSON_OUTPUT_KEY_SUM_NUM_PATHS = "sum_num_paths"
+JSON_OUTPUT_KEY_GLOBAL_NUM_PATHS = "global_num_paths"
+JSON_OUTPUT_KEY_GLOBAL_PATHS = "global_paths"
+
 
 context_to_dot_label_mapping = {
     "(ingress_metadata.on_miss_ipv4_fib == 1)": "\"meta.ingress_metadata.on_miss_ipv4_fib == 1;\"",
@@ -287,6 +291,7 @@ class GraphParser(object):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT] = json_output_final_non_action_increment_rootword_dict
             graphs_with_weights.append(graph_with_weights)
         
+        # sum_num_paths = 0
         for idx, graph in enumerate(graphs_with_weights):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT] = {}
             print("\n====== Printing path to encoding for sub-DAG {0} ======".format(idx))
@@ -312,6 +317,7 @@ class GraphParser(object):
                             all_paths_weights.append((path, weight))
             all_paths_weights.sort(key=lambda x: x[1])
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_PATHS] = len(all_paths_weights)
+            # sum_num_paths += len(all_paths_weights)
             print("--- Expecting all_path_weights with weight from 0 to {} ---".format(len(all_paths_weights)))
             expected_weight = 0
             for path, weight in all_paths_weights:
@@ -320,7 +326,31 @@ class GraphParser(object):
                 if weight != expected_weight:
                     raise Exception("Unexpected weight! Possibly mis-assigned weights")
                 expected_weight += 1
-        
+        # json_output_dict[JSON_OUTPUT_KEY_SUM_NUM_PATHS] = sum_num_paths
+
+        print("\n====== Get the number of paths for the full_graph ===")
+        full_root_nodes = [v for v, d in full_graph.in_degree() if d == 0]
+        full_leaf_nodes = [v for v, d in full_graph.out_degree() if d == 0]
+        print("--- full_root_nodes ---")
+        print(full_root_nodes)
+        print("--- full_leaf_nodes ---")
+        print(full_leaf_nodes)
+        global_paths = []
+        for root in full_root_nodes:
+            for leaf in full_leaf_nodes:
+                if root == leaf:
+                    if len(full_root_nodes) != 1 or len(full_leaf_nodes) != 1:
+                        raise Exception("len(full_root_nodes) != 1 or len(full_leaf_nodes) != 1!")
+                        sys.exit()
+                    global_paths.append(root)
+                else:
+                    paths = list(nx.all_simple_paths(full_graph, root, leaf))
+                    for path in paths:
+                        global_paths.append(path)
+        print("--- len(global_paths): {} ---".format(len(global_paths)))
+        json_output_dict[JSON_OUTPUT_KEY_GLOBAL_NUM_PATHS] = len(global_paths)
+        json_output_dict[JSON_OUTPUT_KEY_GLOBAL_PATHS] = global_paths
+
         with open("plan/"+prog_name+"_"+direction+".json", 'w') as f:
             json.dump(json_output_dict, f, indent=4, sort_keys=True)
         

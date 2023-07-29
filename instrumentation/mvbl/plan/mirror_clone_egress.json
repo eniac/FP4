@@ -139,6 +139,27 @@
         "num_bits": 1,
         "num_paths": 1
     },
+    "global_num_paths": 2,
+    "global_paths": [
+        [
+            "eg_intr_mdegress_port40",
+            "teUpdateMirror",
+            "teUpdateMirror__aeUpdateMirror",
+            "teReadOriginal",
+            "teReadOriginal__aeReadOriginal",
+            "teGetDiff",
+            "teGetDiff__aeGetDiff"
+        ],
+        [
+            "eg_intr_mdegress_port40",
+            "teReadMirror",
+            "teReadMirror__aeReadMirror",
+            "teUpdateOriginal",
+            "teUpdateOriginal__aeUpdateOriginal",
+            "teGetDiff",
+            "teGetDiff__aeGetDiff"
+        ]
+    ],
     "num_vars": 6,
     "stage2tables_dict": {
         "0": [

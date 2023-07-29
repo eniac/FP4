@@ -907,7 +907,7 @@ counter acl_stats {
 }
 
 action acl_stats_update() {
-    count(acl_stats, acl_metadata.acl_stats_index);
+    // count(acl_stats, acl_metadata.acl_stats_index);
 }
 
 table acl_stats {
@@ -926,7 +926,7 @@ counter mirror_acl_stats {
 }
 
 action mirror_acl_stats_update() {
-  count(mirror_acl_stats, acl_metadata.mirror_acl_stats_index);
+  // count(mirror_acl_stats, acl_metadata.mirror_acl_stats_index);
 }
 
 table mirror_acl_stats {
@@ -945,7 +945,7 @@ counter racl_stats {
 }
 
 action racl_stats_update() {
-    count(racl_stats, acl_metadata.racl_stats_index);
+    // count(racl_stats, acl_metadata.racl_stats_index);
 }
 
 table racl_stats {
@@ -1029,7 +1029,7 @@ action mirror_and_drop() {
 }
 
 action mirror_and_drop_with_reason(drop_reason) {
-    count(drop_stats, drop_reason);
+    // count(drop_stats, drop_reason);
     modify_field(ingress_metadata.drop_reason, drop_reason);
     modify_field(acl_metadata.acl_deny, FALSE);
     mirror_and_drop();
@@ -1068,7 +1068,7 @@ action copy_to_cpu(qid, meter_id, icos) {
     clone_ingress_pkt_to_egress(CPU_MIRROR_SESSION_ID, cpu_info);
 #endif
 #ifndef COPP_METER_DISABLE
-    execute_meter(copp, meter_id, ig_intr_md_for_tm.packet_color);
+    // execute_meter(copp, meter_id, ig_intr_md_for_tm.packet_color);
 #endif /* COPP_METER_DISABLE */
 }
 
@@ -1082,7 +1082,7 @@ action drop_packet() {
 }
 
 action drop_packet_with_reason(drop_reason) {
-    count(drop_stats, drop_reason);
+    // count(drop_stats, drop_reason);
     drop();
 }
 
@@ -1170,7 +1170,7 @@ table system_acl {
 }
 
 action drop_stats_update() {
-    count(drop_stats_2, ingress_metadata.drop_reason);
+    // count(drop_stats_2, ingress_metadata.drop_reason);
 }
 
 table drop_stats {
@@ -1344,7 +1344,7 @@ counter egress_acl_stats {
 }
 
 action egress_acl_stats_update() {
-    count(egress_acl_stats, acl_metadata.egress_acl_stats_index);
+    // count(egress_acl_stats, acl_metadata.egress_acl_stats_index);
 }
 
 table egress_acl_stats {
