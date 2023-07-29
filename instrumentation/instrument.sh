@@ -8,14 +8,18 @@ verbose=0
 target=hw
 rebuild=1
 rules_path=""
+ingress_plan_path=""
+egress_plan_path=""
 
-usage() { echo "Usage: $0 [-vv] [-t target[hw/sim]] [-n] [-o output_dir] [-r rules] input_file" 1>&2; exit 1; }
-while getopts ":o:t:r:nv" opt
+usage() { echo "Usage: $0 [-vv] [-t target[hw/sim]] [-n] [-o output_dir] [-i ingress_plan_path] [-e ingress_plan_path] [-r rules] input_file" 1>&2; exit 1; }
+while getopts ":o:t:r:i:e:nv" opt
 do
   case "${opt}" in
     o ) output_path=${OPTARG};;
     t ) target=${OPTARG};;
     r ) rules_path=${OPTARG};;
+    i ) ingress_plan_path=${OPTARG};;
+    e ) egress_plan_path=${OPTARG};;
     v ) verbose=$(($verbose + 1));;
     n ) rebuild=0;;
     \? ) usage;;
@@ -27,7 +31,7 @@ if [ $# -lt 1 ]; then
   usage
 fi
 
-echo "Rule file path: ${rules_path}, inputfile: $1"
+echo "Rule file path: ${rules_path}, ingress plan path: ${ingress_plan_path}, egress plan path: ${egress_plan_path}, inputfile: $1"
 
 # Parse input file
 input_file=$1
@@ -74,8 +78,8 @@ fi
 if [ -z "$rules_path" ]
 then
   echo "rules_path NULL" 
-  python2 instrument.py --input_file ${input_file} --output_base ${output_base} --target ${target}
+  python2 instrument.py --input_file ${input_file} --output_base ${output_base} --target ${target} --ingress_plan_path ${ingress_plan_path} --egress_plan_path ${egress_plan_path}
 else 
   echo "rules_path not NULL: ${rules_path}" 
-  python2 instrument.py --input_file ${input_file} --output_base ${output_base} --target ${target} --rules_path ${rules_path}
+  python2 instrument.py --input_file ${input_file} --output_base ${output_base} --target ${target} --rules_path ${rules_path} --ingress_plan_path ${ingress_plan_path} --egress_plan_path ${egress_plan_path}
 fi

@@ -11,34 +11,19 @@ parser.add_argument('--input_file', type=str, required=True)
 parser.add_argument('--output_base', type=str, required=True)
 parser.add_argument('--target', type=str, required=True)
 parser.add_argument('--rules_path', type=str, required=False)
+parser.add_argument('--ingress_plan_path', type=str, required=True)
+parser.add_argument('--egress_plan_path', type=str, required=True)
 
 args = parser.parse_args()
 
-print("=====instrument.py args=====")
+print("\n\n\n=====instrument.py args=====")
 print("input_file: "+args.input_file)
 print("output_base: "+args.output_base)
 print("target: "+args.target)
-print(args.rules_path)
+print("rules_path: "+args.rules_path)
+print("ingress_plan_path: "+args.ingress_plan_path)
+print("egress_plan_path: "+args.egress_plan_path)
 print("==========")
-
-# TODO: integrate ILP planner
-program2plan_json = {
-    "basic_routing.p4": "/home/leoyu/FP4/instrumentation/ilp/basic_routing_plan.json",
-    "dv_router.p4": "/home/leoyu/FP4/instrumentation/ilp/dv_router_plan.json",
-    "Firewall.p4": "/home/leoyu/FP4/instrumentation/ilp/Firewall_plan.json",
-    "LoadBalance.p4": "/home/leoyu/FP4/instrumentation/ilp/LoadBalance_plan.json",
-    "mirror_clone.p4": "/home/leoyu/FP4/instrumentation/ilp/mirror_clone_plan.json",
-    "netchain.p4": "/home/leoyu/FP4/instrumentation/ilp/netchain_plan.json",
-    "RateLimiter.p4": "/home/leoyu/FP4/instrumentation/ilp/RateLimiter_plan.json"
-}
-plan_json = None
-for program in program2plan_json.keys():
-    if program in args.input_file:
-        plan_json = program2plan_json[program]
-        print("Plan path: {}".format(program2plan_json[program]))
-if not plan_json:
-    print("Empty plan.json")
-    exit
 
 # Bypass #include <.*> for preprocessor
 skipped_includes_lines = []
@@ -64,8 +49,8 @@ with open(args.input_file+'.tmp', 'r+') as f:
        f.write(line)
    f.write(content)
 
-command = "./frontend -v -i {0}.tmp -o {1} -t {2} -p {3}".format(
-    args.input_file, args.output_base, args.target, plan_json)
+command = "./frontend -v -i {0}.tmp -o {1} -t {2} -p {3} -e {4}".format(
+    args.input_file, args.output_base, args.target, args.ingress_plan_path, args.egress_plan_path)
 
 if args.rules_path is not None:
     command += " -r " + args.rules_path
