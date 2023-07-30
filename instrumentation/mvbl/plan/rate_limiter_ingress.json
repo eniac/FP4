@@ -21,47 +21,47 @@
     },
     "1": {
         "edge_dst_to_edge": {
-            "ipv4_lpm_pfuzz_drop_packet": "ipv4_lpm -> ipv4_lpm_pfuzz_drop_packet",
-            "ipv4_lpm_pfuzz_ipv4_forward": "ipv4_lpm -> ipv4_lpm_pfuzz_ipv4_forward"
+            "drop_packet_pfuzz_ipv4_lpm": "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm": "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm"
         },
         "edge_dst_to_increment": {
-            "ipv4_lpm_pfuzz_drop_packet": 1,
-            "ipv4_lpm_pfuzz_ipv4_forward": 2
+            "drop_packet_pfuzz_ipv4_lpm": 1,
+            "ipv4_forward_pfuzz_ipv4_lpm": 2
         },
         "edges": [
-            "ipv4_lpm -> ipv4_lpm_pfuzz_ai_noOp",
-            "ipv4_lpm -> ipv4_lpm_pfuzz_drop_packet",
-            "ipv4_lpm -> ipv4_lpm_pfuzz_ipv4_forward"
+            "ipv4_lpm -> ai_noOp_pfuzz_ipv4_lpm",
+            "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm"
         ],
         "encoding_to_path": {
             "0": [
                 "ipv4_lpm",
-                "ipv4_lpm_pfuzz_ai_noOp"
+                "ai_noOp_pfuzz_ipv4_lpm"
             ],
             "1": [
                 "ipv4_lpm",
-                "ipv4_lpm_pfuzz_drop_packet"
+                "drop_packet_pfuzz_ipv4_lpm"
             ],
             "2": [
                 "ipv4_lpm",
-                "ipv4_lpm_pfuzz_ipv4_forward"
+                "ipv4_forward_pfuzz_ipv4_lpm"
             ]
         },
         "final_edge_dst_to_edge": {
-            "ipv4_lpm_pfuzz_drop_packet": "ipv4_lpm -> ipv4_lpm_pfuzz_drop_packet",
-            "ipv4_lpm_pfuzz_ipv4_forward": "ipv4_lpm -> ipv4_lpm_pfuzz_ipv4_forward"
+            "drop_packet_pfuzz_ipv4_lpm": "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm": "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm"
         },
         "final_edge_dst_to_increment": {
-            "ipv4_lpm_pfuzz_drop_packet": 1,
-            "ipv4_lpm_pfuzz_ipv4_forward": 2
+            "drop_packet_pfuzz_ipv4_lpm": 1,
+            "ipv4_forward_pfuzz_ipv4_lpm": 2
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "ipv4_lpm",
-            "ipv4_lpm_pfuzz_ai_noOp",
-            "ipv4_lpm_pfuzz_drop_packet",
-            "ipv4_lpm_pfuzz_ipv4_forward"
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
+            "ipv4_lpm"
         ],
         "non_action_to_increment": {},
         "num_bits": 2,
@@ -72,17 +72,17 @@
         [
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_lpm_pfuzz_drop_packet"
+            "drop_packet_pfuzz_ipv4_lpm"
         ],
         [
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_lpm_pfuzz_ai_noOp"
+            "ipv4_forward_pfuzz_ipv4_lpm"
         ],
         [
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_lpm_pfuzz_ipv4_forward"
+            "ai_noOp_pfuzz_ipv4_lpm"
         ]
     ],
     "num_vars": 2,
@@ -101,9 +101,9 @@
     "sum_num_paths": 4,
     "table2actions_dict": {
         "ipv4_lpm": [
-            "ipv4_lpm_pfuzz_ipv4_forward",
-            "ipv4_lpm_pfuzz_drop_packet",
-            "ipv4_lpm_pfuzz_ai_noOp"
+            "ipv4_forward_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm"
         ]
     }
 }

@@ -3,12 +3,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "tiSendClone -> tiSendClone_pfuzz_aiSendClone"
+            "tiSendClone -> aiSendClone_pfuzz_tiSendClone"
         ],
         "encoding_to_path": {
             "0": [
                 "tiSendClone",
-                "tiSendClone_pfuzz_aiSendClone"
+                "aiSendClone_pfuzz_tiSendClone"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -16,8 +16,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "tiSendClone",
-            "tiSendClone_pfuzz_aiSendClone"
+            "aiSendClone_pfuzz_tiSendClone",
+            "tiSendClone"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -27,12 +27,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "tiSetOutputPort -> tiSetOutputPort_pfuzz_aiSetOutputPort"
+            "tiSetOutputPort -> aiSetOutputPort_pfuzz_tiSetOutputPort"
         ],
         "encoding_to_path": {
             "0": [
                 "tiSetOutputPort",
-                "tiSetOutputPort_pfuzz_aiSetOutputPort"
+                "aiSetOutputPort_pfuzz_tiSetOutputPort"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -40,8 +40,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "tiSetOutputPort",
-            "tiSetOutputPort_pfuzz_aiSetOutputPort"
+            "aiSetOutputPort_pfuzz_tiSetOutputPort",
+            "tiSetOutputPort"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -51,9 +51,9 @@
     "global_paths": [
         [
             "tiSendClone",
-            "tiSendClone_pfuzz_aiSendClone",
+            "aiSendClone_pfuzz_tiSendClone",
             "tiSetOutputPort",
-            "tiSetOutputPort_pfuzz_aiSetOutputPort"
+            "aiSetOutputPort_pfuzz_tiSetOutputPort"
         ]
     ],
     "num_vars": 2,
@@ -72,10 +72,10 @@
     "sum_num_paths": 2,
     "table2actions_dict": {
         "tiSendClone": [
-            "tiSendClone_pfuzz_aiSendClone"
+            "aiSendClone_pfuzz_tiSendClone"
         ],
         "tiSetOutputPort": [
-            "tiSetOutputPort_pfuzz_aiSetOutputPort"
+            "aiSetOutputPort_pfuzz_tiSetOutputPort"
         ]
     }
 }

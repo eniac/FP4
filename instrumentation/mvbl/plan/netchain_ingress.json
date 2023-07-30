@@ -3,16 +3,16 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "decode_table -> decode_table_pfuzz_decode_action",
-            "decode_table_pfuzz_decode_action -> release_lock_table",
-            "release_lock_table -> release_lock_table_pfuzz_release_lock_action"
+            "decode_action_pfuzz_decode_table -> release_lock_table",
+            "decode_table -> decode_action_pfuzz_decode_table",
+            "release_lock_table -> release_lock_action_pfuzz_release_lock_table"
         ],
         "encoding_to_path": {
             "0": [
                 "decode_table",
-                "decode_table_pfuzz_decode_action",
+                "decode_action_pfuzz_decode_table",
                 "release_lock_table",
-                "release_lock_table_pfuzz_release_lock_action"
+                "release_lock_action_pfuzz_release_lock_table"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -20,10 +20,10 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "decode_action_pfuzz_decode_table",
             "decode_table",
-            "decode_table_pfuzz_decode_action",
-            "release_lock_table",
-            "release_lock_table_pfuzz_release_lock_action"
+            "release_lock_action_pfuzz_release_lock_table",
+            "release_lock_table"
         ],
         "non_action_to_increment": {},
         "num_bits": 2,
@@ -75,41 +75,41 @@
     },
     "2": {
         "edge_dst_to_edge": {
-            "ipv4_route_pfuzz_set_egress": "ipv4_route -> ipv4_route_pfuzz_set_egress"
+            "set_egress_pfuzz_ipv4_route": "ipv4_route -> set_egress_pfuzz_ipv4_route"
         },
         "edge_dst_to_increment": {
-            "ipv4_route_pfuzz_set_egress": 1
+            "set_egress_pfuzz_ipv4_route": 1
         },
         "edges": [
             "hdrnc_hdrop0 -> ipv4_route",
-            "ipv4_route -> ipv4_route_pfuzz_drop_action",
-            "ipv4_route -> ipv4_route_pfuzz_set_egress"
+            "ipv4_route -> drop_action_pfuzz_ipv4_route",
+            "ipv4_route -> set_egress_pfuzz_ipv4_route"
         ],
         "encoding_to_path": {
             "0": [
                 "hdrnc_hdrop0",
                 "ipv4_route",
-                "ipv4_route_pfuzz_drop_action"
+                "drop_action_pfuzz_ipv4_route"
             ],
             "1": [
                 "hdrnc_hdrop0",
                 "ipv4_route",
-                "ipv4_route_pfuzz_set_egress"
+                "set_egress_pfuzz_ipv4_route"
             ]
         },
         "final_edge_dst_to_edge": {
-            "ipv4_route_pfuzz_set_egress": "ipv4_route -> ipv4_route_pfuzz_set_egress"
+            "set_egress_pfuzz_ipv4_route": "ipv4_route -> set_egress_pfuzz_ipv4_route"
         },
         "final_edge_dst_to_increment": {
-            "ipv4_route_pfuzz_set_egress": 1
+            "set_egress_pfuzz_ipv4_route": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "drop_action_pfuzz_ipv4_route",
             "hdrnc_hdrop0",
             "ipv4_route",
-            "ipv4_route_pfuzz_drop_action",
-            "ipv4_route_pfuzz_set_egress"
+            "set_egress_pfuzz_ipv4_route"
         ],
         "non_action_to_increment": {},
         "num_bits": 2,
@@ -117,50 +117,50 @@
     },
     "3": {
         "edge_dst_to_edge": {
-            "set_retry_table": "acquire_lock_table_pfuzz_acquire_lock_action -> set_retry_table"
+            "set_retry_table": "acquire_lock_action_pfuzz_acquire_lock_table -> set_retry_table"
         },
         "edge_dst_to_increment": {
             "set_retry_table": 1
         },
         "edges": [
-            "acquire_lock_table -> acquire_lock_table_pfuzz_acquire_lock_action",
-            "acquire_lock_table_pfuzz_acquire_lock_action -> reply_to_client_table",
-            "acquire_lock_table_pfuzz_acquire_lock_action -> set_retry_table",
-            "reply_to_client_table -> reply_to_client_table_pfuzz_reply_to_client_action",
-            "set_retry_table -> set_retry_table_pfuzz_set_retry_action",
-            "set_retry_table_pfuzz_set_retry_action -> reply_to_client_table"
+            "acquire_lock_action_pfuzz_acquire_lock_table -> reply_to_client_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table -> set_retry_table",
+            "acquire_lock_table -> acquire_lock_action_pfuzz_acquire_lock_table",
+            "reply_to_client_table -> reply_to_client_action_pfuzz_reply_to_client_table",
+            "set_retry_action_pfuzz_set_retry_table -> reply_to_client_table",
+            "set_retry_table -> set_retry_action_pfuzz_set_retry_table"
         ],
         "encoding_to_path": {
             "0": [
                 "acquire_lock_table",
-                "acquire_lock_table_pfuzz_acquire_lock_action",
+                "acquire_lock_action_pfuzz_acquire_lock_table",
                 "reply_to_client_table",
-                "reply_to_client_table_pfuzz_reply_to_client_action"
+                "reply_to_client_action_pfuzz_reply_to_client_table"
             ],
             "1": [
                 "acquire_lock_table",
-                "acquire_lock_table_pfuzz_acquire_lock_action",
+                "acquire_lock_action_pfuzz_acquire_lock_table",
                 "set_retry_table",
-                "set_retry_table_pfuzz_set_retry_action",
+                "set_retry_action_pfuzz_set_retry_table",
                 "reply_to_client_table",
-                "reply_to_client_table_pfuzz_reply_to_client_action"
+                "reply_to_client_action_pfuzz_reply_to_client_table"
             ]
         },
         "final_edge_dst_to_edge": {
-            "set_retry_table_pfuzz_set_retry_action": "set_retry_table -> set_retry_table_pfuzz_set_retry_action"
+            "set_retry_action_pfuzz_set_retry_table": "set_retry_table -> set_retry_action_pfuzz_set_retry_table"
         },
         "final_edge_dst_to_increment": {
-            "set_retry_table_pfuzz_set_retry_action": 1
+            "set_retry_action_pfuzz_set_retry_table": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "acquire_lock_action_pfuzz_acquire_lock_table",
             "acquire_lock_table",
-            "acquire_lock_table_pfuzz_acquire_lock_action",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
-            "set_retry_table",
-            "set_retry_table_pfuzz_set_retry_action"
+            "set_retry_action_pfuzz_set_retry_table",
+            "set_retry_table"
         ],
         "non_action_to_increment": {
             "set_retry_table": 1
@@ -173,116 +173,116 @@
         [
             "hdrnc_hdrisValid",
             "ipv4_route",
-            "ipv4_route_pfuzz_set_egress"
+            "set_egress_pfuzz_ipv4_route"
         ],
         [
             "hdrnc_hdrisValid",
             "decode_table",
-            "decode_table_pfuzz_decode_action",
+            "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "acquire_lock_table",
-            "acquire_lock_table_pfuzz_acquire_lock_action",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
             "metametaavailable0",
             "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "ipv4_route_pfuzz_set_egress"
+            "set_egress_pfuzz_ipv4_route"
         ],
         [
             "hdrnc_hdrisValid",
             "decode_table",
-            "decode_table_pfuzz_decode_action",
+            "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "acquire_lock_table",
-            "acquire_lock_table_pfuzz_acquire_lock_action",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
             "metametaavailable0",
             "set_retry_table",
-            "set_retry_table_pfuzz_set_retry_action",
+            "set_retry_action_pfuzz_set_retry_table",
             "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "ipv4_route_pfuzz_set_egress"
+            "set_egress_pfuzz_ipv4_route"
         ],
         [
             "hdrnc_hdrisValid",
             "decode_table",
-            "decode_table_pfuzz_decode_action",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
-            "ipv4_route",
-            "ipv4_route_pfuzz_set_egress"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_table_pfuzz_decode_action",
+            "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "hdrnc_hdrop1",
             "release_lock_table",
-            "release_lock_table_pfuzz_release_lock_action",
+            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "ipv4_route_pfuzz_set_egress"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "ipv4_route",
-            "ipv4_route_pfuzz_drop_action"
+            "set_egress_pfuzz_ipv4_route"
         ],
         [
             "hdrnc_hdrisValid",
             "decode_table",
-            "decode_table_pfuzz_decode_action",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_table_pfuzz_acquire_lock_action",
-            "metametaavailable0",
-            "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
-            "ipv4_route",
-            "ipv4_route_pfuzz_drop_action"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_table_pfuzz_decode_action",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_table_pfuzz_acquire_lock_action",
-            "metametaavailable0",
-            "set_retry_table",
-            "set_retry_table_pfuzz_set_retry_action",
-            "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
-            "ipv4_route",
-            "ipv4_route_pfuzz_drop_action"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_table_pfuzz_decode_action",
+            "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "hdrnc_hdrop1",
             "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "ipv4_route_pfuzz_drop_action"
+            "set_egress_pfuzz_ipv4_route"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route"
         ],
         [
             "hdrnc_hdrisValid",
             "decode_table",
-            "decode_table_pfuzz_decode_action",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "set_retry_table",
+            "set_retry_action_pfuzz_set_retry_table",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "hdrnc_hdrop1",
             "release_lock_table",
-            "release_lock_table_pfuzz_release_lock_action",
+            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
-            "reply_to_client_table_pfuzz_reply_to_client_action",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "ipv4_route_pfuzz_drop_action"
+            "drop_action_pfuzz_ipv4_route"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route"
         ]
     ],
     "num_vars": 4,
@@ -325,23 +325,23 @@
     "sum_num_paths": 7,
     "table2actions_dict": {
         "acquire_lock_table": [
-            "acquire_lock_table_pfuzz_acquire_lock_action"
+            "acquire_lock_action_pfuzz_acquire_lock_table"
         ],
         "decode_table": [
-            "decode_table_pfuzz_decode_action"
+            "decode_action_pfuzz_decode_table"
         ],
         "ipv4_route": [
-            "ipv4_route_pfuzz_set_egress",
-            "ipv4_route_pfuzz_drop_action"
+            "set_egress_pfuzz_ipv4_route",
+            "drop_action_pfuzz_ipv4_route"
         ],
         "release_lock_table": [
-            "release_lock_table_pfuzz_release_lock_action"
+            "release_lock_action_pfuzz_release_lock_table"
         ],
         "reply_to_client_table": [
-            "reply_to_client_table_pfuzz_reply_to_client_action"
+            "reply_to_client_action_pfuzz_reply_to_client_table"
         ],
         "set_retry_table": [
-            "set_retry_table_pfuzz_set_retry_action"
+            "set_retry_action_pfuzz_set_retry_table"
         ]
     }
 }

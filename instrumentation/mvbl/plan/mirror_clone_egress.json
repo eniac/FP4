@@ -3,12 +3,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teGetDiff -> teGetDiff_pfuzz_aeGetDiff"
+            "teGetDiff -> aeGetDiff_pfuzz_teGetDiff"
         ],
         "encoding_to_path": {
             "0": [
                 "teGetDiff",
-                "teGetDiff_pfuzz_aeGetDiff"
+                "aeGetDiff_pfuzz_teGetDiff"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -16,8 +16,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "teGetDiff",
-            "teGetDiff_pfuzz_aeGetDiff"
+            "aeGetDiff_pfuzz_teGetDiff",
+            "teGetDiff"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -47,12 +47,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teReadMirror -> teReadMirror_pfuzz_aeReadMirror"
+            "teReadMirror -> aeReadMirror_pfuzz_teReadMirror"
         ],
         "encoding_to_path": {
             "0": [
                 "teReadMirror",
-                "teReadMirror_pfuzz_aeReadMirror"
+                "aeReadMirror_pfuzz_teReadMirror"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -60,8 +60,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "teReadMirror",
-            "teReadMirror_pfuzz_aeReadMirror"
+            "aeReadMirror_pfuzz_teReadMirror",
+            "teReadMirror"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -71,12 +71,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teUpdateOriginal -> teUpdateOriginal_pfuzz_aeUpdateOriginal"
+            "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal"
         ],
         "encoding_to_path": {
             "0": [
                 "teUpdateOriginal",
-                "teUpdateOriginal_pfuzz_aeUpdateOriginal"
+                "aeUpdateOriginal_pfuzz_teUpdateOriginal"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -84,8 +84,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "teUpdateOriginal",
-            "teUpdateOriginal_pfuzz_aeUpdateOriginal"
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateOriginal"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -95,12 +95,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teReadOriginal -> teReadOriginal_pfuzz_aeReadOriginal"
+            "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal"
         ],
         "encoding_to_path": {
             "0": [
                 "teReadOriginal",
-                "teReadOriginal_pfuzz_aeReadOriginal"
+                "aeReadOriginal_pfuzz_teReadOriginal"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -108,8 +108,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "teReadOriginal",
-            "teReadOriginal_pfuzz_aeReadOriginal"
+            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadOriginal"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -119,12 +119,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teUpdateMirror -> teUpdateMirror_pfuzz_aeUpdateMirror"
+            "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror"
         ],
         "encoding_to_path": {
             "0": [
                 "teUpdateMirror",
-                "teUpdateMirror_pfuzz_aeUpdateMirror"
+                "aeUpdateMirror_pfuzz_teUpdateMirror"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -132,8 +132,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "teUpdateMirror",
-            "teUpdateMirror_pfuzz_aeUpdateMirror"
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teUpdateMirror"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -144,20 +144,20 @@
         [
             "eg_intr_mdegress_port40",
             "teReadMirror",
-            "teReadMirror_pfuzz_aeReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror",
             "teUpdateOriginal",
-            "teUpdateOriginal_pfuzz_aeUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
-            "teGetDiff_pfuzz_aeGetDiff"
+            "aeGetDiff_pfuzz_teGetDiff"
         ],
         [
             "eg_intr_mdegress_port40",
             "teUpdateMirror",
-            "teUpdateMirror_pfuzz_aeUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
             "teReadOriginal",
-            "teReadOriginal_pfuzz_aeReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
             "teGetDiff",
-            "teGetDiff_pfuzz_aeGetDiff"
+            "aeGetDiff_pfuzz_teGetDiff"
         ]
     ],
     "num_vars": 6,
@@ -184,19 +184,19 @@
     "sum_num_paths": 6,
     "table2actions_dict": {
         "teGetDiff": [
-            "teGetDiff_pfuzz_aeGetDiff"
+            "aeGetDiff_pfuzz_teGetDiff"
         ],
         "teReadMirror": [
-            "teReadMirror_pfuzz_aeReadMirror"
+            "aeReadMirror_pfuzz_teReadMirror"
         ],
         "teReadOriginal": [
-            "teReadOriginal_pfuzz_aeReadOriginal"
+            "aeReadOriginal_pfuzz_teReadOriginal"
         ],
         "teUpdateMirror": [
-            "teUpdateMirror_pfuzz_aeUpdateMirror"
+            "aeUpdateMirror_pfuzz_teUpdateMirror"
         ],
         "teUpdateOriginal": [
-            "teUpdateOriginal_pfuzz_aeUpdateOriginal"
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal"
         ]
     }
 }

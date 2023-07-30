@@ -23,28 +23,28 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teInitializeWma -> teInitializeWma_pfuzz_aeInitializeWma",
-            "teInitializeWma_pfuzz_aeInitializeWma -> teWmaPhase1",
-            "teWmaPhase1 -> teWmaPhase1_pfuzz_aeWmaPhase1",
-            "teWmaPhase1_pfuzz_aeWmaPhase1 -> teWmaPhase2",
-            "teWmaPhase2 -> teWmaPhase2_pfuzz_aeWmaPhase2",
-            "teWmaPhase2_pfuzz_aeWmaPhase2 -> te_rate_limit",
-            "te_drop -> te_drop_pfuzz_drop_packet",
-            "te_rate_limit -> te_rate_limit_pfuzz_ae_rate_limit",
-            "te_rate_limit_pfuzz_ae_rate_limit -> te_drop"
+            "aeInitializeWma_pfuzz_teInitializeWma -> teWmaPhase1",
+            "aeWmaPhase1_pfuzz_teWmaPhase1 -> teWmaPhase2",
+            "aeWmaPhase2_pfuzz_teWmaPhase2 -> te_rate_limit",
+            "ae_rate_limit_pfuzz_te_rate_limit -> te_drop",
+            "teInitializeWma -> aeInitializeWma_pfuzz_teInitializeWma",
+            "teWmaPhase1 -> aeWmaPhase1_pfuzz_teWmaPhase1",
+            "teWmaPhase2 -> aeWmaPhase2_pfuzz_teWmaPhase2",
+            "te_drop -> drop_packet_pfuzz_te_drop",
+            "te_rate_limit -> ae_rate_limit_pfuzz_te_rate_limit"
         ],
         "encoding_to_path": {
             "0": [
                 "teInitializeWma",
-                "teInitializeWma_pfuzz_aeInitializeWma",
+                "aeInitializeWma_pfuzz_teInitializeWma",
                 "teWmaPhase1",
-                "teWmaPhase1_pfuzz_aeWmaPhase1",
+                "aeWmaPhase1_pfuzz_teWmaPhase1",
                 "teWmaPhase2",
-                "teWmaPhase2_pfuzz_aeWmaPhase2",
+                "aeWmaPhase2_pfuzz_teWmaPhase2",
                 "te_rate_limit",
-                "te_rate_limit_pfuzz_ae_rate_limit",
+                "ae_rate_limit_pfuzz_te_rate_limit",
                 "te_drop",
-                "te_drop_pfuzz_drop_packet"
+                "drop_packet_pfuzz_te_drop"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -52,16 +52,16 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "aeInitializeWma_pfuzz_teInitializeWma",
+            "aeWmaPhase1_pfuzz_teWmaPhase1",
+            "aeWmaPhase2_pfuzz_teWmaPhase2",
+            "ae_rate_limit_pfuzz_te_rate_limit",
+            "drop_packet_pfuzz_te_drop",
             "teInitializeWma",
-            "teInitializeWma_pfuzz_aeInitializeWma",
             "teWmaPhase1",
-            "teWmaPhase1_pfuzz_aeWmaPhase1",
             "teWmaPhase2",
-            "teWmaPhase2_pfuzz_aeWmaPhase2",
             "te_drop",
-            "te_drop_pfuzz_drop_packet",
-            "te_rate_limit",
-            "te_rate_limit_pfuzz_ae_rate_limit"
+            "te_rate_limit"
         ],
         "non_action_to_increment": {},
         "num_bits": 5,
@@ -71,16 +71,16 @@
     "global_paths": [
         [
             "teInitializeWma",
-            "teInitializeWma_pfuzz_aeInitializeWma",
+            "aeInitializeWma_pfuzz_teInitializeWma",
             "teWmaPhase1",
-            "teWmaPhase1_pfuzz_aeWmaPhase1",
+            "aeWmaPhase1_pfuzz_teWmaPhase1",
             "teWmaPhase2",
-            "teWmaPhase2_pfuzz_aeWmaPhase2",
+            "aeWmaPhase2_pfuzz_teWmaPhase2",
             "te_rate_limit",
-            "te_rate_limit_pfuzz_ae_rate_limit",
+            "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
             "te_drop",
-            "te_drop_pfuzz_drop_packet"
+            "drop_packet_pfuzz_te_drop"
         ]
     ],
     "num_vars": 2,
@@ -123,19 +123,19 @@
     "sum_num_paths": 2,
     "table2actions_dict": {
         "teInitializeWma": [
-            "teInitializeWma_pfuzz_aeInitializeWma"
+            "aeInitializeWma_pfuzz_teInitializeWma"
         ],
         "teWmaPhase1": [
-            "teWmaPhase1_pfuzz_aeWmaPhase1"
+            "aeWmaPhase1_pfuzz_teWmaPhase1"
         ],
         "teWmaPhase2": [
-            "teWmaPhase2_pfuzz_aeWmaPhase2"
+            "aeWmaPhase2_pfuzz_teWmaPhase2"
         ],
         "te_drop": [
-            "te_drop_pfuzz_drop_packet"
+            "drop_packet_pfuzz_te_drop"
         ],
         "te_rate_limit": [
-            "te_rate_limit_pfuzz_ae_rate_limit"
+            "ae_rate_limit_pfuzz_te_rate_limit"
         ]
     }
 }

@@ -243,7 +243,7 @@ class GraphParser(object):
             for node in full_graph.nodes:
                 if node in included_table_conditional:
                     included_table_conditional_action.append(node)
-                elif UNIQUE_ACTION_SIG in node and node.split(UNIQUE_ACTION_SIG)[0] in included_table_conditional:
+                elif UNIQUE_ACTION_SIG in node and node.split(UNIQUE_ACTION_SIG)[1] in included_table_conditional:
                     included_table_conditional_action.append(node)
             print("--- included_table_conditional_action ---")
             print(included_table_conditional_action)
@@ -476,7 +476,7 @@ class GraphParser(object):
                             table2actions_dict[table_name] = []
                         for action in table_information['actions']:
                             # Each action is renamed to table_name__action_name s.t. actions are unique to a table
-                            table2actions_dict[table_name].append(table_name + UNIQUE_ACTION_SIG + action['name'])
+                            table2actions_dict[table_name].append(action['name'] + UNIQUE_ACTION_SIG + table_name)
                             if action['name'] == "NoAction":
                                 print("[ERROR] NoAction! Check if it is from the user or the compiler!")
                                 raise Exception("ERR!")
