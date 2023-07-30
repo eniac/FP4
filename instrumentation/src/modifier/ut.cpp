@@ -10,6 +10,96 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
 	rules_in_ = rules_in;
     rules_out_ = rules_out;
 
+    ostringstream oss;
+
+    int num_mvbl_vars_ingress = ingress_plan_json_["num_vars"];
+    PRINT_INFO("num_mvbl_vars_ingress: %d\n", num_mvbl_vars_ingress);
+    for (int var_idx = 0; var_idx < num_mvbl_vars_ingress; var_idx++) {
+        PRINT_INFO("--- var_idx: %d ---\n", var_idx);
+
+        // Get the list of non actions
+        std::map<std::string, std::string> non_action_name_rootword_map;
+        for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
+            std::string nonaction_name = it.key();
+            std::string rootword = it.value();
+            non_action_name_rootword_map[nonaction_name] = rootword;
+            PRINT_INFO("%s: %s\n", nonaction_name.c_str(), rootword.c_str());
+        }
+
+        for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].end(); ++it) {
+            std::string node_name = it.key();
+            int incre = it.value();
+            if (non_action_name_rootword_map.find(node_name) != non_action_name_rootword_map.end()) {
+                // Non-action
+                std::cout << node_name << ": " << std::to_string(incre) << std::endl;
+                oss << "action ai_" << non_action_name_rootword_map[node_name] << "() {\n"
+                    << "  add_to_field(" << string(sig_+"_visited") << ".encoding_i" << std::to_string(var_idx) << ", " << std::to_string(incre) << ");\n"
+                    << "}\n";
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_"+non_action_name_rootword_map[node_name]), new string("ai_"+non_action_name_rootword_map[node_name])));
+                oss.str("");
+
+                oss << "table ti_" << non_action_name_rootword_map[node_name] << "{\n"
+                    << "  actions {\n"
+                    << "    ai_" << non_action_name_rootword_map[node_name] << ";\n"
+                    << "  }\n"
+                    << "  default_action: ai_" << non_action_name_rootword_map[node_name] << "();\n"
+                    << "}\n";
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_"+non_action_name_rootword_map[node_name]), new string("ti_"+non_action_name_rootword_map[node_name])));
+                oss.str("");
+            } else {
+                // Action
+                action_2_encoding_field_.insert({node_name, "_i"+std::to_string(var_idx)});
+                action_2_encoding_incr_.insert({node_name, std::to_string(incre)});
+                PRINT_INFO("action_2_encoding_field_.insert(%s, %s)", node_name.c_str(), std::to_string(var_idx).c_str());
+                PRINT_INFO("action_2_encoding_incr_.insert(%s, %s)", node_name.c_str(), std::to_string(incre).c_str());
+            }
+        }
+    }
+
+    int num_mvbl_vars_egress = egress_plan_json_["num_vars"];
+    PRINT_INFO("\nnum_mvbl_vars_egress: %d\n", num_mvbl_vars_egress);
+    for (int var_idx = 0; var_idx < num_mvbl_vars_egress; var_idx++) {
+        PRINT_INFO("--- var_idx: %d ---\n", var_idx);
+
+        // Get the list of non actions
+        std::map<std::string, std::string> non_action_name_rootword_map;
+        for (nlohmann::json::iterator it = egress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != egress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
+            std::string nonaction_name = it.key();
+            std::string rootword = it.value();
+            non_action_name_rootword_map[nonaction_name] = rootword;
+            PRINT_INFO("%s: %s\n", nonaction_name.c_str(), rootword.c_str());
+        }
+
+        for (nlohmann::json::iterator it = egress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].begin(); it != egress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].end(); ++it) {
+            std::string node_name = it.key();
+            int incre = it.value();
+            if (non_action_name_rootword_map.find(node_name) != non_action_name_rootword_map.end()) {
+                // Non-action
+                std::cout << node_name << ": " << std::to_string(incre) << std::endl;
+                oss << "action ae_" << non_action_name_rootword_map[node_name] << "() {\n"
+                    << "  add_to_field(" << string(sig_+"_visited") << ".encoding_e" << std::to_string(var_idx) << ", " << std::to_string(incre) << ");\n"
+                    << "}\n";
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ae_"+non_action_name_rootword_map[node_name]), new string("ae_"+non_action_name_rootword_map[node_name])));
+                oss.str("");
+
+                oss << "table te_" << non_action_name_rootword_map[node_name] << "{\n"
+                    << "  actions {\n"
+                    << "    ae_" << non_action_name_rootword_map[node_name] << ";\n"
+                    << "  }\n"
+                    << "  default_action: ae_" << non_action_name_rootword_map[node_name] << "();\n"
+                    << "}\n";
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("te_"+non_action_name_rootword_map[node_name]), new string("te_"+non_action_name_rootword_map[node_name])));
+                oss.str("");
+            } else {
+                // Action
+                action_2_encoding_field_.insert({node_name, "_e"+std::to_string(var_idx)});
+                action_2_encoding_incr_.insert({node_name, std::to_string(incre)});
+                PRINT_INFO("action_2_encoding_field_.insert(%s, %s)", node_name.c_str(), std::to_string(var_idx).c_str());
+                PRINT_INFO("action_2_encoding_incr_.insert(%s, %s)", node_name.c_str(), std::to_string(incre).c_str());
+            }
+        }
+    }
+
     GetAction2Tbls(root);
     PRINT_VERBOSE("===prev_action_2_tbls_===\n");
     
@@ -33,8 +123,6 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
     work_set_.clear();
 
     // GetHdrInstance2Nodes(root);
-
-    // work_set_.clear();
 
     distinguishPopularActions(root);
     distinguishPopularActionsForControl(root);

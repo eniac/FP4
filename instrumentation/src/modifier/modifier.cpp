@@ -13,16 +13,11 @@ P4Modifier::P4Modifier(AstNode* root, char* target, char* ingress_plan, char* eg
     program_name_ = string(out_fn_base);
     std::vector<string> fileName = split(program_name_, '/');
     program_name_ = fileName.back();
-    // cout << "program_name_: " << program_name_ << endl;
 
-    std::ifstream f(ingress_plan);
-    nlohmann::json ingress_plan_json = nlohmann::json::parse(f);
-
-    // for (nlohmann::json::iterator it = plan_json.begin(); it != plan_json.end(); ++it) {
-    //     action_2_encoding_field_.insert({it.key(), std::string(it.value()["field"])});
-    //     action_2_encoding_incr_.insert({it.key(), std::string(it.value()["increment"])});
-    // }    
-
+    std::ifstream fi(ingress_plan);
+    ingress_plan_json_ = nlohmann::json::parse(fi);
+    std::ifstream fe(egress_plan);
+    egress_plan_json_ = nlohmann::json::parse(fe);
 }
 
 

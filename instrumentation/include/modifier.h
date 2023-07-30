@@ -31,6 +31,9 @@ public:
 	std::string sig_ = "fp4";
 	char* target_ = NULL;
 
+	nlohmann::json ingress_plan_json_;
+	nlohmann::json egress_plan_json_;
+
 	// STL
     map<string, int> action_2_bitmap_;
     map<string, AstNode*> prev_action_2_nodes_ {};
