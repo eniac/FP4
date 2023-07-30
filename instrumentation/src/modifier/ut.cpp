@@ -17,6 +17,10 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
     for (int var_idx = 0; var_idx < num_mvbl_vars_ingress; var_idx++) {
         PRINT_INFO("--- var_idx: %d ---\n", var_idx);
 
+        int num_bits = ingress_plan_json_[std::to_string(var_idx)]["num_bits"];
+        encoding_field_2_bitlength_.insert({"encoding_i"+std::to_string(var_idx),
+                                            num_bits});
+
         // Get the list of non actions
         std::map<std::string, std::string> non_action_name_rootword_map;
         for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
@@ -60,6 +64,10 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
     PRINT_INFO("\nnum_mvbl_vars_egress: %d\n", num_mvbl_vars_egress);
     for (int var_idx = 0; var_idx < num_mvbl_vars_egress; var_idx++) {
         PRINT_INFO("--- var_idx: %d ---\n", var_idx);
+
+        int num_bits = egress_plan_json_[std::to_string(var_idx)]["num_bits"];
+        encoding_field_2_bitlength_.insert({"encoding_e"+std::to_string(var_idx),
+                                            num_bits});
 
         // Get the list of non actions
         std::map<std::string, std::string> non_action_name_rootword_map;
@@ -483,7 +491,8 @@ void UTModifier::markActionVisited(AstNode* head) {
         // }
 
         if (action_2_encoding_field_.find(key) == action_2_encoding_field_.end()) {
-            cout << "ERR: encoding for action not found " << key << std::endl;
+            cout << "WARNING: encoding for action not found " << key << std::endl;
+            return;
         }
 
         ActionStmtsNode* allStatements = dynamic_cast<ActionStmtsNode*>(head);

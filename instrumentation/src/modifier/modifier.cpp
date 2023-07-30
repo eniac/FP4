@@ -201,18 +201,25 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
     currentField = new FieldDecNode(name_, size_, NULL);
     field_list -> push_back(currentField);
 
-    std::vector<std::string> added {};
-    for (auto it = action_2_encoding_field_.begin(); it != action_2_encoding_field_.end(); it++) {
-        if (std::find(added.begin(), added.end(), it->second) != added.end()) {
-            continue;
-        } else {
-            added.push_back(it->second);
-            name_ = new NameNode(new string("encoding"+it->second));
-            size_ = new IntegerNode(new string("32"));
-            currentField = new FieldDecNode(name_, size_, NULL);
-            field_list -> push_back(currentField);
-            AddFieldToJson("encoding"+it->second, 32);
-        }
+    // std::vector<std::string> added {};
+    // for (auto it = action_2_encoding_field_.begin(); it != action_2_encoding_field_.end(); it++) {
+    //     if (std::find(added.begin(), added.end(), it->second) != added.end()) {
+    //         continue;
+    //     } else {
+    //         added.push_back(it->second);
+    //         name_ = new NameNode(new string("encoding"+it->second));
+    //         size_ = new IntegerNode(new string("32"));
+    //         currentField = new FieldDecNode(name_, size_, NULL);
+    //         field_list -> push_back(currentField);
+    //         AddFieldToJson("encoding"+it->second, 32);
+    //     }
+    // }
+    for (auto it = encoding_field_2_bitlength_.begin(); it != encoding_field_2_bitlength_.end(); it++) {
+        name_ = new NameNode(new string(it->first));
+        size_ = new IntegerNode(new string(std::to_string(it->second)));
+        currentField = new FieldDecNode(name_, size_, NULL);
+        field_list -> push_back(currentField);
+        AddFieldToJson(it->first, it->second);
     }
 
     // Add 2b packet type: generate new packet, check for assertion, forward to UT without change

@@ -28,7 +28,7 @@ public:
 	int num_tbl_action_stmt_ = 0;
 	std::string program_name_;
 	AstNode* root_ = NULL;
-	std::string sig_ = "fp4";
+	std::string sig_ = "pfuzz";
 	char* target_ = NULL;
 
 	nlohmann::json ingress_plan_json_;
@@ -43,6 +43,7 @@ public:
     vector<UnanchoredNode*> unanchored_nodes_;
     set<AstNode*> work_set_;
 
+	map<string, int> encoding_field_2_bitlength_;
 	map<string, string> action_2_encoding_field_;
 	map<string, string> action_2_encoding_incr_;
 
