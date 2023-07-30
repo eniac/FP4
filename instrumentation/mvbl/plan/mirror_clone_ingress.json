@@ -1,51 +1,91 @@
 {
     "0": {
-        "edge_dst_to_edge": {},
-        "edge_dst_to_increment": {},
+        "edge_dst_to_edge": {
+            "tiSendClone": "START_VIRTUAL -> tiSendClone"
+        },
+        "edge_dst_to_increment": {
+            "tiSendClone": 1
+        },
         "edges": [
+            "START_VIRTUAL -> 000_VIRTUAL",
+            "START_VIRTUAL -> tiSendClone",
             "tiSendClone -> aiSendClone_pfuzz_tiSendClone"
         ],
         "encoding_to_path": {
             "0": [
+                "START_VIRTUAL",
+                "000_VIRTUAL"
+            ],
+            "1": [
+                "START_VIRTUAL",
                 "tiSendClone",
                 "aiSendClone_pfuzz_tiSendClone"
             ]
         },
-        "final_edge_dst_to_edge": {},
-        "final_edge_dst_to_increment": {},
+        "final_edge_dst_to_edge": {
+            "aiSendClone_pfuzz_tiSendClone": "tiSendClone -> aiSendClone_pfuzz_tiSendClone"
+        },
+        "final_edge_dst_to_increment": {
+            "aiSendClone_pfuzz_tiSendClone": 1
+        },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "000_VIRTUAL",
+            "START_VIRTUAL",
             "aiSendClone_pfuzz_tiSendClone",
             "tiSendClone"
         ],
-        "non_action_to_increment": {},
-        "num_bits": 1,
-        "num_paths": 1
+        "non_action_to_increment": {
+            "tiSendClone": 1
+        },
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 2
     },
     "1": {
-        "edge_dst_to_edge": {},
-        "edge_dst_to_increment": {},
+        "edge_dst_to_edge": {
+            "tiSetOutputPort": "START_VIRTUAL -> tiSetOutputPort"
+        },
+        "edge_dst_to_increment": {
+            "tiSetOutputPort": 1
+        },
         "edges": [
+            "START_VIRTUAL -> 000_VIRTUAL",
+            "START_VIRTUAL -> tiSetOutputPort",
             "tiSetOutputPort -> aiSetOutputPort_pfuzz_tiSetOutputPort"
         ],
         "encoding_to_path": {
             "0": [
+                "START_VIRTUAL",
+                "000_VIRTUAL"
+            ],
+            "1": [
+                "START_VIRTUAL",
                 "tiSetOutputPort",
                 "aiSetOutputPort_pfuzz_tiSetOutputPort"
             ]
         },
-        "final_edge_dst_to_edge": {},
-        "final_edge_dst_to_increment": {},
+        "final_edge_dst_to_edge": {
+            "aiSetOutputPort_pfuzz_tiSetOutputPort": "tiSetOutputPort -> aiSetOutputPort_pfuzz_tiSetOutputPort"
+        },
+        "final_edge_dst_to_increment": {
+            "aiSetOutputPort_pfuzz_tiSetOutputPort": 1
+        },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "000_VIRTUAL",
+            "START_VIRTUAL",
             "aiSetOutputPort_pfuzz_tiSetOutputPort",
             "tiSetOutputPort"
         ],
-        "non_action_to_increment": {},
-        "num_bits": 1,
-        "num_paths": 1
+        "non_action_to_increment": {
+            "tiSetOutputPort": 1
+        },
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 2
     },
     "global_num_paths": 1,
     "global_paths": [
@@ -69,7 +109,7 @@
             "tiSendClone"
         ]
     },
-    "sum_num_paths": 2,
+    "sum_num_paths": 4,
     "table2actions_dict": {
         "tiSendClone": [
             "aiSendClone_pfuzz_tiSendClone"

@@ -1,28 +1,59 @@
 {
     "0": {
-        "edge_dst_to_edge": {},
-        "edge_dst_to_increment": {},
-        "edges": [],
+        "edge_dst_to_edge": {
+            "metametacurrent_reading0": "START_VIRTUAL -> metametacurrent_reading0"
+        },
+        "edge_dst_to_increment": {
+            "metametacurrent_reading0": 1
+        },
+        "edges": [
+            "START_VIRTUAL -> 000_VIRTUAL",
+            "START_VIRTUAL -> metametacurrent_reading0"
+        ],
         "encoding_to_path": {
             "0": [
+                "START_VIRTUAL",
+                "000_VIRTUAL"
+            ],
+            "1": [
+                "START_VIRTUAL",
                 "metametacurrent_reading0"
             ]
         },
-        "final_edge_dst_to_edge": {},
-        "final_edge_dst_to_increment": {},
-        "final_non_action_to_increment": {},
-        "final_non_action_to_increment_rootword": {},
+        "final_edge_dst_to_edge": {
+            "metametacurrent_reading0": "START_VIRTUAL -> metametacurrent_reading0"
+        },
+        "final_edge_dst_to_increment": {
+            "metametacurrent_reading0": 1
+        },
+        "final_non_action_to_increment": {
+            "metametacurrent_reading0": 1
+        },
+        "final_non_action_to_increment_rootword": {
+            "metametacurrent_reading0": "mvbl_0_START_VIRTUAL_metametacurrent_reading0"
+        },
         "nodes": [
+            "000_VIRTUAL",
+            "START_VIRTUAL",
             "metametacurrent_reading0"
         ],
-        "non_action_to_increment": {},
-        "num_bits": 1,
-        "num_paths": 1
+        "non_action_to_increment": {
+            "metametacurrent_reading0": 1
+        },
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 2
     },
     "1": {
-        "edge_dst_to_edge": {},
-        "edge_dst_to_increment": {},
+        "edge_dst_to_edge": {
+            "teInitializeWma": "START_VIRTUAL -> teInitializeWma"
+        },
+        "edge_dst_to_increment": {
+            "teInitializeWma": 1
+        },
         "edges": [
+            "START_VIRTUAL -> 000_VIRTUAL",
+            "START_VIRTUAL -> teInitializeWma",
             "aeInitializeWma_pfuzz_teInitializeWma -> teWmaPhase1",
             "aeWmaPhase1_pfuzz_teWmaPhase1 -> teWmaPhase2",
             "aeWmaPhase2_pfuzz_teWmaPhase2 -> te_rate_limit",
@@ -35,6 +66,11 @@
         ],
         "encoding_to_path": {
             "0": [
+                "START_VIRTUAL",
+                "000_VIRTUAL"
+            ],
+            "1": [
+                "START_VIRTUAL",
                 "teInitializeWma",
                 "aeInitializeWma_pfuzz_teInitializeWma",
                 "teWmaPhase1",
@@ -47,11 +83,17 @@
                 "drop_packet_pfuzz_te_drop"
             ]
         },
-        "final_edge_dst_to_edge": {},
-        "final_edge_dst_to_increment": {},
+        "final_edge_dst_to_edge": {
+            "aeInitializeWma_pfuzz_teInitializeWma": "teInitializeWma -> aeInitializeWma_pfuzz_teInitializeWma"
+        },
+        "final_edge_dst_to_increment": {
+            "aeInitializeWma_pfuzz_teInitializeWma": 1
+        },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "000_VIRTUAL",
+            "START_VIRTUAL",
             "aeInitializeWma_pfuzz_teInitializeWma",
             "aeWmaPhase1_pfuzz_teWmaPhase1",
             "aeWmaPhase2_pfuzz_teWmaPhase2",
@@ -63,9 +105,12 @@
             "te_drop",
             "te_rate_limit"
         ],
-        "non_action_to_increment": {},
-        "num_bits": 5,
-        "num_paths": 1
+        "non_action_to_increment": {
+            "teInitializeWma": 1
+        },
+        "num_bits": 8,
+        "num_bits_original": 5,
+        "num_paths": 2
     },
     "global_num_paths": 1,
     "global_paths": [
@@ -120,7 +165,7 @@
             "metametacurrent_reading0"
         ]
     },
-    "sum_num_paths": 2,
+    "sum_num_paths": 4,
     "table2actions_dict": {
         "teInitializeWma": [
             "aeInitializeWma_pfuzz_teInitializeWma"
