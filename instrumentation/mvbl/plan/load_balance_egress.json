@@ -1,37 +1,37 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "send_frame__rewrite_mac": "send_frame -> send_frame__rewrite_mac"
+            "send_frame_pfuzz_rewrite_mac": "send_frame -> send_frame_pfuzz_rewrite_mac"
         },
         "edge_dst_to_increment": {
-            "send_frame__rewrite_mac": 1
+            "send_frame_pfuzz_rewrite_mac": 1
         },
         "edges": [
-            "send_frame -> send_frame__drop_packet",
-            "send_frame -> send_frame__rewrite_mac"
+            "send_frame -> send_frame_pfuzz_drop_packet",
+            "send_frame -> send_frame_pfuzz_rewrite_mac"
         ],
         "encoding_to_path": {
             "0": [
                 "send_frame",
-                "send_frame__drop_packet"
+                "send_frame_pfuzz_drop_packet"
             ],
             "1": [
                 "send_frame",
-                "send_frame__rewrite_mac"
+                "send_frame_pfuzz_rewrite_mac"
             ]
         },
         "final_edge_dst_to_edge": {
-            "send_frame__rewrite_mac": "send_frame -> send_frame__rewrite_mac"
+            "send_frame_pfuzz_rewrite_mac": "send_frame -> send_frame_pfuzz_rewrite_mac"
         },
         "final_edge_dst_to_increment": {
-            "send_frame__rewrite_mac": 1
+            "send_frame_pfuzz_rewrite_mac": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "send_frame",
-            "send_frame__drop_packet",
-            "send_frame__rewrite_mac"
+            "send_frame_pfuzz_drop_packet",
+            "send_frame_pfuzz_rewrite_mac"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -41,11 +41,11 @@
     "global_paths": [
         [
             "send_frame",
-            "send_frame__drop_packet"
+            "send_frame_pfuzz_rewrite_mac"
         ],
         [
             "send_frame",
-            "send_frame__rewrite_mac"
+            "send_frame_pfuzz_drop_packet"
         ]
     ],
     "num_vars": 1,
@@ -62,8 +62,8 @@
     "sum_num_paths": 2,
     "table2actions_dict": {
         "send_frame": [
-            "send_frame__rewrite_mac",
-            "send_frame__drop_packet"
+            "send_frame_pfuzz_rewrite_mac",
+            "send_frame_pfuzz_drop_packet"
         ]
     }
 }

@@ -3,12 +3,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teGetDiff -> teGetDiff__aeGetDiff"
+            "teGetDiff -> teGetDiff_pfuzz_aeGetDiff"
         ],
         "encoding_to_path": {
             "0": [
                 "teGetDiff",
-                "teGetDiff__aeGetDiff"
+                "teGetDiff_pfuzz_aeGetDiff"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -17,7 +17,7 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "teGetDiff",
-            "teGetDiff__aeGetDiff"
+            "teGetDiff_pfuzz_aeGetDiff"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -47,12 +47,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teReadMirror -> teReadMirror__aeReadMirror"
+            "teReadMirror -> teReadMirror_pfuzz_aeReadMirror"
         ],
         "encoding_to_path": {
             "0": [
                 "teReadMirror",
-                "teReadMirror__aeReadMirror"
+                "teReadMirror_pfuzz_aeReadMirror"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -61,7 +61,7 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "teReadMirror",
-            "teReadMirror__aeReadMirror"
+            "teReadMirror_pfuzz_aeReadMirror"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -71,12 +71,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teUpdateOriginal -> teUpdateOriginal__aeUpdateOriginal"
+            "teUpdateOriginal -> teUpdateOriginal_pfuzz_aeUpdateOriginal"
         ],
         "encoding_to_path": {
             "0": [
                 "teUpdateOriginal",
-                "teUpdateOriginal__aeUpdateOriginal"
+                "teUpdateOriginal_pfuzz_aeUpdateOriginal"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -85,7 +85,7 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "teUpdateOriginal",
-            "teUpdateOriginal__aeUpdateOriginal"
+            "teUpdateOriginal_pfuzz_aeUpdateOriginal"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -95,12 +95,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teReadOriginal -> teReadOriginal__aeReadOriginal"
+            "teReadOriginal -> teReadOriginal_pfuzz_aeReadOriginal"
         ],
         "encoding_to_path": {
             "0": [
                 "teReadOriginal",
-                "teReadOriginal__aeReadOriginal"
+                "teReadOriginal_pfuzz_aeReadOriginal"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -109,7 +109,7 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "teReadOriginal",
-            "teReadOriginal__aeReadOriginal"
+            "teReadOriginal_pfuzz_aeReadOriginal"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -119,12 +119,12 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "teUpdateMirror -> teUpdateMirror__aeUpdateMirror"
+            "teUpdateMirror -> teUpdateMirror_pfuzz_aeUpdateMirror"
         ],
         "encoding_to_path": {
             "0": [
                 "teUpdateMirror",
-                "teUpdateMirror__aeUpdateMirror"
+                "teUpdateMirror_pfuzz_aeUpdateMirror"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -133,7 +133,7 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "teUpdateMirror",
-            "teUpdateMirror__aeUpdateMirror"
+            "teUpdateMirror_pfuzz_aeUpdateMirror"
         ],
         "non_action_to_increment": {},
         "num_bits": 1,
@@ -143,21 +143,21 @@
     "global_paths": [
         [
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "teUpdateMirror__aeUpdateMirror",
-            "teReadOriginal",
-            "teReadOriginal__aeReadOriginal",
+            "teReadMirror",
+            "teReadMirror_pfuzz_aeReadMirror",
+            "teUpdateOriginal",
+            "teUpdateOriginal_pfuzz_aeUpdateOriginal",
             "teGetDiff",
-            "teGetDiff__aeGetDiff"
+            "teGetDiff_pfuzz_aeGetDiff"
         ],
         [
             "eg_intr_mdegress_port40",
-            "teReadMirror",
-            "teReadMirror__aeReadMirror",
-            "teUpdateOriginal",
-            "teUpdateOriginal__aeUpdateOriginal",
+            "teUpdateMirror",
+            "teUpdateMirror_pfuzz_aeUpdateMirror",
+            "teReadOriginal",
+            "teReadOriginal_pfuzz_aeReadOriginal",
             "teGetDiff",
-            "teGetDiff__aeGetDiff"
+            "teGetDiff_pfuzz_aeGetDiff"
         ]
     ],
     "num_vars": 6,
@@ -184,19 +184,19 @@
     "sum_num_paths": 6,
     "table2actions_dict": {
         "teGetDiff": [
-            "teGetDiff__aeGetDiff"
+            "teGetDiff_pfuzz_aeGetDiff"
         ],
         "teReadMirror": [
-            "teReadMirror__aeReadMirror"
+            "teReadMirror_pfuzz_aeReadMirror"
         ],
         "teReadOriginal": [
-            "teReadOriginal__aeReadOriginal"
+            "teReadOriginal_pfuzz_aeReadOriginal"
         ],
         "teUpdateMirror": [
-            "teUpdateMirror__aeUpdateMirror"
+            "teUpdateMirror_pfuzz_aeUpdateMirror"
         ],
         "teUpdateOriginal": [
-            "teUpdateOriginal__aeUpdateOriginal"
+            "teUpdateOriginal_pfuzz_aeUpdateOriginal"
         ]
     }
 }

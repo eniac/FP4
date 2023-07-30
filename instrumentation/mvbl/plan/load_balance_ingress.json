@@ -1,64 +1,64 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "ecmp_group__set_ecmp_select": "ecmp_group -> ecmp_group__set_ecmp_select",
-            "ecmp_nhop__set_nhop": "ecmp_nhop -> ecmp_nhop__set_nhop"
+            "ecmp_group_pfuzz_set_ecmp_select": "ecmp_group -> ecmp_group_pfuzz_set_ecmp_select",
+            "ecmp_nhop_pfuzz_set_nhop": "ecmp_nhop -> ecmp_nhop_pfuzz_set_nhop"
         },
         "edge_dst_to_increment": {
-            "ecmp_group__set_ecmp_select": 2,
-            "ecmp_nhop__set_nhop": 1
+            "ecmp_group_pfuzz_set_ecmp_select": 2,
+            "ecmp_nhop_pfuzz_set_nhop": 1
         },
         "edges": [
-            "ecmp_group -> ecmp_group__drop_packet",
-            "ecmp_group -> ecmp_group__set_ecmp_select",
-            "ecmp_group__drop_packet -> ecmp_nhop",
-            "ecmp_group__set_ecmp_select -> ecmp_nhop",
-            "ecmp_nhop -> ecmp_nhop__drop_packet",
-            "ecmp_nhop -> ecmp_nhop__set_nhop"
+            "ecmp_group -> ecmp_group_pfuzz_drop_packet",
+            "ecmp_group -> ecmp_group_pfuzz_set_ecmp_select",
+            "ecmp_group_pfuzz_drop_packet -> ecmp_nhop",
+            "ecmp_group_pfuzz_set_ecmp_select -> ecmp_nhop",
+            "ecmp_nhop -> ecmp_nhop_pfuzz_drop_packet",
+            "ecmp_nhop -> ecmp_nhop_pfuzz_set_nhop"
         ],
         "encoding_to_path": {
             "0": [
                 "ecmp_group",
-                "ecmp_group__drop_packet",
+                "ecmp_group_pfuzz_drop_packet",
                 "ecmp_nhop",
-                "ecmp_nhop__drop_packet"
+                "ecmp_nhop_pfuzz_drop_packet"
             ],
             "1": [
                 "ecmp_group",
-                "ecmp_group__drop_packet",
+                "ecmp_group_pfuzz_drop_packet",
                 "ecmp_nhop",
-                "ecmp_nhop__set_nhop"
+                "ecmp_nhop_pfuzz_set_nhop"
             ],
             "2": [
                 "ecmp_group",
-                "ecmp_group__set_ecmp_select",
+                "ecmp_group_pfuzz_set_ecmp_select",
                 "ecmp_nhop",
-                "ecmp_nhop__drop_packet"
+                "ecmp_nhop_pfuzz_drop_packet"
             ],
             "3": [
                 "ecmp_group",
-                "ecmp_group__set_ecmp_select",
+                "ecmp_group_pfuzz_set_ecmp_select",
                 "ecmp_nhop",
-                "ecmp_nhop__set_nhop"
+                "ecmp_nhop_pfuzz_set_nhop"
             ]
         },
         "final_edge_dst_to_edge": {
-            "ecmp_group__set_ecmp_select": "ecmp_group -> ecmp_group__set_ecmp_select",
-            "ecmp_nhop__set_nhop": "ecmp_nhop -> ecmp_nhop__set_nhop"
+            "ecmp_group_pfuzz_set_ecmp_select": "ecmp_group -> ecmp_group_pfuzz_set_ecmp_select",
+            "ecmp_nhop_pfuzz_set_nhop": "ecmp_nhop -> ecmp_nhop_pfuzz_set_nhop"
         },
         "final_edge_dst_to_increment": {
-            "ecmp_group__set_ecmp_select": 2,
-            "ecmp_nhop__set_nhop": 1
+            "ecmp_group_pfuzz_set_ecmp_select": 2,
+            "ecmp_nhop_pfuzz_set_nhop": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "ecmp_group",
-            "ecmp_group__drop_packet",
-            "ecmp_group__set_ecmp_select",
+            "ecmp_group_pfuzz_drop_packet",
+            "ecmp_group_pfuzz_set_ecmp_select",
             "ecmp_nhop",
-            "ecmp_nhop__drop_packet",
-            "ecmp_nhop__set_nhop"
+            "ecmp_nhop_pfuzz_drop_packet",
+            "ecmp_nhop_pfuzz_set_nhop"
         ],
         "non_action_to_increment": {},
         "num_bits": 2,
@@ -89,30 +89,30 @@
         [
             "hdripv4isValid",
             "ecmp_group",
-            "ecmp_group__drop_packet",
+            "ecmp_group_pfuzz_drop_packet",
             "ecmp_nhop",
-            "ecmp_nhop__set_nhop"
+            "ecmp_nhop_pfuzz_drop_packet"
         ],
         [
             "hdripv4isValid",
             "ecmp_group",
-            "ecmp_group__set_ecmp_select",
+            "ecmp_group_pfuzz_set_ecmp_select",
             "ecmp_nhop",
-            "ecmp_nhop__set_nhop"
+            "ecmp_nhop_pfuzz_drop_packet"
         ],
         [
             "hdripv4isValid",
             "ecmp_group",
-            "ecmp_group__drop_packet",
+            "ecmp_group_pfuzz_drop_packet",
             "ecmp_nhop",
-            "ecmp_nhop__drop_packet"
+            "ecmp_nhop_pfuzz_set_nhop"
         ],
         [
             "hdripv4isValid",
             "ecmp_group",
-            "ecmp_group__set_ecmp_select",
+            "ecmp_group_pfuzz_set_ecmp_select",
             "ecmp_nhop",
-            "ecmp_nhop__drop_packet"
+            "ecmp_nhop_pfuzz_set_nhop"
         ]
     ],
     "num_vars": 2,
@@ -137,12 +137,12 @@
     "sum_num_paths": 5,
     "table2actions_dict": {
         "ecmp_group": [
-            "ecmp_group__drop_packet",
-            "ecmp_group__set_ecmp_select"
+            "ecmp_group_pfuzz_drop_packet",
+            "ecmp_group_pfuzz_set_ecmp_select"
         ],
         "ecmp_nhop": [
-            "ecmp_nhop__drop_packet",
-            "ecmp_nhop__set_nhop"
+            "ecmp_nhop_pfuzz_drop_packet",
+            "ecmp_nhop_pfuzz_set_nhop"
         ]
     }
 }

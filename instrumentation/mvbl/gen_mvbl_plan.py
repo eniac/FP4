@@ -46,6 +46,7 @@ def visualize_digraph(graph, name):
         u, v = line.split('$')
         print("{0} --> {1}".format(u, v))
 
+UNIQUE_ACTION_SIG = "_pfuzz_"
 JSON_OUTPUT_KEY_NUM_VARS = "num_vars"
 JSON_OUTPUT_KEY_NUM_BITS = "num_bits"
 JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT = "edge_dst_to_increment"
@@ -242,7 +243,7 @@ class GraphParser(object):
             for node in full_graph.nodes:
                 if node in included_table_conditional:
                     included_table_conditional_action.append(node)
-                elif '__' in node and node.split('__')[0] in included_table_conditional:
+                elif UNIQUE_ACTION_SIG in node and node.split(UNIQUE_ACTION_SIG)[0] in included_table_conditional:
                     included_table_conditional_action.append(node)
             print("--- included_table_conditional_action ---")
             print(included_table_conditional_action)
@@ -475,7 +476,7 @@ class GraphParser(object):
                             table2actions_dict[table_name] = []
                         for action in table_information['actions']:
                             # Each action is renamed to table_name__action_name s.t. actions are unique to a table
-                            table2actions_dict[table_name].append(table_name + "__" + action['name'])
+                            table2actions_dict[table_name].append(table_name + UNIQUE_ACTION_SIG + action['name'])
                             if action['name'] == "NoAction":
                                 print("[ERROR] NoAction! Check if it is from the user or the compiler!")
                                 raise Exception("ERR!")
@@ -575,7 +576,7 @@ class GraphParser(object):
                 json_output_edge_dst_increment_dict[edge['dst']] = edge['weight']
                 json_output_edge_dst_edge_dict[edge['dst']] = (edge['src']+" -> "+edge['dst'])
                 print(edge)
-                if "__" not in edge['dst']:
+                if UNIQUE_ACTION_SIG not in edge['dst']:
                     print("[WARNING] Target instrumentation point {} is NOT an action!".format(edge['dst']))
                     json_output_non_action_increment_dict[edge['dst']] = edge['weight']
                     # If the edge destination is a table, try to relocate it...
@@ -603,7 +604,7 @@ class GraphParser(object):
             if edge[2]['weight'] != 0:
                 json_output_final_edge_dst_increment_dict[edge[1]] = edge[2]['weight']
                 json_output_final_edge_dst_edge_dict[edge[1]] = (edge[0]+" -> "+edge[1])
-                if "__" not in edge[1]:
+                if UNIQUE_ACTION_SIG not in edge[1]:
                     json_output_final_non_action_increment_dict[edge[1]] = edge[2]['weight']
                     json_output_final_non_action_increment_rootword_dict[edge[1]] = "mvbl_"+str(graph_idx)+"_"+edge[0]+"_"+edge[1]
 
