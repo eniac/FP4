@@ -15,17 +15,12 @@
             "send_frame -> rewrite_mac_pfuzz_send_frame"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "send_frame",
                 "drop_packet_pfuzz_send_frame"
             ],
             "2": [
-                "START_VIRTUAL",
                 "send_frame",
                 "rewrite_mac_pfuzz_send_frame"
             ]
@@ -58,11 +53,11 @@
     "global_paths": [
         [
             "send_frame",
-            "drop_packet_pfuzz_send_frame"
+            "rewrite_mac_pfuzz_send_frame"
         ],
         [
             "send_frame",
-            "rewrite_mac_pfuzz_send_frame"
+            "drop_packet_pfuzz_send_frame"
         ]
     ],
     "num_vars": 1,

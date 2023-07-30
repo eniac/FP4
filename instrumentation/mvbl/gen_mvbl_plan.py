@@ -354,7 +354,15 @@ class GraphParser(object):
             expected_weight = 0
             for path, weight in all_paths_weights:
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
-                json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path
+                if weight == 0:
+                    if path != ["START_VIRTUAL", "000_VIRTUAL"]:
+                        raise Exception("Path encoded with 0 must be START_VIRTUAL -> 000_VIRTUAL!")
+                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = []
+                else:
+                    if path[0] != "START_VIRTUAL":
+                        raise Exception("First node must be START_VIRTUAl!")
+                    else:
+                        json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path[1:]
                 if weight != expected_weight:
                     raise Exception("Unexpected weight! Possibly mis-assigned weights")
                 expected_weight += 1

@@ -11,12 +11,8 @@
             "START_VIRTUAL -> metametacurrent_reading0"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "metametacurrent_reading0"
             ]
         },
@@ -65,12 +61,8 @@
             "te_rate_limit -> ae_rate_limit_pfuzz_te_rate_limit"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "teInitializeWma",
                 "aeInitializeWma_pfuzz_teInitializeWma",
                 "teWmaPhase1",

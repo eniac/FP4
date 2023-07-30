@@ -15,17 +15,12 @@
             "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "rewrite_mac",
                 "on_miss_pfuzz_rewrite_mac"
             ],
             "2": [
-                "START_VIRTUAL",
                 "rewrite_mac",
                 "rewrite_src_dst_mac_pfuzz_rewrite_mac"
             ]
@@ -58,11 +53,11 @@
     "global_paths": [
         [
             "rewrite_mac",
-            "rewrite_src_dst_mac_pfuzz_rewrite_mac"
+            "on_miss_pfuzz_rewrite_mac"
         ],
         [
             "rewrite_mac",
-            "on_miss_pfuzz_rewrite_mac"
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac"
         ]
     ],
     "num_vars": 1,

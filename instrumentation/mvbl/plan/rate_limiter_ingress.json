@@ -11,12 +11,8 @@
             "START_VIRTUAL -> hdripv4isValid"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "hdripv4isValid"
             ]
         },
@@ -63,22 +59,16 @@
             "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "ipv4_lpm",
                 "ai_noOp_pfuzz_ipv4_lpm"
             ],
             "2": [
-                "START_VIRTUAL",
                 "ipv4_lpm",
                 "drop_packet_pfuzz_ipv4_lpm"
             ],
             "3": [
-                "START_VIRTUAL",
                 "ipv4_lpm",
                 "ipv4_forward_pfuzz_ipv4_lpm"
             ]
@@ -115,17 +105,17 @@
         [
             "hdripv4isValid",
             "ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm"
+        ],
+        [
+            "hdripv4isValid",
+            "ipv4_lpm",
             "ai_noOp_pfuzz_ipv4_lpm"
         ],
         [
             "hdripv4isValid",
             "ipv4_lpm",
             "ipv4_forward_pfuzz_ipv4_lpm"
-        ],
-        [
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm"
         ]
     ],
     "num_vars": 2,

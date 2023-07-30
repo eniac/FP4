@@ -12,12 +12,8 @@
             "tiSendClone -> aiSendClone_pfuzz_tiSendClone"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "tiSendClone",
                 "aiSendClone_pfuzz_tiSendClone"
             ]
@@ -56,12 +52,8 @@
             "tiSetOutputPort -> aiSetOutputPort_pfuzz_tiSetOutputPort"
         ],
         "encoding_to_path": {
-            "0": [
-                "START_VIRTUAL",
-                "000_VIRTUAL"
-            ],
+            "0": [],
             "1": [
-                "START_VIRTUAL",
                 "tiSetOutputPort",
                 "aiSetOutputPort_pfuzz_tiSetOutputPort"
             ]
