@@ -69,6 +69,7 @@
             "tiSendClone"
         ]
     },
+    "sum_num_paths": 2,
     "table2actions_dict": {
         "tiSendClone": [
             "tiSendClone__aiSendClone"

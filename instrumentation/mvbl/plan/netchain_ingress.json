@@ -173,35 +173,7 @@
         [
             "hdrnc_hdrisValid",
             "ipv4_route",
-            "ipv4_route__set_egress"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_table__decode_action",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_table__acquire_lock_action",
-            "metametaavailable0",
-            "set_retry_table",
-            "set_retry_table__set_retry_action",
-            "reply_to_client_table",
-            "reply_to_client_table__reply_to_client_action",
-            "ipv4_route",
-            "ipv4_route__set_egress"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_table__decode_action",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_table__acquire_lock_action",
-            "metametaavailable0",
-            "reply_to_client_table",
-            "reply_to_client_table__reply_to_client_action",
-            "ipv4_route",
-            "ipv4_route__set_egress"
+            "ipv4_route__drop_action"
         ],
         [
             "hdrnc_hdrisValid",
@@ -214,7 +186,7 @@
             "reply_to_client_table",
             "reply_to_client_table__reply_to_client_action",
             "ipv4_route",
-            "ipv4_route__set_egress"
+            "ipv4_route__drop_action"
         ],
         [
             "hdrnc_hdrisValid",
@@ -224,11 +196,6 @@
             "hdrnc_hdrop1",
             "reply_to_client_table",
             "reply_to_client_table__reply_to_client_action",
-            "ipv4_route",
-            "ipv4_route__set_egress"
-        ],
-        [
-            "hdrnc_hdrisValid",
             "ipv4_route",
             "ipv4_route__drop_action"
         ],
@@ -262,6 +229,11 @@
         ],
         [
             "hdrnc_hdrisValid",
+            "ipv4_route",
+            "ipv4_route__set_egress"
+        ],
+        [
+            "hdrnc_hdrisValid",
             "decode_table",
             "decode_table__decode_action",
             "hdrnc_hdrop0",
@@ -271,7 +243,7 @@
             "reply_to_client_table",
             "reply_to_client_table__reply_to_client_action",
             "ipv4_route",
-            "ipv4_route__drop_action"
+            "ipv4_route__set_egress"
         ],
         [
             "hdrnc_hdrisValid",
@@ -282,7 +254,35 @@
             "reply_to_client_table",
             "reply_to_client_table__reply_to_client_action",
             "ipv4_route",
-            "ipv4_route__drop_action"
+            "ipv4_route__set_egress"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_table__decode_action",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_table__acquire_lock_action",
+            "metametaavailable0",
+            "set_retry_table",
+            "set_retry_table__set_retry_action",
+            "reply_to_client_table",
+            "reply_to_client_table__reply_to_client_action",
+            "ipv4_route",
+            "ipv4_route__set_egress"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_table__decode_action",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_table__acquire_lock_action",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_table__reply_to_client_action",
+            "ipv4_route",
+            "ipv4_route__set_egress"
         ]
     ],
     "num_vars": 4,
@@ -322,6 +322,7 @@
             "ipv4_route"
         ]
     },
+    "sum_num_paths": 7,
     "table2actions_dict": {
         "acquire_lock_table": [
             "acquire_lock_table__acquire_lock_action"

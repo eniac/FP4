@@ -181,6 +181,7 @@
             "teUpdateMirror"
         ]
     },
+    "sum_num_paths": 6,
     "table2actions_dict": {
         "teGetDiff": [
             "teGetDiff__aeGetDiff"

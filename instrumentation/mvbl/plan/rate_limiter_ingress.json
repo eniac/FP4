@@ -98,6 +98,7 @@
             "hdripv4isValid"
         ]
     },
+    "sum_num_paths": 4,
     "table2actions_dict": {
         "ipv4_lpm": [
             "ipv4_lpm__ipv4_forward",

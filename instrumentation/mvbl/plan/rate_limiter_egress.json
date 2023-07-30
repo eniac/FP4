@@ -120,6 +120,7 @@
             "metametacurrent_reading0"
         ]
     },
+    "sum_num_paths": 2,
     "table2actions_dict": {
         "teInitializeWma": [
             "teInitializeWma__aeInitializeWma"

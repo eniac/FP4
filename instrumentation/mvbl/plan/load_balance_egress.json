@@ -59,6 +59,7 @@
             "send_frame"
         ]
     },
+    "sum_num_paths": 2,
     "table2actions_dict": {
         "send_frame": [
             "send_frame__rewrite_mac",

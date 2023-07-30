@@ -91,28 +91,28 @@
             "ecmp_group",
             "ecmp_group__drop_packet",
             "ecmp_nhop",
-            "ecmp_nhop__drop_packet"
+            "ecmp_nhop__set_nhop"
         ],
         [
             "hdripv4isValid",
             "ecmp_group",
             "ecmp_group__set_ecmp_select",
             "ecmp_nhop",
-            "ecmp_nhop__drop_packet"
+            "ecmp_nhop__set_nhop"
         ],
         [
             "hdripv4isValid",
             "ecmp_group",
             "ecmp_group__drop_packet",
             "ecmp_nhop",
-            "ecmp_nhop__set_nhop"
+            "ecmp_nhop__drop_packet"
         ],
         [
             "hdripv4isValid",
             "ecmp_group",
             "ecmp_group__set_ecmp_select",
             "ecmp_nhop",
-            "ecmp_nhop__set_nhop"
+            "ecmp_nhop__drop_packet"
         ]
     ],
     "num_vars": 2,
@@ -134,6 +134,7 @@
             "ecmp_nhop"
         ]
     },
+    "sum_num_paths": 5,
     "table2actions_dict": {
         "ecmp_group": [
             "ecmp_group__drop_packet",

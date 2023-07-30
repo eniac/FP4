@@ -291,7 +291,7 @@ class GraphParser(object):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT] = json_output_final_non_action_increment_rootword_dict
             graphs_with_weights.append(graph_with_weights)
         
-        # sum_num_paths = 0
+        sum_num_paths = 0
         for idx, graph in enumerate(graphs_with_weights):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT] = {}
             print("\n====== Printing path to encoding for sub-DAG {0} ======".format(idx))
@@ -317,7 +317,7 @@ class GraphParser(object):
                             all_paths_weights.append((path, weight))
             all_paths_weights.sort(key=lambda x: x[1])
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_PATHS] = len(all_paths_weights)
-            # sum_num_paths += len(all_paths_weights)
+            sum_num_paths += len(all_paths_weights)
             print("--- Expecting all_path_weights with weight from 0 to {} ---".format(len(all_paths_weights)))
             expected_weight = 0
             for path, weight in all_paths_weights:
@@ -326,7 +326,7 @@ class GraphParser(object):
                 if weight != expected_weight:
                     raise Exception("Unexpected weight! Possibly mis-assigned weights")
                 expected_weight += 1
-        # json_output_dict[JSON_OUTPUT_KEY_SUM_NUM_PATHS] = sum_num_paths
+        json_output_dict[JSON_OUTPUT_KEY_SUM_NUM_PATHS] = sum_num_paths
 
         print("\n====== Get the number of paths for the full_graph ===")
         full_root_nodes = [v for v, d in full_graph.in_degree() if d == 0]
