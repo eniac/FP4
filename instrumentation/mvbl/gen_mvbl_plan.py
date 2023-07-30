@@ -49,6 +49,7 @@ def visualize_digraph(graph, name):
 UNIQUE_ACTION_SIG = "_pfuzz_"
 JSON_OUTPUT_KEY_NUM_VARS = "num_vars"
 JSON_OUTPUT_KEY_NUM_BITS = "num_bits"
+JSON_OUTPUT_KEY_NUM_BITS_ORIGINAL = "num_bits_original"
 JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT = "edge_dst_to_increment"
 JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT = "edge_dst_to_edge"
 JSON_OUTPUT_KEY_NON_ACTION_INCREMENT_DICT = "non_action_to_increment"
@@ -58,7 +59,7 @@ JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_DICT = "final_non_action_to_increment
 JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT = "final_non_action_to_increment_rootword"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
 JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
-JSON_OUtPUT_KEY_NODES = "nodes"
+JSON_OUTPUT_KEY_NODES = "nodes"
 JSON_OUTPUT_EDGES = "edges"
 JSON_OUTPUT_KEY_TABLE_TO_ACTIONS_DICT = "table2actions_dict"
 JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL = "stage2tables_dict"
@@ -233,7 +234,7 @@ class GraphParser(object):
         new_subgraphs = []
         for graph_number, number_of_bits in enumerate(pulpSolver.var_to_bits):
             json_output_dict[str(graph_number)] = {
-                JSON_OUTPUT_KEY_NUM_BITS : number_of_bits
+                JSON_OUTPUT_KEY_NUM_BITS_ORIGINAL : number_of_bits
             }
             print("\n====== Constructing subgraph {0} for MVBL based on table_graph and pulp result ======".format(graph_number))
             print("--- List of (table/conditonal) nodes included from pulp ---")
@@ -249,7 +250,7 @@ class GraphParser(object):
             print(included_table_conditional_action)
 
             # Construct the new graph using included_table_conditional_action
-            new_subgraph = nx.DiGraph()
+            new_subgraph = nx.DiGraph()           
             new_subgraph.add_nodes_from(included_table_conditional_action)  # Always create from node first
             # Now consider whether to add an edge between the two nodes
             new_subgraph_edges = []
@@ -266,23 +267,32 @@ class GraphParser(object):
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             visualize_digraph(new_subgraph, "new_subgraph")
 
+            # To avoid false positive in path encoded with 0, add virual nodes START_VIRTUAL and 000_VIRTUAL; also BL requires a single START, which is necessary if the sub-DAG has isolated nodes (not weakly connected)
+            original_root_nodes = [v for v, d in new_subgraph.in_degree() if d == 0]
+            new_subgraph.add_node("START_VIRTUAL")
+            new_subgraph.add_node("000_VIRTUAL")
+            new_subgraph.add_edge("START_VIRTUAL", "000_VIRTUAL")
+            for original_root_node in original_root_nodes:
+                new_subgraph.add_edge("START_VIRTUAL", original_root_node)
+            visualize_digraph(new_subgraph, "new_subgraph after virtual nodes")
+
             print("--- Check if each subgraph is a DAG and weakly connected ---")
             is_weak, cycles = check_dag_connected(new_subgraph)
             if not is_weak or len(cycles) != 0:
                 raise Exception("Not weakly connected or with loops!")
                 sys.exit()
-            # LC_TODO: So there are randomness in the ILP plan, if one of the plan works, just cache it, otherwise, handle it by connecting the global_root to the roots here...
 
             new_subgraphs.append(new_subgraph)
-            json_output_dict[str(graph_number)][JSON_OUtPUT_KEY_NODES] = sorted(list(new_subgraph.nodes), key=lambda e: e)
+            json_output_dict[str(graph_number)][JSON_OUTPUT_KEY_NODES] = sorted(list(new_subgraph.nodes), key=lambda e: e)
             json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = sorted(list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False)), key=lambda e: e)
 
         graphs_with_weights = []
         for idx, graph in enumerate(new_subgraphs):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
-            json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = {}
+
             graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict = self.ball_larus(graph, table2actions_dict, idx)
+
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = json_output_edge_dst_increment_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT] = json_output_edge_dst_edge_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NON_ACTION_INCREMENT_DICT] = json_output_non_action_increment_dict
@@ -300,6 +310,8 @@ class GraphParser(object):
             subdag_leaf_nodes = [v for v, d in graph.out_degree() if d == 0]
             print("--- subdag_root_nodes ---")
             print(subdag_root_nodes)
+            if len(subdag_root_nodes) != 1:
+                raise Exception("subdag_root_nodes must have exactly 1 START_VIRTUAL!")
             print("--- subdag_leaf_nodes ---")
             print(subdag_leaf_nodes)
             all_paths_weights = []
@@ -307,10 +319,11 @@ class GraphParser(object):
                 for leaf in subdag_leaf_nodes:
                     # This sub-dag must be a single (conditional) node
                     if root == leaf:
-                        if len(subdag_root_nodes) != 1 or len(subdag_leaf_nodes) != 1:
-                            raise Exception("len(subdag_root_nodes) != 1 or len(subdag_leaf_nodes) != 1!")
-                            sys.exit()
-                        all_paths_weights.append(([root], 0))
+                        raise Exception("root == leaf! Should never happen!")
+                        # if len(subdag_root_nodes) != 1 or len(subdag_leaf_nodes) != 1:
+                        #     raise Exception("len(subdag_root_nodes) != 1 or len(subdag_leaf_nodes) != 1!")
+                        #     sys.exit()
+                        # all_paths_weights.append(([root], 0))
                     else:
                         paths = list(nx.all_simple_paths(graph, root, leaf))
                         for path in paths:
@@ -318,8 +331,26 @@ class GraphParser(object):
                             all_paths_weights.append((path, weight))
             all_paths_weights.sort(key=lambda x: x[1])
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_PATHS] = len(all_paths_weights)
+
+            # Because we add 1 path, typically it should be accomodated due to overestimation of paths, but still check and increment by 1b
+            if len(all_paths_weights) > 2**json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS_ORIGINAL]:
+                if json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS_ORIGINAL] >= 32: 
+                    raise Exception("Original number of bits is already 32, can't accomodate the additional virtual path!")
+                else:
+                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS] = json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS_ORIGINAL] + 1
+            else:
+                json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS] = json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS_ORIGINAL]
+            # Now round the bit number...
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS] = ((json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS] + 7) // 8) * 8
+
+            print("--- Validate # of paths vs bit num ---")
+            if len(all_paths_weights) > 2**json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS]:
+                raise Exception("len(all_paths_weights) {0} > 2**{1}!".format(len(all_paths_weights), json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS]))
+            else:
+                print("# of paths {0} <= 2**{1}".format(len(all_paths_weights), json_output_dict[str(idx)][JSON_OUTPUT_KEY_NUM_BITS]))
+            
             sum_num_paths += len(all_paths_weights)
-            print("--- Expecting all_path_weights with weight from 0 to {} ---".format(len(all_paths_weights)))
+            print("--- Expecting all_paths_weights with weight from 0 to {} ---".format(len(all_paths_weights)))
             expected_weight = 0
             for path, weight in all_paths_weights:
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
