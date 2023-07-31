@@ -12,7 +12,6 @@
             "decode_action_pfuzz_decode_table -> 000_virtual_decode_action_pfuzz_decode_table",
             "decode_action_pfuzz_decode_table -> release_lock_table",
             "decode_table -> decode_action_pfuzz_decode_table",
-            "release_lock_action_pfuzz_release_lock_table -> 000_virtual_release_lock_action_pfuzz_release_lock_table",
             "release_lock_table -> release_lock_action_pfuzz_release_lock_table",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> decode_table"
@@ -30,8 +29,7 @@
                 "decode_table",
                 "decode_action_pfuzz_decode_table",
                 "release_lock_table",
-                "release_lock_action_pfuzz_release_lock_table",
-                "000_virtual_release_lock_action_pfuzz_release_lock_table"
+                "release_lock_action_pfuzz_release_lock_table"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -46,7 +44,6 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "000_virtual_decode_action_pfuzz_decode_table",
-            "000_virtual_release_lock_action_pfuzz_release_lock_table",
             "000_virtual_virtual_start",
             "decode_action_pfuzz_decode_table",
             "decode_table",
@@ -77,8 +74,6 @@
             "hdrnc_hdrisValid -> 000_virtual_hdrnc_hdrisValid",
             "hdrnc_hdrisValid -> hdrnc_hdrop1",
             "hdrnc_hdrisValid -> metametaavailable0",
-            "hdrnc_hdrop1 -> 000_virtual_hdrnc_hdrop1",
-            "metametaavailable0 -> 000_virtual_metametaavailable0",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> hdrnc_hdrisValid"
         ],
@@ -92,13 +87,11 @@
             ],
             "2": [
                 "hdrnc_hdrisValid",
-                "hdrnc_hdrop1",
-                "000_virtual_hdrnc_hdrop1"
+                "hdrnc_hdrop1"
             ],
             "3": [
                 "hdrnc_hdrisValid",
-                "metametaavailable0",
-                "000_virtual_metametaavailable0"
+                "metametaavailable0"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -123,8 +116,6 @@
         },
         "nodes": [
             "000_virtual_hdrnc_hdrisValid",
-            "000_virtual_hdrnc_hdrop1",
-            "000_virtual_metametaavailable0",
             "000_virtual_virtual_start",
             "hdrnc_hdrisValid",
             "hdrnc_hdrop1",
@@ -148,25 +139,21 @@
             "set_egress_pfuzz_ipv4_route": 1
         },
         "edges": [
-            "drop_action_pfuzz_ipv4_route -> 000_virtual_drop_action_pfuzz_ipv4_route",
             "hdrnc_hdrop0 -> ipv4_route",
             "ipv4_route -> drop_action_pfuzz_ipv4_route",
             "ipv4_route -> set_egress_pfuzz_ipv4_route",
-            "set_egress_pfuzz_ipv4_route -> 000_virtual_set_egress_pfuzz_ipv4_route",
             "virtual_start -> hdrnc_hdrop0"
         ],
         "encoding_to_path": {
             "0": [
                 "hdrnc_hdrop0",
                 "ipv4_route",
-                "drop_action_pfuzz_ipv4_route",
-                "000_virtual_drop_action_pfuzz_ipv4_route"
+                "drop_action_pfuzz_ipv4_route"
             ],
             "1": [
                 "hdrnc_hdrop0",
                 "ipv4_route",
-                "set_egress_pfuzz_ipv4_route",
-                "000_virtual_set_egress_pfuzz_ipv4_route"
+                "set_egress_pfuzz_ipv4_route"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -178,8 +165,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_drop_action_pfuzz_ipv4_route",
-            "000_virtual_set_egress_pfuzz_ipv4_route",
             "drop_action_pfuzz_ipv4_route",
             "hdrnc_hdrop0",
             "ipv4_route",
@@ -204,7 +189,6 @@
             "acquire_lock_action_pfuzz_acquire_lock_table -> reply_to_client_table",
             "acquire_lock_action_pfuzz_acquire_lock_table -> set_retry_table",
             "acquire_lock_table -> acquire_lock_action_pfuzz_acquire_lock_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table -> 000_virtual_reply_to_client_action_pfuzz_reply_to_client_table",
             "reply_to_client_table -> reply_to_client_action_pfuzz_reply_to_client_table",
             "set_retry_action_pfuzz_set_retry_table -> reply_to_client_table",
             "set_retry_table -> set_retry_action_pfuzz_set_retry_table",
@@ -219,8 +203,7 @@
                 "acquire_lock_table",
                 "acquire_lock_action_pfuzz_acquire_lock_table",
                 "reply_to_client_table",
-                "reply_to_client_action_pfuzz_reply_to_client_table",
-                "000_virtual_reply_to_client_action_pfuzz_reply_to_client_table"
+                "reply_to_client_action_pfuzz_reply_to_client_table"
             ],
             "2": [
                 "acquire_lock_table",
@@ -228,8 +211,7 @@
                 "set_retry_table",
                 "set_retry_action_pfuzz_set_retry_table",
                 "reply_to_client_table",
-                "reply_to_client_action_pfuzz_reply_to_client_table",
-                "000_virtual_reply_to_client_action_pfuzz_reply_to_client_table"
+                "reply_to_client_action_pfuzz_reply_to_client_table"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -243,7 +225,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_reply_to_client_action_pfuzz_reply_to_client_table",
             "000_virtual_virtual_start",
             "acquire_lock_action_pfuzz_acquire_lock_table",
             "acquire_lock_table",
@@ -268,79 +249,9 @@
             "decode_table",
             "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
-            "set_retry_table",
-            "set_retry_action_pfuzz_set_retry_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "drop_action_pfuzz_ipv4_route",
-            "000_virtual_exit"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
-            "set_retry_table",
-            "set_retry_action_pfuzz_set_retry_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "set_egress_pfuzz_ipv4_route",
-            "000_virtual_exit"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "drop_action_pfuzz_ipv4_route",
-            "000_virtual_exit"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "set_egress_pfuzz_ipv4_route",
-            "000_virtual_exit"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
             "hdrnc_hdrop1",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "drop_action_pfuzz_ipv4_route",
-            "000_virtual_exit"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
+            "release_lock_table",
+            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
@@ -367,8 +278,6 @@
             "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "hdrnc_hdrop1",
-            "release_lock_table",
-            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
@@ -377,6 +286,72 @@
         ],
         [
             "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "set_retry_table",
+            "set_retry_action_pfuzz_set_retry_table",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "set_retry_table",
+            "set_retry_action_pfuzz_set_retry_table",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "drop_action_pfuzz_ipv4_route",
             "000_virtual_exit"
@@ -385,6 +360,12 @@
             "hdrnc_hdrisValid",
             "ipv4_route",
             "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route",
             "000_virtual_exit"
         ]
     ],

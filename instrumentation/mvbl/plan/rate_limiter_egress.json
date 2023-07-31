@@ -3,13 +3,11 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "metametacurrent_reading0 -> 000_virtual_metametacurrent_reading0",
             "virtual_start -> metametacurrent_reading0"
         ],
         "encoding_to_path": {
             "0": [
-                "metametacurrent_reading0",
-                "000_virtual_metametacurrent_reading0"
+                "metametacurrent_reading0"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -17,7 +15,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_metametacurrent_reading0",
             "metametacurrent_reading0",
             "virtual_start"
         ],
@@ -39,7 +36,6 @@
             "aeWmaPhase2_pfuzz_teWmaPhase2 -> te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit -> 000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit -> te_drop",
-            "drop_packet_pfuzz_te_drop -> 000_virtual_drop_packet_pfuzz_te_drop",
             "teInitializeWma -> aeInitializeWma_pfuzz_teInitializeWma",
             "teWmaPhase1 -> aeWmaPhase1_pfuzz_teWmaPhase1",
             "teWmaPhase2 -> aeWmaPhase2_pfuzz_teWmaPhase2",
@@ -69,8 +65,7 @@
                 "te_rate_limit",
                 "ae_rate_limit_pfuzz_te_rate_limit",
                 "te_drop",
-                "drop_packet_pfuzz_te_drop",
-                "000_virtual_drop_packet_pfuzz_te_drop"
+                "drop_packet_pfuzz_te_drop"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -83,7 +78,6 @@
         "final_non_action_to_increment_rootword": {},
         "nodes": [
             "000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
-            "000_virtual_drop_packet_pfuzz_te_drop",
             "aeInitializeWma_pfuzz_teInitializeWma",
             "aeWmaPhase1_pfuzz_teWmaPhase1",
             "aeWmaPhase2_pfuzz_teWmaPhase2",
@@ -115,6 +109,8 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
+            "te_drop",
+            "drop_packet_pfuzz_te_drop",
             "000_virtual_exit"
         ],
         [
@@ -127,8 +123,6 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
-            "te_drop",
-            "drop_packet_pfuzz_te_drop",
             "000_virtual_exit"
         ]
     ],

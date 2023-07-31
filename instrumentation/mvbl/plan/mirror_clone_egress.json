@@ -3,15 +3,13 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "aeGetDiff_pfuzz_teGetDiff -> 000_virtual_aeGetDiff_pfuzz_teGetDiff",
             "teGetDiff -> aeGetDiff_pfuzz_teGetDiff",
             "virtual_start -> teGetDiff"
         ],
         "encoding_to_path": {
             "0": [
                 "teGetDiff",
-                "aeGetDiff_pfuzz_teGetDiff",
-                "000_virtual_aeGetDiff_pfuzz_teGetDiff"
+                "aeGetDiff_pfuzz_teGetDiff"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -19,7 +17,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_aeGetDiff_pfuzz_teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "teGetDiff",
             "virtual_start"
@@ -37,7 +34,6 @@
             "eg_intr_mdegress_port40": 1
         },
         "edges": [
-            "eg_intr_mdegress_port40 -> 000_virtual_eg_intr_mdegress_port40",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> eg_intr_mdegress_port40"
         ],
@@ -46,8 +42,7 @@
                 "000_virtual_virtual_start"
             ],
             "1": [
-                "eg_intr_mdegress_port40",
-                "000_virtual_eg_intr_mdegress_port40"
+                "eg_intr_mdegress_port40"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -63,7 +58,6 @@
             "eg_intr_mdegress_port40": "mvbl_1_virtual_start_eg_intr_mdegress_port40"
         },
         "nodes": [
-            "000_virtual_eg_intr_mdegress_port40",
             "000_virtual_virtual_start",
             "eg_intr_mdegress_port40",
             "virtual_start"
@@ -83,7 +77,6 @@
             "teReadMirror": 1
         },
         "edges": [
-            "aeReadMirror_pfuzz_teReadMirror -> 000_virtual_aeReadMirror_pfuzz_teReadMirror",
             "teReadMirror -> aeReadMirror_pfuzz_teReadMirror",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> teReadMirror"
@@ -94,8 +87,7 @@
             ],
             "1": [
                 "teReadMirror",
-                "aeReadMirror_pfuzz_teReadMirror",
-                "000_virtual_aeReadMirror_pfuzz_teReadMirror"
+                "aeReadMirror_pfuzz_teReadMirror"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -107,7 +99,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_aeReadMirror_pfuzz_teReadMirror",
             "000_virtual_virtual_start",
             "aeReadMirror_pfuzz_teReadMirror",
             "teReadMirror",
@@ -128,7 +119,6 @@
             "teUpdateOriginal": 1
         },
         "edges": [
-            "aeUpdateOriginal_pfuzz_teUpdateOriginal -> 000_virtual_aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> teUpdateOriginal"
@@ -139,8 +129,7 @@
             ],
             "1": [
                 "teUpdateOriginal",
-                "aeUpdateOriginal_pfuzz_teUpdateOriginal",
-                "000_virtual_aeUpdateOriginal_pfuzz_teUpdateOriginal"
+                "aeUpdateOriginal_pfuzz_teUpdateOriginal"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -152,7 +141,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "000_virtual_virtual_start",
             "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teUpdateOriginal",
@@ -173,7 +161,6 @@
             "teReadOriginal": 1
         },
         "edges": [
-            "aeReadOriginal_pfuzz_teReadOriginal -> 000_virtual_aeReadOriginal_pfuzz_teReadOriginal",
             "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> teReadOriginal"
@@ -184,8 +171,7 @@
             ],
             "1": [
                 "teReadOriginal",
-                "aeReadOriginal_pfuzz_teReadOriginal",
-                "000_virtual_aeReadOriginal_pfuzz_teReadOriginal"
+                "aeReadOriginal_pfuzz_teReadOriginal"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -197,7 +183,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_aeReadOriginal_pfuzz_teReadOriginal",
             "000_virtual_virtual_start",
             "aeReadOriginal_pfuzz_teReadOriginal",
             "teReadOriginal",
@@ -218,7 +203,6 @@
             "teUpdateMirror": 1
         },
         "edges": [
-            "aeUpdateMirror_pfuzz_teUpdateMirror -> 000_virtual_aeUpdateMirror_pfuzz_teUpdateMirror",
             "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror",
             "virtual_start -> 000_virtual_virtual_start",
             "virtual_start -> teUpdateMirror"
@@ -229,8 +213,7 @@
             ],
             "1": [
                 "teUpdateMirror",
-                "aeUpdateMirror_pfuzz_teUpdateMirror",
-                "000_virtual_aeUpdateMirror_pfuzz_teUpdateMirror"
+                "aeUpdateMirror_pfuzz_teUpdateMirror"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -242,7 +225,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_aeUpdateMirror_pfuzz_teUpdateMirror",
             "000_virtual_virtual_start",
             "aeUpdateMirror_pfuzz_teUpdateMirror",
             "teUpdateMirror",
@@ -259,20 +241,20 @@
     "global_paths": [
         [
             "eg_intr_mdegress_port40",
-            "teReadMirror",
-            "aeReadMirror_pfuzz_teReadMirror",
-            "teUpdateOriginal",
-            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_exit"
         ],
         [
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teReadOriginal",
-            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror",
+            "teUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_exit"

@@ -7,8 +7,6 @@
             "rewrite_mac_pfuzz_send_frame": 1
         },
         "edges": [
-            "drop_packet_pfuzz_send_frame -> 000_virtual_drop_packet_pfuzz_send_frame",
-            "rewrite_mac_pfuzz_send_frame -> 000_virtual_rewrite_mac_pfuzz_send_frame",
             "send_frame -> drop_packet_pfuzz_send_frame",
             "send_frame -> rewrite_mac_pfuzz_send_frame",
             "virtual_start -> send_frame"
@@ -16,13 +14,11 @@
         "encoding_to_path": {
             "0": [
                 "send_frame",
-                "drop_packet_pfuzz_send_frame",
-                "000_virtual_drop_packet_pfuzz_send_frame"
+                "drop_packet_pfuzz_send_frame"
             ],
             "1": [
                 "send_frame",
-                "rewrite_mac_pfuzz_send_frame",
-                "000_virtual_rewrite_mac_pfuzz_send_frame"
+                "rewrite_mac_pfuzz_send_frame"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -34,8 +30,6 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_drop_packet_pfuzz_send_frame",
-            "000_virtual_rewrite_mac_pfuzz_send_frame",
             "drop_packet_pfuzz_send_frame",
             "rewrite_mac_pfuzz_send_frame",
             "send_frame",
@@ -50,12 +44,12 @@
     "global_paths": [
         [
             "send_frame",
-            "rewrite_mac_pfuzz_send_frame",
+            "drop_packet_pfuzz_send_frame",
             "000_virtual_exit"
         ],
         [
             "send_frame",
-            "drop_packet_pfuzz_send_frame",
+            "rewrite_mac_pfuzz_send_frame",
             "000_virtual_exit"
         ]
     ],

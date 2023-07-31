@@ -269,6 +269,7 @@ class GraphParser(object):
                     full_graph_new_edges.append([node, virtual_node_exit])
 
         print("--- full_graph_new_edges ---")
+        # full_graph.add_node(virtual_node_exit)
         print(full_graph_new_edges)
         for edge in full_graph_new_edges:
             full_graph.add_edge(edge[0], edge[1])
@@ -323,13 +324,14 @@ class GraphParser(object):
             virtual_nodes = []
             virtual_edges = []
             # BL requires a single START, which may not be true if the sub-DAG has isolated nodes (not weakly connected)
-            # 1. Always add a virtual start node, no harm if it is redundant
+            print("--- Always add a virtual start node, no harm if it is redundant---")
             new_subgraph_root_nodes = [v for v, d in new_subgraph.in_degree() if d == 0]
+            new_subgraph_leaf_nodes = [v for v, d in new_subgraph.out_degree() if d == 0]
             virtual_nodes.append(virtual_start_node)
             for new_subgraph_root_node in new_subgraph_root_nodes:
                 virtual_edges.append([virtual_start_node, new_subgraph_root_node])
             
-            # 2. Check if needed to add a virtual node from start node, to avoid false encoding of path 0
+            print("--- Check if needed to add a virtual node from start node, to avoid false encoding of path 0 ---")
             add_virtual_node_from_start = False
             all_paths = nx.all_simple_paths(full_graph, global_root_node, virtual_node_exit)
             for path in all_paths:
@@ -337,15 +339,18 @@ class GraphParser(object):
                     add_virtual_node_from_start = True
                     break
             if add_virtual_node_from_start:
-                print("add_virtual_node_from_start")
+                print("add_virtual_node_from_start!")
                 virtual_node = virtual_node_prefix+virtual_start_node
                 virtual_nodes.append(virtual_node)
                 virtual_edges.append([virtual_start_node, virtual_node])
             else:
-                print("NOT add_virtual_node_from_start")
+                print("NOT add_virtual_node_from_start!")
 
             # 3. Similarly, check every node in the sub-DAG if there is a need to add a branching virtual node/edge, to avoid false encoding
             for node_to_branch in included_table_conditional_action:
+                # If the node is the leaf node, don't care as it will not lead to false encoding
+                if node_to_branch in new_subgraph_leaf_nodes:
+                    continue
                 all_paths = nx.all_simple_paths(full_graph, node_to_branch, virtual_node_exit)
                 for path in all_paths:
                     if set(path[1:-1]).isdisjoint(included_table_conditional_action):
@@ -388,7 +393,11 @@ class GraphParser(object):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_DICT] = json_output_final_non_action_increment_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT] = json_output_final_non_action_increment_rootword_dict
             graphs_with_weights.append(graph_with_weights)
-        
+
+            for edge_dst_to_increment in json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_EDGE_INCREMENT_DICT]:
+                if virtual_node_prefix in edge_dst_to_increment:
+                    raise Exception("virtual_node_prefix in {}".format(edge_dst_to_increment))
+
         sum_num_paths = 0
         for idx, graph in enumerate(graphs_with_weights):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT] = {}
