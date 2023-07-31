@@ -52,8 +52,7 @@
                 "teWmaPhase2",
                 "aeWmaPhase2_pfuzz_teWmaPhase2",
                 "te_rate_limit",
-                "ae_rate_limit_pfuzz_te_rate_limit",
-                "000_virtual_ae_rate_limit_pfuzz_te_rate_limit"
+                "ae_rate_limit_pfuzz_te_rate_limit"
             ],
             "1": [
                 "teInitializeWma",
@@ -109,8 +108,6 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
-            "te_drop",
-            "drop_packet_pfuzz_te_drop",
             "000_virtual_exit"
         ],
         [
@@ -123,6 +120,8 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
+            "te_drop",
+            "drop_packet_pfuzz_te_drop",
             "000_virtual_exit"
         ]
     ],

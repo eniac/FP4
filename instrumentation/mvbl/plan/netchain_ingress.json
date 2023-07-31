@@ -17,13 +17,10 @@
             "virtual_start -> decode_table"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "decode_table",
-                "decode_action_pfuzz_decode_table",
-                "000_virtual_decode_action_pfuzz_decode_table"
+                "decode_action_pfuzz_decode_table"
             ],
             "2": [
                 "decode_table",
@@ -78,12 +75,9 @@
             "virtual_start -> hdrnc_hdrisValid"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
-                "hdrnc_hdrisValid",
-                "000_virtual_hdrnc_hdrisValid"
+                "hdrnc_hdrisValid"
             ],
             "2": [
                 "hdrnc_hdrisValid",
@@ -196,9 +190,7 @@
             "virtual_start -> acquire_lock_table"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "acquire_lock_table",
                 "acquire_lock_action_pfuzz_acquire_lock_table",
@@ -246,28 +238,12 @@
     "global_paths": [
         [
             "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "release_lock_table",
-            "release_lock_action_pfuzz_release_lock_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "set_egress_pfuzz_ipv4_route",
             "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "release_lock_table",
-            "release_lock_action_pfuzz_release_lock_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "drop_action_pfuzz_ipv4_route",
             "000_virtual_exit"
@@ -301,9 +277,9 @@
             "decode_table",
             "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
+            "hdrnc_hdrop1",
+            "release_lock_table",
+            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
@@ -315,9 +291,9 @@
             "decode_table",
             "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
+            "hdrnc_hdrop1",
+            "release_lock_table",
+            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
@@ -358,12 +334,28 @@
         ],
         [
             "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "set_egress_pfuzz_ipv4_route",
             "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "drop_action_pfuzz_ipv4_route",
             "000_virtual_exit"

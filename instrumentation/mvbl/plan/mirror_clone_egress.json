@@ -38,9 +38,7 @@
             "virtual_start -> eg_intr_mdegress_port40"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "eg_intr_mdegress_port40"
             ]
@@ -82,9 +80,7 @@
             "virtual_start -> teReadMirror"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "teReadMirror",
                 "aeReadMirror_pfuzz_teReadMirror"
@@ -124,9 +120,7 @@
             "virtual_start -> teUpdateOriginal"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "teUpdateOriginal",
                 "aeUpdateOriginal_pfuzz_teUpdateOriginal"
@@ -166,9 +160,7 @@
             "virtual_start -> teReadOriginal"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "teReadOriginal",
                 "aeReadOriginal_pfuzz_teReadOriginal"
@@ -208,9 +200,7 @@
             "virtual_start -> teUpdateMirror"
         ],
         "encoding_to_path": {
-            "0": [
-                "000_virtual_virtual_start"
-            ],
+            "0": [],
             "1": [
                 "teUpdateMirror",
                 "aeUpdateMirror_pfuzz_teUpdateMirror"
@@ -241,20 +231,20 @@
     "global_paths": [
         [
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teReadOriginal",
-            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror",
+            "teUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_exit"
         ],
         [
             "eg_intr_mdegress_port40",
-            "teReadMirror",
-            "aeReadMirror_pfuzz_teReadMirror",
-            "teUpdateOriginal",
-            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_exit"

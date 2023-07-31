@@ -44,12 +44,12 @@
     "global_paths": [
         [
             "rewrite_mac",
-            "on_miss_pfuzz_rewrite_mac",
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac",
             "000_virtual_exit"
         ],
         [
             "rewrite_mac",
-            "rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "on_miss_pfuzz_rewrite_mac",
             "000_virtual_exit"
         ]
     ],

@@ -453,7 +453,8 @@ class GraphParser(object):
                 if path[0] != virtual_start_node:
                     raise Exception("First node must be START_VIRTUAL!")
                 else:
-                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path[1:]
+                    clean_plan = [u for u in path[1:] if virtual_node_prefix not in u]
+                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = clean_plan
                 if weight != expected_weight:
                     raise Exception("Unexpected weight! Possibly mis-assigned weights")
                 expected_weight += 1

@@ -44,12 +44,12 @@
     "global_paths": [
         [
             "send_frame",
-            "drop_packet_pfuzz_send_frame",
+            "rewrite_mac_pfuzz_send_frame",
             "000_virtual_exit"
         ],
         [
             "send_frame",
-            "rewrite_mac_pfuzz_send_frame",
+            "drop_packet_pfuzz_send_frame",
             "000_virtual_exit"
         ]
     ],
