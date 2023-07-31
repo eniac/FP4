@@ -1,63 +1,62 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "rewrite_mac": "START_VIRTUAL -> rewrite_mac",
             "rewrite_src_dst_mac_pfuzz_rewrite_mac": "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac"
         },
         "edge_dst_to_increment": {
-            "rewrite_mac": 1,
             "rewrite_src_dst_mac_pfuzz_rewrite_mac": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> rewrite_mac",
+            "on_miss_pfuzz_rewrite_mac -> 000_virtual_on_miss_pfuzz_rewrite_mac",
             "rewrite_mac -> on_miss_pfuzz_rewrite_mac",
-            "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac"
+            "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac -> 000_virtual_rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "virtual_start -> rewrite_mac"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "rewrite_mac",
+                "on_miss_pfuzz_rewrite_mac",
+                "000_virtual_on_miss_pfuzz_rewrite_mac"
+            ],
             "1": [
                 "rewrite_mac",
-                "on_miss_pfuzz_rewrite_mac"
-            ],
-            "2": [
-                "rewrite_mac",
-                "rewrite_src_dst_mac_pfuzz_rewrite_mac"
+                "rewrite_src_dst_mac_pfuzz_rewrite_mac",
+                "000_virtual_rewrite_src_dst_mac_pfuzz_rewrite_mac"
             ]
         },
         "final_edge_dst_to_edge": {
-            "on_miss_pfuzz_rewrite_mac": "rewrite_mac -> on_miss_pfuzz_rewrite_mac",
             "rewrite_src_dst_mac_pfuzz_rewrite_mac": "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac"
         },
         "final_edge_dst_to_increment": {
-            "on_miss_pfuzz_rewrite_mac": 1,
-            "rewrite_src_dst_mac_pfuzz_rewrite_mac": 2
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_on_miss_pfuzz_rewrite_mac",
+            "000_virtual_rewrite_src_dst_mac_pfuzz_rewrite_mac",
             "on_miss_pfuzz_rewrite_mac",
             "rewrite_mac",
-            "rewrite_src_dst_mac_pfuzz_rewrite_mac"
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "virtual_start"
         ],
-        "non_action_to_increment": {
-            "rewrite_mac": 1
-        },
+        "non_action_to_increment": {},
         "num_bits": 8,
         "num_bits_original": 1,
-        "num_paths": 3
+        "num_paths": 2
     },
     "global_num_paths": 2,
     "global_paths": [
         [
             "rewrite_mac",
-            "on_miss_pfuzz_rewrite_mac"
+            "on_miss_pfuzz_rewrite_mac",
+            "000_virtual_exit"
         ],
         [
             "rewrite_mac",
-            "rewrite_src_dst_mac_pfuzz_rewrite_mac"
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "000_virtual_exit"
         ]
     ],
     "num_vars": 1,
@@ -71,7 +70,7 @@
             "rewrite_mac"
         ]
     },
-    "sum_num_paths": 3,
+    "sum_num_paths": 2,
     "table2actions_dict": {
         "rewrite_mac": [
             "on_miss_pfuzz_rewrite_mac",

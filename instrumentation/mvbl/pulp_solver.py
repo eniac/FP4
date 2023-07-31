@@ -108,6 +108,7 @@ class PulpSolver(object):
         if table_name in table_actions:
             next_nodes = next_nodes * len(table_actions[table_name])
             print("table_actions[{0}]: {1}".format(table_name, table_actions[table_name]))
+        # LC_TODO: need to account for conditionals, which has 2 edges
         print("# of out edges (w actions): {}".format(next_nodes))
         # LC_TODO: Don't need to take ceil? maybe subject to over estimation.
         # It is OK to be 0 (rather than 1)?

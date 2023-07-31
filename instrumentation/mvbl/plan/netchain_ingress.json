@@ -1,168 +1,199 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "decode_table": "START_VIRTUAL -> decode_table"
+            "decode_table": "virtual_start -> decode_table",
+            "release_lock_table": "decode_action_pfuzz_decode_table -> release_lock_table"
         },
         "edge_dst_to_increment": {
-            "decode_table": 1
+            "decode_table": 1,
+            "release_lock_table": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> decode_table",
+            "decode_action_pfuzz_decode_table -> 000_virtual_decode_action_pfuzz_decode_table",
             "decode_action_pfuzz_decode_table -> release_lock_table",
             "decode_table -> decode_action_pfuzz_decode_table",
-            "release_lock_table -> release_lock_action_pfuzz_release_lock_table"
+            "release_lock_action_pfuzz_release_lock_table -> 000_virtual_release_lock_action_pfuzz_release_lock_table",
+            "release_lock_table -> release_lock_action_pfuzz_release_lock_table",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> decode_table"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "decode_table",
                 "decode_action_pfuzz_decode_table",
+                "000_virtual_decode_action_pfuzz_decode_table"
+            ],
+            "2": [
+                "decode_table",
+                "decode_action_pfuzz_decode_table",
                 "release_lock_table",
-                "release_lock_action_pfuzz_release_lock_table"
+                "release_lock_action_pfuzz_release_lock_table",
+                "000_virtual_release_lock_action_pfuzz_release_lock_table"
             ]
         },
         "final_edge_dst_to_edge": {
-            "decode_action_pfuzz_decode_table": "decode_table -> decode_action_pfuzz_decode_table"
+            "decode_action_pfuzz_decode_table": "decode_table -> decode_action_pfuzz_decode_table",
+            "release_lock_action_pfuzz_release_lock_table": "release_lock_table -> release_lock_action_pfuzz_release_lock_table"
         },
         "final_edge_dst_to_increment": {
-            "decode_action_pfuzz_decode_table": 1
+            "decode_action_pfuzz_decode_table": 1,
+            "release_lock_action_pfuzz_release_lock_table": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_decode_action_pfuzz_decode_table",
+            "000_virtual_release_lock_action_pfuzz_release_lock_table",
+            "000_virtual_virtual_start",
             "decode_action_pfuzz_decode_table",
             "decode_table",
             "release_lock_action_pfuzz_release_lock_table",
-            "release_lock_table"
+            "release_lock_table",
+            "virtual_start"
         ],
         "non_action_to_increment": {
-            "decode_table": 1
+            "decode_table": 1,
+            "release_lock_table": 1
         },
+        "num_bits": 8,
+        "num_bits_original": 2,
+        "num_paths": 3
+    },
+    "1": {
+        "edge_dst_to_edge": {
+            "hdrnc_hdrisValid": "virtual_start -> hdrnc_hdrisValid",
+            "hdrnc_hdrop1": "hdrnc_hdrisValid -> hdrnc_hdrop1",
+            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
+        },
+        "edge_dst_to_increment": {
+            "hdrnc_hdrisValid": 1,
+            "hdrnc_hdrop1": 1,
+            "metametaavailable0": 2
+        },
+        "edges": [
+            "hdrnc_hdrisValid -> 000_virtual_hdrnc_hdrisValid",
+            "hdrnc_hdrisValid -> hdrnc_hdrop1",
+            "hdrnc_hdrisValid -> metametaavailable0",
+            "hdrnc_hdrop1 -> 000_virtual_hdrnc_hdrop1",
+            "metametaavailable0 -> 000_virtual_metametaavailable0",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> hdrnc_hdrisValid"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "000_virtual_virtual_start"
+            ],
+            "1": [
+                "hdrnc_hdrisValid",
+                "000_virtual_hdrnc_hdrisValid"
+            ],
+            "2": [
+                "hdrnc_hdrisValid",
+                "hdrnc_hdrop1",
+                "000_virtual_hdrnc_hdrop1"
+            ],
+            "3": [
+                "hdrnc_hdrisValid",
+                "metametaavailable0",
+                "000_virtual_metametaavailable0"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "hdrnc_hdrisValid": "virtual_start -> hdrnc_hdrisValid",
+            "hdrnc_hdrop1": "hdrnc_hdrisValid -> hdrnc_hdrop1",
+            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
+        },
+        "final_edge_dst_to_increment": {
+            "hdrnc_hdrisValid": 1,
+            "hdrnc_hdrop1": 1,
+            "metametaavailable0": 2
+        },
+        "final_non_action_to_increment": {
+            "hdrnc_hdrisValid": 1,
+            "hdrnc_hdrop1": 1,
+            "metametaavailable0": 2
+        },
+        "final_non_action_to_increment_rootword": {
+            "hdrnc_hdrisValid": "mvbl_1_virtual_start_hdrnc_hdrisValid",
+            "hdrnc_hdrop1": "mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1",
+            "metametaavailable0": "mvbl_1_hdrnc_hdrisValid_metametaavailable0"
+        },
+        "nodes": [
+            "000_virtual_hdrnc_hdrisValid",
+            "000_virtual_hdrnc_hdrop1",
+            "000_virtual_metametaavailable0",
+            "000_virtual_virtual_start",
+            "hdrnc_hdrisValid",
+            "hdrnc_hdrop1",
+            "metametaavailable0",
+            "virtual_start"
+        ],
+        "non_action_to_increment": {
+            "hdrnc_hdrisValid": 1,
+            "hdrnc_hdrop1": 1,
+            "metametaavailable0": 2
+        },
+        "num_bits": 8,
+        "num_bits_original": 3,
+        "num_paths": 4
+    },
+    "2": {
+        "edge_dst_to_edge": {
+            "set_egress_pfuzz_ipv4_route": "ipv4_route -> set_egress_pfuzz_ipv4_route"
+        },
+        "edge_dst_to_increment": {
+            "set_egress_pfuzz_ipv4_route": 1
+        },
+        "edges": [
+            "drop_action_pfuzz_ipv4_route -> 000_virtual_drop_action_pfuzz_ipv4_route",
+            "hdrnc_hdrop0 -> ipv4_route",
+            "ipv4_route -> drop_action_pfuzz_ipv4_route",
+            "ipv4_route -> set_egress_pfuzz_ipv4_route",
+            "set_egress_pfuzz_ipv4_route -> 000_virtual_set_egress_pfuzz_ipv4_route",
+            "virtual_start -> hdrnc_hdrop0"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "hdrnc_hdrop0",
+                "ipv4_route",
+                "drop_action_pfuzz_ipv4_route",
+                "000_virtual_drop_action_pfuzz_ipv4_route"
+            ],
+            "1": [
+                "hdrnc_hdrop0",
+                "ipv4_route",
+                "set_egress_pfuzz_ipv4_route",
+                "000_virtual_set_egress_pfuzz_ipv4_route"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "set_egress_pfuzz_ipv4_route": "ipv4_route -> set_egress_pfuzz_ipv4_route"
+        },
+        "final_edge_dst_to_increment": {
+            "set_egress_pfuzz_ipv4_route": 1
+        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "nodes": [
+            "000_virtual_drop_action_pfuzz_ipv4_route",
+            "000_virtual_set_egress_pfuzz_ipv4_route",
+            "drop_action_pfuzz_ipv4_route",
+            "hdrnc_hdrop0",
+            "ipv4_route",
+            "set_egress_pfuzz_ipv4_route",
+            "virtual_start"
+        ],
+        "non_action_to_increment": {},
         "num_bits": 8,
         "num_bits_original": 2,
         "num_paths": 2
     },
-    "1": {
-        "edge_dst_to_edge": {
-            "hdrnc_hdrisValid": "START_VIRTUAL -> hdrnc_hdrisValid",
-            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
-        },
-        "edge_dst_to_increment": {
-            "hdrnc_hdrisValid": 1,
-            "metametaavailable0": 1
-        },
-        "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> hdrnc_hdrisValid",
-            "hdrnc_hdrisValid -> hdrnc_hdrop1",
-            "hdrnc_hdrisValid -> metametaavailable0"
-        ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "hdrnc_hdrisValid",
-                "hdrnc_hdrop1"
-            ],
-            "2": [
-                "hdrnc_hdrisValid",
-                "metametaavailable0"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "hdrnc_hdrisValid": "START_VIRTUAL -> hdrnc_hdrisValid",
-            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
-        },
-        "final_edge_dst_to_increment": {
-            "hdrnc_hdrisValid": 1,
-            "metametaavailable0": 1
-        },
-        "final_non_action_to_increment": {
-            "hdrnc_hdrisValid": 1,
-            "metametaavailable0": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdrnc_hdrisValid": "mvbl_1_START_VIRTUAL_hdrnc_hdrisValid",
-            "metametaavailable0": "mvbl_1_hdrnc_hdrisValid_metametaavailable0"
-        },
-        "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
-            "hdrnc_hdrisValid",
-            "hdrnc_hdrop1",
-            "metametaavailable0"
-        ],
-        "non_action_to_increment": {
-            "hdrnc_hdrisValid": 1,
-            "metametaavailable0": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 3,
-        "num_paths": 3
-    },
-    "2": {
-        "edge_dst_to_edge": {
-            "hdrnc_hdrop0": "START_VIRTUAL -> hdrnc_hdrop0",
-            "set_egress_pfuzz_ipv4_route": "ipv4_route -> set_egress_pfuzz_ipv4_route"
-        },
-        "edge_dst_to_increment": {
-            "hdrnc_hdrop0": 1,
-            "set_egress_pfuzz_ipv4_route": 1
-        },
-        "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> hdrnc_hdrop0",
-            "hdrnc_hdrop0 -> ipv4_route",
-            "ipv4_route -> drop_action_pfuzz_ipv4_route",
-            "ipv4_route -> set_egress_pfuzz_ipv4_route"
-        ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "hdrnc_hdrop0",
-                "ipv4_route",
-                "drop_action_pfuzz_ipv4_route"
-            ],
-            "2": [
-                "hdrnc_hdrop0",
-                "ipv4_route",
-                "set_egress_pfuzz_ipv4_route"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "hdrnc_hdrop0": "START_VIRTUAL -> hdrnc_hdrop0",
-            "set_egress_pfuzz_ipv4_route": "ipv4_route -> set_egress_pfuzz_ipv4_route"
-        },
-        "final_edge_dst_to_increment": {
-            "hdrnc_hdrop0": 1,
-            "set_egress_pfuzz_ipv4_route": 1
-        },
-        "final_non_action_to_increment": {
-            "hdrnc_hdrop0": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdrnc_hdrop0": "mvbl_2_START_VIRTUAL_hdrnc_hdrop0"
-        },
-        "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
-            "drop_action_pfuzz_ipv4_route",
-            "hdrnc_hdrop0",
-            "ipv4_route",
-            "set_egress_pfuzz_ipv4_route"
-        ],
-        "non_action_to_increment": {
-            "hdrnc_hdrop0": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 2,
-        "num_paths": 3
-    },
     "3": {
         "edge_dst_to_edge": {
-            "acquire_lock_table": "START_VIRTUAL -> acquire_lock_table",
+            "acquire_lock_table": "virtual_start -> acquire_lock_table",
             "set_retry_table": "acquire_lock_action_pfuzz_acquire_lock_table -> set_retry_table"
         },
         "edge_dst_to_increment": {
@@ -170,22 +201,26 @@
             "set_retry_table": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> acquire_lock_table",
             "acquire_lock_action_pfuzz_acquire_lock_table -> reply_to_client_table",
             "acquire_lock_action_pfuzz_acquire_lock_table -> set_retry_table",
             "acquire_lock_table -> acquire_lock_action_pfuzz_acquire_lock_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table -> 000_virtual_reply_to_client_action_pfuzz_reply_to_client_table",
             "reply_to_client_table -> reply_to_client_action_pfuzz_reply_to_client_table",
             "set_retry_action_pfuzz_set_retry_table -> reply_to_client_table",
-            "set_retry_table -> set_retry_action_pfuzz_set_retry_table"
+            "set_retry_table -> set_retry_action_pfuzz_set_retry_table",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> acquire_lock_table"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "acquire_lock_table",
                 "acquire_lock_action_pfuzz_acquire_lock_table",
                 "reply_to_client_table",
-                "reply_to_client_action_pfuzz_reply_to_client_table"
+                "reply_to_client_action_pfuzz_reply_to_client_table",
+                "000_virtual_reply_to_client_action_pfuzz_reply_to_client_table"
             ],
             "2": [
                 "acquire_lock_table",
@@ -193,7 +228,8 @@
                 "set_retry_table",
                 "set_retry_action_pfuzz_set_retry_table",
                 "reply_to_client_table",
-                "reply_to_client_action_pfuzz_reply_to_client_table"
+                "reply_to_client_action_pfuzz_reply_to_client_table",
+                "000_virtual_reply_to_client_action_pfuzz_reply_to_client_table"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -207,14 +243,15 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_reply_to_client_action_pfuzz_reply_to_client_table",
+            "000_virtual_virtual_start",
             "acquire_lock_action_pfuzz_acquire_lock_table",
             "acquire_lock_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "reply_to_client_table",
             "set_retry_action_pfuzz_set_retry_table",
-            "set_retry_table"
+            "set_retry_table",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "acquire_lock_table": 1,
@@ -228,32 +265,19 @@
     "global_paths": [
         [
             "hdrnc_hdrisValid",
-            "ipv4_route",
-            "set_egress_pfuzz_ipv4_route"
-        ],
-        [
-            "hdrnc_hdrisValid",
             "decode_table",
             "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "release_lock_table",
-            "release_lock_action_pfuzz_release_lock_table",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "set_retry_table",
+            "set_retry_action_pfuzz_set_retry_table",
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "set_egress_pfuzz_ipv4_route"
-        ],
-        [
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "set_egress_pfuzz_ipv4_route"
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
@@ -268,7 +292,8 @@
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "set_egress_pfuzz_ipv4_route"
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
@@ -281,12 +306,46 @@
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "set_egress_pfuzz_ipv4_route"
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "acquire_lock_table",
+            "acquire_lock_action_pfuzz_acquire_lock_table",
+            "metametaavailable0",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "drop_action_pfuzz_ipv4_route"
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
+        ],
+        [
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
@@ -299,7 +358,8 @@
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "drop_action_pfuzz_ipv4_route"
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
@@ -307,38 +367,25 @@
             "decode_action_pfuzz_decode_table",
             "hdrnc_hdrop0",
             "hdrnc_hdrop1",
+            "release_lock_table",
+            "release_lock_action_pfuzz_release_lock_table",
             "reply_to_client_table",
             "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "drop_action_pfuzz_ipv4_route"
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
-            "set_retry_table",
-            "set_retry_action_pfuzz_set_retry_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "drop_action_pfuzz_ipv4_route"
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ],
         [
             "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "acquire_lock_table",
-            "acquire_lock_action_pfuzz_acquire_lock_table",
-            "metametaavailable0",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
-            "drop_action_pfuzz_ipv4_route"
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_exit"
         ]
     ],
     "num_vars": 4,
@@ -378,7 +425,7 @@
             "ipv4_route"
         ]
     },
-    "sum_num_paths": 11,
+    "sum_num_paths": 12,
     "table2actions_dict": {
         "acquire_lock_table": [
             "acquire_lock_action_pfuzz_acquire_lock_table"

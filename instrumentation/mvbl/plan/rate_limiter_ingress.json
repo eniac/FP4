@@ -1,23 +1,27 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "hdripv4isValid": "START_VIRTUAL -> hdripv4isValid"
+            "hdripv4isValid": "virtual_start -> hdripv4isValid"
         },
         "edge_dst_to_increment": {
             "hdripv4isValid": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> hdripv4isValid"
+            "hdripv4isValid -> 000_virtual_hdripv4isValid",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> hdripv4isValid"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
-                "hdripv4isValid"
+                "hdripv4isValid",
+                "000_virtual_hdripv4isValid"
             ]
         },
         "final_edge_dst_to_edge": {
-            "hdripv4isValid": "START_VIRTUAL -> hdripv4isValid"
+            "hdripv4isValid": "virtual_start -> hdripv4isValid"
         },
         "final_edge_dst_to_increment": {
             "hdripv4isValid": 1
@@ -26,12 +30,13 @@
             "hdripv4isValid": 1
         },
         "final_non_action_to_increment_rootword": {
-            "hdripv4isValid": "mvbl_0_START_VIRTUAL_hdripv4isValid"
+            "hdripv4isValid": "mvbl_0_virtual_start_hdripv4isValid"
         },
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
-            "hdripv4isValid"
+            "000_virtual_hdripv4isValid",
+            "000_virtual_virtual_start",
+            "hdripv4isValid",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "hdripv4isValid": 1
@@ -44,7 +49,7 @@
         "edge_dst_to_edge": {
             "drop_packet_pfuzz_ipv4_lpm": "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
             "ipv4_forward_pfuzz_ipv4_lpm": "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm",
-            "ipv4_lpm": "START_VIRTUAL -> ipv4_lpm"
+            "ipv4_lpm": "virtual_start -> ipv4_lpm"
         },
         "edge_dst_to_increment": {
             "drop_packet_pfuzz_ipv4_lpm": 1,
@@ -52,25 +57,33 @@
             "ipv4_lpm": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm -> 000_virtual_ai_noOp_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm -> 000_virtual_drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm -> 000_virtual_ipv4_forward_pfuzz_ipv4_lpm",
             "ipv4_lpm -> ai_noOp_pfuzz_ipv4_lpm",
             "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
-            "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm"
+            "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> ipv4_lpm"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "ipv4_lpm",
-                "ai_noOp_pfuzz_ipv4_lpm"
+                "ai_noOp_pfuzz_ipv4_lpm",
+                "000_virtual_ai_noOp_pfuzz_ipv4_lpm"
             ],
             "2": [
                 "ipv4_lpm",
-                "drop_packet_pfuzz_ipv4_lpm"
+                "drop_packet_pfuzz_ipv4_lpm",
+                "000_virtual_drop_packet_pfuzz_ipv4_lpm"
             ],
             "3": [
                 "ipv4_lpm",
-                "ipv4_forward_pfuzz_ipv4_lpm"
+                "ipv4_forward_pfuzz_ipv4_lpm",
+                "000_virtual_ipv4_forward_pfuzz_ipv4_lpm"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -86,12 +99,15 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_ai_noOp_pfuzz_ipv4_lpm",
+            "000_virtual_drop_packet_pfuzz_ipv4_lpm",
+            "000_virtual_ipv4_forward_pfuzz_ipv4_lpm",
+            "000_virtual_virtual_start",
             "ai_noOp_pfuzz_ipv4_lpm",
             "drop_packet_pfuzz_ipv4_lpm",
             "ipv4_forward_pfuzz_ipv4_lpm",
-            "ipv4_lpm"
+            "ipv4_lpm",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "ipv4_lpm": 1
@@ -100,22 +116,29 @@
         "num_bits_original": 2,
         "num_paths": 4
     },
-    "global_num_paths": 3,
+    "global_num_paths": 4,
     "global_paths": [
         [
             "hdripv4isValid",
-            "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm"
+            "000_virtual_exit"
         ],
         [
             "hdripv4isValid",
             "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm"
+            "drop_packet_pfuzz_ipv4_lpm",
+            "000_virtual_exit"
         ],
         [
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm"
+            "ipv4_forward_pfuzz_ipv4_lpm",
+            "000_virtual_exit"
+        ],
+        [
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "000_virtual_exit"
         ]
     ],
     "num_vars": 2,

@@ -1,67 +1,64 @@
 {
     "0": {
-        "edge_dst_to_edge": {
-            "metametacurrent_reading0": "START_VIRTUAL -> metametacurrent_reading0"
-        },
-        "edge_dst_to_increment": {
-            "metametacurrent_reading0": 1
-        },
+        "edge_dst_to_edge": {},
+        "edge_dst_to_increment": {},
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> metametacurrent_reading0"
+            "metametacurrent_reading0 -> 000_virtual_metametacurrent_reading0",
+            "virtual_start -> metametacurrent_reading0"
         ],
         "encoding_to_path": {
-            "0": [],
-            "1": [
-                "metametacurrent_reading0"
+            "0": [
+                "metametacurrent_reading0",
+                "000_virtual_metametacurrent_reading0"
             ]
         },
-        "final_edge_dst_to_edge": {
-            "metametacurrent_reading0": "START_VIRTUAL -> metametacurrent_reading0"
-        },
-        "final_edge_dst_to_increment": {
-            "metametacurrent_reading0": 1
-        },
-        "final_non_action_to_increment": {
-            "metametacurrent_reading0": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "metametacurrent_reading0": "mvbl_0_START_VIRTUAL_metametacurrent_reading0"
-        },
+        "final_edge_dst_to_edge": {},
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
-            "metametacurrent_reading0"
+            "000_virtual_metametacurrent_reading0",
+            "metametacurrent_reading0",
+            "virtual_start"
         ],
-        "non_action_to_increment": {
-            "metametacurrent_reading0": 1
-        },
+        "non_action_to_increment": {},
         "num_bits": 8,
         "num_bits_original": 1,
-        "num_paths": 2
+        "num_paths": 1
     },
     "1": {
         "edge_dst_to_edge": {
-            "teInitializeWma": "START_VIRTUAL -> teInitializeWma"
+            "te_drop": "ae_rate_limit_pfuzz_te_rate_limit -> te_drop"
         },
         "edge_dst_to_increment": {
-            "teInitializeWma": 1
+            "te_drop": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> teInitializeWma",
             "aeInitializeWma_pfuzz_teInitializeWma -> teWmaPhase1",
             "aeWmaPhase1_pfuzz_teWmaPhase1 -> teWmaPhase2",
             "aeWmaPhase2_pfuzz_teWmaPhase2 -> te_rate_limit",
+            "ae_rate_limit_pfuzz_te_rate_limit -> 000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit -> te_drop",
+            "drop_packet_pfuzz_te_drop -> 000_virtual_drop_packet_pfuzz_te_drop",
             "teInitializeWma -> aeInitializeWma_pfuzz_teInitializeWma",
             "teWmaPhase1 -> aeWmaPhase1_pfuzz_teWmaPhase1",
             "teWmaPhase2 -> aeWmaPhase2_pfuzz_teWmaPhase2",
             "te_drop -> drop_packet_pfuzz_te_drop",
-            "te_rate_limit -> ae_rate_limit_pfuzz_te_rate_limit"
+            "te_rate_limit -> ae_rate_limit_pfuzz_te_rate_limit",
+            "virtual_start -> teInitializeWma"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "teInitializeWma",
+                "aeInitializeWma_pfuzz_teInitializeWma",
+                "teWmaPhase1",
+                "aeWmaPhase1_pfuzz_teWmaPhase1",
+                "teWmaPhase2",
+                "aeWmaPhase2_pfuzz_teWmaPhase2",
+                "te_rate_limit",
+                "ae_rate_limit_pfuzz_te_rate_limit",
+                "000_virtual_ae_rate_limit_pfuzz_te_rate_limit"
+            ],
             "1": [
                 "teInitializeWma",
                 "aeInitializeWma_pfuzz_teInitializeWma",
@@ -72,20 +69,21 @@
                 "te_rate_limit",
                 "ae_rate_limit_pfuzz_te_rate_limit",
                 "te_drop",
-                "drop_packet_pfuzz_te_drop"
+                "drop_packet_pfuzz_te_drop",
+                "000_virtual_drop_packet_pfuzz_te_drop"
             ]
         },
         "final_edge_dst_to_edge": {
-            "aeInitializeWma_pfuzz_teInitializeWma": "teInitializeWma -> aeInitializeWma_pfuzz_teInitializeWma"
+            "drop_packet_pfuzz_te_drop": "te_drop -> drop_packet_pfuzz_te_drop"
         },
         "final_edge_dst_to_increment": {
-            "aeInitializeWma_pfuzz_teInitializeWma": 1
+            "drop_packet_pfuzz_te_drop": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
+            "000_virtual_drop_packet_pfuzz_te_drop",
             "aeInitializeWma_pfuzz_teInitializeWma",
             "aeWmaPhase1_pfuzz_teWmaPhase1",
             "aeWmaPhase2_pfuzz_teWmaPhase2",
@@ -95,16 +93,17 @@
             "teWmaPhase1",
             "teWmaPhase2",
             "te_drop",
-            "te_rate_limit"
+            "te_rate_limit",
+            "virtual_start"
         ],
         "non_action_to_increment": {
-            "teInitializeWma": 1
+            "te_drop": 1
         },
         "num_bits": 8,
         "num_bits_original": 5,
         "num_paths": 2
     },
-    "global_num_paths": 1,
+    "global_num_paths": 2,
     "global_paths": [
         [
             "teInitializeWma",
@@ -116,8 +115,21 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
+            "000_virtual_exit"
+        ],
+        [
+            "teInitializeWma",
+            "aeInitializeWma_pfuzz_teInitializeWma",
+            "teWmaPhase1",
+            "aeWmaPhase1_pfuzz_teWmaPhase1",
+            "teWmaPhase2",
+            "aeWmaPhase2_pfuzz_teWmaPhase2",
+            "te_rate_limit",
+            "ae_rate_limit_pfuzz_te_rate_limit",
+            "metametacurrent_reading0",
             "te_drop",
-            "drop_packet_pfuzz_te_drop"
+            "drop_packet_pfuzz_te_drop",
+            "000_virtual_exit"
         ]
     ],
     "num_vars": 2,
@@ -157,7 +169,7 @@
             "metametacurrent_reading0"
         ]
     },
-    "sum_num_paths": 4,
+    "sum_num_paths": 3,
     "table2actions_dict": {
         "teInitializeWma": [
             "aeInitializeWma_pfuzz_teInitializeWma"

@@ -1,63 +1,62 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "rewrite_mac_pfuzz_send_frame": "send_frame -> rewrite_mac_pfuzz_send_frame",
-            "send_frame": "START_VIRTUAL -> send_frame"
+            "rewrite_mac_pfuzz_send_frame": "send_frame -> rewrite_mac_pfuzz_send_frame"
         },
         "edge_dst_to_increment": {
-            "rewrite_mac_pfuzz_send_frame": 1,
-            "send_frame": 1
+            "rewrite_mac_pfuzz_send_frame": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> send_frame",
+            "drop_packet_pfuzz_send_frame -> 000_virtual_drop_packet_pfuzz_send_frame",
+            "rewrite_mac_pfuzz_send_frame -> 000_virtual_rewrite_mac_pfuzz_send_frame",
             "send_frame -> drop_packet_pfuzz_send_frame",
-            "send_frame -> rewrite_mac_pfuzz_send_frame"
+            "send_frame -> rewrite_mac_pfuzz_send_frame",
+            "virtual_start -> send_frame"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "send_frame",
+                "drop_packet_pfuzz_send_frame",
+                "000_virtual_drop_packet_pfuzz_send_frame"
+            ],
             "1": [
                 "send_frame",
-                "drop_packet_pfuzz_send_frame"
-            ],
-            "2": [
-                "send_frame",
-                "rewrite_mac_pfuzz_send_frame"
+                "rewrite_mac_pfuzz_send_frame",
+                "000_virtual_rewrite_mac_pfuzz_send_frame"
             ]
         },
         "final_edge_dst_to_edge": {
-            "drop_packet_pfuzz_send_frame": "send_frame -> drop_packet_pfuzz_send_frame",
             "rewrite_mac_pfuzz_send_frame": "send_frame -> rewrite_mac_pfuzz_send_frame"
         },
         "final_edge_dst_to_increment": {
-            "drop_packet_pfuzz_send_frame": 1,
-            "rewrite_mac_pfuzz_send_frame": 2
+            "rewrite_mac_pfuzz_send_frame": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_drop_packet_pfuzz_send_frame",
+            "000_virtual_rewrite_mac_pfuzz_send_frame",
             "drop_packet_pfuzz_send_frame",
             "rewrite_mac_pfuzz_send_frame",
-            "send_frame"
+            "send_frame",
+            "virtual_start"
         ],
-        "non_action_to_increment": {
-            "send_frame": 1
-        },
+        "non_action_to_increment": {},
         "num_bits": 8,
         "num_bits_original": 1,
-        "num_paths": 3
+        "num_paths": 2
     },
     "global_num_paths": 2,
     "global_paths": [
         [
             "send_frame",
-            "rewrite_mac_pfuzz_send_frame"
+            "rewrite_mac_pfuzz_send_frame",
+            "000_virtual_exit"
         ],
         [
             "send_frame",
-            "drop_packet_pfuzz_send_frame"
+            "drop_packet_pfuzz_send_frame",
+            "000_virtual_exit"
         ]
     ],
     "num_vars": 1,
@@ -71,7 +70,7 @@
             "send_frame"
         ]
     },
-    "sum_num_paths": 3,
+    "sum_num_paths": 2,
     "table2actions_dict": {
         "send_frame": [
             "rewrite_mac_pfuzz_send_frame",

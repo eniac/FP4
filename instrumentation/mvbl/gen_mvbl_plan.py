@@ -97,6 +97,8 @@ class GraphParser(object):
         json_output_dict = {}
 
         print("\n====== Extract node name to label mapping, filtering START, EXIT, tbl_act ======")
+        # OK to ignore start as there is always a real start node
+        # Need to be careful with ignoring exit and tbl_act, we need to remember those paths
         node2label_dict, ignored_node2label_dict = self.get_raw_nodes_from_dot(dotfile_ing)
 
         if len(node2label_dict) == 0:
@@ -105,10 +107,13 @@ class GraphParser(object):
                 json.dump(json_output_dict, f, indent=4, sort_keys=True)
             print("====== Completed ======")
             return
-            # raise Exception("len(node2label_dict) == 0!")
 
         print("\n====== Extract edge dicts, renamed src, dst with the labels, skipped START, EXIT ======")
-        renamed_edges = self.get_edges_from_dot(dotfile_ing, node2label_dict, ignored_node2label_dict)
+        # We should remember the table/conditional with path to exit to avoid false encoding
+        renamed_edges, table_conditional_to_exit = self.get_edges_from_dot(dotfile_ing, node2label_dict, ignored_node2label_dict)
+
+        print("\n====== table_conditional_to_exit ======")
+        print(table_conditional_to_exit)
 
         print("\n====== Create a table graph with 0 weights ======")
         table_graph_edges_tuples, table_graph = self.get_table_graph(node2label_dict, renamed_edges)
@@ -142,18 +147,18 @@ class GraphParser(object):
         #     stage2tables_dict = self.estimate_stages(table_graph)
 
         print("\n====== Print roots and leaf_nodes ======")
-        root_nodes = [v for v, d in table_graph.in_degree() if d == 0]
-        leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
-        print("--- root_nodes ---")
-        print(root_nodes)
-        if len(root_nodes) != 1:
-            raise Exception("len(root_nodes) != 1")
-        global_root_node = root_nodes[0]
-        print("--- leaf_nodes ---")
-        print(leaf_nodes)
+        table_graph_root_nodes = [v for v, d in table_graph.in_degree() if d == 0]
+        table_graph_leaf_nodes = [v for v, d in table_graph.out_degree() if d == 0]
+        print("--- table_graph_root_nodes ---")
+        print(table_graph_root_nodes)
+        if len(table_graph_root_nodes) != 1:
+            raise Exception("len(table_graph_root_nodes) != 1")
+        global_root_node = table_graph_root_nodes[0]
+        print("--- table_graph_leaf_nodes ---")
+        print(table_graph_leaf_nodes)
 
         print("\n====== Add edges from tables to actions, actions to the next table ======")
-        updated_nodes, updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, leaf_nodes, root_nodes, node2label_dict)
+        updated_nodes, updated_edges = self.append_table_action_edges(table2actions_dict, renamed_edges, table_graph_leaf_nodes, table_graph_root_nodes, node2label_dict)
 
         print("\n====== Create full graph ======")
         print("--- updated_nodes ---")
@@ -167,6 +172,13 @@ class GraphParser(object):
         full_graph = nx.DiGraph()
         full_graph.add_nodes_from(updated_nodes)
         full_graph.add_weighted_edges_from(full_graph_edges_tuples)
+
+        full_graph_root_nodes = [v for v, d in full_graph.in_degree() if d == 0]
+        if len(full_graph_root_nodes) != 1:
+            raise Exception("len(full_graph_root_nodes) != 1")
+        if full_graph_root_nodes[0] != global_root_node:
+            raise Exception("full_graph_root_nodes[0] != global_root_node")
+        full_graph_leaf_nodes = [v for v, d in full_graph.out_degree() if d == 0]
 
         visualize_digraph(full_graph, "full_graph")
 
@@ -196,6 +208,19 @@ class GraphParser(object):
                     print("Unexpected rename of table old_name: {0} -> new_name: {1}".format(old_name, new_name))
                     table2actions_dict[new_name] = table2actions_dict.pop(old_name)
         json_output_dict[JSON_OUTPUT_KEY_TABLE_TO_ACTIONS_DICT] = table2actions_dict
+
+        print("\n=== Sanitize node names in table_conditional_to_exit ===")
+        for i, node in enumerate(table_conditional_to_exit):
+            if node in new_node_mapping:
+                table_conditional_to_exit[i] = new_node_mapping[node]
+        print("--- table_conditional_to_exit after sanitization ---")
+        print(table_conditional_to_exit)
+
+        print("\n====== Sanitize global_root_node ======")
+        if global_root_node not in new_node_mapping:
+            raise Exception("global_root_node not in new_node_mapping")
+        else:
+            global_root_node = new_node_mapping[global_root_node]
 
         print("\n=== Update table names in stage2tables_dict ===")
         print("--- stage2tables_dict original ---")
@@ -227,6 +252,33 @@ class GraphParser(object):
         from pulp_solver import PulpSolver
         print("\n====== Running PulpSolver ======")
         pulpSolver = PulpSolver(table_graph, stage2tables_dict, table2actions_dict)
+
+        print("\n====== Update full_graph with exit ======")
+        full_graph_new_edges = []
+        virtual_node_prefix = "000_virtual_"
+        virtual_node_exit = virtual_node_prefix + "exit"
+        virtual_start_node = "virtual_start"
+        for node in full_graph.nodes:
+            # For action, check if its table is in edge
+            if UNIQUE_ACTION_SIG in node:
+                if node.split(UNIQUE_ACTION_SIG)[1] in table_conditional_to_exit:
+                    full_graph_new_edges.append([node, virtual_node_exit])
+            # If conditional
+            elif node not in table2actions_dict:
+                if node in table_conditional_to_exit:
+                    full_graph_new_edges.append([node, virtual_node_exit])
+
+        print("--- full_graph_new_edges ---")
+        print(full_graph_new_edges)
+        for edge in full_graph_new_edges:
+            full_graph.add_edge(edge[0], edge[1])
+        visualize_digraph(full_graph, "full_graph with exit")
+
+        full_graph_with_exit_leaf_nodes = [v for v, d in full_graph.out_degree() if d == 0]
+        print("--- full_graph_with_exit_leaf_nodes ---")
+        print(full_graph_with_exit_leaf_nodes)
+        if len(full_graph_with_exit_leaf_nodes) != 1 or full_graph_with_exit_leaf_nodes[0] != virtual_node_exit:
+            raise Exception("Must be a single EXIT for the new full graph!")
 
         json_output_dict[JSON_OUTPUT_KEY_NUM_VARS] = len(pulpSolver.var_to_bits)
         # Based on the solver result, construct the sub-DAGs with only the tables and edges involved
@@ -267,13 +319,48 @@ class GraphParser(object):
             new_subgraph.add_weighted_edges_from(new_subgraph_edges)
             visualize_digraph(new_subgraph, "new_subgraph")
 
-            # To avoid false positive in path encoded with 0, add virual nodes START_VIRTUAL and 000_VIRTUAL; also BL requires a single START, which is necessary if the sub-DAG has isolated nodes (not weakly connected)
-            original_root_nodes = [v for v, d in new_subgraph.in_degree() if d == 0]
-            new_subgraph.add_node("START_VIRTUAL")
-            new_subgraph.add_node("000_VIRTUAL")
-            new_subgraph.add_edge("START_VIRTUAL", "000_VIRTUAL")
-            for original_root_node in original_root_nodes:
-                new_subgraph.add_edge("START_VIRTUAL", original_root_node)
+            # Need to be extend the prior sub-DAG with virtual nodes/edges
+            virtual_nodes = []
+            virtual_edges = []
+            # BL requires a single START, which may not be true if the sub-DAG has isolated nodes (not weakly connected)
+            # 1. Always add a virtual start node, no harm if it is redundant
+            new_subgraph_root_nodes = [v for v, d in new_subgraph.in_degree() if d == 0]
+            virtual_nodes.append(virtual_start_node)
+            for new_subgraph_root_node in new_subgraph_root_nodes:
+                virtual_edges.append([virtual_start_node, new_subgraph_root_node])
+            
+            # 2. Check if needed to add a virtual node from start node, to avoid false encoding of path 0
+            add_virtual_node_from_start = False
+            all_paths = nx.all_simple_paths(full_graph, global_root_node, virtual_node_exit)
+            for path in all_paths:
+                if set(path[1:-1]).isdisjoint(included_table_conditional_action):
+                    add_virtual_node_from_start = True
+                    break
+            if add_virtual_node_from_start:
+                print("add_virtual_node_from_start")
+                virtual_node = virtual_node_prefix+virtual_start_node
+                virtual_nodes.append(virtual_node)
+                virtual_edges.append([virtual_start_node, virtual_node])
+            else:
+                print("NOT add_virtual_node_from_start")
+
+            # 3. Similarly, check every node in the sub-DAG if there is a need to add a branching virtual node/edge, to avoid false encoding
+            for node_to_branch in included_table_conditional_action:
+                all_paths = nx.all_simple_paths(full_graph, node_to_branch, virtual_node_exit)
+                for path in all_paths:
+                    if set(path[1:-1]).isdisjoint(included_table_conditional_action):
+                        virtual_node = virtual_node_prefix+node_to_branch
+                        virtual_nodes.append(virtual_node)
+                        virtual_edges.append([node_to_branch, virtual_node])
+                        break
+            print("--- virtual_nodes ---")
+            print(virtual_nodes)
+            print("--- virtual_edges ---")
+            print(virtual_edges)
+            for node_to_add in virtual_nodes:
+                new_subgraph.add_node(node_to_add)
+            for edge_to_add in virtual_edges:
+                new_subgraph.add_edge(edge_to_add[0], edge_to_add[1])
             visualize_digraph(new_subgraph, "new_subgraph after virtual nodes")
 
             print("--- Check if each subgraph is a DAG and weakly connected ---")
@@ -354,15 +441,10 @@ class GraphParser(object):
             expected_weight = 0
             for path, weight in all_paths_weights:
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
-                if weight == 0:
-                    if path != ["START_VIRTUAL", "000_VIRTUAL"]:
-                        raise Exception("Path encoded with 0 must be START_VIRTUAL -> 000_VIRTUAL!")
-                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = []
+                if path[0] != virtual_start_node:
+                    raise Exception("First node must be START_VIRTUAL!")
                 else:
-                    if path[0] != "START_VIRTUAL":
-                        raise Exception("First node must be START_VIRTUAl!")
-                    else:
-                        json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path[1:]
+                    json_output_dict[str(idx)][JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT][str(weight)] = path[1:]
                 if weight != expected_weight:
                     raise Exception("Unexpected weight! Possibly mis-assigned weights")
                 expected_weight += 1
@@ -875,6 +957,7 @@ class GraphParser(object):
 
 
     def get_edges_from_dot(self, dotfile, nodes, ignored_nodes):
+        nodes_to_exit = []
         print("--- get_edges_from_dot ---")
         original_src_dst_label = []
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
@@ -892,7 +975,8 @@ class GraphParser(object):
             elif e['src'] in nodes.keys() and e['dst'] not in nodes.keys():
                 print("[WARNING] Skipped {}".format({'src':nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
                 if ignored_nodes[e['dst']] == "__EXIT__" or ignored_nodes[e['dst']] == "tbl_act":
-                    continue
+                    # Remember the from nodes to exit
+                    nodes_to_exit.append(nodes[e['src']])
                 else:
                     print("[ERROR] Unexpected edge!")
                     raise Exception("ERR!")
@@ -907,13 +991,14 @@ class GraphParser(object):
             else:
                 print("[WARNING] Skipped {}".format({'src':ignored_nodes[e['src']], 'dst':ignored_nodes[e['dst']], 'label': e['label']}))
                 if (ignored_nodes[e['src']] == "tbl_act" and ignored_nodes[e['dst']] == "__EXIT__") or (ignored_nodes[e['src']] == "__START__" and ignored_nodes[e['dst']] == "__EXIT__"):
+                    # tbl_act must be equivalent to EXIT
                     continue
                 else:
                     print("[ERROR] Unexpected edge!")
                     raise Exception("ERR!")
         print("--- renamed_src_dst_label ---")
         pretty_print_dict(renamed_src_dst_label)
-        return renamed_src_dst_label
+        return renamed_src_dst_label, nodes_to_exit
 
 
 def parse_arguments():

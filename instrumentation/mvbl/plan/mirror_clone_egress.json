@@ -1,63 +1,57 @@
 {
     "0": {
-        "edge_dst_to_edge": {
-            "teGetDiff": "START_VIRTUAL -> teGetDiff"
-        },
-        "edge_dst_to_increment": {
-            "teGetDiff": 1
-        },
+        "edge_dst_to_edge": {},
+        "edge_dst_to_increment": {},
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> teGetDiff",
-            "teGetDiff -> aeGetDiff_pfuzz_teGetDiff"
+            "aeGetDiff_pfuzz_teGetDiff -> 000_virtual_aeGetDiff_pfuzz_teGetDiff",
+            "teGetDiff -> aeGetDiff_pfuzz_teGetDiff",
+            "virtual_start -> teGetDiff"
         ],
         "encoding_to_path": {
-            "0": [],
-            "1": [
+            "0": [
                 "teGetDiff",
-                "aeGetDiff_pfuzz_teGetDiff"
+                "aeGetDiff_pfuzz_teGetDiff",
+                "000_virtual_aeGetDiff_pfuzz_teGetDiff"
             ]
         },
-        "final_edge_dst_to_edge": {
-            "aeGetDiff_pfuzz_teGetDiff": "teGetDiff -> aeGetDiff_pfuzz_teGetDiff"
-        },
-        "final_edge_dst_to_increment": {
-            "aeGetDiff_pfuzz_teGetDiff": 1
-        },
+        "final_edge_dst_to_edge": {},
+        "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_aeGetDiff_pfuzz_teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
-            "teGetDiff"
+            "teGetDiff",
+            "virtual_start"
         ],
-        "non_action_to_increment": {
-            "teGetDiff": 1
-        },
+        "non_action_to_increment": {},
         "num_bits": 8,
         "num_bits_original": 1,
-        "num_paths": 2
+        "num_paths": 1
     },
     "1": {
         "edge_dst_to_edge": {
-            "eg_intr_mdegress_port40": "START_VIRTUAL -> eg_intr_mdegress_port40"
+            "eg_intr_mdegress_port40": "virtual_start -> eg_intr_mdegress_port40"
         },
         "edge_dst_to_increment": {
             "eg_intr_mdegress_port40": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> eg_intr_mdegress_port40"
+            "eg_intr_mdegress_port40 -> 000_virtual_eg_intr_mdegress_port40",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> eg_intr_mdegress_port40"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
-                "eg_intr_mdegress_port40"
+                "eg_intr_mdegress_port40",
+                "000_virtual_eg_intr_mdegress_port40"
             ]
         },
         "final_edge_dst_to_edge": {
-            "eg_intr_mdegress_port40": "START_VIRTUAL -> eg_intr_mdegress_port40"
+            "eg_intr_mdegress_port40": "virtual_start -> eg_intr_mdegress_port40"
         },
         "final_edge_dst_to_increment": {
             "eg_intr_mdegress_port40": 1
@@ -66,12 +60,13 @@
             "eg_intr_mdegress_port40": 1
         },
         "final_non_action_to_increment_rootword": {
-            "eg_intr_mdegress_port40": "mvbl_1_START_VIRTUAL_eg_intr_mdegress_port40"
+            "eg_intr_mdegress_port40": "mvbl_1_virtual_start_eg_intr_mdegress_port40"
         },
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
-            "eg_intr_mdegress_port40"
+            "000_virtual_eg_intr_mdegress_port40",
+            "000_virtual_virtual_start",
+            "eg_intr_mdegress_port40",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "eg_intr_mdegress_port40": 1
@@ -82,21 +77,25 @@
     },
     "2": {
         "edge_dst_to_edge": {
-            "teReadMirror": "START_VIRTUAL -> teReadMirror"
+            "teReadMirror": "virtual_start -> teReadMirror"
         },
         "edge_dst_to_increment": {
             "teReadMirror": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> teReadMirror",
-            "teReadMirror -> aeReadMirror_pfuzz_teReadMirror"
+            "aeReadMirror_pfuzz_teReadMirror -> 000_virtual_aeReadMirror_pfuzz_teReadMirror",
+            "teReadMirror -> aeReadMirror_pfuzz_teReadMirror",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> teReadMirror"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "teReadMirror",
-                "aeReadMirror_pfuzz_teReadMirror"
+                "aeReadMirror_pfuzz_teReadMirror",
+                "000_virtual_aeReadMirror_pfuzz_teReadMirror"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -108,10 +107,11 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_aeReadMirror_pfuzz_teReadMirror",
+            "000_virtual_virtual_start",
             "aeReadMirror_pfuzz_teReadMirror",
-            "teReadMirror"
+            "teReadMirror",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "teReadMirror": 1
@@ -122,21 +122,25 @@
     },
     "3": {
         "edge_dst_to_edge": {
-            "teUpdateOriginal": "START_VIRTUAL -> teUpdateOriginal"
+            "teUpdateOriginal": "virtual_start -> teUpdateOriginal"
         },
         "edge_dst_to_increment": {
             "teUpdateOriginal": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> teUpdateOriginal",
-            "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal"
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal -> 000_virtual_aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> teUpdateOriginal"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "teUpdateOriginal",
-                "aeUpdateOriginal_pfuzz_teUpdateOriginal"
+                "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+                "000_virtual_aeUpdateOriginal_pfuzz_teUpdateOriginal"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -148,10 +152,11 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "000_virtual_virtual_start",
             "aeUpdateOriginal_pfuzz_teUpdateOriginal",
-            "teUpdateOriginal"
+            "teUpdateOriginal",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "teUpdateOriginal": 1
@@ -162,21 +167,25 @@
     },
     "4": {
         "edge_dst_to_edge": {
-            "teReadOriginal": "START_VIRTUAL -> teReadOriginal"
+            "teReadOriginal": "virtual_start -> teReadOriginal"
         },
         "edge_dst_to_increment": {
             "teReadOriginal": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> teReadOriginal",
-            "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal"
+            "aeReadOriginal_pfuzz_teReadOriginal -> 000_virtual_aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> teReadOriginal"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "teReadOriginal",
-                "aeReadOriginal_pfuzz_teReadOriginal"
+                "aeReadOriginal_pfuzz_teReadOriginal",
+                "000_virtual_aeReadOriginal_pfuzz_teReadOriginal"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -188,10 +197,11 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_aeReadOriginal_pfuzz_teReadOriginal",
+            "000_virtual_virtual_start",
             "aeReadOriginal_pfuzz_teReadOriginal",
-            "teReadOriginal"
+            "teReadOriginal",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "teReadOriginal": 1
@@ -202,21 +212,25 @@
     },
     "5": {
         "edge_dst_to_edge": {
-            "teUpdateMirror": "START_VIRTUAL -> teUpdateMirror"
+            "teUpdateMirror": "virtual_start -> teUpdateMirror"
         },
         "edge_dst_to_increment": {
             "teUpdateMirror": 1
         },
         "edges": [
-            "START_VIRTUAL -> 000_VIRTUAL",
-            "START_VIRTUAL -> teUpdateMirror",
-            "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror"
+            "aeUpdateMirror_pfuzz_teUpdateMirror -> 000_virtual_aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror",
+            "virtual_start -> 000_virtual_virtual_start",
+            "virtual_start -> teUpdateMirror"
         ],
         "encoding_to_path": {
-            "0": [],
+            "0": [
+                "000_virtual_virtual_start"
+            ],
             "1": [
                 "teUpdateMirror",
-                "aeUpdateMirror_pfuzz_teUpdateMirror"
+                "aeUpdateMirror_pfuzz_teUpdateMirror",
+                "000_virtual_aeUpdateMirror_pfuzz_teUpdateMirror"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -228,10 +242,11 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_VIRTUAL",
-            "START_VIRTUAL",
+            "000_virtual_aeUpdateMirror_pfuzz_teUpdateMirror",
+            "000_virtual_virtual_start",
             "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teUpdateMirror"
+            "teUpdateMirror",
+            "virtual_start"
         ],
         "non_action_to_increment": {
             "teUpdateMirror": 1
@@ -244,21 +259,23 @@
     "global_paths": [
         [
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teReadOriginal",
-            "aeReadOriginal_pfuzz_teReadOriginal",
-            "teGetDiff",
-            "aeGetDiff_pfuzz_teGetDiff"
-        ],
-        [
-            "eg_intr_mdegress_port40",
             "teReadMirror",
             "aeReadMirror_pfuzz_teReadMirror",
             "teUpdateOriginal",
             "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
-            "aeGetDiff_pfuzz_teGetDiff"
+            "aeGetDiff_pfuzz_teGetDiff",
+            "000_virtual_exit"
+        ],
+        [
+            "eg_intr_mdegress_port40",
+            "teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teGetDiff",
+            "aeGetDiff_pfuzz_teGetDiff",
+            "000_virtual_exit"
         ]
     ],
     "num_vars": 6,
@@ -282,7 +299,7 @@
             "teUpdateMirror"
         ]
     },
-    "sum_num_paths": 12,
+    "sum_num_paths": 11,
     "table2actions_dict": {
         "teGetDiff": [
             "aeGetDiff_pfuzz_teGetDiff"
