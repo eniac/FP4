@@ -332,39 +332,45 @@ control ingress {
         apply(tiHandleOutgoingRouting);
     }
     // Check the second header if the Ethernet dst is us
-    if (cis553_metadata.forMe == 0) {
-        // Don't do anything with it
-    } else if (valid(ipv4)) {
-       apply(tiHandleIpv4);
-       apply(tiHandleOutgoingEthernet);
-    } else if (valid(arp) && arp.oper == 1) {
-        apply(tiHandleIncomingArpReqest_part_one);
-        apply(tiHandleIncomingArpReqest_part_two);
-    } else if (valid(arp) && arp.oper == 2) {
-        apply(tiHandleIncomingArpResponse);
-    } else if (valid(distance_vec)) {
-        apply(tiHandleIncomingRouting);
-    } else {
-        apply(tiDrop);
-    }
     // if (cis553_metadata.forMe == 0) {
-    //     // nop
+    //     // Don't do anything with it
     // } else if (valid(ipv4)) {
-    //     apply(tiHandleIpv4);
-    //     apply(tiHandleOutgoingEthernet);
-    // } else if (valid(arp)) {
-    //     // Edge case, if valid(arp) but arp.oper == 3, it will go here rather than others (like drop etc)
-    //     if (arp.oper == 1) {
-    //         apply(tiHandleIncomingArpReqest_part_one);
-    //         apply(tiHandleIncomingArpReqest_part_two);
-    //     } else {
-    //         apply(tiHandleIncomingArpResponse);
-    //     }
+    //    apply(tiHandleIpv4);
+    //    apply(tiHandleOutgoingEthernet);
+    // } else if (valid(arp) && arp.oper == 1) {
+    //     apply(tiHandleIncomingArpReqest_part_one);
+    //     apply(tiHandleIncomingArpReqest_part_two);
+    // } else if (valid(arp) && arp.oper == 2) {
+    //     apply(tiHandleIncomingArpResponse);
     // } else if (valid(distance_vec)) {
     //     apply(tiHandleIncomingRouting);
     // } else {
     //     apply(tiDrop);
     // }
+    if (cis553_metadata.forMe == 0) {
+        // Don't do anything with it
+    } else {
+        if (valid(ipv4)) {
+            apply(tiHandleIpv4);
+            apply(tiHandleOutgoingEthernet);
+        } else {
+            if (valid(arp) && arp.oper == 1) {
+                apply(tiHandleIncomingArpReqest_part_one);
+                apply(tiHandleIncomingArpReqest_part_two);
+            } else {
+                if (valid(arp) && arp.oper == 2) {
+                    apply(tiHandleIncomingArpResponse);
+                } else {
+                    if (valid(distance_vec)) {
+                        apply(tiHandleIncomingRouting);
+                    } else {
+                        apply(tiDrop);
+                    }                
+                }
+            }
+        }
+    }
+
 }
 
 
