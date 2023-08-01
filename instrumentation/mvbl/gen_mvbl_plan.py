@@ -257,7 +257,7 @@ class GraphParser(object):
         full_graph_new_edges = []
         virtual_node_prefix = "000_virtual_"
         virtual_node_exit = virtual_node_prefix + "EXIT"
-        virtual_start_node = "START"
+        virtual_start_node = "VIRTUAL_START"
         for node in full_graph.nodes:
             # For action, check if its table is in edge
             if UNIQUE_ACTION_SIG in node:

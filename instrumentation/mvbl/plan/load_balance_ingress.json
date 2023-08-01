@@ -1,7 +1,7 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "ecmp_group": "START -> ecmp_group",
+            "ecmp_group": "VIRTUAL_START -> ecmp_group",
             "set_ecmp_select_pfuzz_ecmp_group": "ecmp_group -> set_ecmp_select_pfuzz_ecmp_group",
             "set_nhop_pfuzz_ecmp_nhop": "ecmp_nhop -> set_nhop_pfuzz_ecmp_nhop"
         },
@@ -11,8 +11,8 @@
             "set_nhop_pfuzz_ecmp_nhop": 1
         },
         "edges": [
-            "START -> 000_virtual_START",
-            "START -> ecmp_group",
+            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> ecmp_group",
             "drop_packet_pfuzz_ecmp_group -> ecmp_nhop",
             "ecmp_group -> drop_packet_pfuzz_ecmp_group",
             "ecmp_group -> set_ecmp_select_pfuzz_ecmp_group",
@@ -60,8 +60,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_START",
-            "START",
+            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_START",
             "drop_packet_pfuzz_ecmp_group",
             "drop_packet_pfuzz_ecmp_nhop",
             "ecmp_group",
@@ -80,7 +80,7 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "START -> hdripv4isValid"
+            "VIRTUAL_START -> hdripv4isValid"
         ],
         "encoding_to_path": {
             "0": [
@@ -92,7 +92,7 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "START",
+            "VIRTUAL_START",
             "hdripv4isValid"
         ],
         "non_action_to_increment": {},
@@ -103,25 +103,7 @@
     "global_num_paths": 5,
     "global_paths": [
         [
-            "START",
-            "hdripv4isValid",
-            "ecmp_group",
-            "set_ecmp_select_pfuzz_ecmp_group",
-            "ecmp_nhop",
-            "set_nhop_pfuzz_ecmp_nhop",
-            "000_virtual_EXIT"
-        ],
-        [
-            "START",
-            "hdripv4isValid",
-            "ecmp_group",
-            "set_ecmp_select_pfuzz_ecmp_group",
-            "ecmp_nhop",
-            "drop_packet_pfuzz_ecmp_nhop",
-            "000_virtual_EXIT"
-        ],
-        [
-            "START",
+            "VIRTUAL_START",
             "hdripv4isValid",
             "ecmp_group",
             "drop_packet_pfuzz_ecmp_group",
@@ -130,7 +112,7 @@
             "000_virtual_EXIT"
         ],
         [
-            "START",
+            "VIRTUAL_START",
             "hdripv4isValid",
             "ecmp_group",
             "drop_packet_pfuzz_ecmp_group",
@@ -139,7 +121,25 @@
             "000_virtual_EXIT"
         ],
         [
-            "START",
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ecmp_group",
+            "set_ecmp_select_pfuzz_ecmp_group",
+            "ecmp_nhop",
+            "set_nhop_pfuzz_ecmp_nhop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ecmp_group",
+            "set_ecmp_select_pfuzz_ecmp_group",
+            "ecmp_nhop",
+            "drop_packet_pfuzz_ecmp_nhop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
             "hdripv4isValid",
             "000_virtual_EXIT"
         ]

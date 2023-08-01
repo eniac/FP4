@@ -3,7 +3,7 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "START -> teGetDiff",
+            "VIRTUAL_START -> teGetDiff",
             "teGetDiff -> aeGetDiff_pfuzz_teGetDiff"
         ],
         "encoding_to_path": {
@@ -17,7 +17,7 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "START",
+            "VIRTUAL_START",
             "aeGetDiff_pfuzz_teGetDiff",
             "teGetDiff"
         ],
@@ -30,7 +30,7 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "START -> eg_intr_mdegress_port40"
+            "VIRTUAL_START -> eg_intr_mdegress_port40"
         ],
         "encoding_to_path": {
             "0": [
@@ -42,7 +42,7 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "START",
+            "VIRTUAL_START",
             "eg_intr_mdegress_port40"
         ],
         "non_action_to_increment": {},
@@ -52,14 +52,14 @@
     },
     "2": {
         "edge_dst_to_edge": {
-            "teReadMirror": "START -> teReadMirror"
+            "teReadMirror": "VIRTUAL_START -> teReadMirror"
         },
         "edge_dst_to_increment": {
             "teReadMirror": 1
         },
         "edges": [
-            "START -> 000_virtual_START",
-            "START -> teReadMirror",
+            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> teReadMirror",
             "teReadMirror -> aeReadMirror_pfuzz_teReadMirror"
         ],
         "encoding_to_path": {
@@ -78,8 +78,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_START",
-            "START",
+            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_START",
             "aeReadMirror_pfuzz_teReadMirror",
             "teReadMirror"
         ],
@@ -92,14 +92,14 @@
     },
     "3": {
         "edge_dst_to_edge": {
-            "teUpdateOriginal": "START -> teUpdateOriginal"
+            "teUpdateOriginal": "VIRTUAL_START -> teUpdateOriginal"
         },
         "edge_dst_to_increment": {
             "teUpdateOriginal": 1
         },
         "edges": [
-            "START -> 000_virtual_START",
-            "START -> teUpdateOriginal",
+            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> teUpdateOriginal",
             "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal"
         ],
         "encoding_to_path": {
@@ -118,8 +118,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_START",
-            "START",
+            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_START",
             "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teUpdateOriginal"
         ],
@@ -132,14 +132,14 @@
     },
     "4": {
         "edge_dst_to_edge": {
-            "teReadOriginal": "START -> teReadOriginal"
+            "teReadOriginal": "VIRTUAL_START -> teReadOriginal"
         },
         "edge_dst_to_increment": {
             "teReadOriginal": 1
         },
         "edges": [
-            "START -> 000_virtual_START",
-            "START -> teReadOriginal",
+            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> teReadOriginal",
             "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal"
         ],
         "encoding_to_path": {
@@ -158,8 +158,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_START",
-            "START",
+            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_START",
             "aeReadOriginal_pfuzz_teReadOriginal",
             "teReadOriginal"
         ],
@@ -172,14 +172,14 @@
     },
     "5": {
         "edge_dst_to_edge": {
-            "teUpdateMirror": "START -> teUpdateMirror"
+            "teUpdateMirror": "VIRTUAL_START -> teUpdateMirror"
         },
         "edge_dst_to_increment": {
             "teUpdateMirror": 1
         },
         "edges": [
-            "START -> 000_virtual_START",
-            "START -> teUpdateMirror",
+            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> teUpdateMirror",
             "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror"
         ],
         "encoding_to_path": {
@@ -198,8 +198,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_START",
-            "START",
+            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_START",
             "aeUpdateMirror_pfuzz_teUpdateMirror",
             "teUpdateMirror"
         ],
@@ -213,7 +213,7 @@
     "global_num_paths": 2,
     "global_paths": [
         [
-            "START",
+            "VIRTUAL_START",
             "eg_intr_mdegress_port40",
             "teUpdateMirror",
             "aeUpdateMirror_pfuzz_teUpdateMirror",
@@ -224,7 +224,7 @@
             "000_virtual_EXIT"
         ],
         [
-            "START",
+            "VIRTUAL_START",
             "eg_intr_mdegress_port40",
             "teReadMirror",
             "aeReadMirror_pfuzz_teReadMirror",
