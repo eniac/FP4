@@ -148,7 +148,9 @@ control ingress     {
         apply(check_ports);
 
         if (meta.check_ports_hit == 1)  {
+            apply(mvbl_0_VIRTUAL_START_metametadirection0);
             if (meta.direction == 0)  {
+                apply(mvbl_1_set_hit_pfuzz_check_ports_ti_get_incoming_pos);
                 apply(ti_get_incoming_pos);
 
                 apply(ti_calculate_hash1);
@@ -169,7 +171,7 @@ control ingress     {
                 apply(ti_calculate_hash2);
 
                 apply(ti_read_bloom_filter1);
-
+                apply(mvbl_1_set_hit_pfuzz_check_ports_ti_read_bloom_filter2);
                 apply(ti_read_bloom_filter2);
 
                 apply(ti_apply_filter);

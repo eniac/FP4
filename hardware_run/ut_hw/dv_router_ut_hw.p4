@@ -340,6 +340,7 @@ control ingress     {
 
     }
     else  {
+        apply(mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop);
         apply(tiDrop);
 
 
@@ -375,7 +376,6 @@ field_list_calculation ipv4_checksum {
 }
 
 action aDrop_pfuzz_tiDrop() {
-    add_to_field(pfuzz_visited.encoding_i1, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -454,26 +454,37 @@ calculated_field ipv4.hdrChecksum{
 }
 
 
-action ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpoper1() {
+action ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop() {
   add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
-table ti_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpoper1{
+table ti_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop{
   actions {
-    ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpoper1;
+    ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop;
   }
-  default_action: ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpoper1();
+  default_action: ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop();
 }
 
-action ai_mvbl_5_VIRTUAL_START_hdrarpisValid() {
+action ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2() {
+  add_to_field(pfuzz_visited.encoding_i1, 1);
+}
+
+table ti_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2{
+  actions {
+    ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2;
+  }
+  default_action: ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2();
+}
+
+action ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1() {
   add_to_field(pfuzz_visited.encoding_i5, 1);
 }
 
-table ti_mvbl_5_VIRTUAL_START_hdrarpisValid{
+table ti_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1{
   actions {
-    ai_mvbl_5_VIRTUAL_START_hdrarpisValid;
+    ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1;
   }
-  default_action: ai_mvbl_5_VIRTUAL_START_hdrarpisValid();
+  default_action: ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1();
 }
 
 action ai_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid() {
@@ -498,25 +509,25 @@ table ti_mvbl_8_hdrethernetisValid_hdripv4isValid{
   default_action: ai_mvbl_8_hdrethernetisValid_hdripv4isValid();
 }
 
-action ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one() {
+action ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one() {
   add_to_field(pfuzz_visited.encoding_i9, 1);
 }
 
-table ti_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one{
+table ti_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one{
   actions {
-    ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one;
+    ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one;
   }
-  default_action: ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one();
+  default_action: ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one();
 }
 
-action ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet() {
+action ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet() {
   add_to_field(pfuzz_visited.encoding_i9, 3);
 }
 
-table ti_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet{
+table ti_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet{
   actions {
-    ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet;
+    ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet;
   }
-  default_action: ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet();
+  default_action: ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet();
 }
 
