@@ -62,7 +62,6 @@ instrumentation/out
 bf_drivers.log*
 control_plane/SDT/*.json
 control_plane/SDT/*.txt
-hardware_run/*.p4
 control_plane/SUT/*.txt
 test_programs/**/*.c
 test_programs/**/*.tmp

@@ -21,7 +21,10 @@ set -ex
 
 ./instrument.sh -n -t hw -r $HOME/FP4/test_programs/p4_14/netchain/hardware_rules.txt -i $HOME/FP4/instrumentation/mvbl/plan/netchain_ingress.json -e $HOME/FP4/instrumentation/mvbl/plan/netchain_egress.json $HOME/FP4/test_programs/p4_14/netchain/netchain.p4
 
-cp sample_out/*.p4 $HOME/FP4/hardware_run/
+mkdir $HOME/FP4/hardware_run/ut_hw/ || echo "Folder exists"
+mkdir $HOME/FP4/hardware_run/dt_hw/ || echo "Folder exists"
+cp sample_out/*ut_hw.p4 $HOME/FP4/hardware_run/ut_hw/
+cp sample_out/*dt_hw.p4 $HOME/FP4/hardware_run/dt_hw/
 cp sample_out/*_ut_hw_rules.txt $HOME/FP4/control_plane/SUT/
 cp sample_out/*_ut_hw_rules.txt $HOME/FP4/control_plane/SDT/
 cp out/*.json $HOME/FP4/control_plane/SDT/
