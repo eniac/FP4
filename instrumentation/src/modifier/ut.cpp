@@ -402,10 +402,10 @@ void UTModifier::distinguishDefaultPopularActions(AstNode* root) {
                     for (std::string action : popular_actions_) {
                         if (tblNode->options_[i].find("(") != std::string::npos) {
                             std::regex pat ("default_action:\\s*("+action+")\\(([\\d]*)\\)");
-                            tblNode->options_[i] = std::regex_replace (tblNode->options_[i], pat, "default_action:$1_fp4_"+tblNode->name_->toString()+"($2)");   
+                            tblNode->options_[i] = std::regex_replace (tblNode->options_[i], pat, "default_action:$1_pfuzz_"+tblNode->name_->toString()+"($2)");   
                         } else {
                             std::regex pat ("default_action:\\s*("+action+")");
-                            tblNode->options_[i] = std::regex_replace (tblNode->options_[i], pat, "default_action:$1_fp4_"+tblNode->name_->toString());      
+                            tblNode->options_[i] = std::regex_replace (tblNode->options_[i], pat, "default_action:$1_pfuzz_"+tblNode->name_->toString());      
                         }                  
                     }
                 }
@@ -429,16 +429,16 @@ void UTModifier::instrumentRules() {
         for (std::string action : popular_actions_) {
             if (strcmp(target_, "sim")==0) {
                 std::regex pat1 ("table_set_default\\s*([a-z_\\d]*)\\s*("+action+")\\s*");
-                temp = std::regex_replace (temp, pat1, "table_set_default $1 $2_fp4_$1");
+                temp = std::regex_replace (temp, pat1, "table_set_default $1 $2_pfuzz_$1");
 
                 std::regex pat2 ("table_add\\s*([a-z_\\d]*)\\s*("+action+")\\s*");
-                temp = std::regex_replace (temp, pat2, "table_add $1 $2_fp4_$1 ");            
+                temp = std::regex_replace (temp, pat2, "table_add $1 $2_pfuzz_$1 ");            
             } else if (strcmp(target_, "hw")==0) {
                 std::regex pat1 ("pd\\s*([a-zA-Z_\\d]*)\\s*set_default_action\\s*("+action+")\\s*");
-                temp = std::regex_replace (temp, pat1, "pd $1 set_default_action $2_fp4_$1");
+                temp = std::regex_replace (temp, pat1, "pd $1 set_default_action $2_pfuzz_$1");
 
                 std::regex pat2 ("pd\\s*([a-zA-Z_\\d]*)\\s*add_entry\\s*("+action+")\\s*");
-                temp = std::regex_replace (temp, pat2, "pd $1 add_entry $2_fp4_$1 ");
+                temp = std::regex_replace (temp, pat2, "pd $1 add_entry $2_pfuzz_$1 ");
             } else {
                 PANIC("Unknown target!\n");
             } 
