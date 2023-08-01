@@ -8,13 +8,14 @@ import argparse
 import json
 
 prog_names = [
-        "Firewall",
-        "LoadBalance",
-        "RateLimiter",
+        "firewall",
+        "load_balance",
+        "rate_limiter",
         "basic_routing",
         "dv_router",
         "mirror_clone",
-        "netchain"
+        "netchain",
+        "switch_80019"
         ]
 
 prefix="/home/leoyu/bf-sde-9.2.0/pkgsrc/p4-build/tofino/"
