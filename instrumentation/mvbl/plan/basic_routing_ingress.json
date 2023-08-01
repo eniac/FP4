@@ -1,34 +1,30 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "hdripv4isValid": "virtual_start -> hdripv4isValid",
             "ipv4_fib_lpm": "hdripv4isValid -> ipv4_fib_lpm",
             "on_miss_pfuzz_ipv4_fib_lpm": "ipv4_fib_lpm -> on_miss_pfuzz_ipv4_fib_lpm"
         },
         "edge_dst_to_increment": {
-            "hdripv4isValid": 1,
             "ipv4_fib_lpm": 1,
             "on_miss_pfuzz_ipv4_fib_lpm": 1
         },
         "edges": [
+            "START -> hdripv4isValid",
             "hdripv4isValid -> 000_virtual_hdripv4isValid",
             "hdripv4isValid -> ipv4_fib_lpm",
             "ipv4_fib_lpm -> fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "ipv4_fib_lpm -> on_miss_pfuzz_ipv4_fib_lpm",
-            "virtual_start -> 000_virtual_virtual_start",
-            "virtual_start -> hdripv4isValid"
+            "ipv4_fib_lpm -> on_miss_pfuzz_ipv4_fib_lpm"
         ],
         "encoding_to_path": {
-            "0": [],
-            "1": [
+            "0": [
                 "hdripv4isValid"
             ],
-            "2": [
+            "1": [
                 "hdripv4isValid",
                 "ipv4_fib_lpm",
                 "fib_hit_nexthop_pfuzz_ipv4_fib_lpm"
             ],
-            "3": [
+            "2": [
                 "hdripv4isValid",
                 "ipv4_fib_lpm",
                 "on_miss_pfuzz_ipv4_fib_lpm"
@@ -36,41 +32,33 @@
         },
         "final_edge_dst_to_edge": {
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm": "ipv4_fib_lpm -> fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "hdripv4isValid": "virtual_start -> hdripv4isValid",
             "on_miss_pfuzz_ipv4_fib_lpm": "ipv4_fib_lpm -> on_miss_pfuzz_ipv4_fib_lpm"
         },
         "final_edge_dst_to_increment": {
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm": 1,
-            "hdripv4isValid": 1,
             "on_miss_pfuzz_ipv4_fib_lpm": 2
         },
-        "final_non_action_to_increment": {
-            "hdripv4isValid": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdripv4isValid": "mvbl_0_virtual_start_hdripv4isValid"
-        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "nodes": [
             "000_virtual_hdripv4isValid",
-            "000_virtual_virtual_start",
+            "START",
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "hdripv4isValid",
             "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
-            "virtual_start"
+            "on_miss_pfuzz_ipv4_fib_lpm"
         ],
         "non_action_to_increment": {
-            "hdripv4isValid": 1,
             "ipv4_fib_lpm": 1
         },
         "num_bits": 8,
         "num_bits_original": 2,
-        "num_paths": 4
+        "num_paths": 3
     },
     "1": {
         "edge_dst_to_edge": {
             "on_miss_ipv4_fib_pfuzz_ipv4_fib": "ipv4_fib -> on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "port_mapping": "virtual_start -> port_mapping",
+            "port_mapping": "START -> port_mapping",
             "set_bd_pfuzz_port_mapping": "port_mapping -> set_bd_pfuzz_port_mapping",
             "set_egress_details_pfuzz_nexthop": "nexthop -> set_egress_details_pfuzz_nexthop",
             "set_vrf_pfuzz_bd": "bd -> set_vrf_pfuzz_bd"
@@ -83,6 +71,8 @@
             "set_vrf_pfuzz_bd": 4
         },
         "edges": [
+            "START -> 000_virtual_START",
+            "START -> port_mapping",
             "bd -> on_miss_pfuzz_bd",
             "bd -> set_vrf_pfuzz_bd",
             "fib_hit_nexthop_pfuzz_ipv4_fib -> metaingress_metadataon_miss_ipv4_fib1",
@@ -97,9 +87,7 @@
             "port_mapping -> on_miss_pfuzz_port_mapping",
             "port_mapping -> set_bd_pfuzz_port_mapping",
             "set_bd_pfuzz_port_mapping -> bd",
-            "set_vrf_pfuzz_bd -> ipv4_fib",
-            "virtual_start -> 000_virtual_virtual_start",
-            "virtual_start -> port_mapping"
+            "set_vrf_pfuzz_bd -> ipv4_fib"
         ],
         "encoding_to_path": {
             "0": [],
@@ -297,7 +285,8 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
-            "000_virtual_virtual_start",
+            "000_virtual_START",
+            "START",
             "ai_drop_pfuzz_nexthop",
             "bd",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
@@ -310,8 +299,7 @@
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
             "set_egress_details_pfuzz_nexthop",
-            "set_vrf_pfuzz_bd",
-            "virtual_start"
+            "set_vrf_pfuzz_bd"
         ],
         "non_action_to_increment": {
             "port_mapping": 1
@@ -323,81 +311,12 @@
     "global_num_paths": 49,
     "global_paths": [
         [
+            "START",
             "hdripv4isValid",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -410,35 +329,86 @@
             "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
             "bd",
             "set_vrf_pfuzz_bd",
             "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
             "bd",
             "set_vrf_pfuzz_bd",
             "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -448,27 +418,13 @@
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -481,9 +437,10 @@
             "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -493,25 +450,57 @@
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
             "bd",
-            "on_miss_pfuzz_bd",
+            "set_vrf_pfuzz_bd",
             "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -520,11 +509,46 @@
             "ipv4_fib",
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -537,9 +561,10 @@
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -548,13 +573,12 @@
             "ipv4_fib",
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -563,99 +587,12 @@
             "ipv4_fib",
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "set_bd_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "set_bd_pfuzz_port_mapping",
@@ -668,35 +605,86 @@
             "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
-            "on_miss_pfuzz_port_mapping",
+            "set_bd_pfuzz_port_mapping",
             "bd",
-            "set_vrf_pfuzz_bd",
+            "on_miss_pfuzz_bd",
             "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
-            "on_miss_pfuzz_port_mapping",
+            "set_bd_pfuzz_port_mapping",
             "bd",
-            "set_vrf_pfuzz_bd",
+            "on_miss_pfuzz_bd",
             "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "set_bd_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -706,27 +694,13 @@
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "on_miss_pfuzz_port_mapping",
-            "bd",
-            "set_vrf_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -739,9 +713,10 @@
             "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -751,25 +726,57 @@
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
             "bd",
             "set_vrf_pfuzz_bd",
             "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "on_miss_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "on_miss_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -778,11 +785,46 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "on_miss_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "on_miss_pfuzz_port_mapping",
+            "bd",
+            "set_vrf_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -795,9 +837,10 @@
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -806,13 +849,12 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -821,54 +863,28 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
             "bd",
-            "set_vrf_pfuzz_bd",
+            "on_miss_pfuzz_bd",
             "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
             "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
-            "hdripv4isValid",
-            "port_mapping",
-            "on_miss_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "nexthop",
-            "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "on_miss_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -878,12 +894,13 @@
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -896,9 +913,10 @@
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -908,12 +926,13 @@
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -922,13 +941,42 @@
             "ipv4_fib",
             "on_miss_ipv4_fib_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "nexthop",
+            "ai_drop_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "on_miss_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "on_miss_ipv4_fib_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
+            "nexthop",
+            "set_egress_details_pfuzz_nexthop",
+            "000_virtual_EXIT"
+        ],
+        [
+            "START",
+            "hdripv4isValid",
+            "port_mapping",
+            "on_miss_pfuzz_port_mapping",
+            "bd",
+            "on_miss_pfuzz_bd",
+            "ipv4_fib",
+            "fib_hit_nexthop_pfuzz_ipv4_fib",
+            "metaingress_metadataon_miss_ipv4_fib1",
             "ipv4_fib_lpm",
             "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -937,11 +985,14 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -950,11 +1001,14 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
+            "ipv4_fib_lpm",
+            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -967,9 +1021,10 @@
             "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -978,13 +1033,12 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "fib_hit_nexthop_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "hdripv4isValid",
             "port_mapping",
             "on_miss_pfuzz_port_mapping",
@@ -993,26 +1047,9 @@
             "ipv4_fib",
             "fib_hit_nexthop_pfuzz_ipv4_fib",
             "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
             "nexthop",
             "set_egress_details_pfuzz_nexthop",
-            "000_virtual_exit"
-        ],
-        [
-            "hdripv4isValid",
-            "port_mapping",
-            "on_miss_pfuzz_port_mapping",
-            "bd",
-            "on_miss_pfuzz_bd",
-            "ipv4_fib",
-            "fib_hit_nexthop_pfuzz_ipv4_fib",
-            "metaingress_metadataon_miss_ipv4_fib1",
-            "ipv4_fib_lpm",
-            "on_miss_pfuzz_ipv4_fib_lpm",
-            "nexthop",
-            "ai_drop_pfuzz_nexthop",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ]
     ],
     "num_vars": 2,
@@ -1066,7 +1103,7 @@
             "nexthop"
         ]
     },
-    "sum_num_paths": 21,
+    "sum_num_paths": 20,
     "table2actions_dict": {
         "bd": [
             "set_vrf_pfuzz_bd",

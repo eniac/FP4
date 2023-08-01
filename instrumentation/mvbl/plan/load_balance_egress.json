@@ -7,9 +7,9 @@
             "rewrite_mac_pfuzz_send_frame": 1
         },
         "edges": [
+            "START -> send_frame",
             "send_frame -> drop_packet_pfuzz_send_frame",
-            "send_frame -> rewrite_mac_pfuzz_send_frame",
-            "virtual_start -> send_frame"
+            "send_frame -> rewrite_mac_pfuzz_send_frame"
         ],
         "encoding_to_path": {
             "0": [
@@ -30,10 +30,10 @@
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "nodes": [
+            "START",
             "drop_packet_pfuzz_send_frame",
             "rewrite_mac_pfuzz_send_frame",
-            "send_frame",
-            "virtual_start"
+            "send_frame"
         ],
         "non_action_to_increment": {},
         "num_bits": 8,
@@ -43,14 +43,16 @@
     "global_num_paths": 2,
     "global_paths": [
         [
+            "START",
             "send_frame",
             "rewrite_mac_pfuzz_send_frame",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ],
         [
+            "START",
             "send_frame",
             "drop_packet_pfuzz_send_frame",
-            "000_virtual_exit"
+            "000_virtual_EXIT"
         ]
     ],
     "num_vars": 1,

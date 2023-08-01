@@ -256,8 +256,8 @@ class GraphParser(object):
         print("\n====== Update full_graph with exit ======")
         full_graph_new_edges = []
         virtual_node_prefix = "000_virtual_"
-        virtual_node_exit = virtual_node_prefix + "exit"
-        virtual_start_node = "virtual_start"
+        virtual_node_exit = virtual_node_prefix + "EXIT"
+        virtual_start_node = "START"
         for node in full_graph.nodes:
             # For action, check if its table is in edge
             if UNIQUE_ACTION_SIG in node:
@@ -267,13 +267,14 @@ class GraphParser(object):
             elif node not in table2actions_dict:
                 if node in table_conditional_to_exit:
                     full_graph_new_edges.append([node, virtual_node_exit])
+        full_graph_new_edges.append([virtual_start_node, global_root_node])
 
         print("--- full_graph_new_edges ---")
         # full_graph.add_node(virtual_node_exit)
         print(full_graph_new_edges)
         for edge in full_graph_new_edges:
             full_graph.add_edge(edge[0], edge[1])
-        visualize_digraph(full_graph, "full_graph with exit")
+        visualize_digraph(full_graph, "full_graph with exit, start")
 
         full_graph_with_exit_leaf_nodes = [v for v, d in full_graph.out_degree() if d == 0]
         print("--- full_graph_with_exit_leaf_nodes ---")
@@ -333,9 +334,10 @@ class GraphParser(object):
             
             print("--- Check if needed to add a virtual node from start node, to avoid false encoding of path 0 ---")
             add_virtual_node_from_start = False
-            all_paths = nx.all_simple_paths(full_graph, global_root_node, virtual_node_exit)
+            all_paths = nx.all_simple_paths(full_graph, virtual_start_node, virtual_node_exit)
             for path in all_paths:
                 if set(path[1:-1]).isdisjoint(included_table_conditional_action):
+                    print("path {0}'s component {1} isdisjoint from {2}".format(path, path[1:-1], included_table_conditional_action))
                     add_virtual_node_from_start = True
                     break
             if add_virtual_node_from_start:
