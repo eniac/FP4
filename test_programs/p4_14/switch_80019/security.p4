@@ -71,7 +71,7 @@ meter storm_control_meter {
 
 action set_storm_control_meter(meter_idx) {
     // execute_meter(storm_control_meter, meter_idx,
-                //   meter_metadata.storm_control_color);
+    //               meter_metadata.storm_control_color);
 }
 
 table storm_control {

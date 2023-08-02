@@ -21,6 +21,11 @@
  * $Id: $
  *
  ******************************************************************************/
+
+// #define TUNNEL_DISABLE
+// #define IPV4_TUNNEL_DISABLE
+// #define IPV6_TUNNEL_DISABLE
+
 #ifdef __TARGET_BMV2__
 #define BMV2
 #endif
@@ -202,7 +207,7 @@ control ingress {
     } else {
 #endif /* PKTGEN_ENABLE */
     /* process outer packet headers */
-    // process_validate_outer_header();
+    process_validate_outer_header();
 
     /* process bfd rx packets */
     process_bfd_rx_packet();
