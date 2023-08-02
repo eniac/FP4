@@ -702,6 +702,7 @@ class GraphParser(object):
         json_output_final_non_action_increment_dict = {}
         json_output_final_non_action_increment_rootword_dict = {}
         # Get the original increment plan
+        tables_applied_batch_incre = []
         for edge in weighted_edges:
             if edge['weight'] == 0:
                 continue
@@ -720,6 +721,7 @@ class GraphParser(object):
                             # if full_graph.in_degree()[edge['dst']] != 1:
                             #     raise Exception("full_graph.in_degree()[edge['dst']] != 1 for {}".format(edge['dst']))
                             print("[INFO] For a table, OK to merge the weights of the edge its actions as its sub-DAG in_degree == 1")
+                            tables_applied_batch_incre.append(edge['dst'])
                             if graph_with_weights.out_degree()[edge['dst']] == len(table2actions_dict[edge['dst']]):
                                 print("Merge the weights to the edges to its actions...")
                                 out_edges_to_merge = graph_with_weights.out_edges(edge['dst'], data=True)
@@ -731,8 +733,34 @@ class GraphParser(object):
                                 raise Exception("out_degree() {0} != {1} actions".format(graph_with_weights.out_degree()[edge['dst']], len(table2actions_dict[edge['dst']])))
                         # Case 2: If full in_degree is 1, regardless of sub-DAG
                         elif full_graph.in_degree()[edge['dst']] == 1:
-                            # It must be the case that all sub-DAG indegree nodes are actions
-                            predecessor_nodes = list(.predecessors('A'))
+                            print("Need to double check if the weight is still non-zero")
+                            if edge['dst'] in tables_applied_batch_incre:
+                                print("edge['dst'] in tables_applied_batch_incre")
+                                graph_with_weights[edge['src']][edge['dst']]['weight'] = 0
+                                continue
+                            print("We can merge if all the edge weights are the same in sub-DAG")
+                            predecessor_nodes = list(graph_with_weights.predecessors(edge['dst']))
+                            is_all_actions = True
+                            # For now just merge if all of them are actions with equal weights
+                            for predecessor_node in predecessor_nodes:
+                                if UNIQUE_ACTION_SIG not in predecessor_node:
+                                    is_all_actions = False
+                            if is_all_actions:
+                                print("Check if equal!")
+                                weight_to_check = graph_with_weights[predecessor_node][edge['dst']]['weight']
+                                print("Weight: {}".format(weight_to_check))
+                                for predecessor_node in predecessor_nodes:
+                                    if graph_with_weights[predecessor_node][edge['dst']]['weight'] != weight_to_check:
+                                        print("Not equal!")
+                                        continue
+                                print("Is equal!")
+                                tables_applied_batch_incre.append(edge['dst'])
+                                out_edges_to_merge = graph_with_weights.out_edges(edge['dst'], data=True)
+                                for out_edge_to_merge in out_edges_to_merge:
+                                    graph_with_weights[out_edge_to_merge[0]][out_edge_to_merge[1]]['weight'] += edge['weight']
+                                graph_with_weights[edge['src']][edge['dst']]['weight'] = 0                                
+                            else:
+                                raise Exception("Predecessors are not all actions!")
                         else:
                             print("[WARNING] Can't instrument this edge for this dst table!")
                             # raise Exception("Can't instrument this edge for this dst table!")
