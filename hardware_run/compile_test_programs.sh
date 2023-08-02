@@ -10,14 +10,15 @@ set -ex
 start=$(date +%s)
 
 program_list=(
-   "firewall"
-   "load_balance"
-   "rate_limiter"
-   "basic_routing"
-   "basic_routing_old"
+   # "basic_routing"
+   # "firewall"
+   # "load_balance"
+   # "rate_limiter"
+   # "basic_routing_old"
    "dv_router"
-   "mirror_clone"
-   "netchain"
+   # "mirror_clone"
+   # "netchain"
+   # "switch_80019"
 )
 
 for program in "${program_list[@]}"
