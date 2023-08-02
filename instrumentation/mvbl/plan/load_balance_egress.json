@@ -29,6 +29,9 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "send_frame -> rewrite_mac_pfuzz_send_frame": 1
+        },
         "nodes": [
             "VIRTUAL_START",
             "drop_packet_pfuzz_send_frame",
@@ -36,6 +39,9 @@
             "send_frame"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {
+            "send_frame -> rewrite_mac_pfuzz_send_frame": 1
+        },
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 2
@@ -45,13 +51,13 @@
         [
             "VIRTUAL_START",
             "send_frame",
-            "rewrite_mac_pfuzz_send_frame",
+            "drop_packet_pfuzz_send_frame",
             "000_virtual_EXIT"
         ],
         [
             "VIRTUAL_START",
             "send_frame",
-            "drop_packet_pfuzz_send_frame",
+            "rewrite_mac_pfuzz_send_frame",
             "000_virtual_EXIT"
         ]
     ],

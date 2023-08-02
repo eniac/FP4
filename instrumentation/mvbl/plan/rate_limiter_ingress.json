@@ -14,11 +14,13 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
         "nodes": [
             "VIRTUAL_START",
             "hdripv4isValid"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {},
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 1
@@ -68,6 +70,11 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "ipv4_lpm -> ai_noOp_pfuzz_ipv4_lpm": 1,
+            "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm": 2,
+            "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm": 3
+        },
         "nodes": [
             "000_virtual_VIRTUAL_START",
             "VIRTUAL_START",
@@ -79,6 +86,11 @@
         "non_action_to_increment": {
             "ipv4_lpm": 1
         },
+        "nonzero_edge_list": {
+            "VIRTUAL_START -> ipv4_lpm": 1,
+            "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm": 1,
+            "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm": 2
+        },
         "num_bits": 8,
         "num_bits_original": 2,
         "num_paths": 4
@@ -88,8 +100,13 @@
         [
             "VIRTUAL_START",
             "hdripv4isValid",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
             "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ],
         [
@@ -103,12 +120,7 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
+            "drop_packet_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ]
     ],

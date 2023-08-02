@@ -7,7 +7,7 @@ import networkx as nx
 import copy
 import re
 import sys
-
+from collections import defaultdict
 
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
@@ -57,6 +57,9 @@ JSON_OUTPUT_KEY_FINAL_EDGE_DST_EDGE_DICT = "final_edge_dst_to_increment"
 JSON_OUTPUT_KEY_FINAL_EDGE_INCREMENT_DICT = "final_edge_dst_to_edge"
 JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_DICT = "final_non_action_to_increment"
 JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT = "final_non_action_to_increment_rootword"
+JSON_OUTPUT_KEY_NONZERO_EDGE_DICT = "nonzero_edge_list"
+JSON_OUTPUT_KEY_FINAL_NONZERO_EDGE_DICT = "final_nonzero_edge_list"
+JSON_OUTPUT_KEY_FINAL_INCAST_EDGE_DST_LIST = "final_incast_edge_dst_list"
 JSON_OUTPUT_KEY_ENCODING_TO_PATH_DICT = "encoding_to_path"
 JSON_OUTPUT_KEY_NUM_PATHS = "num_paths"
 JSON_OUTPUT_KEY_NODES = "nodes"
@@ -385,7 +388,7 @@ class GraphParser(object):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
 
-            graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict = self.ball_larus(graph, table2actions_dict, idx, full_graph)
+            graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict, json_output_nonzero_edge_dict, json_output_final_nonzero_edge_dict = self.ball_larus(graph, table2actions_dict, idx, full_graph)
 
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = json_output_edge_dst_increment_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT] = json_output_edge_dst_edge_dict
@@ -394,6 +397,18 @@ class GraphParser(object):
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_EDGE_INCREMENT_DICT] = json_output_final_edge_dst_edge_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_DICT] = json_output_final_non_action_increment_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NON_ACTION_INCREMENT_ROOTWORD_DICT] = json_output_final_non_action_increment_rootword_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_NONZERO_EDGE_DICT] = json_output_nonzero_edge_dict
+            json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_NONZERO_EDGE_DICT] = json_output_final_nonzero_edge_dict
+
+            # Check if there is a node being edge dst multiple times
+            if len(json_output_final_nonzero_edge_dict) != len(json_output_final_edge_dst_edge_dict):
+                edge_dst_tmp = [edge.split(' -> ')[1] for edge in json_output_final_nonzero_edge_dict.keys()]
+                counter = defaultdict(int)
+                for s in edge_dst_tmp:
+                    counter[s] += 1
+                duplicates = [s for s, count in counter.items() if count > 1]
+                json_output_dict[JSON_OUTPUT_KEY_FINAL_INCAST_EDGE_DST_LIST] = duplicates
+
             graphs_with_weights.append(graph_with_weights)
 
             for edge_dst_to_increment in json_output_dict[str(idx)][JSON_OUTPUT_KEY_FINAL_EDGE_INCREMENT_DICT]:
@@ -701,6 +716,8 @@ class GraphParser(object):
         json_output_final_edge_dst_edge_dict = {}
         json_output_final_non_action_increment_dict = {}
         json_output_final_non_action_increment_rootword_dict = {}
+        json_output_nonzero_edge_dict = {}
+        json_output_final_nonzero_edge_dict = {}
         # Get the original increment plan
         tables_applied_batch_incre = []
         for edge in weighted_edges:
@@ -709,6 +726,7 @@ class GraphParser(object):
             else:
                 json_output_edge_dst_increment_dict[edge['dst']] = edge['weight']
                 json_output_edge_dst_edge_dict[edge['dst']] = (edge['src']+" -> "+edge['dst'])
+                json_output_nonzero_edge_dict[edge['src']+" -> "+edge['dst']] = edge['weight']
                 print(edge)
                 if UNIQUE_ACTION_SIG not in edge['dst']:
                     print("[WARNING] Target instrumentation point {} is NOT an action!".format(edge['dst']))
@@ -773,11 +791,12 @@ class GraphParser(object):
             if edge[2]['weight'] != 0:
                 json_output_final_edge_dst_increment_dict[edge[1]] = edge[2]['weight']
                 json_output_final_edge_dst_edge_dict[edge[1]] = (edge[0]+" -> "+edge[1])
+                json_output_final_nonzero_edge_dict[edge[0]+" -> "+edge[1]] = edge[2]['weight']
                 if UNIQUE_ACTION_SIG not in edge[1]:
                     json_output_final_non_action_increment_dict[edge[1]] = edge[2]['weight']
                     json_output_final_non_action_increment_rootword_dict[edge[1]] = "mvbl_"+str(graph_idx)+"_"+edge[0]+"_"+edge[1]
 
-        return graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict
+        return graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict, json_output_nonzero_edge_dict, json_output_final_nonzero_edge_dict
 
     def estimate_stages(self, original_graph):
         graph = copy.deepcopy(original_graph)

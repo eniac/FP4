@@ -16,12 +16,14 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
         "nodes": [
             "VIRTUAL_START",
             "aeGetDiff_pfuzz_teGetDiff",
             "teGetDiff"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {},
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 1
@@ -41,11 +43,13 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
         "nodes": [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {},
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 1
@@ -77,6 +81,9 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "teReadMirror -> aeReadMirror_pfuzz_teReadMirror": 1
+        },
         "nodes": [
             "000_virtual_VIRTUAL_START",
             "VIRTUAL_START",
@@ -85,6 +92,9 @@
         ],
         "non_action_to_increment": {
             "teReadMirror": 1
+        },
+        "nonzero_edge_list": {
+            "VIRTUAL_START -> teReadMirror": 1
         },
         "num_bits": 8,
         "num_bits_original": 1,
@@ -117,6 +127,9 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal": 1
+        },
         "nodes": [
             "000_virtual_VIRTUAL_START",
             "VIRTUAL_START",
@@ -125,6 +138,9 @@
         ],
         "non_action_to_increment": {
             "teUpdateOriginal": 1
+        },
+        "nonzero_edge_list": {
+            "VIRTUAL_START -> teUpdateOriginal": 1
         },
         "num_bits": 8,
         "num_bits_original": 1,
@@ -157,6 +173,9 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal": 1
+        },
         "nodes": [
             "000_virtual_VIRTUAL_START",
             "VIRTUAL_START",
@@ -165,6 +184,9 @@
         ],
         "non_action_to_increment": {
             "teReadOriginal": 1
+        },
+        "nonzero_edge_list": {
+            "VIRTUAL_START -> teReadOriginal": 1
         },
         "num_bits": 8,
         "num_bits_original": 1,
@@ -197,6 +219,9 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror": 1
+        },
         "nodes": [
             "000_virtual_VIRTUAL_START",
             "VIRTUAL_START",
@@ -205,6 +230,9 @@
         ],
         "non_action_to_increment": {
             "teUpdateMirror": 1
+        },
+        "nonzero_edge_list": {
+            "VIRTUAL_START -> teUpdateMirror": 1
         },
         "num_bits": 8,
         "num_bits_original": 1,
@@ -215,10 +243,10 @@
         [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teReadOriginal",
-            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror",
+            "teUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_EXIT"
@@ -226,10 +254,10 @@
         [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40",
-            "teReadMirror",
-            "aeReadMirror_pfuzz_teReadMirror",
-            "teUpdateOriginal",
-            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_EXIT"

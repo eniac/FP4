@@ -16,12 +16,14 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
         "nodes": [
             "VIRTUAL_START",
             "aiSendClone_pfuzz_tiSendClone",
             "tiSendClone"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {},
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 1
@@ -43,12 +45,14 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
         "nodes": [
             "VIRTUAL_START",
             "aiSetOutputPort_pfuzz_tiSetOutputPort",
             "tiSetOutputPort"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {},
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 1

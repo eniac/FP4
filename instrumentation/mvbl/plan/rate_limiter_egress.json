@@ -14,11 +14,13 @@
         "final_edge_dst_to_increment": {},
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
         "nodes": [
             "VIRTUAL_START",
             "metametacurrent_reading0"
         ],
         "non_action_to_increment": {},
+        "nonzero_edge_list": {},
         "num_bits": 8,
         "num_bits_original": 1,
         "num_paths": 1
@@ -75,6 +77,9 @@
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "te_drop -> drop_packet_pfuzz_te_drop": 1
+        },
         "nodes": [
             "000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
             "VIRTUAL_START",
@@ -91,6 +96,9 @@
         ],
         "non_action_to_increment": {
             "te_drop": 1
+        },
+        "nonzero_edge_list": {
+            "ae_rate_limit_pfuzz_te_rate_limit -> te_drop": 1
         },
         "num_bits": 8,
         "num_bits_original": 5,
@@ -109,6 +117,8 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
+            "te_drop",
+            "drop_packet_pfuzz_te_drop",
             "000_virtual_EXIT"
         ],
         [
@@ -122,8 +132,6 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
-            "te_drop",
-            "drop_packet_pfuzz_te_drop",
             "000_virtual_EXIT"
         ]
     ],
