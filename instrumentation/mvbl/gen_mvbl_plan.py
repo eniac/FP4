@@ -465,6 +465,7 @@ class GraphParser(object):
             sum_num_paths += len(all_paths_weights)
             print("--- Expecting all_paths_weights with weight from 0 to {} ---".format(len(all_paths_weights)))
             expected_weight = 0
+            # LC_TODO: check every path is unique
             for path, weight in all_paths_weights:
                 print("Path: {0}, Total Weight: {1}".format(path, weight))
                 if path[0] != virtual_start_node:
