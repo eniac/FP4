@@ -385,7 +385,7 @@ class GraphParser(object):
             print("\n====== Running BL for subgraph {0} ======".format(idx))
             print("----- Get BL plan for variable {0} additions------".format(idx))
 
-            graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict = self.ball_larus(graph, table2actions_dict, idx)
+            graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict = self.ball_larus(graph, table2actions_dict, idx, full_graph)
 
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = json_output_edge_dst_increment_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT] = json_output_edge_dst_edge_dict
@@ -649,7 +649,7 @@ class GraphParser(object):
             reverse_new_node_mapping[new_node] = node
         return new_node_mapping, reverse_new_node_mapping
 
-    def ball_larus(self, graph, table2actions_dict, graph_idx):
+    def ball_larus(self, graph, table2actions_dict, graph_idx, full_graph):
         weighted_edges = []
         for e in graph.edges:
             # print(e)
@@ -714,8 +714,12 @@ class GraphParser(object):
                     json_output_non_action_increment_dict[edge['dst']] = edge['weight']
                     # If the edge destination is a table, try to relocate it...
                     if edge['dst'] in table2actions_dict:
+                        # Case 1: If sug-DAG in_degree is 1 (regardless of full in_degree)
                         if graph_with_weights.in_degree()[edge['dst']] == 1:
-                            print("[INFO] For a table, OK to merge the weights of the edge its actions as its in_degree == 1")
+                            # Edge case: IN-conditional -> OUT-table -> IN-table
+                            # if full_graph.in_degree()[edge['dst']] != 1:
+                            #     raise Exception("full_graph.in_degree()[edge['dst']] != 1 for {}".format(edge['dst']))
+                            print("[INFO] For a table, OK to merge the weights of the edge its actions as its sub-DAG in_degree == 1")
                             if graph_with_weights.out_degree()[edge['dst']] == len(table2actions_dict[edge['dst']]):
                                 print("Merge the weights to the edges to its actions...")
                                 out_edges_to_merge = graph_with_weights.out_edges(edge['dst'], data=True)
@@ -725,6 +729,10 @@ class GraphParser(object):
                                 graph_with_weights[edge['src']][edge['dst']]['weight'] = 0
                             else:
                                 raise Exception("out_degree() {0} != {1} actions".format(graph_with_weights.out_degree()[edge['dst']], len(table2actions_dict[edge['dst']])))
+                        # Case 2: If full in_degree is 1, regardless of sub-DAG
+                        elif full_graph.in_degree()[edge['dst']] == 1:
+                            # It must be the case that all sub-DAG indegree nodes are actions
+                            predecessor_nodes = list(.predecessors('A'))
                         else:
                             print("[WARNING] Can't instrument this edge for this dst table!")
                             # raise Exception("Can't instrument this edge for this dst table!")
