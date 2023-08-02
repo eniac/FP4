@@ -117,8 +117,6 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
-            "te_drop",
-            "drop_packet_pfuzz_te_drop",
             "000_virtual_EXIT"
         ],
         [
@@ -132,6 +130,8 @@
             "te_rate_limit",
             "ae_rate_limit_pfuzz_te_rate_limit",
             "metametacurrent_reading0",
+            "te_drop",
+            "drop_packet_pfuzz_te_drop",
             "000_virtual_EXIT"
         ]
     ],

@@ -100,13 +100,8 @@
         [
             "VIRTUAL_START",
             "hdripv4isValid",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ],
         [
@@ -120,7 +115,12 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
             "000_virtual_EXIT"
         ]
     ],

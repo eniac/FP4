@@ -243,10 +243,10 @@
         [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40",
-            "teReadMirror",
-            "aeReadMirror_pfuzz_teReadMirror",
-            "teUpdateOriginal",
-            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_EXIT"
@@ -254,10 +254,10 @@
         [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teReadOriginal",
-            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror",
+            "teUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_EXIT"
