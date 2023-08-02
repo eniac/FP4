@@ -354,7 +354,7 @@ control ingress     {
 
         if (nc_hdr.op == 0)  {
             apply(acquire_lock_table);
-            apply(mvbl_1_hdrnc_hdrisValid_metametaavailable0);
+            apply(ti_mvbl_1_hdrnc_hdrisValid_metametaavailable0);
             if (meta.available != 0)  {
                 apply(set_retry_table);
 
@@ -364,7 +364,7 @@ control ingress     {
 
         }
         else  {
-            apply(mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1);
+            apply(ti_mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1);
             if (nc_hdr.op == 1)  {
                 apply(release_lock_table);
 

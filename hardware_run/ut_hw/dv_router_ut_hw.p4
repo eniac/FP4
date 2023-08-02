@@ -315,33 +315,52 @@ control ingress     {
     if (cis553_metadata.forMe == 0)  {
 
     }
-    else     if (valid(ipv4))  {
-        apply(tiHandleIpv4);
-
-        apply(tiHandleOutgoingEthernet);
-
-
-    }
-    else     if (valid(arp) && arp.oper == 1)  {
-        apply(tiHandleIncomingArpReqest_part_one);
-
-        apply(tiHandleIncomingArpReqest_part_two);
-
-
-    }
-    else     if (valid(arp) && arp.oper == 2)  {
-        apply(tiHandleIncomingArpResponse);
-
-
-    }
-    else     if (valid(distance_vec))  {
-        apply(tiHandleIncomingRouting);
-
-
-    }
     else  {
-        apply(mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop);
-        apply(tiDrop);
+        apply(ti_mvbl_8_hdrethernetisValid_hdripv4isValid);
+        if (valid(ipv4))  {
+            apply(tiHandleIpv4);
+            apply(ti_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet);
+            apply(tiHandleOutgoingEthernet);
+
+
+        }
+        else  {
+            apply(ti_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1);
+            if (valid(arp) && arp.oper == 1)  {
+                apply(tiHandleIncomingArpReqest_part_one);
+
+                apply(tiHandleIncomingArpReqest_part_two);
+
+
+            }
+            else  {
+                apply(ti_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2);
+                if (valid(arp) && arp.oper == 2)  {
+                    apply(tiHandleIncomingArpResponse);
+
+
+                }
+                else  {
+                    apply(ti_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid);
+                    if (valid(distance_vec))  {
+                        apply(tiHandleIncomingRouting);
+
+
+                    }
+                    else  {
+                        apply(tiDrop);
+
+
+                    }
+
+
+                }
+
+
+            }
+
+
+        }
 
 
     }
@@ -376,6 +395,7 @@ field_list_calculation ipv4_checksum {
 }
 
 action aDrop_pfuzz_tiDrop() {
+    add_to_field(pfuzz_visited.encoding_i1, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -393,7 +413,7 @@ action ai_nop_pfuzz_tiHandleOutgoingRouting() {
 }
 
 action ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one() {
-    add_to_field(pfuzz_visited.encoding_i9, 1);
+    add_to_field(pfuzz_visited.encoding_i9, 2);
 }
 
 action aDrop_pfuzz_tiHandleIncomingArpReqest_part_two() {
@@ -454,26 +474,15 @@ calculated_field ipv4.hdrChecksum{
 }
 
 
-action ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop() {
+action ai_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2() {
   add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
-table ti_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop{
+table ti_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2{
   actions {
-    ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop;
+    ai_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2;
   }
-  default_action: ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_tiDrop();
-}
-
-action ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2() {
-  add_to_field(pfuzz_visited.encoding_i1, 1);
-}
-
-table ti_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2{
-  actions {
-    ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2;
-  }
-  default_action: ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2();
+  default_action: ai_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2();
 }
 
 action ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1() {
@@ -509,25 +518,14 @@ table ti_mvbl_8_hdrethernetisValid_hdripv4isValid{
   default_action: ai_mvbl_8_hdrethernetisValid_hdripv4isValid();
 }
 
-action ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one() {
-  add_to_field(pfuzz_visited.encoding_i9, 1);
-}
-
-table ti_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one{
-  actions {
-    ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one;
-  }
-  default_action: ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_one();
-}
-
-action ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet() {
+action ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet() {
   add_to_field(pfuzz_visited.encoding_i9, 3);
 }
 
-table ti_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet{
+table ti_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet{
   actions {
-    ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet;
+    ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet;
   }
-  default_action: ai_mvbl_9_ai_nop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet();
+  default_action: ai_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet();
 }
 

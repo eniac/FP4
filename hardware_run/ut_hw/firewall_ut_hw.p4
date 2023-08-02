@@ -148,9 +148,8 @@ control ingress     {
         apply(check_ports);
 
         if (meta.check_ports_hit == 1)  {
-            apply(mvbl_0_VIRTUAL_START_metametadirection0);
+            apply(ti_mvbl_0_VIRTUAL_START_metametadirection0);
             if (meta.direction == 0)  {
-                apply(mvbl_1_set_hit_pfuzz_check_ports_ti_get_incoming_pos);
                 apply(ti_get_incoming_pos);
 
                 apply(ti_calculate_hash1);
@@ -171,7 +170,7 @@ control ingress     {
                 apply(ti_calculate_hash2);
 
                 apply(ti_read_bloom_filter1);
-                apply(mvbl_1_set_hit_pfuzz_check_ports_ti_read_bloom_filter2);
+
                 apply(ti_read_bloom_filter2);
 
                 apply(ti_apply_filter);
@@ -446,7 +445,7 @@ action ai_noOp_pfuzz_ipv4_lpm() {
 }
 
 action drop_packet_pfuzz_ti_apply_filter() {
-    add_to_field(pfuzz_visited.encoding_i1, 1);
+    add_to_field(pfuzz_visited.encoding_i2, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
@@ -483,27 +482,5 @@ table ti_mvbl_0_VIRTUAL_START_metametadirection0{
     ai_mvbl_0_VIRTUAL_START_metametadirection0;
   }
   default_action: ai_mvbl_0_VIRTUAL_START_metametadirection0();
-}
-
-action ai_mvbl_1_set_hit_pfuzz_check_ports_ti_get_incoming_pos() {
-  add_to_field(pfuzz_visited.encoding_i1, 1);
-}
-
-table ti_mvbl_1_set_hit_pfuzz_check_ports_ti_get_incoming_pos{
-  actions {
-    ai_mvbl_1_set_hit_pfuzz_check_ports_ti_get_incoming_pos;
-  }
-  default_action: ai_mvbl_1_set_hit_pfuzz_check_ports_ti_get_incoming_pos();
-}
-
-action ai_mvbl_1_set_hit_pfuzz_check_ports_ti_read_bloom_filter2() {
-  add_to_field(pfuzz_visited.encoding_i1, 2);
-}
-
-table ti_mvbl_1_set_hit_pfuzz_check_ports_ti_read_bloom_filter2{
-  actions {
-    ai_mvbl_1_set_hit_pfuzz_check_ports_ti_read_bloom_filter2;
-  }
-  default_action: ai_mvbl_1_set_hit_pfuzz_check_ports_ti_read_bloom_filter2();
 }
 
