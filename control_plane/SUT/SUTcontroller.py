@@ -27,14 +27,14 @@ import conn_mgr_pd_rpc.conn_mgr as  conn_mgr_client_module
 from ptf.thriftutils import hex_to_i16
 
 
-TOFINO_INTERFACE = 'bf_pci0'
+TOFINO_INTERFACE = 'enp6s0'
 CPU_PORT = 192
 CPU_INGRESS_MIRROR_ID = 98
 
 
 def parse_aruments():
     parser = argparse.ArgumentParser(description='Parse input arguments')
-    parser.add_argument('-p', '--program', default='LoadBalance_ut_hw', help='Name of the program', required=True)
+    parser.add_argument('-p', '--program', default='load_balance_dt_hw', help='Name of the program', required=True)
     parser.add_argument('-sw', '--simulation', dest='simulation', action='store_true', help='Run in simulator', default=False)
     parser.add_argument('-d', '--dynamic', dest='dynamic', help='Class name of dynamic controller')
     parser.add_argument('-a', '--optional', dest='optional', nargs='+', help='Optional arguments for dynamic controller')
@@ -144,12 +144,13 @@ class StaticController:
         self.conn.complete_operations(self.conn_hdl)
 
     def add_entries(self):
-        print("writing rules")
+        print("=== add_entries via bfshell ===")
         command = "/home/leoyu/bf-sde-9.2.0/install/bin/bfshell -f " + self.output_filename
-        print("command:", command)
+        print("Command:", command)
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
-
+        print(output)
+        print(error)
         return
 
     def generate_output_rules(self, ruleList = None):
