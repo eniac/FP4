@@ -30,9 +30,9 @@ import conn_mgr_pd_rpc.conn_mgr as conn_mgr_client_module
 from ptf.thriftutils import hex_to_i16
 
 def main():
-    print("Waiting for switch to start")
+    print("====== Waiting for switch to start ======")
     time.sleep(15)
-    print("Assuming switch has started")
+    print("--- Assuming switch has started ---")
     controller = DTController(PROGRAM, RULES_FILE, C_IP)
     controller.bring_ports_up()
 
@@ -48,6 +48,7 @@ def main():
 
 class DTController:
     def __init__(self, program_name, rules_file = None, c_ip = None, port_map_filename="config/portMap.json"):
+        print("====== DTController ======")
         self.transport = TTransport.TBufferedTransport(TSocket.TSocket('localhost', 9090))
         self.bprotocol = TBinaryProtocol.TBinaryProtocol(self.transport)
         self.transport.open()
@@ -86,12 +87,12 @@ class DTController:
         self.rules_file = RULES_FILE
 
         if c_ip is not None:
+            print("--- c_ip {} ---".format(c_ip))
             self.SUTsocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.SUTsocket.bind((c_ip, 10000))
             self.SUTsocket.setblocking(False)
         else:
             self.SUTsocket = None
-
 
     @staticmethod
     def chunks(lst, n):
@@ -100,24 +101,23 @@ class DTController:
             yield lst[i:i + n]
 
     def add_entries(self, ruleList):
-        #print("add_entries prologue")
+        print("====== add_entries prologue ======")
         for current_list in DTController.chunks(ruleList, 50):
+            print("--- current_list of len {} ---".format(len(current_list)))
             outFile = open(self.program_name + '_rules.txt', 'w')
             outFile.write("pd-" + self.program_name.replace("_", "-") + "\n")
 
             for item in current_list:
-                #print(item)
+                print(item)
                 outFile.write("%s\n" % item)
 
             outFile.write("end\nexit\n")
-            # print("________________________")
             command = home + "/bf-sde-9.2.0/install/bin/bfshell -f " + outFile.name
-            # print("command:", command)
             outFile.close()
             process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
             time.sleep(1)
-        #print("add_entries epilogue")
+        print("====== add_entries epilogue ======")
         return       
  
     def readRegister(self, registerName, index, pipeNum=0):
@@ -127,6 +127,7 @@ class DTController:
         return val[pipeNum]
 
     def bring_ports_up(self, rate="25G", fec="NONE"):
+        print("====== bring_ports_up ======")
         interface_list = [str(x) + '/0' for x in range(9,25)]
         devPorts = [self.port_map[p] for p in interface_list]
 
@@ -147,9 +148,11 @@ class DTController:
 
 
     def initialize_CLI_variables(self):
+        print("====== initialize_CLI_variables ======")
         self.dp_iface = DataplaneSocket(TOFINO_INTERFACE)
         self.counter = 0
         baseName = self.program_name.split("_dt_hw")[0]
+        print("baseName: {}".format(baseName))
         self.packetParser = StateMachine(baseName + "_parserFile.json")
         self.coverageDetector = CoverageDetector(baseName, simulation = SIMULATION, rulesFile=self.rules_file, mode=MODE)
 

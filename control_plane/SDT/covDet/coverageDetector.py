@@ -10,6 +10,7 @@ from datetime import datetime
 
 class CoverageDetector(object):
     def __init__(self, baseName, simulation=True, rulesFile=None, mode='normal'):
+        print("====== CoverageDetector ======")
         # Action name is the key, value is the number of times seen
         self.actionToCount = dict()
         self.totalUniqueActions = 0
@@ -224,7 +225,7 @@ class CoverageDetector(object):
 
 
     def add_initial_seed_packets(self):
-        print("--- add_initial_seed_packets prologue ---")
+        print("====== add_initial_seed_packets prologue ======")
         ruleList = []
         # ruleList.append("table_add ti_port_correction ai_drop_packet 0 =>")
         if self.simulation:
@@ -232,10 +233,11 @@ class CoverageDetector(object):
                 ruleList.append("table_add ti_set_port ai_set_port " + str(i) + " => " + str(i*4))
         else:
             for i in range(0,16):
-                ruleList.append("pd ti_set_port add_entry ai_set_port fp4_metadata_temp_port " + str(i) + " action_outPort " + str(i*4))
+                ruleList.append("pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port " + str(i) + " action_outPort " + str(i*4))
 
 
         for matchRule in product(range(2), repeat=2+self.numAssertions):
+            print(matchRule)
             if len(matchRule) == 2 and matchRule[0] == 1 and matchRule[1] == 1:
                 continue
             elif len(matchRule) > 2 and matchRule[0] == 1 and matchRule[1] == 1 and (not any(matchRule[2:])):
@@ -250,14 +252,14 @@ class CoverageDetector(object):
         ruleList.extend(self.add_ternary_rules("ti_set_seed_num", "ai_set_seed_num", self.numSeeds, 255))
         ruleList.extend(self.add_ternary_rules("ti_set_resubmit", "ai_set_resubmit", 1, 255))
         # ruleList.extend(self.add_ternary_rules("ti_set_fixed_header", "ai_set_fixed_header", 1, 255))
-        ruleList.append("pd ti_set_fixed_header add_entry ai_set_fixed_header fp4_metadata_make_clone_start 2 fp4_metadata_make_clone_end 255 fp4_metadata_fixed_header_seed 0 fp4_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0")
+        ruleList.append("pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0")
 
 
         for i in range(self.numParserPaths):
             if self.simulation:
                 ruleList.append("table_add ti_create_packet ai_add_" + CoverageDetector.combine_header(self.parserPaths[i]) + " " + str(i) + " => ")
             else:
-                ruleList.append("pd ti_create_packet add_entry ai_add_" + CoverageDetector.combine_header(self.parserPaths[i]) + " fp4_metadata_seed_num " + str(i))
+                ruleList.append("pd ti_create_packet add_entry ai_add_" + CoverageDetector.combine_header(self.parserPaths[i]) + " pfuzz_metadata_seed_num " + str(i))
             actionsParameters = []
             for header in self.parserPaths[i]:
                 if header[-1] == "*":
@@ -281,7 +283,7 @@ class CoverageDetector(object):
             if self.simulation:
                 ruleList.append("table_add ti_add_fields ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[i]) + " " + str(i) + " => " + " ".join(actionsParameters))
             else:
-                ruleList.append("pd ti_add_fields add_entry ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[i]) + " fp4_metadata_seed_num " + str(i) + " " + CoverageDetector.format_for_hardware(self.dtActionParams["ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[i])] ,actionsParameters))
+                ruleList.append("pd ti_add_fields add_entry ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[i]) + " pfuzz_metadata_seed_num " + str(i) + " " + CoverageDetector.format_for_hardware(self.dtActionParams["ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[i])] ,actionsParameters))
 
 
 
@@ -333,11 +335,11 @@ class CoverageDetector(object):
         if self.simulation:
             ruleList.append("table_add te_do_resubmit ae_resubmit 1 => ")
         else:
-            ruleList.append("pd te_do_resubmit add_entry ae_resubmit fp4_metadata_make_clone 1")
+            ruleList.append("pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1")
 
         for rule in ruleList:
             print(rule)
-        print("--- add_initial_seed_packets epilog ---")
+        print("====== add_initial_seed_packets epilog ======")
         return ruleList
 
     @staticmethod
@@ -413,7 +415,7 @@ class CoverageDetector(object):
 
             counter = 0
             for result in product(*paramsPresent):
-                rule = "pd te_move_back_fields add_entry ae_move_back_fix_" + table_name + " fp4_metadata_seed_num " + str(seedNum) + " fp4_metadata_table_seed " + str(table_num) + " fp4_metadata_fixed_header_seed " + str(counter+1) + " fp4_metadata_fixed_header_seed_mask " + str(CoverageDetector.shift_bit_length(counter+1)) +" priority " + str(255 - counter - 1)
+                rule = "pd te_move_back_fields add_entry ae_move_back_fix_" + table_name + " pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(table_num) + " pfuzz_metadata_fixed_header_seed " + str(counter+1) + " pfuzz_metadata_fixed_header_seed_mask " + str(CoverageDetector.shift_bit_length(counter+1)) +" priority " + str(255 - counter - 1)
 
                 for idx, action_param in enumerate(self.dtActionParams["ae_move_back_fix_" + table_name]):
                     rule += (" action_" + action_param + " ")
@@ -435,7 +437,7 @@ class CoverageDetector(object):
             if self.simulation:
                 ruleList.append("table_add te_set_table_seed ae_set_table_seed " + str(seedNum) + " " + str(i) + "&&&" + str(i) + " => " + str(i) + " " + str(15 - i))
             else:
-                ruleList.append("pd te_set_table_seed add_entry ae_set_table_seed fp4_metadata_seed_num " + str(seedNum) + " fp4_metadata_table_seed " + str(i) + " fp4_metadata_table_seed_mask " + str(i) + " priority " + str(15 - i) + " action_real_table_seed " + str(i))
+                ruleList.append("pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(i) + " pfuzz_metadata_table_seed_mask " + str(i) + " priority " + str(15 - i) + " action_real_table_seed " + str(i))
 
         for table_num, table_name in enumerate(table_list):
             if self.simulation:
@@ -445,8 +447,8 @@ class CoverageDetector(object):
                     " " + str(seedNum) + " " + str(table_num) +  " 0 => ")
 
             else:
-                ruleList.append("pd te_move_fields add_entry ae_move_" + table_name + " fp4_metadata_seed_num " + str(seedNum) + " fp4_metadata_table_seed " + str(table_num))
-                ruleList.append("pd te_move_back_fields add_entry ae_move_back_" + table_name + " fp4_metadata_seed_num " + str(seedNum) + " fp4_metadata_table_seed " + str(table_num) + " fp4_metadata_fixed_header_seed 0 fp4_metadata_fixed_header_seed_mask 0 priority 255")
+                ruleList.append("pd te_move_fields add_entry ae_move_" + table_name + " pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(table_num))
+                ruleList.append("pd te_move_back_fields add_entry ae_move_back_" + table_name + " pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(table_num) + " pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255")
 
 
         return ruleList
@@ -487,11 +489,11 @@ class CoverageDetector(object):
         flag = False
         # print("fieldName", fieldName)
         # print(packet.headers)
-        for action_name in packet.headers["fp4_visited"]:
+        for action_name in packet.headers["pfuzz_visited"]:
             if action_name not in self.actionList:
                 continue
 
-            bitList = packet.headers["fp4_visited"][action_name]
+            bitList = packet.headers["pfuzz_visited"][action_name]
             if len(bitList) > 1:
                 print("It cannot be more than one")
                 exit()
@@ -533,7 +535,7 @@ class CoverageDetector(object):
         if not flag or 'seed' in self.mode:
             print("No actions seen, not adding seed packet OR seeds are set to off")
             rules = []
-        elif CoverageDetector.shifting(packet.headers["fp4_visited"]["pkt_type"]) == 3:
+        elif CoverageDetector.shifting(packet.headers["pfuzz_visited"]["pkt_type"]) == 3:
             print("Packet type is 3 so will not add packet")
             rules = []
         elif addSeed:
@@ -566,7 +568,7 @@ class CoverageDetector(object):
         if self.simulation:
             ruleList.append("table_add ti_create_packet ai_add_" + CoverageDetector.combine_header(self.parserPaths[self.numSeeds]) + " " + str(self.numSeeds) + " => ")
         else:
-            ruleList.append("pd ti_create_packet add_entry ai_add_" + CoverageDetector.combine_header(self.parserPaths[self.numSeeds]) + " fp4_metadata_seed_num " + str(self.numSeeds))
+            ruleList.append("pd ti_create_packet add_entry ai_add_" + CoverageDetector.combine_header(self.parserPaths[self.numSeeds]) + " pfuzz_metadata_seed_num " + str(self.numSeeds))
 
         valueList = []
         for headerName in validHeaders:
@@ -587,7 +589,7 @@ class CoverageDetector(object):
         if self.simulation:
             ruleList.append("table_add ti_add_fields ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[self.numSeeds]) + " " + str(self.numSeeds) + " => "  + " ".join(valueList))
         else:
-            ruleList.append("pd ti_add_fields add_entry ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[self.numSeeds]) + " fp4_metadata_seed_num " + str(self.numSeeds) + " " + CoverageDetector.format_for_hardware(self.dtActionParams["ai_add_fixed_" + "_".join(self.parserPaths[self.numSeeds])] ,valueList))
+            ruleList.append("pd ti_add_fields add_entry ai_add_fixed_" + CoverageDetector.combine_header(self.parserPaths[self.numSeeds]) + " pfuzz_metadata_seed_num " + str(self.numSeeds) + " " + CoverageDetector.format_for_hardware(self.dtActionParams["ai_add_fixed_" + "_".join(self.parserPaths[self.numSeeds])] ,valueList))
 
 
         self.add_in_seed_to_table(self.numSeeds, self.parserPaths[self.numSeeds])

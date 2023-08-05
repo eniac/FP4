@@ -9,6 +9,7 @@ class TransitionType(Enum):
 
 class StateMachine(object):
     def __init__(self, filename):
+        print("====== StateMachine filename {} ======".format(filename))
         self.start = "start"
         self.terminal = "ingress"
 
