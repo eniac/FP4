@@ -225,6 +225,14 @@ blackbox stateful_alu bb_original_update {
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
+        encoding_e0 : 8;
+        encoding_e1 : 8;
+        encoding_e2 : 8;
+        encoding_e3 : 8;
+        encoding_e4 : 8;
+        encoding_e5 : 8;
+        encoding_i0 : 8;
+        encoding_i1 : 8;
         pkt_type : 2;
         __pad : 6;
     }
@@ -299,10 +307,18 @@ field_list_calculation bloom_filter_hash_32{
 }
 
 field_list fi_bf_hash_fields_16 {
+  fp4_visited.encoding_e2;
+  fp4_visited.encoding_e4;
+  fp4_visited.encoding_e5;
+  fp4_visited.encoding_e3;
 }
 
 
 field_list fi_bf_hash_fields_32 {
+  fp4_visited.encoding_e2;
+  fp4_visited.encoding_e4;
+  fp4_visited.encoding_e5;
+  fp4_visited.encoding_e3;
 }
 
 
@@ -367,7 +383,7 @@ table ti_path_assertion {
 
 action ai_send_to_control_plane() {
   modify_field(ig_intr_md_for_tm.ucast_egress_port, 192);
-  modify_field(fp4_visited.preamble, 14593470);
+  modify_field(pfuzz_visited.preamble, 14593470);
   exit();
 }
 
@@ -377,6 +393,10 @@ action ai_recycle_packet() {
   remove_header(ipv4);
   remove_header(ipv4_clone);
   modify_field(fp4_visited.pkt_type, 0);
+  modify_field(fp4_visited.encoding_e2, 0);
+  modify_field(fp4_visited.encoding_e4, 0);
+  modify_field(fp4_visited.encoding_e5, 0);
+  modify_field(fp4_visited.encoding_e3, 0);
 }
 
 table ti_get_random_seed {

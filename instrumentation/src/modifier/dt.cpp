@@ -5,6 +5,71 @@
 
 using namespace std;
 DTModifier::DTModifier(AstNode* root, char* target, char* ingress_plan, char* egress_plan, int num_assertions, char* out_fn_base) : P4Modifier(root, target, ingress_plan, egress_plan, num_assertions, out_fn_base) {
+
+    int num_mvbl_vars_ingress = ingress_plan_json_["num_vars"];
+    PRINT_INFO("num_mvbl_vars_ingress: %d\n", num_mvbl_vars_ingress);
+    for (int var_idx = 0; var_idx < num_mvbl_vars_ingress; var_idx++) {
+        PRINT_INFO("--- var_idx: %d ---\n", var_idx);
+
+        int num_bits = ingress_plan_json_[std::to_string(var_idx)]["num_bits"];
+        encoding_field_2_bitlength_.insert({"encoding_i"+std::to_string(var_idx),
+                                            num_bits});
+
+        std::map<std::string, std::string> non_action_name_rootword_map;
+        for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
+            std::string nonaction_name = it.key();
+            std::string rootword = it.value();
+            non_action_name_rootword_map[nonaction_name] = rootword;
+            PRINT_INFO("%s: %s\n", nonaction_name.c_str(), rootword.c_str());
+        }
+
+        for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].end(); ++it) {
+            std::string node_name = it.key();
+            int incre = it.value();
+            if (non_action_name_rootword_map.find(node_name) != non_action_name_rootword_map.end()) {
+            } else {
+                // Action
+                action_2_encoding_field_.insert({node_name, "_i"+std::to_string(var_idx)});
+                action_2_encoding_incr_.insert({node_name, std::to_string(incre)});
+                PRINT_INFO("action_2_encoding_field_.insert(%s, %s)", node_name.c_str(), std::to_string(var_idx).c_str());
+                PRINT_INFO("action_2_encoding_incr_.insert(%s, %s)", node_name.c_str(), std::to_string(incre).c_str());
+            }
+        }
+    }
+
+    int num_mvbl_vars_egress = egress_plan_json_["num_vars"];
+    PRINT_INFO("\nnum_mvbl_vars_egress: %d\n", num_mvbl_vars_egress);
+    for (int var_idx = 0; var_idx < num_mvbl_vars_egress; var_idx++) {
+        PRINT_INFO("--- var_idx: %d ---\n", var_idx);
+
+        int num_bits = egress_plan_json_[std::to_string(var_idx)]["num_bits"];
+        encoding_field_2_bitlength_.insert({"encoding_e"+std::to_string(var_idx),
+                                            num_bits});
+
+        // Get the list of non actions
+        std::map<std::string, std::string> non_action_name_rootword_map;
+        for (nlohmann::json::iterator it = egress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != egress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
+            std::string nonaction_name = it.key();
+            std::string rootword = it.value();
+            non_action_name_rootword_map[nonaction_name] = rootword;
+            PRINT_INFO("%s: %s\n", nonaction_name.c_str(), rootword.c_str());
+        }
+
+        for (nlohmann::json::iterator it = egress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].begin(); it != egress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].end(); ++it) {
+            std::string node_name = it.key();
+            int incre = it.value();
+            if (non_action_name_rootword_map.find(node_name) != non_action_name_rootword_map.end()) {
+            } else {
+                // Action
+                action_2_encoding_field_.insert({node_name, "_e"+std::to_string(var_idx)});
+                action_2_encoding_incr_.insert({node_name, std::to_string(incre)});
+                PRINT_INFO("action_2_encoding_field_.insert(%s, %s)", node_name.c_str(), std::to_string(var_idx).c_str());
+                PRINT_INFO("action_2_encoding_incr_.insert(%s, %s)", node_name.c_str(), std::to_string(incre).c_str());
+            }
+        }
+    }
+
+
     PRINT_INFO("================= DT =================\n");
     // Remove user table and action nodes
     work_set_.clear();
@@ -770,7 +835,7 @@ void DTModifier::GenerateParserJson(AstNode* root) {
         curr = dynamic_cast<InputNode*>(curr) -> next_;
     }
 
-    parser_state_machine["extract"]["start"].push_back("fp4_visited");
+    parser_state_machine["extract"]["start"].push_back("pfuzz_visited");
     ofstream parserFile("out/" + program_name_ + "_parserFile.json", ios::out | ios::trunc);
     parserFile << parser_state_machine.dump(4) << endl;
     parserFile.close();
@@ -783,7 +848,7 @@ void DTModifier::WriteHeaderJson(AstNode* root) {
         if (TypeContains(dynamic_cast<InputNode*>(curr)->expression_, "HeaderTypeDeclarationNode")) {
             HeaderTypeDeclarationNode* headerDecl =  dynamic_cast<HeaderTypeDeclarationNode*>(dynamic_cast<InputNode*>(curr)->expression_);
             string headerName = headerDecl -> name_ -> toString();
-            if (headerName.find("fp4_visited") != std::string::npos) {
+            if (headerName.find("pfuzz_visited") != std::string::npos) {
                 for(FieldDecNode* field: *(headerDecl->field_decs_->list_)) {
                     json fieldBit;
                     fieldBit[field -> name_ -> toString()] = field -> size_ -> toString();
@@ -800,7 +865,7 @@ void DTModifier::WriteHeaderJson(AstNode* root) {
         if (TypeContains(dynamic_cast<InputNode*>(curr)->expression_, "HeaderInstanceNode")) {
             HeaderInstanceNode* headerInst = dynamic_cast<HeaderInstanceNode*>(dynamic_cast<InputNode*>(curr)->expression_);
             string headerName = headerInst -> name_ -> toString();
-            if (headerName.find("fp4_visited") != std::string::npos) {
+            if (headerName.find("pfuzz_visited") != std::string::npos) {
                 header_field["type_to_instance"][headerInst -> type_ -> toString()] = headerInst -> name_ -> toString();
             }
         }
@@ -1363,11 +1428,11 @@ void DTModifier::ProcessUTSim(AstNode* root) {
     oss << "action " << kAiSendToControlSim << "() {\n";
     if (strcmp(target_, "hw")==0) {
         oss << "  modify_field(ig_intr_md_for_tm.ucast_egress_port, " << 192 << ");\n";
-        oss << "  modify_field(fp4_visited.preamble, 14593470);\n";
+        oss << "  modify_field(pfuzz_visited.preamble, 14593470);\n";
         oss << "  exit();\n";
     } else {
         oss << "  modify_field(standard_metadata.egress_spec, " << 31 << ");\n";
-        oss << "  modify_field(fp4_visited.preamble, 14593470);\n";
+        oss << "  modify_field(pfuzz_visited.preamble, 14593470);\n";
         oss << "  exit();\n";
     }
     

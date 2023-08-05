@@ -359,6 +359,10 @@ control ingress {
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
+        encoding_i0 : 8;
+        encoding_i1 : 8;
+        encoding_i2 : 8;
+        encoding_i3 : 8;
         pkt_type : 2;
         __pad : 6;
     }
@@ -442,10 +446,16 @@ field_list_calculation bloom_filter_hash_32{
 }
 
 field_list fi_bf_hash_fields_16 {
+  fp4_visited.encoding_i3;
+  fp4_visited.encoding_i0;
+  fp4_visited.encoding_i2;
 }
 
 
 field_list fi_bf_hash_fields_32 {
+  fp4_visited.encoding_i3;
+  fp4_visited.encoding_i0;
+  fp4_visited.encoding_i2;
 }
 
 
@@ -510,7 +520,7 @@ table ti_path_assertion {
 
 action ai_send_to_control_plane() {
   modify_field(ig_intr_md_for_tm.ucast_egress_port, 192);
-  modify_field(fp4_visited.preamble, 14593470);
+  modify_field(pfuzz_visited.preamble, 14593470);
   exit();
 }
 
@@ -534,6 +544,9 @@ action ai_recycle_packet() {
   remove_header(udp);
   remove_header(udp_clone);
   modify_field(fp4_visited.pkt_type, 0);
+  modify_field(fp4_visited.encoding_i3, 0);
+  modify_field(fp4_visited.encoding_i0, 0);
+  modify_field(fp4_visited.encoding_i2, 0);
 }
 
 table ti_get_random_seed {
