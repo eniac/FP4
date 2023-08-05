@@ -179,13 +179,13 @@ parser parse_tcp {
 
 
 control ingress {
-  if (fp4_visited.pkt_type == 1 || fp4_visited.pkt_type == 3) {
+  if (pfuzz_visited.pkt_type == 1 || pfuzz_visited.pkt_type == 3) {
     apply(ti_get_reg_pos);
     apply(ti_read_values_1);
     apply(ti_read_values_2);
     apply(ti_path_assertion);
   }
-  if (fp4_visited.pkt_type == 0) {
+  if (pfuzz_visited.pkt_type == 0) {
     apply(ti_get_random_seed);
     apply(ti_turn_on_mutation);
     apply(ti_set_seed_num);
@@ -199,7 +199,7 @@ control ingress {
 }
 
 control egress {
-  if (fp4_metadata.apply_mutations == 1) {
+  if (pfuzz_metadata.apply_mutations == 1) {
     apply(te_get_table_seed);
     apply(te_set_table_seed);
     apply(te_move_fields);
@@ -327,7 +327,7 @@ header_type pfuzz_visited_t {
 header pfuzz_visited_t pfuzz_visited;
 
 
-header_type fp4_metadata_t {
+header_type pfuzz_metadata_t {
     fields {
         reg_pos_one : 12;
         reg_pos_two : 12;
@@ -346,7 +346,7 @@ header_type fp4_metadata_t {
 }
 
 
-metadata fp4_metadata_t fp4_metadata;
+metadata pfuzz_metadata_t pfuzz_metadata;
 
 
 
@@ -356,8 +356,8 @@ header ipv4_t ipv4_clone;
 header tcp_t tcp_clone;
 
 action ai_get_reg_pos() {
-  modify_field_with_hash_based_offset(fp4_metadata.reg_pos_one, 0, bloom_filter_hash_16, 4096);
-  modify_field_with_hash_based_offset(fp4_metadata.reg_pos_two, 0, bloom_filter_hash_32, 4096);
+  modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_one, 0, bloom_filter_hash_16, 4096);
+  modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_two, 0, bloom_filter_hash_32, 4096);
 }
 
 table ti_get_reg_pos {
@@ -381,18 +381,18 @@ field_list_calculation bloom_filter_hash_32{
 }
 
 field_list fi_bf_hash_fields_16 {
-  fp4_visited.encoding_i3;
-  fp4_visited.encoding_i0;
-  fp4_visited.encoding_i1;
-  fp4_visited.encoding_i2;
+  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i0;
+  pfuzz_visited.encoding_i1;
+  pfuzz_visited.encoding_i2;
 }
 
 
 field_list fi_bf_hash_fields_32 {
-  fp4_visited.encoding_i3;
-  fp4_visited.encoding_i0;
-  fp4_visited.encoding_i1;
-  fp4_visited.encoding_i2;
+  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i0;
+  pfuzz_visited.encoding_i1;
+  pfuzz_visited.encoding_i2;
 }
 
 
@@ -409,21 +409,21 @@ register ri_bloom_filter_2 {
 blackbox stateful_alu ri_bloom_filter_1_alu_update {
     reg: ri_bloom_filter_1;
     output_value: alu_lo;
-    output_dst: fp4_metadata.reg_val_one;
+    output_dst: pfuzz_metadata.reg_val_one;
     update_lo_1_value: set_bit;
 }
 blackbox stateful_alu ri_bloom_filter_2_alu_update {
     reg: ri_bloom_filter_2;
     output_value: alu_lo;
-    output_dst: fp4_metadata.reg_val_two;
+    output_dst: pfuzz_metadata.reg_val_two;
     update_lo_1_value: set_bit;
 }
 action ai_read_values_1() {
-    ri_bloom_filter_1_alu_update.execute_stateful_alu(fp4_metadata.reg_pos_one);
+    ri_bloom_filter_1_alu_update.execute_stateful_alu(pfuzz_metadata.reg_pos_one);
 }
 
 action ai_read_values_2() {
-    ri_bloom_filter_2_alu_update.execute_stateful_alu(fp4_metadata.reg_pos_two);
+    ri_bloom_filter_2_alu_update.execute_stateful_alu(pfuzz_metadata.reg_pos_two);
 }
 
 table ti_read_values_1 {
@@ -444,8 +444,8 @@ table ti_read_values_2 {
 
 table ti_path_assertion {
   reads {
-    fp4_metadata.reg_val_one : exact;
-    fp4_metadata.reg_val_two : exact;
+    pfuzz_metadata.reg_val_one : exact;
+    pfuzz_metadata.reg_val_two : exact;
   }
   actions {
     ai_send_to_control_plane;
@@ -468,11 +468,11 @@ action ai_recycle_packet() {
   remove_header(ipv4_clone);
   remove_header(tcp);
   remove_header(tcp_clone);
-  modify_field(fp4_visited.pkt_type, 0);
-  modify_field(fp4_visited.encoding_i3, 0);
-  modify_field(fp4_visited.encoding_i0, 0);
-  modify_field(fp4_visited.encoding_i1, 0);
-  modify_field(fp4_visited.encoding_i2, 0);
+  modify_field(pfuzz_visited.pkt_type, 0);
+  modify_field(pfuzz_visited.encoding_i3, 0);
+  modify_field(pfuzz_visited.encoding_i0, 0);
+  modify_field(pfuzz_visited.encoding_i1, 0);
+  modify_field(pfuzz_visited.encoding_i2, 0);
 }
 
 table ti_get_random_seed {
@@ -484,9 +484,9 @@ table ti_get_random_seed {
 }
 
 action ai_get_random_seed() {
-  modify_field_rng_uniform(fp4_metadata.seed_num, 0 , 255);
-  modify_field_rng_uniform(fp4_metadata.make_clone, 0, 255);
-  modify_field_rng_uniform(fp4_metadata.fixed_header_seed, 0, 255);
+  modify_field_rng_uniform(pfuzz_metadata.seed_num, 0 , 255);
+  modify_field_rng_uniform(pfuzz_metadata.make_clone, 0, 255);
+  modify_field_rng_uniform(pfuzz_metadata.fixed_header_seed, 0, 255);
 }
 
 table ti_turn_on_mutation {
@@ -498,17 +498,17 @@ table ti_turn_on_mutation {
 }
 
 action ai_turn_on_mutation() {
-  modify_field(fp4_metadata.apply_mutations, 1);
-  modify_field_rng_uniform(fp4_metadata.temp_port, 0, 15);
+  modify_field(pfuzz_metadata.apply_mutations, 1);
+  modify_field_rng_uniform(pfuzz_metadata.temp_port, 0, 15);
 }
 
 action ai_set_seed_num(real_seed_num) {
-  modify_field(fp4_metadata.seed_num, real_seed_num);
+  modify_field(pfuzz_metadata.seed_num, real_seed_num);
 }
 
 table ti_set_seed_num {
   reads {
-    fp4_metadata.seed_num : ternary;
+    pfuzz_metadata.seed_num : ternary;
   }
   actions {
     ai_set_seed_num;
@@ -519,12 +519,12 @@ table ti_set_seed_num {
 }
 
 action ai_set_resubmit(real_resubmit) {
-  modify_field(fp4_metadata.make_clone, real_resubmit);
+  modify_field(pfuzz_metadata.make_clone, real_resubmit);
 }
 
 table ti_set_resubmit {
   reads {
-    fp4_metadata.make_clone : ternary;
+    pfuzz_metadata.make_clone : ternary;
   }
   actions {
     ai_set_resubmit;
@@ -536,8 +536,8 @@ table ti_set_resubmit {
 
 table ti_set_fixed_header {
   reads {
-    fp4_metadata.make_clone : range;
-    fp4_metadata.fixed_header_seed : ternary;
+    pfuzz_metadata.make_clone : range;
+    pfuzz_metadata.fixed_header_seed : ternary;
   }
   actions {
     ai_set_fixed_header;
@@ -548,12 +548,12 @@ table ti_set_fixed_header {
 }
 
 action ai_set_fixed_header(real_fixed_header) {
-  modify_field(fp4_metadata.fixed_header_seed, real_fixed_header);
+  modify_field(pfuzz_metadata.fixed_header_seed, real_fixed_header);
 }
 
 table ti_create_packet {
   reads {
-    fp4_metadata.seed_num: exact;
+    pfuzz_metadata.seed_num: exact;
   }
   actions {
     ai_drop_packet;
@@ -591,7 +591,7 @@ action ai_add_ethernet_ipv4_tcp() {
 
 table ti_add_fields {
   reads {
-    fp4_metadata.seed_num: exact;
+    pfuzz_metadata.seed_num: exact;
   }
   actions {
     ai_NoAction;
@@ -661,7 +661,7 @@ action ai_add_fixed_ethernet_ipv4_tcp(ethernetdstAddr, ethernetsrcAddr, ethernet
 
 table ti_set_port {
   reads { 
-    fp4_metadata.temp_port : exact;
+    pfuzz_metadata.temp_port : exact;
   }
     actions {
     ai_set_port;
@@ -682,17 +682,17 @@ table te_get_table_seed {
 }
 
 action ae_get_table_seed() {
-  modify_field_rng_uniform(fp4_metadata.table_seed, 0, 15);
+  modify_field_rng_uniform(pfuzz_metadata.table_seed, 0, 15);
 }
 
 action ae_set_table_seed(real_table_seed) {
-  modify_field(fp4_metadata.table_seed, real_table_seed);
+  modify_field(pfuzz_metadata.table_seed, real_table_seed);
 }
 
 table te_set_table_seed {
   reads {
-    fp4_metadata.seed_num : exact;
-    fp4_metadata.table_seed : ternary;
+    pfuzz_metadata.seed_num : exact;
+    pfuzz_metadata.table_seed : ternary;
   }
   actions {
     ae_set_table_seed;
@@ -704,8 +704,8 @@ table te_set_table_seed {
 
 table te_move_fields {
   reads {
-    fp4_metadata.seed_num: exact;
-    fp4_metadata.table_seed: exact;
+    pfuzz_metadata.seed_num: exact;
+    pfuzz_metadata.table_seed: exact;
   }
   actions {
     ai_NoAction;
@@ -716,10 +716,10 @@ table te_move_fields {
 }
 
 action ae_move_IF_CONDITION_3_parser_2(){
-  modify_field(fp4_metadata.max_bits_field0, tcp.syn);
+  modify_field(pfuzz_metadata.max_bits_field0, tcp.syn);
 }
 action ae_move_ipv4_lpm_parser_2(){
-  modify_field(fp4_metadata.max_bits_field0, ipv4.dstAddr);
+  modify_field(pfuzz_metadata.max_bits_field0, ipv4.dstAddr);
 }
 table te_apply_mutations0 {
   actions {
@@ -729,14 +729,14 @@ table te_apply_mutations0 {
 }
 
 action ae_apply_mutations0() {
-  modify_field_rng_uniform(fp4_metadata.max_bits_field0, 0,0xffffffff);
+  modify_field_rng_uniform(pfuzz_metadata.max_bits_field0, 0,0xffffffff);
 }
 
 table te_move_back_fields {
   reads {
-    fp4_metadata.seed_num: exact;
-    fp4_metadata.table_seed: exact;
-    fp4_metadata.fixed_header_seed: ternary;
+    pfuzz_metadata.seed_num: exact;
+    pfuzz_metadata.table_seed: exact;
+    pfuzz_metadata.fixed_header_seed: ternary;
   }
   actions {
     ai_NoAction;
@@ -751,12 +751,12 @@ table te_move_back_fields {
 }
 
 action ae_move_back_IF_CONDITION_3_parser_2(){
-  modify_field(tcp.syn, fp4_metadata.max_bits_field0);
-  modify_field(tcp_clone.syn, fp4_metadata.max_bits_field0);
+  modify_field(tcp.syn, pfuzz_metadata.max_bits_field0);
+  modify_field(tcp_clone.syn, pfuzz_metadata.max_bits_field0);
 }
 action ae_move_back_ipv4_lpm_parser_2(){
-  modify_field(ipv4.dstAddr, fp4_metadata.max_bits_field0);
-  modify_field(ipv4_clone.dstAddr, fp4_metadata.max_bits_field0);
+  modify_field(ipv4.dstAddr, pfuzz_metadata.max_bits_field0);
+  modify_field(ipv4_clone.dstAddr, pfuzz_metadata.max_bits_field0);
 }
 action ae_move_back_fix_IF_CONDITION_3_parser_2(tcp_syn){
   modify_field(tcp.syn, tcp_syn);
@@ -768,13 +768,13 @@ action ae_move_back_fix_ipv4_lpm_parser_2(ipv4_dstAddr){
 }
 
 field_list fe_resub_fields {
-  fp4_metadata.apply_mutations;
-  fp4_metadata.seed_num;
+  pfuzz_metadata.apply_mutations;
+  pfuzz_metadata.seed_num;
 }
 
 table te_do_resubmit {
   reads {
-    fp4_metadata.make_clone: exact;
+    pfuzz_metadata.make_clone: exact;
   }
   actions {
     ae_resubmit;
@@ -785,7 +785,7 @@ table te_do_resubmit {
 }
 
 action ae_resubmit() {
-  modify_field(fp4_visited.pkt_type, 3);
+  modify_field(pfuzz_visited.pkt_type, 3);
   clone_egress_pkt_to_egress(99, fe_resub_fields);
 }
 
@@ -885,7 +885,7 @@ register forward_count_register {
 blackbox stateful_alu forward_count_register_alu {
     reg: forward_count_register;
     output_value: register_lo;
-    output_dst: fp4_metadata.temp_data;
+    output_dst: pfuzz_metadata.temp_data;
     update_lo_1_value: register_lo + 1;
 }
 action ae_update_count() {
