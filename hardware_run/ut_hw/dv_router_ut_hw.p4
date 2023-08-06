@@ -126,9 +126,6 @@ parser parse_routing {
 }
 
 
-action aiForMe() {
-    modify_field(cis553_metadata.forMe, 1);
-}
 
 
 
@@ -154,13 +151,6 @@ table tiHandleIncomingEthernet {
 }
 
 
-action aiHandleOutgoingRouting(egress_port) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_port);
-    add_header(ethernet);
-    modify_field(ethernet.dstAddr, 0xffffffffffff);
-    modify_field(ethernet.etherType, 0x553);
-    modify_field(cis553_metadata.forMe, 0);
-}
 
 table tiHandleOutgoingRouting {
     reads {
@@ -174,15 +164,6 @@ table tiHandleOutgoingRouting {
 }
 
 
-action aiHandleIncomingArpReqest_part_one(mac_sa) {
-    modify_field(arp.oper, 2);
-    modify_field(ethernet.srcAddr, mac_sa);
-    modify_field(ethernet.dstAddr, arp.senderHA);
-    modify_field(cis553_metadata.temp, arp.targetPA);
-    modify_field(arp.targetHA, arp.senderHA);
-    modify_field(arp.senderHA, mac_sa);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, ig_intr_md.ingress_port);
-}
 
 table tiHandleIncomingArpReqest_part_one {
     reads {
@@ -197,10 +178,6 @@ table tiHandleIncomingArpReqest_part_one {
 }
 
 
-action aiHandleIncomingArpReqest_part_two() {
-    modify_field(arp.targetPA, arp.senderPA);
-    modify_field(arp.senderPA, cis553_metadata.temp);
-}
 
 table tiHandleIncomingArpReqest_part_two {
     reads {
@@ -216,9 +193,6 @@ table tiHandleIncomingArpReqest_part_two {
 }
 
 
-action aiHandleIncomingArpResponse() {
-    clone_i2e(98);
-}
 
 table tiHandleIncomingArpResponse {
     actions {
@@ -229,13 +203,7 @@ table tiHandleIncomingArpResponse {
 }
 
 
-action aiFindNextL3Hop(nextHop) {
-    modify_field(cis553_metadata.nextHop, nextHop);
-}
 
-action aiSendToLastHop() {
-    modify_field(cis553_metadata.nextHop, ipv4.dstAddr);
-}
 
 table tiHandleIpv4 {
     reads {
@@ -251,28 +219,7 @@ table tiHandleIpv4 {
 }
 
 
-action aiForward(mac_sa, mac_da, egress_port) {
-    modify_field(ethernet.srcAddr, mac_sa);
-    modify_field(ethernet.dstAddr, mac_da);
-    modify_field(standard_metadata.egress_spec, egress_port);
-}
 
-action aiArpMiss(local_ip, local_mac, local_port) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, local_port);
-    modify_field(ethernet.dstAddr, 0xffffffffffff);
-    modify_field(ethernet.etherType, 0x0806);
-    remove_header(ipv4);
-    add_header(arp);
-    modify_field(arp.htype, 1);
-    modify_field(arp.ptype, 0x0800);
-    modify_field(arp.hlen, 6);
-    modify_field(arp.plen, 4);
-    modify_field(arp.oper, 1);
-    modify_field(arp.senderHA, local_mac);
-    modify_field(arp.senderPA, local_ip);
-    modify_field(arp.targetHA, 0);
-    modify_field(arp.targetPA, cis553_metadata.nextHop);
-}
 
 table tiHandleOutgoingEthernet {
     reads {
@@ -287,9 +234,6 @@ table tiHandleOutgoingEthernet {
 }
 
 
-action aiHandleIncomingRouting() {
-    clone_i2e(98);
-}
 
 table tiHandleIncomingRouting {
     actions {

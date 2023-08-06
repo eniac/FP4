@@ -228,10 +228,6 @@ parser parse_nc_hdr {
 }
 
 
-action set_egress(egress_spec) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
-    add_to_field(ipv4.ttl, -1);
-}
 
 table ipv4_route {
     reads {
@@ -246,9 +242,6 @@ table ipv4_route {
 }
 
 
-action drop_action() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
-}
 
 blackbox stateful_alu acquire_lock_alu {
     reg : lock_status_register;
@@ -288,9 +281,6 @@ register lock_status_register {
 }
 
 
-action decode_action() {
-    modify_field(meta.lock_id, nc_hdr.lock);
-}
 
 table decode_table {
     actions {
@@ -300,9 +290,6 @@ table decode_table {
 }
 
 
-action release_lock_action() {
-    release_lock_alu . execute_stateful_alu ( meta.lock_id );
-}
 
 table release_lock_table {
     actions {
@@ -312,9 +299,6 @@ table release_lock_table {
 }
 
 
-action acquire_lock_action() {
-    acquire_lock_alu . execute_stateful_alu ( meta.lock_id );
-}
 
 table acquire_lock_table {
     actions {
@@ -324,9 +308,6 @@ table acquire_lock_table {
 }
 
 
-action set_retry_action() {
-    modify_field(nc_hdr.op, 5);
-}
 
 table set_retry_table {
     actions {
@@ -336,9 +317,6 @@ table set_retry_table {
 }
 
 
-action reply_to_client_action() {
-    modify_field(ipv4.dstAddr, ipv4.srcAddr);
-}
 
 table reply_to_client_table {
     actions {

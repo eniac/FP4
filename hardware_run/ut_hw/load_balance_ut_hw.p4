@@ -155,9 +155,6 @@ table ecmp_group {
 
 
 
-action set_ecmp_select() {
-    modify_field_with_hash_based_offset(meta.ecmp_select, 0, ecmp_hasher, 2);
-}
 
 field_list ecmp_fields {
     ipv4.srcAddr;
@@ -188,12 +185,6 @@ table ecmp_nhop {
 }
 
 
-action set_nhop(nhop_dmac, nhop_ipv4, port) {
-    modify_field(ethernet.dstAddr, nhop_dmac);
-    modify_field(ipv4.dstAddr, nhop_ipv4);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
-    subtract_from_field(ipv4.ttl, 1);
-}
 
 control egress     {
     apply(send_frame);
@@ -260,8 +251,5 @@ header_type pfuzz_visited_t {
 header pfuzz_visited_t pfuzz_visited;
 
 
-action rewrite_mac(smac) {
-    modify_field(ethernet.srcAddr, smac);
-}
 
 

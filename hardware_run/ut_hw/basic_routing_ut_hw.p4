@@ -101,9 +101,6 @@ metadata ingress_metadata_t ingress_metadata;
 
 
 
-action set_bd(bd) {
-    modify_field(ingress_metadata.bd, bd);
-}
 
 table port_mapping {
     reads {
@@ -118,9 +115,6 @@ table port_mapping {
 }
 
 
-action set_vrf(vrf) {
-    modify_field(ingress_metadata.vrf, vrf);
-}
 
 table bd {
     reads {
@@ -136,9 +130,6 @@ table bd {
 
 
 
-action on_miss_ipv4_fib() {
-    modify_field(ingress_metadata.on_miss_ipv4_fib, 1);
-}
 
 table ipv4_fib {
     reads {
@@ -168,13 +159,7 @@ table ipv4_fib_lpm {
 }
 
 
-action set_egress_details(egress_spec) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
-}
 
-action ai_drop() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
-}
 
 table nexthop {
     reads {
@@ -211,10 +196,6 @@ control ingress     {
 
 }
 
-action rewrite_src_dst_mac(smac, dmac) {
-    modify_field(ethernet.srcAddr, smac);
-    modify_field(ethernet.dstAddr, dmac);
-}
 
 table rewrite_mac {
     reads {

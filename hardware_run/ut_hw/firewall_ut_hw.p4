@@ -209,19 +209,7 @@ table ti_get_outgoing_pos {
 }
 
 
-action ai_get_incoming_pos() {
-    modify_field(meta.first, ipv4.srcAddr);
-    modify_field(meta.second, ipv4.dstAddr);
-    modify_field(meta.third, tcp.srcPort);
-    modify_field(meta.fourth, tcp.dstPort);
-}
 
-action ai_get_outgoing_pos() {
-    modify_field(meta.first, ipv4.dstAddr);
-    modify_field(meta.second, ipv4.srcAddr);
-    modify_field(meta.third, tcp.dstPort);
-    modify_field(meta.fourth, tcp.srcPort);
-}
 
 table ti_calculate_hash1 {
     actions {
@@ -282,12 +270,6 @@ table ipv4_lpm {
 }
 
 
-action ipv4_forward(dstAddr, port) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
-    modify_field(ethernet.srcAddr, dstAddr);
-    modify_field(ethernet.dstAddr, dstAddr);
-    subtract_from_field(ipv4.ttl, 1);
-}
 
 table check_ports {
     reads {
@@ -303,15 +285,7 @@ table check_ports {
 }
 
 
-action set_direction(dir) {
-    modify_field(meta.direction, dir);
-    modify_field(meta.check_ports_hit, 1);
-}
 
-action set_hit() {
-    modify_field(meta.check_ports_hit, 1);
-    modify_field(meta.direction, 1);
-}
 
 table ti_read_bloom_filter1 {
     actions {
@@ -343,13 +317,7 @@ register bloom_filter_2 {
 }
 
 
-action ai_read_bloom_filter1() {
-    rir_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
-}
 
-action ai_read_bloom_filter2() {
-    rir_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
-}
 
 blackbox stateful_alu rir_boom_filter1 {
     reg : bloom_filter_1;
@@ -419,9 +387,6 @@ blackbox stateful_alu riw_boom_filter2 {
 
 }
 
-action ai_write_bloom_filter1() {
-    riw_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
-}
 
 action ai_get_incoming_pos_pfuzz_ti_get_incoming_pos() {
     modify_field(meta.first, ipv4.srcAddr);
@@ -522,9 +487,6 @@ header_type pfuzz_visited_t {
 header pfuzz_visited_t pfuzz_visited;
 
 
-action ai_write_bloom_filter2() {
-    riw_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
-}
 
 
 action ai_mvbl_0_VIRTUAL_START_metametadirection0() {

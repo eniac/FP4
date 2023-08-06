@@ -101,9 +101,6 @@ parser parse_ipv4 {
 }
 
 
-action aiSetOutputPort() {
-    add_to_field(ig_intr_md_for_tm.ucast_egress_port, 4);
-}
 
 table tiSetOutputPort {
     actions {
@@ -118,9 +115,6 @@ field_list flLastSeen {
     meta.count_original;
 }
 
-action aiSendClone() {
-    clone_i2e(98, flLastSeen);
-}
 
 table tiSendClone {
     reads {
@@ -163,9 +157,6 @@ blackbox stateful_alu bb_mirror_read {
 
 }
 
-action aeReadMirror() {
-    bb_mirror_read . execute_stateful_alu ( 0 );
-}
 
 table teReadMirror {
     actions {
@@ -187,9 +178,6 @@ blackbox stateful_alu bb_mirror_update {
 
 }
 
-action aeUpdateMirror() {
-    bb_mirror_update . execute_stateful_alu ( 0 );
-}
 
 table teUpdateMirror {
     actions {
@@ -209,9 +197,6 @@ blackbox stateful_alu bb_original_read {
 
 }
 
-action aeReadOriginal() {
-    bb_original_read . execute_stateful_alu ( 0 );
-}
 
 table teReadOriginal {
     actions {
@@ -233,9 +218,6 @@ blackbox stateful_alu bb_original_update {
 
 }
 
-action aeUpdateOriginal() {
-    bb_original_update . execute_stateful_alu ( 0 );
-}
 
 table teUpdateOriginal {
     actions {
@@ -245,10 +227,6 @@ table teUpdateOriginal {
 }
 
 
-action aeGetDiff() {
-    subtract(meta.diff1, meta.count_original, meta.count_mirror);
-    subtract(meta.diff2, meta.count_mirror, meta.count_original);
-}
 
 table teGetDiff {
     actions {

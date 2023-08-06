@@ -147,9 +147,6 @@ table te_rate_limit {
 }
 
 
-action ae_rate_limit(x) {
-    subtract(meta.current_reading, x, meta.current_reading);
-}
 
 table teInitializeWma {
     actions {
@@ -160,10 +157,6 @@ table teInitializeWma {
 }
 
 
-action aeInitializeWma() {
-    modify_field(meta.cur_ts, eg_intr_md_from_parser_aux.egress_global_tstamp);
-    reBitCounter . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-}
 
 blackbox stateful_alu reBitCounter {
     reg : reg_bit_counter_egress;
@@ -192,9 +185,6 @@ table teWmaPhase1 {
 }
 
 
-action aeWmaPhase1() {
-    reWmaPhase1 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-}
 
 blackbox stateful_alu reWmaPhase1 {
     reg : reg_last_timestamp_egress;
@@ -225,9 +215,6 @@ table teWmaPhase2 {
 }
 
 
-action aeWmaPhase2() {
-    reWmaPhase2 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
-}
 
 blackbox stateful_alu reWmaPhase2 {
     reg : reg_interval_wma_egress;
@@ -270,9 +257,6 @@ register reg_interval_wma_egress {
 
 
 
-action ai_noOp() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
-}
 
 table ipv4_lpm {
     reads {
@@ -344,11 +328,5 @@ header_type pfuzz_visited_t {
 header pfuzz_visited_t pfuzz_visited;
 
 
-action ipv4_forward(dstAddr, port) {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
-    modify_field(ethernet.srcAddr, dstAddr);
-    modify_field(ethernet.dstAddr, dstAddr);
-    subtract_from_field(ipv4.ttl, 1);
-}
 
 
