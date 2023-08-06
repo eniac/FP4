@@ -121,7 +121,7 @@ class StaticController:
         else:
             return val[pipeNum]
 
-    def bring_ports_up(self, rate="25G", fec="NONE"):
+    def bring_ports_up(self, rate="100G", fec="NONE"):
         interface_list = [str(x) + '/0' for x in range(9,25)]
         devPorts = [self.port_map[p] for p in interface_list]
 
@@ -187,7 +187,7 @@ class StaticController:
         rules = ['ucli', 'pm']
         interface_list = [str(x) + '/0' for x in range(9,25)]
         for interface in interface_list:
-            rules.append('port-add ' + interface + " 25G NONE")
+            rules.append('port-add ' + interface + " 100G NONE")
             rules.append('port-enb ' + interface)
 
         rules.append('exit')
