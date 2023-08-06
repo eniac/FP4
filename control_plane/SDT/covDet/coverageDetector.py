@@ -107,7 +107,7 @@ class CoverageDetector(object):
 
         self.packets_forwarded = 0
         self.start_time = None
-        self.coverage = 0
+        self.action_coverage = 0
         self.path_coverage = 0
 
         self.set_out_file()
@@ -115,11 +115,11 @@ class CoverageDetector(object):
 
     def set_out_file(self):
         self.outfile = open("cpdigest_sdt_"+self.baseName+".txt", 'w')
-        self.outfile.write("time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen\n")
+        self.outfile.write("time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen\n")
 
     def write_output(self, time):
         self.outfile.write(str(time) + "," + str(self.numSeeds) \
-         + "," + str(self.packets_forwarded) + "," + str(self.coverage) \
+         + "," + str(self.packets_forwarded) + "," + str(self.action_coverage) + "," + str(self.path_coverage) \
          + "," + str(self.totalPacketReceived) + "," + str(self.seenActions) + "\n")
         self.outfile.flush()
 
@@ -550,8 +550,8 @@ class CoverageDetector(object):
             for bit in bitList:
                 encoding_val = (encoding_val << 1) | bit
             print("bitList: {0}, encoding_val: {1}".format(bitList, encoding_val))
-            path_seen[self.field2index_intra_path_seen[field_name]] = encoding_val
-
+            try:
+                path_seen[self.field2index_intra_path_seen[field_name]] = encoding_val
             # if len(bitList) > 1:
                 # print("It cannot be more than one")
                 # exit()
@@ -559,22 +559,23 @@ class CoverageDetector(object):
             # bitValue = bitList[0]
             # if bitValue == 0:
                 # continue
-
             # Update the action related statistics
-            print("Encoded path: {}".format(self.field2encoding2path[field_name][str(encoding_val)]))
-            for node in self.field2encoding2path[field_name][str(encoding_val)]:
-                if "_pfuzz_" in node:
-                    # self.actionToCount[node] += 1
-                    self.seenActions.add(node)
-                # if self.actionToCount[field_name] > 1:
-                #     continue
-
-            flag = True
+                print("Encoded path: {}".format(self.field2encoding2path[field_name][str(encoding_val)]))
+                for node in self.field2encoding2path[field_name][str(encoding_val)]:
+                    if "_pfuzz_" in node:
+                        # self.actionToCount[node] += 1
+                        self.seenActions.add(node)
+                    # if self.actionToCount[field_name] > 1:
+                    #     continue
+                        flag = True
+            except Exception as e:
+                print("[ERROR] {}".format(e))
             # counter += 1
             # fieldName = "field" + str(counter)
         print("--- path_seen {} ---".format(path_seen))
         self.paths_seen.append(path_seen)
-        self.coverage = len(self.seenActions)/(self.totalUniqueActions*1.0)
+        self.action_coverage = 1.0*len(self.seenActions)/self.total_num_actions
+        self.path_coverage = 1.0*len(self.paths_seen)/self.total_num_paths
         
         if self.start_time is None:
             self.start_time = datetime.now()
@@ -582,9 +583,9 @@ class CoverageDetector(object):
         else:
             self.write_output((datetime.now() - self.start_time).total_seconds())        
 
-        print("--- Path coverage: {0}/{1}={2} ---".format(len(self.paths_seen), self.total_num_paths, 1.0*len(self.paths_seen)/self.total_num_paths))
+        print("--- Path coverage: {0}/{1}={2} ---".format(len(self.paths_seen), self.total_num_paths, self.path_coverage))
         print("self.paths_seen: {}".format(self.paths_seen))
-        print("--- Action coverage: {0}/{1}={2}, number_of_seeds: {3}, time: {4}".format(len(self.seenActions), self.total_num_actions, 1.0*len(self.seenActions)/self.total_num_actions, self.numSeeds, datetime.now().time()))
+        print("--- Action coverage: {0}/{1}={2}, number_of_seeds: {3}, time: {4}".format(len(self.seenActions), self.total_num_actions, self.action_coverage, self.numSeeds, datetime.now().time()))
         print("self.seenActions: {}".format(self.seenActions))
         sys.stdout.flush()
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
@@ -593,7 +594,7 @@ class CoverageDetector(object):
         if ((datetime.now() - self.start_time).total_seconds() > 300):
             print("totalUniqueActions: ", self.totalUniqueActions)
             print("actionToCount", self.actionToCount)
-            print("Coverage complete", self.coverage)
+            print("Coverage complete", self.action_coverage)
             print("Exiting control plane")
             print("Endtime time", datetime.now().time())
             exit()

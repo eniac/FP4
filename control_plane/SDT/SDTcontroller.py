@@ -240,7 +240,7 @@ class DTController:
                 except socket.error:
                     pass
 
-            if start_time is not None and ((datetime.now() - start_time).total_seconds() > 300):
+            if start_time is not None and ((datetime.now() - start_time).total_seconds() > 500):
                 print(start_time)
                 print(datetime.now())
                 exit()
