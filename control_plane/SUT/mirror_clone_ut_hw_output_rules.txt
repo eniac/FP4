@@ -1,0 +1,8 @@
+
+pd-mirror-clone-ut-hw
+pd teUpdateMirror set_default_action aeUpdateMirror_pfuzz_teUpdateMirror
+pd teReadOriginal set_default_action aeReadOriginal_pfuzz_teReadOriginal
+pd teReadMirror set_default_action aeReadMirror_pfuzz_teReadMirror
+pd teUpdateOriginal set_default_action aeUpdateOriginal_pfuzz_teUpdateOriginal
+end
+exit

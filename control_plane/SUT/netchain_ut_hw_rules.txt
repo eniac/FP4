@@ -1,0 +1,24 @@
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 4
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 20.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 40
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 30.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 4
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 40.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 40
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 4
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 60.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 40
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 70.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 4
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 80.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 40
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 90.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 4
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 100.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 40
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 110.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 4
+pd ipv4_route add_entry set_egress_pfuzz_ipv4_route ipv4_dstAddr 120.0.0.1 ipv4_dstAddr_prefix_length 8 action_egress_spec 40
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 130.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 140.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 150.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 160.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 170.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 180.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 190.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 200.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 210.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 220.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 230.5.0.1 ipv4_dstAddr_prefix_length 8
+pd ipv4_route add_entry drop_action_pfuzz_ipv4_route ipv4_dstAddr 240.5.0.1 ipv4_dstAddr_prefix_length 8
