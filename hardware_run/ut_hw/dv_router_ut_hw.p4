@@ -469,6 +469,7 @@ header_type pfuzz_visited_t {
     fields {
         preamble : 48;
         pkt_type : 2;
+        __pad : 6;
         encoding_i0 : 8;
         encoding_i1 : 8;
         encoding_i2 : 8;
@@ -479,7 +480,6 @@ header_type pfuzz_visited_t {
         encoding_i7 : 8;
         encoding_i8 : 8;
         encoding_i9 : 8;
-        __pad : 6;
     }
 }
 

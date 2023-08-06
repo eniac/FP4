@@ -17,6 +17,9 @@
     },
     "visited": [
         {
+            "__pad": 6
+        },
+        {
             "encoding_e0": 8
         },
         {
@@ -24,9 +27,6 @@
         },
         {
             "encoding_i1": 8
-        },
-        {
-            "__pad": 6
         }
     ],
     "number_of_extract_paths": 3,

@@ -221,14 +221,6 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
     currentField = new FieldDecNode(name_, size_, NULL);
     field_list -> push_back(currentField);
 
-    for (auto it = encoding_field_2_bitlength_.begin(); it != encoding_field_2_bitlength_.end(); it++) {
-        name_ = new NameNode(new string(it->first));
-        size_ = new IntegerNode(new string(std::to_string(it->second)));
-        currentField = new FieldDecNode(name_, size_, NULL);
-        field_list -> push_back(currentField);
-        AddFieldToJson(it->first, it->second);
-    }
-
     // cout << "Modifier.cpp line 214 num_assertions_: " << num_assertions_ << endl;
     for (int i = 0; i < num_assertions_; i++) {
         name_ = new NameNode(new string("assertion" + to_string(i)));
@@ -247,6 +239,14 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
         field_list -> push_back(currentField);    
         AddFieldToJson("__pad", 8 - leftoverBits);
     } 
+
+    for (auto it = encoding_field_2_bitlength_.begin(); it != encoding_field_2_bitlength_.end(); it++) {
+        name_ = new NameNode(new string(it->first));
+        size_ = new IntegerNode(new string(std::to_string(it->second)));
+        currentField = new FieldDecNode(name_, size_, NULL);
+        field_list -> push_back(currentField);
+        AddFieldToJson(it->first, it->second);
+    }
 
   // Name of new header
     name_ = new NameNode(new string(sig_+"_visited_t"));
