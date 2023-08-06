@@ -6,12 +6,12 @@ SDE_PREFIX=/home/leoyu/bf-sde-9.2.0/pkgsrc/p4-build/tofino
 
 program_list=(
     "basic_routing"
-    "mirror_clone"
-    "load_balance"
-    "rate_limiter"
-    "netchain"
-    "firewall"
-   "dv_router"
+   #  "mirror_clone"
+   #  "load_balance"
+   #  "rate_limiter"
+   #  "netchain"
+   #  "firewall"
+   # "dv_router"
    # "switch_80019"
 )
 

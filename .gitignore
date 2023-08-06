@@ -60,8 +60,6 @@ instrumentation/out
 **/zlog-cfg-cur
 *.pyc
 bf_drivers.log*
-control_plane/SUT/*_ut_hw_rules.txt
-control_plane/SDT/*_ut_hw_rules.txt
 control_plane/SDT/*_dt_hw_rules.txt
 control_plane/SDT/*.json
 test_programs/**/*.c

@@ -5,6 +5,7 @@ import json
 import numpy as np
 import importlib
 import time
+import os
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport

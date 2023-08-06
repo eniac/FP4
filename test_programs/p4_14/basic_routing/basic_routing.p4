@@ -191,6 +191,10 @@ action set_egress_details(egress_spec) {
 action ai_drop() {
     drop();
 }
+table ti_drop {
+    actions { ai_drop; }
+    default_action: ai_drop();
+}
 
 table nexthop {
     reads {
