@@ -323,11 +323,11 @@ blackbox stateful_alu riw_boom_filter2 {
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
+        pkt_type : 2;
         encoding_i0 : 8;
         encoding_i1 : 8;
         encoding_i2 : 8;
         encoding_i3 : 8;
-        pkt_type : 2;
         __pad : 6;
     }
 }

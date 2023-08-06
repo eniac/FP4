@@ -230,10 +230,10 @@ control egress {
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
+        pkt_type : 2;
         encoding_e0 : 8;
         encoding_i0 : 8;
         encoding_i1 : 8;
-        pkt_type : 2;
         __pad : 6;
     }
 }

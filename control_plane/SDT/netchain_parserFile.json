@@ -1,0 +1,183 @@
+{
+    "initial_state": "start",
+    "final_state": "ingress",
+    "states": [
+        "parse_nc_hdr",
+        "parse_nc_hdr_clone",
+        "parse_udp",
+        "parse_udp_clone",
+        "parse_tcp",
+        "parse_tcp_clone",
+        "parse_ipv4",
+        "parse_ipv4_clone",
+        "parse_ethernet",
+        "parse_ethernet_clone",
+        "start",
+        "start_clone"
+    ],
+    "extract": {
+        "parse_nc_hdr": [
+            "nc_hdr"
+        ],
+        "parse_nc_hdr_clone": [
+            "nc_hdr_clone"
+        ],
+        "parse_udp": [
+            "udp"
+        ],
+        "parse_udp_clone": [
+            "udp_clone"
+        ],
+        "parse_tcp": [
+            "tcp"
+        ],
+        "parse_tcp_clone": [
+            "tcp_clone"
+        ],
+        "parse_ipv4": [
+            "ipv4"
+        ],
+        "parse_ipv4_clone": [
+            "ipv4_clone"
+        ],
+        "parse_ethernet": [
+            "ethernet"
+        ],
+        "parse_ethernet_clone": [
+            "ethernet_clone"
+        ],
+        "start": [
+            "pfuzz_visited"
+        ]
+    },
+    "transitions": [
+        {
+            "from": "parse_nc_hdr",
+            "to": "start_clone",
+            "condition": 0
+        },
+        {
+            "from": "parse_nc_hdr_clone",
+            "to": "ingress",
+            "condition": 0
+        },
+        {
+            "condition": 1,
+            "header": "latest.dstPort",
+            "from": "parse_udp",
+            "to": "parse_nc_hdr",
+            "value": "6666"
+        },
+        {
+            "condition": 1,
+            "header": "latest.dstPort",
+            "from": "parse_udp",
+            "to": "start_clone",
+            "value": "default"
+        },
+        {
+            "condition": 1,
+            "header": "latest.dstPort",
+            "from": "parse_udp_clone",
+            "to": "parse_nc_hdr_clone",
+            "value": "6666"
+        },
+        {
+            "condition": 1,
+            "header": "latest.dstPort",
+            "from": "parse_udp_clone",
+            "to": "ingress",
+            "value": "default"
+        },
+        {
+            "from": "parse_tcp",
+            "to": "start_clone",
+            "condition": 0
+        },
+        {
+            "from": "parse_tcp_clone",
+            "to": "ingress",
+            "condition": 0
+        },
+        {
+            "condition": 1,
+            "header": "latest.protocol",
+            "from": "parse_ipv4",
+            "to": "parse_tcp",
+            "value": "6"
+        },
+        {
+            "condition": 1,
+            "header": "latest.protocol",
+            "from": "parse_ipv4",
+            "to": "parse_udp",
+            "value": "17"
+        },
+        {
+            "condition": 1,
+            "header": "latest.protocol",
+            "from": "parse_ipv4",
+            "to": "start_clone",
+            "value": "default"
+        },
+        {
+            "condition": 1,
+            "header": "latest.protocol",
+            "from": "parse_ipv4_clone",
+            "to": "parse_tcp_clone",
+            "value": "6"
+        },
+        {
+            "condition": 1,
+            "header": "latest.protocol",
+            "from": "parse_ipv4_clone",
+            "to": "parse_udp_clone",
+            "value": "17"
+        },
+        {
+            "condition": 1,
+            "header": "latest.protocol",
+            "from": "parse_ipv4_clone",
+            "to": "ingress",
+            "value": "default"
+        },
+        {
+            "condition": 1,
+            "header": "latest.etherType",
+            "from": "parse_ethernet",
+            "to": "parse_ipv4",
+            "value": "0x0800"
+        },
+        {
+            "condition": 1,
+            "header": "latest.etherType",
+            "from": "parse_ethernet",
+            "to": "start_clone",
+            "value": "default"
+        },
+        {
+            "condition": 1,
+            "header": "latest.etherType",
+            "from": "parse_ethernet_clone",
+            "to": "parse_ipv4_clone",
+            "value": "0x0800"
+        },
+        {
+            "condition": 1,
+            "header": "latest.etherType",
+            "from": "parse_ethernet_clone",
+            "to": "ingress",
+            "value": "default"
+        },
+        {
+            "from": "start",
+            "to": "parse_ethernet",
+            "condition": 0
+        },
+        {
+            "from": "start_clone",
+            "to": "parse_ethernet_clone",
+            "condition": 0
+        }
+    ]
+}

@@ -1,0 +1,105 @@
+{
+    "metadata_t": [
+        {
+            "count_mirror": "32"
+        },
+        {
+            "count_original": "32"
+        },
+        {
+            "diff1": "32"
+        },
+        {
+            "diff2": "32"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "pfuzz_visited_t": "pfuzz_visited"
+    },
+    "pfuzz_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "encoding_e0": "8"
+        },
+        {
+            "encoding_e1": "8"
+        },
+        {
+            "encoding_e2": "8"
+        },
+        {
+            "encoding_e3": "8"
+        },
+        {
+            "encoding_e4": "8"
+        },
+        {
+            "encoding_e5": "8"
+        },
+        {
+            "encoding_i0": "8"
+        },
+        {
+            "encoding_i1": "8"
+        },
+        {
+            "__pad": "6"
+        }
+    ]
+}

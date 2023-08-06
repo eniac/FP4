@@ -1,0 +1,153 @@
+{
+    "cis553_metadata_t": [
+        {
+            "forMe": "1"
+        },
+        {
+            "__pad": "7"
+        },
+        {
+            "temp": "32"
+        },
+        {
+            "nextHop": "32"
+        }
+    ],
+    "distance_vec_t": [
+        {
+            "src": "32"
+        },
+        {
+            "length_dist": "16"
+        },
+        {
+            "data": "144"
+        }
+    ],
+    "arp_t": [
+        {
+            "htype": "16"
+        },
+        {
+            "ptype": "16"
+        },
+        {
+            "hlen": "8"
+        },
+        {
+            "plen": "8"
+        },
+        {
+            "oper": "16"
+        },
+        {
+            "senderHA": "48"
+        },
+        {
+            "senderPA": "32"
+        },
+        {
+            "targetHA": "48"
+        },
+        {
+            "targetPA": "32"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "distance_vec_t": "distance_vec",
+        "arp_t": "arp",
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "pfuzz_visited_t": "pfuzz_visited"
+    },
+    "pfuzz_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "encoding_i0": "8"
+        },
+        {
+            "encoding_i1": "8"
+        },
+        {
+            "encoding_i2": "8"
+        },
+        {
+            "encoding_i3": "8"
+        },
+        {
+            "encoding_i4": "8"
+        },
+        {
+            "encoding_i5": "8"
+        },
+        {
+            "encoding_i6": "8"
+        },
+        {
+            "encoding_i7": "8"
+        },
+        {
+            "encoding_i8": "8"
+        },
+        {
+            "encoding_i9": "8"
+        },
+        {
+            "__pad": "6"
+        }
+    ]
+}

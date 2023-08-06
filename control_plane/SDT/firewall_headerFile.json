@@ -1,0 +1,156 @@
+{
+    "metadata_t": [
+        {
+            "direction": "1"
+        },
+        {
+            "check_ports_hit": "1"
+        },
+        {
+            "reg_val_one": "1"
+        },
+        {
+            "reg_val_two": "1"
+        },
+        {
+            "reg_pos_one": "16"
+        },
+        {
+            "reg_pos_two": "16"
+        },
+        {
+            "first": "32"
+        },
+        {
+            "second": "32"
+        },
+        {
+            "third": "16"
+        },
+        {
+            "fourth": "16"
+        }
+    ],
+    "tcp_t": [
+        {
+            "srcPort": "16"
+        },
+        {
+            "dstPort": "16"
+        },
+        {
+            "seqNo": "32"
+        },
+        {
+            "ackNo": "32"
+        },
+        {
+            "dataOffset": "4"
+        },
+        {
+            "res": "3"
+        },
+        {
+            "ecn": "3"
+        },
+        {
+            "ctrl": "3"
+        },
+        {
+            "rst": "1"
+        },
+        {
+            "syn": "1"
+        },
+        {
+            "fin": "1"
+        },
+        {
+            "window": "16"
+        },
+        {
+            "checksum": "16"
+        },
+        {
+            "urgentPtr": "16"
+        }
+    ],
+    "ipv4_t": [
+        {
+            "version": "4"
+        },
+        {
+            "ihl": "4"
+        },
+        {
+            "diffserv": "8"
+        },
+        {
+            "totalLen": "16"
+        },
+        {
+            "identification": "16"
+        },
+        {
+            "flags": "3"
+        },
+        {
+            "fragOffset": "13"
+        },
+        {
+            "ttl": "8"
+        },
+        {
+            "protocol": "8"
+        },
+        {
+            "hdrChecksum": "16"
+        },
+        {
+            "srcAddr": "32"
+        },
+        {
+            "dstAddr": "32"
+        }
+    ],
+    "ethernet_t": [
+        {
+            "dstAddr": "48"
+        },
+        {
+            "srcAddr": "48"
+        },
+        {
+            "etherType": "16"
+        }
+    ],
+    "type_to_instance": {
+        "tcp_t": "tcp",
+        "ipv4_t": "ipv4",
+        "ethernet_t": "ethernet",
+        "pfuzz_visited_t": "pfuzz_visited"
+    },
+    "pfuzz_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "encoding_i0": "8"
+        },
+        {
+            "encoding_i1": "8"
+        },
+        {
+            "encoding_i2": "8"
+        },
+        {
+            "encoding_i3": "8"
+        },
+        {
+            "__pad": "6"
+        }
+    ]
+}
