@@ -61,7 +61,6 @@ instrumentation/out
 *.pyc
 bf_drivers.log*
 control_plane/SDT/*_dt_hw_rules.txt
-control_plane/SDT/*.json
 test_programs/**/*.c
 test_programs/**/*.tmp
 **/*.log

@@ -10,13 +10,13 @@ set -ex
 #!/bin/bash
 
 programs=(
-    # "firewall"
-    # "load_balance"
-    # "rate_limiter"
+    "firewall"
+    "load_balance"
+    "rate_limiter"
     "basic_routing"
-    # "dv_router"
-    # "mirror_clone"
-    # "netchain"
+    "dv_router"
+    "mirror_clone"
+    "netchain"
 )
 
 first_run=true

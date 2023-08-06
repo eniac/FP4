@@ -1,3 +1,7 @@
+pd ecmp_group set_default_action drop_packet_pfuzz_ecmp_group
+pd ecmp_nhop set_default_action drop_packet_pfuzz_ecmp_nhop
+pd send_frame set_default_action drop_packet_pfuzz_send_frame
+
 pd ecmp_group add_entry set_ecmp_select_pfuzz_ecmp_group ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 8 
 pd ecmp_group add_entry set_ecmp_select_pfuzz_ecmp_group ipv4_dstAddr 192.0.0.1 ipv4_dstAddr_prefix_length 8
 

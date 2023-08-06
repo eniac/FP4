@@ -214,6 +214,13 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
     //         AddFieldToJson("encoding"+it->second, 32);
     //     }
     // }
+
+    // Add 2b packet type: generate new packet, check for assertion, forward to UT without change
+    name_ = new NameNode(new string("pkt_type"));
+    size_ = new IntegerNode(new string(to_string(2)));
+    currentField = new FieldDecNode(name_, size_, NULL);
+    field_list -> push_back(currentField);
+
     for (auto it = encoding_field_2_bitlength_.begin(); it != encoding_field_2_bitlength_.end(); it++) {
         name_ = new NameNode(new string(it->first));
         size_ = new IntegerNode(new string(std::to_string(it->second)));
@@ -221,12 +228,6 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
         field_list -> push_back(currentField);
         AddFieldToJson(it->first, it->second);
     }
-
-    // Add 2b packet type: generate new packet, check for assertion, forward to UT without change
-    name_ = new NameNode(new string("pkt_type"));
-    size_ = new IntegerNode(new string(to_string(2)));
-    currentField = new FieldDecNode(name_, size_, NULL);
-    field_list -> push_back(currentField);
 
     // cout << "Modifier.cpp line 214 num_assertions_: " << num_assertions_ << endl;
     for (int i = 0; i < num_assertions_; i++) {
