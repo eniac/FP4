@@ -1977,6 +1977,8 @@ ActionNode::ActionNode(AstNode* name, AstNode* params, AstNode* stmts) {
 ActionNode* ActionNode::duplicateAction(const string& name) {
     auto newNode = new ActionNode(new NameNode(new string(name)),
                                   params_->deepCopy(), stmts_->deepCopy());
+    // If an action node gets duplicated, just remove the current one
+    this->removed_ = true;
     return newNode;
 }
 
