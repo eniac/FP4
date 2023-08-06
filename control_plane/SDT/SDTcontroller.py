@@ -5,6 +5,7 @@ import importlib
 import time
 import subprocess
 import json
+import sys
 import socket
 from datetime import datetime
 
@@ -102,6 +103,7 @@ class DTController:
 
     def add_entries(self, ruleList):
         print("====== add_entries prologue ======")
+        sys.stdout.flush()
         for current_list in DTController.chunks(ruleList, 50):
             print("--- current_list of len {} ---".format(len(current_list)))
             outFile = open(self.program_name + '_rules.txt', 'w')
@@ -118,6 +120,7 @@ class DTController:
             output, error = process.communicate()
             # time.sleep(1)
         print("====== add_entries epilogue ======")
+        sys.stdout.flush()
         return       
  
     def readRegister(self, registerName, index, pipeNum=0):
@@ -194,6 +197,7 @@ class DTController:
 
         while True:
             print("--- self.dp_iface.receive_packet ---")
+            sys.stdout.flush()
             switchData = self.dp_iface.receive_packet()
             packetsForwarded = self.readRegister('forward_count_register', 0)
 
@@ -202,7 +206,7 @@ class DTController:
             if start_time is None:    
                 print("First packet forwarded on port 0, counter {0}, time: {1}".format(packetsForwarded, datetime.now().time()))
             else:
-                print("Packet forwarded on port 0, counter {0}, duration {1}s".format(packetsForwarded, (datetime.now() - start_time).total_seconds()))
+                print("Packet forwarded on port 0, counter {0}, since first packet {1}s".format(packetsForwarded, (datetime.now() - start_time).total_seconds()))
 
             self.coverageDetector.set_packets_forwarded(packetsForwarded)
             if switchData is not None:

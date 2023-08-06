@@ -1,4 +1,5 @@
 import socket
+import sys
 
 class DataplaneSocket():
     def __init__(self, interface_name = 's2-ethc'):
@@ -17,7 +18,6 @@ class DataplaneSocket():
         # print("sent bytes: ", bytes_sent)
 
     def receive_packet(self):
-        print("====== receive_packet prologue ======")
         # Read data from the dataplane and return raw packet
         try:
             packet, addr = self.dpSocket.recvfrom(512)
@@ -27,7 +27,9 @@ class DataplaneSocket():
                 self.dpSocket.settimeout(1)
                 print("--- Timeout Updated to 1s ---")
             packet = bytearray(packet)
-            print("\n\n\n[INFO] Packet received of size: ", len(packet))
+            print("\n\n\n[INFO] Packet received of size: {}".format(len(packet)))
+            sys.stdout.flush()
+
             return packet
         except socket.timeout:
             print("No packet within timeout")

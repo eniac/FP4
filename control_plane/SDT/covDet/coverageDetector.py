@@ -2,6 +2,7 @@ import math
 import json
 from itertools import product
 import struct
+import sys
 from collections import defaultdict, OrderedDict
 from header import Header
 # from headerSynthesizer import HeaderSynthesizer
@@ -583,8 +584,9 @@ class CoverageDetector(object):
 
         print("--- Path coverage: {0}/{1}={2} ---".format(len(self.paths_seen), self.total_num_paths, 1.0*len(self.paths_seen)/self.total_num_paths))
         print("self.paths_seen: {}".format(self.paths_seen))
-        print("--- Action coverage: {0}, number_of_seeds: {1}, time: {2}".format(1.0*len(self.seenActions)/self.total_num_actions, self.numSeeds, datetime.now().time()))
+        print("--- Action coverage: {0}/{1}={2}, number_of_seeds: {3}, time: {4}".format(len(self.seenActions), self.total_num_actions, 1.0*len(self.seenActions)/self.total_num_actions, self.numSeeds, datetime.now().time()))
         print("self.seenActions: {}".format(self.seenActions))
+        sys.stdout.flush()
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
         #self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions)+"\n")
 
