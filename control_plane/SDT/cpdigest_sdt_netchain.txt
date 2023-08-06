@@ -1,8 +1,7 @@
-time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen
-0,5,601584,0.142857142857,1,set(['drop_action'])
-1.411634,6,214076384,0.285714285714,2,set(['set_egress', 'drop_action'])
-2.532629,7,385060502,0.571428571429,3,set(['set_egress', 'decode_action', 'reply_to_client_action', 'drop_action'])
-3.65432,8,557568269,0.571428571429,4,set(['set_egress', 'decode_action', 'reply_to_client_action', 'drop_action'])
-4.779745,9,730703413,0.714285714286,5,set(['set_egress', 'acquire_lock_action', 'decode_action', 'reply_to_client_action', 'drop_action'])
-5.904277,10,904087270,0.857142857143,6,set(['decode_action', 'set_egress', 'set_retry_action', 'acquire_lock_action', 'reply_to_client_action', 'drop_action'])
-7.026752,11,1078232507,1.0,7,set(['decode_action', 'set_egress', 'release_lock_action', 'set_retry_action', 'acquire_lock_action', 'reply_to_client_action', 'drop_action'])
+time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen
+0,5,934835,0.142857142857,0.0185185185185,1,set([u'drop_action_pfuzz_ipv4_route'])
+0.119767,6,26350191,0.285714285714,0.037037037037,2,set([u'drop_action_pfuzz_ipv4_route', u'decode_action_pfuzz_decode_table'])
+0.242202,7,53780637,0.428571428571,0.0555555555556,3,set([u'drop_action_pfuzz_ipv4_route', u'set_egress_pfuzz_ipv4_route', u'decode_action_pfuzz_decode_table'])
+0.363155,8,81634430,0.428571428571,0.0740740740741,4,set([u'drop_action_pfuzz_ipv4_route', u'set_egress_pfuzz_ipv4_route', u'decode_action_pfuzz_decode_table'])
+0.48181,9,109662818,0.714285714286,0.0925925925926,5,set([u'drop_action_pfuzz_ipv4_route', u'set_egress_pfuzz_ipv4_route', u'reply_to_client_action_pfuzz_reply_to_client_table', u'acquire_lock_action_pfuzz_acquire_lock_table', u'decode_action_pfuzz_decode_table'])
+0.600591,10,137681591,0.857142857143,0.111111111111,6,set([u'drop_action_pfuzz_ipv4_route', u'release_lock_action_pfuzz_release_lock_table', u'reply_to_client_action_pfuzz_reply_to_client_table', u'decode_action_pfuzz_decode_table', u'acquire_lock_action_pfuzz_acquire_lock_table', u'set_egress_pfuzz_ipv4_route'])
