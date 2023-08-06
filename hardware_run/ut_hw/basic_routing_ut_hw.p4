@@ -110,7 +110,7 @@ table port_mapping {
         ig_intr_md.ingress_port : exact;
     }
     actions {
-        set_bd;
+        set_bd_pfuzz_port_mapping;
         on_miss_pfuzz_port_mapping;
     }
     default_action:on_miss_pfuzz_port_mapping();
@@ -127,7 +127,7 @@ table bd {
         ingress_metadata.bd : exact;
     }
     actions {
-        set_vrf;
+        set_vrf_pfuzz_bd;
         on_miss_pfuzz_bd;
     }
     default_action:on_miss_pfuzz_bd();
@@ -146,10 +146,10 @@ table ipv4_fib {
         ipv4.dstAddr : exact;
     }
     actions {
-        on_miss_ipv4_fib;
+        on_miss_ipv4_fib_pfuzz_ipv4_fib;
         fib_hit_nexthop_pfuzz_ipv4_fib;
     }
-    default_action:on_miss_ipv4_fib();
+    default_action:on_miss_ipv4_fib_pfuzz_ipv4_fib();
     size:131072;
 }
 
@@ -181,10 +181,10 @@ table nexthop {
         ingress_metadata.nexthop_index : exact;
     }
     actions {
-        ai_drop;
-        set_egress_details;
+        ai_drop_pfuzz_nexthop;
+        set_egress_details_pfuzz_nexthop;
     }
-    default_action:ai_drop();
+    default_action:ai_drop_pfuzz_nexthop();
     size:32768;
 }
 
@@ -222,18 +222,33 @@ table rewrite_mac {
     }
     actions {
         on_miss_pfuzz_rewrite_mac;
-        rewrite_src_dst_mac;
+        rewrite_src_dst_mac_pfuzz_rewrite_mac;
     }
     default_action:on_miss_pfuzz_rewrite_mac();
     size:32768;
 }
 
 
+action set_bd_pfuzz_port_mapping(bd) {
+    modify_field(ingress_metadata.bd, bd);
+    add_to_field(pfuzz_visited.encoding_i1, 9);
+}
+
 action on_miss_pfuzz_port_mapping() {
     add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
+action set_vrf_pfuzz_bd(vrf) {
+    modify_field(ingress_metadata.vrf, vrf);
+    add_to_field(pfuzz_visited.encoding_i1, 4);
+}
+
 action on_miss_pfuzz_bd() {
+}
+
+action on_miss_ipv4_fib_pfuzz_ipv4_fib() {
+    modify_field(ingress_metadata.on_miss_ipv4_fib, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 2);
 }
 
 action fib_hit_nexthop_pfuzz_ipv4_fib(nexthop_index) {
@@ -251,7 +266,22 @@ action fib_hit_nexthop_pfuzz_ipv4_fib_lpm(nexthop_index) {
     add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
+action ai_drop_pfuzz_nexthop() {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+}
+
+action set_egress_details_pfuzz_nexthop(egress_spec) {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
+}
+
 action on_miss_pfuzz_rewrite_mac() {
+}
+
+action rewrite_src_dst_mac_pfuzz_rewrite_mac(smac, dmac) {
+    modify_field(ethernet.srcAddr, smac);
+    modify_field(ethernet.dstAddr, dmac);
+    add_to_field(pfuzz_visited.encoding_e0, 1);
 }
 
 header_type pfuzz_visited_t {

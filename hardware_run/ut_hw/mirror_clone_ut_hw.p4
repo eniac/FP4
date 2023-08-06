@@ -107,9 +107,9 @@ action aiSetOutputPort() {
 
 table tiSetOutputPort {
     actions {
-        aiSetOutputPort;
+        aiSetOutputPort_pfuzz_tiSetOutputPort;
     }
-    default_action:aiSetOutputPort();
+    default_action:aiSetOutputPort_pfuzz_tiSetOutputPort();
 }
 
 
@@ -127,9 +127,9 @@ table tiSendClone {
         ethernet.etherType : exact;
     }
     actions {
-        aiSendClone;
+        aiSendClone_pfuzz_tiSendClone;
     }
-    default_action:aiSendClone();
+    default_action:aiSendClone_pfuzz_tiSendClone();
 }
 
 
@@ -169,9 +169,9 @@ action aeReadMirror() {
 
 table teReadMirror {
     actions {
-        aeReadMirror;
+        aeReadMirror_pfuzz_teReadMirror;
     }
-    default_action:aeReadMirror();
+    default_action:aeReadMirror_pfuzz_teReadMirror();
 }
 
 
@@ -193,9 +193,9 @@ action aeUpdateMirror() {
 
 table teUpdateMirror {
     actions {
-        aeUpdateMirror;
+        aeUpdateMirror_pfuzz_teUpdateMirror;
     }
-    default_action:aeUpdateMirror();
+    default_action:aeUpdateMirror_pfuzz_teUpdateMirror();
 }
 
 
@@ -215,9 +215,9 @@ action aeReadOriginal() {
 
 table teReadOriginal {
     actions {
-        aeReadOriginal;
+        aeReadOriginal_pfuzz_teReadOriginal;
     }
-    default_action:aeReadOriginal();
+    default_action:aeReadOriginal_pfuzz_teReadOriginal();
 }
 
 
@@ -239,9 +239,9 @@ action aeUpdateOriginal() {
 
 table teUpdateOriginal {
     actions {
-        aeUpdateOriginal;
+        aeUpdateOriginal_pfuzz_teUpdateOriginal;
     }
-    default_action:aeUpdateOriginal();
+    default_action:aeUpdateOriginal_pfuzz_teUpdateOriginal();
 }
 
 
@@ -252,11 +252,44 @@ action aeGetDiff() {
 
 table teGetDiff {
     actions {
-        aeGetDiff;
+        aeGetDiff_pfuzz_teGetDiff;
     }
-    default_action:aeGetDiff();
+    default_action:aeGetDiff_pfuzz_teGetDiff();
 }
 
+
+action aiSetOutputPort_pfuzz_tiSetOutputPort() {
+    add_to_field(ig_intr_md_for_tm.ucast_egress_port, 4);
+}
+
+action aiSendClone_pfuzz_tiSendClone() {
+    clone_i2e(98, flLastSeen);
+}
+
+action aeReadMirror_pfuzz_teReadMirror() {
+    bb_mirror_read . execute_stateful_alu ( 0 );
+    add_to_field(pfuzz_visited.encoding_e2, 1);
+}
+
+action aeUpdateMirror_pfuzz_teUpdateMirror() {
+    bb_mirror_update . execute_stateful_alu ( 0 );
+    add_to_field(pfuzz_visited.encoding_e5, 1);
+}
+
+action aeReadOriginal_pfuzz_teReadOriginal() {
+    bb_original_read . execute_stateful_alu ( 0 );
+    add_to_field(pfuzz_visited.encoding_e4, 1);
+}
+
+action aeUpdateOriginal_pfuzz_teUpdateOriginal() {
+    bb_original_update . execute_stateful_alu ( 0 );
+    add_to_field(pfuzz_visited.encoding_e3, 1);
+}
+
+action aeGetDiff_pfuzz_teGetDiff() {
+    subtract(meta.diff1, meta.count_original, meta.count_mirror);
+    subtract(meta.diff2, meta.count_mirror, meta.count_original);
+}
 
 header_type pfuzz_visited_t {
     fields {

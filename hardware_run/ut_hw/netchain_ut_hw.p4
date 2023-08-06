@@ -238,10 +238,10 @@ table ipv4_route {
         ipv4.dstAddr : lpm;
     }
     actions {
-        set_egress;
-        drop_action;
+        set_egress_pfuzz_ipv4_route;
+        drop_action_pfuzz_ipv4_route;
     }
-    default_action:drop_action;
+    default_action:drop_action_pfuzz_ipv4_route;
     size:256;
 }
 
@@ -294,9 +294,9 @@ action decode_action() {
 
 table decode_table {
     actions {
-        decode_action;
+        decode_action_pfuzz_decode_table;
     }
-    default_action:decode_action;
+    default_action:decode_action_pfuzz_decode_table;
 }
 
 
@@ -306,9 +306,9 @@ action release_lock_action() {
 
 table release_lock_table {
     actions {
-        release_lock_action;
+        release_lock_action_pfuzz_release_lock_table;
     }
-    default_action:release_lock_action;
+    default_action:release_lock_action_pfuzz_release_lock_table;
 }
 
 
@@ -318,9 +318,9 @@ action acquire_lock_action() {
 
 table acquire_lock_table {
     actions {
-        acquire_lock_action;
+        acquire_lock_action_pfuzz_acquire_lock_table;
     }
-    default_action:acquire_lock_action;
+    default_action:acquire_lock_action_pfuzz_acquire_lock_table;
 }
 
 
@@ -330,9 +330,9 @@ action set_retry_action() {
 
 table set_retry_table {
     actions {
-        set_retry_action;
+        set_retry_action_pfuzz_set_retry_table;
     }
-    default_action:set_retry_action;
+    default_action:set_retry_action_pfuzz_set_retry_table;
 }
 
 
@@ -342,9 +342,9 @@ action reply_to_client_action() {
 
 table reply_to_client_table {
     actions {
-        reply_to_client_action;
+        reply_to_client_action_pfuzz_reply_to_client_table;
     }
-    default_action:reply_to_client_action;
+    default_action:reply_to_client_action_pfuzz_reply_to_client_table;
 }
 
 
@@ -354,7 +354,7 @@ control ingress     {
 
         if (nc_hdr.op == 0)  {
             apply(acquire_lock_table);
-            apply(ti_mvbl_1_hdrnc_hdrisValid_metametaavailable0);
+
             if (meta.available != 0)  {
                 apply(set_retry_table);
 
@@ -382,6 +382,40 @@ control ingress     {
     apply(ipv4_route);
 
 
+}
+
+action set_egress_pfuzz_ipv4_route(egress_spec) {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
+    add_to_field(ipv4.ttl, -1);
+    add_to_field(pfuzz_visited.encoding_i2, 1);
+}
+
+action drop_action_pfuzz_ipv4_route() {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+}
+
+action decode_action_pfuzz_decode_table() {
+    modify_field(meta.lock_id, nc_hdr.lock);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
+}
+
+action release_lock_action_pfuzz_release_lock_table() {
+    release_lock_alu . execute_stateful_alu ( meta.lock_id );
+    add_to_field(pfuzz_visited.encoding_i0, 1);
+}
+
+action acquire_lock_action_pfuzz_acquire_lock_table() {
+    acquire_lock_alu . execute_stateful_alu ( meta.lock_id );
+    add_to_field(pfuzz_visited.encoding_i3, 1);
+}
+
+action set_retry_action_pfuzz_set_retry_table() {
+    modify_field(nc_hdr.op, 5);
+    add_to_field(pfuzz_visited.encoding_i3, 1);
+}
+
+action reply_to_client_action_pfuzz_reply_to_client_table() {
+    modify_field(ipv4.dstAddr, ipv4.srcAddr);
 }
 
 header_type pfuzz_visited_t {

@@ -193,18 +193,18 @@ control egress     {
 
 table ti_get_incoming_pos {
     actions {
-        ai_get_incoming_pos;
+        ai_get_incoming_pos_pfuzz_ti_get_incoming_pos;
     }
-    default_action:ai_get_incoming_pos();
+    default_action:ai_get_incoming_pos_pfuzz_ti_get_incoming_pos();
     size:1;
 }
 
 
 table ti_get_outgoing_pos {
     actions {
-        ai_get_outgoing_pos;
+        ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos;
     }
-    default_action:ai_get_outgoing_pos();
+    default_action:ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos();
     size:1;
 }
 
@@ -273,7 +273,7 @@ table ipv4_lpm {
         ipv4.dstAddr : lpm;
     }
     actions {
-        ipv4_forward;
+        ipv4_forward_pfuzz_ipv4_lpm;
         drop_packet_pfuzz_ipv4_lpm;
         ai_noOp_pfuzz_ipv4_lpm;
     }
@@ -295,10 +295,10 @@ table check_ports {
         ig_intr_md_for_tm.ucast_egress_port : exact;
     }
     actions {
-        set_direction;
-        set_hit;
+        set_direction_pfuzz_check_ports;
+        set_hit_pfuzz_check_ports;
     }
-    default_action:set_hit();
+    default_action:set_hit_pfuzz_check_ports();
     size:1024;
 }
 
@@ -315,18 +315,18 @@ action set_hit() {
 
 table ti_read_bloom_filter1 {
     actions {
-        ai_read_bloom_filter1;
+        ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1;
     }
-    default_action:ai_read_bloom_filter1();
+    default_action:ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1();
     size:1;
 }
 
 
 table ti_read_bloom_filter2 {
     actions {
-        ai_read_bloom_filter2;
+        ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2;
     }
-    default_action:ai_read_bloom_filter2();
+    default_action:ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2();
     size:1;
 }
 
@@ -387,18 +387,18 @@ table ti_apply_filter {
 
 table ti_write_bloom_filter1 {
     actions {
-        ai_write_bloom_filter1;
+        ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1;
     }
-    default_action:ai_write_bloom_filter1();
+    default_action:ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1();
     size:1;
 }
 
 
 table ti_write_bloom_filter2 {
     actions {
-        ai_write_bloom_filter2;
+        ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2;
     }
-    default_action:ai_write_bloom_filter2();
+    default_action:ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2();
     size:1;
 }
 
@@ -423,6 +423,22 @@ action ai_write_bloom_filter1() {
     riw_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
 }
 
+action ai_get_incoming_pos_pfuzz_ti_get_incoming_pos() {
+    modify_field(meta.first, ipv4.srcAddr);
+    modify_field(meta.second, ipv4.dstAddr);
+    modify_field(meta.third, tcp.srcPort);
+    modify_field(meta.fourth, tcp.dstPort);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
+}
+
+action ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos() {
+    modify_field(meta.first, ipv4.dstAddr);
+    modify_field(meta.second, ipv4.srcAddr);
+    modify_field(meta.third, tcp.dstPort);
+    modify_field(meta.fourth, tcp.srcPort);
+    add_to_field(pfuzz_visited.encoding_i2, 1);
+}
+
 action ai_calculate_hash_pfuzz_ti_calculate_hash1() {
     modify_field_with_hash_based_offset(meta.reg_pos_one, 0, hasher_64, 1);
     modify_field_with_hash_based_offset(meta.reg_pos_two, 0, hasher_32, 1);
@@ -435,6 +451,14 @@ action ai_calculate_hash_pfuzz_ti_calculate_hash2() {
     add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
+action ipv4_forward_pfuzz_ipv4_lpm(dstAddr, port) {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
+    modify_field(ethernet.srcAddr, dstAddr);
+    modify_field(ethernet.dstAddr, dstAddr);
+    subtract_from_field(ipv4.ttl, 1);
+    add_to_field(pfuzz_visited.encoding_i3, 7);
+}
+
 action drop_packet_pfuzz_ipv4_lpm() {
     add_to_field(pfuzz_visited.encoding_i3, 4);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
@@ -444,12 +468,42 @@ action ai_noOp_pfuzz_ipv4_lpm() {
     add_to_field(pfuzz_visited.encoding_i3, 1);
 }
 
+action set_direction_pfuzz_check_ports(dir) {
+    modify_field(meta.direction, dir);
+    modify_field(meta.check_ports_hit, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
+}
+
+action set_hit_pfuzz_check_ports() {
+    modify_field(meta.check_ports_hit, 1);
+    modify_field(meta.direction, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 4);
+}
+
+action ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1() {
+    rir_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
+}
+
+action ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2() {
+    rir_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
+    add_to_field(pfuzz_visited.encoding_i1, 2);
+}
+
 action drop_packet_pfuzz_ti_apply_filter() {
     add_to_field(pfuzz_visited.encoding_i2, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_noOp_pfuzz_ti_apply_filter() {
+}
+
+action ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1() {
+    riw_boom_filter1 . execute_stateful_alu ( meta.reg_pos_one );
+    add_to_field(pfuzz_visited.encoding_i3, 1);
+}
+
+action ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2() {
+    riw_boom_filter2 . execute_stateful_alu ( meta.reg_pos_two );
 }
 
 header_type pfuzz_visited_t {

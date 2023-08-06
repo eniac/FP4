@@ -147,7 +147,7 @@ table ecmp_group {
     }
     actions {
         drop_packet_pfuzz_ecmp_group;
-        set_ecmp_select;
+        set_ecmp_select_pfuzz_ecmp_group;
     }
     default_action:drop_packet_pfuzz_ecmp_group();
     size:1024;
@@ -181,7 +181,7 @@ table ecmp_nhop {
     }
     actions {
         drop_packet_pfuzz_ecmp_nhop;
-        set_nhop;
+        set_nhop_pfuzz_ecmp_nhop;
     }
     default_action:drop_packet_pfuzz_ecmp_nhop();
     size:2;
@@ -206,7 +206,7 @@ table send_frame {
         ig_intr_md_for_tm.ucast_egress_port : exact;
     }
     actions {
-        rewrite_mac;
+        rewrite_mac_pfuzz_send_frame;
         drop_packet_pfuzz_send_frame;
     }
     default_action:drop_packet_pfuzz_send_frame();
@@ -219,8 +219,26 @@ action drop_packet_pfuzz_ecmp_group() {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
+action set_ecmp_select_pfuzz_ecmp_group() {
+    modify_field_with_hash_based_offset(meta.ecmp_select, 0, ecmp_hasher, 2);
+    add_to_field(pfuzz_visited.encoding_i0, 3);
+}
+
 action drop_packet_pfuzz_ecmp_nhop() {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+}
+
+action set_nhop_pfuzz_ecmp_nhop(nhop_dmac, nhop_ipv4, port) {
+    modify_field(ethernet.dstAddr, nhop_dmac);
+    modify_field(ipv4.dstAddr, nhop_ipv4);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
+    subtract_from_field(ipv4.ttl, 1);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
+}
+
+action rewrite_mac_pfuzz_send_frame(smac) {
+    modify_field(ethernet.srcAddr, smac);
+    add_to_field(pfuzz_visited.encoding_e0, 1);
 }
 
 action drop_packet_pfuzz_send_frame() {

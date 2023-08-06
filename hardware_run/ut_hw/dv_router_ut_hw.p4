@@ -146,7 +146,7 @@ table tiHandleIncomingEthernet {
         ig_intr_md.ingress_port : exact;
     }
     actions {
-        aiForMe;
+        aiForMe_pfuzz_tiHandleIncomingEthernet;
         aDrop_pfuzz_tiHandleIncomingEthernet;
         ai_nop_pfuzz_tiHandleIncomingEthernet;
     }
@@ -167,7 +167,7 @@ table tiHandleOutgoingRouting {
         distance_vec.src : exact;
     }
     actions {
-        aiHandleOutgoingRouting;
+        aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting;
         ai_nop_pfuzz_tiHandleOutgoingRouting;
     }
     default_action:ai_nop_pfuzz_tiHandleOutgoingRouting();
@@ -190,7 +190,7 @@ table tiHandleIncomingArpReqest_part_one {
         ig_intr_md.ingress_port : exact;
     }
     actions {
-        aiHandleIncomingArpReqest_part_one;
+        aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one;
         ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one;
     }
     default_action:ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one();
@@ -208,7 +208,7 @@ table tiHandleIncomingArpReqest_part_two {
         ig_intr_md.ingress_port : exact;
     }
     actions {
-        aiHandleIncomingArpReqest_part_two;
+        aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two;
         aDrop_pfuzz_tiHandleIncomingArpReqest_part_two;
         ai_nop_pfuzz_tiHandleIncomingArpReqest_part_two;
     }
@@ -222,7 +222,7 @@ action aiHandleIncomingArpResponse() {
 
 table tiHandleIncomingArpResponse {
     actions {
-        aiHandleIncomingArpResponse;
+        aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse;
         ai_nop_pfuzz_tiHandleIncomingArpResponse;
     }
     default_action:ai_nop_pfuzz_tiHandleIncomingArpResponse();
@@ -242,8 +242,8 @@ table tiHandleIpv4 {
         ipv4.dstAddr : lpm;
     }
     actions {
-        aiFindNextL3Hop;
-        aiSendToLastHop;
+        aiFindNextL3Hop_pfuzz_tiHandleIpv4;
+        aiSendToLastHop_pfuzz_tiHandleIpv4;
         aDrop_pfuzz_tiHandleIpv4;
         ai_nop_pfuzz_tiHandleIpv4;
     }
@@ -279,8 +279,8 @@ table tiHandleOutgoingEthernet {
         cis553_metadata.nextHop : lpm;
     }
     actions {
-        aiForward;
-        aiArpMiss;
+        aiForward_pfuzz_tiHandleOutgoingEthernet;
+        aiArpMiss_pfuzz_tiHandleOutgoingEthernet;
         ai_nop_pfuzz_tiHandleOutgoingEthernet;
     }
     default_action:ai_nop_pfuzz_tiHandleOutgoingEthernet();
@@ -293,7 +293,7 @@ action aiHandleIncomingRouting() {
 
 table tiHandleIncomingRouting {
     actions {
-        aiHandleIncomingRouting;
+        aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting;
         ai_nop_pfuzz_tiHandleIncomingRouting;
     }
     default_action:ai_nop_pfuzz_tiHandleIncomingRouting();
@@ -399,6 +399,11 @@ action aDrop_pfuzz_tiDrop() {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
+action aiForMe_pfuzz_tiHandleIncomingEthernet() {
+    modify_field(cis553_metadata.forMe, 1);
+    add_to_field(pfuzz_visited.encoding_i9, 7);
+}
+
 action aDrop_pfuzz_tiHandleIncomingEthernet() {
     add_to_field(pfuzz_visited.encoding_i9, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
@@ -408,12 +413,38 @@ action ai_nop_pfuzz_tiHandleIncomingEthernet() {
     add_to_field(pfuzz_visited.encoding_i9, 13);
 }
 
+action aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting(egress_port) {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_port);
+    add_header(ethernet);
+    modify_field(ethernet.dstAddr, 0xffffffffffff);
+    modify_field(ethernet.etherType, 0x553);
+    modify_field(cis553_metadata.forMe, 0);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
+}
+
 action ai_nop_pfuzz_tiHandleOutgoingRouting() {
     add_to_field(pfuzz_visited.encoding_i0, 3);
 }
 
+action aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one(mac_sa) {
+    modify_field(arp.oper, 2);
+    modify_field(ethernet.srcAddr, mac_sa);
+    modify_field(ethernet.dstAddr, arp.senderHA);
+    modify_field(cis553_metadata.temp, arp.targetPA);
+    modify_field(arp.targetHA, arp.senderHA);
+    modify_field(arp.senderHA, mac_sa);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, ig_intr_md.ingress_port);
+    add_to_field(pfuzz_visited.encoding_i9, 1);
+}
+
 action ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one() {
     add_to_field(pfuzz_visited.encoding_i9, 2);
+}
+
+action aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two() {
+    modify_field(arp.targetPA, arp.senderPA);
+    modify_field(arp.senderPA, cis553_metadata.temp);
+    add_to_field(pfuzz_visited.encoding_i1, 3);
 }
 
 action aDrop_pfuzz_tiHandleIncomingArpReqest_part_two() {
@@ -425,8 +456,23 @@ action ai_nop_pfuzz_tiHandleIncomingArpReqest_part_two() {
     add_to_field(pfuzz_visited.encoding_i1, 4);
 }
 
+action aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse() {
+    clone_i2e(98);
+    add_to_field(pfuzz_visited.encoding_i3, 1);
+}
+
 action ai_nop_pfuzz_tiHandleIncomingArpResponse() {
     add_to_field(pfuzz_visited.encoding_i3, 2);
+}
+
+action aiFindNextL3Hop_pfuzz_tiHandleIpv4(nextHop) {
+    modify_field(cis553_metadata.nextHop, nextHop);
+    add_to_field(pfuzz_visited.encoding_i2, 2);
+}
+
+action aiSendToLastHop_pfuzz_tiHandleIpv4() {
+    modify_field(cis553_metadata.nextHop, ipv4.dstAddr);
+    add_to_field(pfuzz_visited.encoding_i2, 3);
 }
 
 action aDrop_pfuzz_tiHandleIpv4() {
@@ -438,8 +484,37 @@ action ai_nop_pfuzz_tiHandleIpv4() {
     add_to_field(pfuzz_visited.encoding_i2, 4);
 }
 
+action aiForward_pfuzz_tiHandleOutgoingEthernet(mac_sa, mac_da, egress_port) {
+    modify_field(ethernet.srcAddr, mac_sa);
+    modify_field(ethernet.dstAddr, mac_da);
+    modify_field(standard_metadata.egress_spec, egress_port);
+    add_to_field(pfuzz_visited.encoding_i9, 1);
+}
+
+action aiArpMiss_pfuzz_tiHandleOutgoingEthernet(local_ip, local_mac, local_port) {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, local_port);
+    modify_field(ethernet.dstAddr, 0xffffffffffff);
+    modify_field(ethernet.etherType, 0x0806);
+    remove_header(ipv4);
+    add_header(arp);
+    modify_field(arp.htype, 1);
+    modify_field(arp.ptype, 0x0800);
+    modify_field(arp.hlen, 6);
+    modify_field(arp.plen, 4);
+    modify_field(arp.oper, 1);
+    modify_field(arp.senderHA, local_mac);
+    modify_field(arp.senderPA, local_ip);
+    modify_field(arp.targetHA, 0);
+    modify_field(arp.targetPA, cis553_metadata.nextHop);
+}
+
 action ai_nop_pfuzz_tiHandleOutgoingEthernet() {
     add_to_field(pfuzz_visited.encoding_i9, 2);
+}
+
+action aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting() {
+    clone_i2e(98);
+    add_to_field(pfuzz_visited.encoding_i7, 1);
 }
 
 action ai_nop_pfuzz_tiHandleIncomingRouting() {

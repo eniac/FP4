@@ -140,9 +140,9 @@ table te_drop {
 
 table te_rate_limit {
     actions {
-        ae_rate_limit;
+        ae_rate_limit_pfuzz_te_rate_limit;
     }
-    default_action:ae_rate_limit(1024);
+    default_action:ae_rate_limit_pfuzz_te_rate_limit(1024);
     size:1;
 }
 
@@ -153,9 +153,9 @@ action ae_rate_limit(x) {
 
 table teInitializeWma {
     actions {
-        aeInitializeWma;
+        aeInitializeWma_pfuzz_teInitializeWma;
     }
-    default_action:aeInitializeWma();
+    default_action:aeInitializeWma_pfuzz_teInitializeWma();
     size:1;
 }
 
@@ -185,9 +185,9 @@ register reg_bit_counter_egress {
 
 table teWmaPhase1 {
     actions {
-        aeWmaPhase1;
+        aeWmaPhase1_pfuzz_teWmaPhase1;
     }
-    default_action:aeWmaPhase1();
+    default_action:aeWmaPhase1_pfuzz_teWmaPhase1();
     size:1;
 }
 
@@ -218,9 +218,9 @@ register reg_last_timestamp_egress {
 
 table teWmaPhase2 {
     actions {
-        aeWmaPhase2;
+        aeWmaPhase2_pfuzz_teWmaPhase2;
     }
-    default_action:aeWmaPhase2();
+    default_action:aeWmaPhase2_pfuzz_teWmaPhase2();
     size:1;
 }
 
@@ -279,9 +279,9 @@ table ipv4_lpm {
         ipv4.dstAddr : lpm;
     }
     actions {
-        ipv4_forward;
+        ipv4_forward_pfuzz_ipv4_lpm;
         drop_packet_pfuzz_ipv4_lpm;
-        ai_noOp;
+        ai_noOp_pfuzz_ipv4_lpm;
     }
     default_action:drop_packet_pfuzz_ipv4_lpm();
     size:1024;
@@ -293,8 +293,38 @@ action drop_packet_pfuzz_te_drop() {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
+action ae_rate_limit_pfuzz_te_rate_limit(x) {
+    subtract(meta.current_reading, x, meta.current_reading);
+}
+
+action aeInitializeWma_pfuzz_teInitializeWma() {
+    modify_field(meta.cur_ts, eg_intr_md_from_parser_aux.egress_global_tstamp);
+    reBitCounter . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
+}
+
+action aeWmaPhase1_pfuzz_teWmaPhase1() {
+    reWmaPhase1 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
+}
+
+action aeWmaPhase2_pfuzz_teWmaPhase2() {
+    reWmaPhase2 . execute_stateful_alu ( ig_intr_md_for_tm.ucast_egress_port );
+}
+
+action ipv4_forward_pfuzz_ipv4_lpm(dstAddr, port) {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, port);
+    modify_field(ethernet.srcAddr, dstAddr);
+    modify_field(ethernet.dstAddr, dstAddr);
+    subtract_from_field(ipv4.ttl, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 3);
+}
+
 action drop_packet_pfuzz_ipv4_lpm() {
     add_to_field(pfuzz_visited.encoding_i1, 2);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+}
+
+action ai_noOp_pfuzz_ipv4_lpm() {
+    add_to_field(pfuzz_visited.encoding_i1, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 

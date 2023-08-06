@@ -252,6 +252,12 @@ register reg_interval_wma_egress {
 
 
 
+
+
+
+
+
+
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
