@@ -129,7 +129,7 @@ class DTController:
         self.conn.complete_operations(self.conn_hdl)
         return val[pipeNum]
 
-    def bring_ports_up(self, rate="25G", fec="NONE"):
+    def bring_ports_up(self, rate="100G", fec="NONE"):
         print("====== bring_ports_up ======")
         interface_list = [str(x) + '/0' for x in range(9,25)]
         devPorts = [self.port_map[p] for p in interface_list]
@@ -240,7 +240,7 @@ class DTController:
                 except socket.error:
                     pass
 
-            if start_time is not None and ((datetime.now() - start_time).total_seconds() > 500):
+            if start_time is not None and ((datetime.now() - start_time).total_seconds() > 600):
                 print(start_time)
                 print(datetime.now())
                 exit()
