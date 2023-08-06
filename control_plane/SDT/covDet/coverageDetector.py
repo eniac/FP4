@@ -11,6 +11,25 @@ from datetime import datetime
 class CoverageDetector(object):
     def __init__(self, baseName, simulation=True, rulesFile=None, mode='normal'):
         print("====== CoverageDetector ======")
+
+        ingress_plan_json = None
+        egress_plan_json = None
+        print("--- Read ingress plan ---")
+        with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_ingress.json") as f:
+            ingress_plan_json = json.load(f)
+        self.ingress_num_vars = ingress_plan_json["num_vars"]
+        print("ingress_num_vars: {}".format(self.ingress_num_vars))
+        for var in range(self.ingress_num_vars):
+            print("var {0}, num_paths: {1}".format(var, ingress_plan_json[str(var)]["num_paths"]))
+
+        print("--- Read egress plan ---")
+        with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_egress.json") as f:
+            egress_plan_json = json.load(f)
+        self.egress_num_vars = egress_plan_json["num_vars"]
+        print("egress_num_vars: {}".format(self.egress_num_vars))
+        for var in range(self.egress_num_vars):
+            print("var {0}, num_paths: {1}".format(var, egress_plan_json[str(var)]["num_paths"]))
+
         # Action name is the key, value is the number of times seen
         self.actionToCount = dict()
         self.totalUniqueActions = 0

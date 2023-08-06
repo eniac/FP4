@@ -9,8 +9,8 @@
 #define BLOOM_FILTER_BIT_WIDTH 1
 
 
-const std::string kVisitedHeaderType {"fp4_visited_t"};
-const std::string kVisitedMetadata {"fp4_visited"};
+const std::string kVisitedHeaderType {"pfuzz_visited_t"};
+const std::string kVisitedMetadata {"pfuzz_visited"};
 // From UT
 const std::string kTiGetRegPosSim = "ti_get_reg_pos";
 const std::string kAiGetRegPosSim = "ai_get_reg_pos";
@@ -60,8 +60,8 @@ const std::string kParserCloneAll {"parse_clone_all"};
 
 const std::string kAiDrop {"ai_drop_packet"};
 
-const std::string kGlobalHeaderType {"fp4_metadata_t"};
-const std::string kGlobalMetadata {"fp4_metadata"};
+const std::string kGlobalHeaderType {"pfuzz_metadata_t"};
+const std::string kGlobalMetadata {"pfuzz_metadata"};
 
 const std::string kTeUpdateCount {"te_update_count"};
 const std::string kAeUpdateCount {"ae_update_count"};

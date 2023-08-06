@@ -101,29 +101,28 @@ DTModifier::DTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
             PRINT_VERBOSE("%s\n", key.c_str());
         }
     }
-    // exit(0);
+
     CountTables();
     PRINT_VERBOSE("Done GetMoveFieldsMap\n");
     PRINT_VERBOSE("=================\n");
     work_set_.clear();
-    // cout << "here4\n";
+
     GetAction2Nodes(root);
     work_set_.clear();
-    // cout << "here5\n";
+
     GetHdrInstance2Nodes(root);
     work_set_.clear();
     GetMetadataInstance2Nodes(root);    
     GetHdrInstanceCombinations(root);
-    // cout << "here6\n";
+
     work_set_.clear();
     GetHdrTypeDecl2Nodes(root);
-    // cout << "here7\n";
+
     work_set_.clear();
     GetName2TableNodes(root);
     GetMaxTblReadsFieldNum(tbl2readfields_);
     GetMaxTblReadsFieldWidth(root);
-    // cout << "here8.2\n";
-    // cout << "here9\n";
+
     PRINT_INFO("Number of TableNode: %d, max table reads field width: %d, max table reads field len: %d, \
         TblActionStmt: %d, number of ActionNode: %d, number of header instance %d, number of metadata instance %d\n", 
         num_tbl_nodes_, max_tblreads_field_width_, max_tblreads_field_num_, num_tbl_action_stmt_, num_action_,
@@ -132,11 +131,10 @@ DTModifier::DTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
     work_set_.clear();
     DistinguishPopularActions(root);
 
-    // cout << "here10\n";
     work_set_.clear();
     RemoveNodes(root);
     AssignAction2Bitmap();
-    // cout << "here11\n";
+
     AddVisitedHdr();
 
     AddGlobalMetadata(root);
