@@ -161,6 +161,14 @@ table ipv4_fib_lpm {
 
 
 
+table ti_drop {
+    actions {
+        ai_drop_pfuzz_ti_drop;
+    }
+    default_action:ai_drop_pfuzz_ti_drop();
+}
+
+
 table nexthop {
     reads {
         ingress_metadata.nexthop_index : exact;
@@ -245,6 +253,10 @@ action fib_hit_nexthop_pfuzz_ipv4_fib_lpm(nexthop_index) {
     modify_field(ingress_metadata.nexthop_index, nexthop_index);
     subtract_from_field(ipv4.ttl, 1);
     add_to_field(pfuzz_visited.encoding_i0, 1);
+}
+
+action ai_drop_pfuzz_ti_drop() {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_drop_pfuzz_nexthop() {

@@ -54,6 +54,5 @@ pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 10 action
 pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 1 action_smac 0xaaaaac action_dmac 0xaaaaac
 pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 2 action_smac 0xaaaaac action_dmac 0xaaaaad
 pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 3 action_smac 0xaaaaac action_dmac 0xaaaaaf
-pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 8 action_smac 0xaaaaac action_dmac 0xaaaaae
-pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 9 action_smac 0xaaaaac action_dmac 0xaaaaa3
+pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 6 action_smac 0xaaaaac action_dmac 0xaaaaae
 pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 10 action_smac 0xaaaaac action_dmac 0xaaaaac

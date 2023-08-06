@@ -138,6 +138,7 @@ metadata ingress_metadata_t ingress_metadata;
 
 
 
+
 control ingress {
   if (pfuzz_visited.pkt_type == 1 || pfuzz_visited.pkt_type == 3) {
     apply(ti_get_reg_pos);
@@ -157,6 +158,7 @@ control ingress {
   apply(ti_set_port);
   apply(ti_add_clones);
 }
+
 
 
 
