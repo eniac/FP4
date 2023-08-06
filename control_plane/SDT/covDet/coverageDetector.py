@@ -480,7 +480,7 @@ class CoverageDetector(object):
     #                 break
 
     def check_coverage_and_add_seed(self, packet, addSeed=False):
-        print("--- check_coverage_and_add_seed prologue ---")
+        print("====== check_coverage_and_add_seed prologue ======")
 
         # Update coverage
         self.totalPacketReceived += 1
@@ -489,22 +489,25 @@ class CoverageDetector(object):
         flag = False
         # print("fieldName", fieldName)
         # print(packet.headers)
-        for action_name in packet.headers["pfuzz_visited"]:
-            if action_name not in self.actionList:
+        for field_name in packet.headers["pfuzz_visited"]:
+            print("--- field_name: {} ---".format(field_name))
+            if field_name not in self.actionList:
+                print("Not in self.actionList {}".format(self.actionList))
                 continue
 
-            bitList = packet.headers["pfuzz_visited"][action_name]
-            if len(bitList) > 1:
-                print("It cannot be more than one")
-                exit()
+            bitList = packet.headers["pfuzz_visited"][field_name]
+            print("bitList: {}".format(bitList))
+            # if len(bitList) > 1:
+                # print("It cannot be more than one")
+                # exit()
 
             bitValue = bitList[0]
             if bitValue == 0:
                 continue
 
-            self.actionToCount[action_name] += 1
-            self.seenActions.add(action_name)
-                # if self.actionToCount[action_name] > 1:
+            self.actionToCount[field_name] += 1
+            self.seenActions.add(field_name)
+                # if self.actionToCount[field_name] > 1:
                 #     continue
 
             flag = True

@@ -160,6 +160,7 @@ class DTController:
         self.discardPackets = self.readRegister('forward_count_register', 0)
 
         self.add_entries(initialRules)
+        print("====== initialize_CLI_variables epilogue ======")
 
         # self.initialBits = 0
 
@@ -184,24 +185,24 @@ class DTController:
         return packet, ruleList
 
     def main_loop(self):
-        print("--- main_loop prologue ---")
+        print("====== main_loop prologue ======")
         time.sleep(2)
         packetsForwarded = self.readRegister('forward_count_register', 0)
         self.coverageDetector.set_packets_forwarded(packetsForwarded)
-        print("Before entering loop", datetime.now().time())
+        print("Before entering loop time {}".format(datetime.now().time()))
         start_time = None
 
         while True:
-            print("self.dp_iface.receive_packet......")
+            print("--- self.dp_iface.receive_packet ---")
             switchData = self.dp_iface.receive_packet()
             packetsForwarded = self.readRegister('forward_count_register', 0)
 
             if packetsForwarded < 0:
                 packetsForwarded += (2**32)
             if start_time is None:    
-                print("First packets forwarded on port 0:", packetsForwarded, datetime.now().time())
+                print("First packet forwarded on port 0, counter {0}, time: {1}".format(packetsForwarded, datetime.now().time()))
             else:
-                print("Packets forwarded on port 0:", packetsForwarded, (datetime.now() - start_time).total_seconds())
+                print("Packet forwarded on port 0, counter {0}, duration {1}s".format(packetsForwarded, (datetime.now() - start_time).total_seconds()))
 
             self.coverageDetector.set_packets_forwarded(packetsForwarded)
             if switchData is not None:

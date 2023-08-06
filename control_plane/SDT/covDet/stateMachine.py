@@ -59,32 +59,35 @@ class StateMachine(object):
 
 
     def parsePacket(self, byteStreamObj):
-        print("--- parsePacket prologue ---")
+        print("====== parsePacket prologue {} ======".format(byteStreamObj))
         currentState = self.start
         packet = Packet(byteStreamObj)
         prevState = None
         while currentState != self.terminal:
-            # print("currentState", currentState)
+            print("--- currentState {} ---".format(currentState))
             prevState = currentState
             if currentState in self.extract:
                 for headerName in self.extract[currentState]:
                     try:
-                        # print("extracting:", headerName)
+                        print("--- extract {} ---".format(headerName))
                         currentIndex = packet.addHeader(headerName)
                     except IndexError as e:
                         print("incomplete packet", headerName, "not found")
                         return None
                 
             for transition in self.transitions[currentState]:
-                # print("Checking transition:", transition)
+                print("--- Checking transition ---".format(transition))
                 if transition.isTrue(packet):
+                    print("Transition to state {}".format(transition.toState))
                     currentState = transition.toState
                     break
 
             if prevState == currentState:
+                print("--- prevState == currentState ---")
+                print("Transition to default {}".format(self.defaultTransition[currentState]))
                 currentState = self.defaultTransition[currentState]
 
-        if Transition.convertBinArrayToHexStr(packet.headers["fp4_visited"]["preamble"]) != 14593470:
+        if Transition.convertBinArrayToHexStr(packet.headers["pfuzz_visited"]["preamble"]) != 14593470:
             print("Unknown packet - not from dataplane - discarding packet")
             return None
         print("--- parsePacket epilog ---")
