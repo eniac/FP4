@@ -569,7 +569,7 @@ void UTModifier::distinguishPopularActions(AstNode* head) {
         string tblName = (dynamic_cast<TableNode*>(head -> parent_ -> parent_) -> name_) -> toString();
         PRINT_VERBOSE("TableActionStmt key: %s\n", key.c_str());
         if (prev_action_2_tbls_.count(key) != 0) {
-            if (prev_action_2_tbls_[key].size() > 1) {
+            // if (prev_action_2_tbls_[key].size() > 1) {
                 if (std::find(popular_actions_.begin(), popular_actions_.end(), key) == popular_actions_.end()) {
                     popular_actions_.push_back(key);
                 }
@@ -587,9 +587,9 @@ void UTModifier::distinguishPopularActions(AstNode* head) {
                 ActionNode* newAction = dynamic_cast<ActionNode*>(prev_action_2_nodes_[key])->duplicateAction(*keyDistinct);
                 InputNode* newInputNode = new InputNode(iterator -> next_, newAction);
                 iterator -> next_ = newInputNode;
-            } else {
-                tbl_action_stmt_.push_back(key);
-            }
+            // } else {
+                // tbl_action_stmt_.push_back(key);
+            // }
         }
     }
 

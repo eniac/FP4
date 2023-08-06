@@ -213,7 +213,7 @@ void DTModifier::DistinguishPopularActions(AstNode* head) {
         string tblName = (dynamic_cast<TableNode*>(head -> parent_ -> parent_) -> name_) -> toString();
         PRINT_VERBOSE("TableActionStmt key: %s\n", key.c_str());
         if (prev_action_2_tbls_.count(key) != 0) {
-            if (prev_action_2_tbls_[key].size() > 1) {
+            // if (prev_action_2_tbls_[key].size() > 1) {
                 PRINT_VERBOSE("Duplicate TableActionStmt key: %s\n", key.c_str());
                 string* keyDistinct = new string(key+"_"+sig_+"_"+tblName);
                 dynamic_cast<TableActionStmtNode*>(head) -> name_ -> rename(keyDistinct);
@@ -229,9 +229,9 @@ void DTModifier::DistinguishPopularActions(AstNode* head) {
                 newAction->removed_ = true;
                 InputNode* newInputNode = new InputNode(iterator -> next_, newAction);
                 iterator -> next_ = newInputNode;
-            } else {
-                tbl_action_stmt_.push_back(key);
-            }
+            // } else {
+            //     tbl_action_stmt_.push_back(key);
+            // }
         }
     }
 
