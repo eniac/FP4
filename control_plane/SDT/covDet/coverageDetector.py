@@ -38,7 +38,8 @@ class CoverageDetector(object):
             self.field2index_intra_path_seen["encoding_i"+str(var)] = intra_index
             intra_index += 1
         # Get the total number of actions
-        self.total_num_actions += sum(len(actions) for actions in ingress_plan_json["table2actions_dict"].values())
+        if self.ingress_num_vars != 0:
+            self.total_num_actions += sum(len(actions) for actions in ingress_plan_json["table2actions_dict"].values())
 
         print("--- Read egress plan ---")
         with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_egress.json") as f:
@@ -53,7 +54,8 @@ class CoverageDetector(object):
             self.field2encoding2path["encoding_e"+str(var)] = egress_plan_json[str(var)]["encoding_to_path"]
             self.field2index_intra_path_seen["encoding_e"+str(var)] = intra_index
             intra_index += 1
-        self.total_num_actions += sum(len(actions) for actions in egress_plan_json["table2actions_dict"].values())
+        if self.egress_num_vars != 0:
+            self.total_num_actions += sum(len(actions) for actions in egress_plan_json["table2actions_dict"].values())
 
         print("self.total_num_paths: {}".format(self.total_num_paths))
         print("self.total_num_actions: {}".format(self.total_num_actions))
