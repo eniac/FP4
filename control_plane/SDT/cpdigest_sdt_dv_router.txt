@@ -1,10 +1,1 @@
-time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen
-0,5,450392938,0.0714285714286,1,set(['aDrop_fp4_tiHandleIncomingEthernet'])
-2.968031,6,887668093,0.214285714286,2,set(['aDrop_fp4_tiHandleIncomingEthernet', 'aDrop_fp4_tiDrop', 'aiForMe'])
-4.324497,7,1087526708,0.285714285714,3,set(['aDrop_fp4_tiHandleIncomingEthernet', 'aDrop_fp4_tiDrop', 'aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two'])
-7.292841,8,1525285188,0.357142857143,4,set(['aDrop_fp4_tiHandleIncomingEthernet', 'aiHandleIncomingRouting', 'aDrop_fp4_tiDrop', 'aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two'])
-8.639298,9,1723947508,0.428571428571,5,set(['aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two', 'aDrop_fp4_tiHandleIncomingEthernet', 'aiHandleIncomingRouting', 'aDrop_fp4_tiDrop', 'aDrop_fp4_tiHandleIpv4'])
-10.050873,10,1931629680,0.5,6,set(['aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two', 'aDrop_fp4_tiHandleIncomingEthernet', 'aiHandleIncomingRouting', 'aDrop_fp4_tiDrop', 'aDrop_fp4_tiHandleIpv4', 'aiHandleIncomingArpResponse'])
-13.011191,11,2366684539,0.642857142857,7,set(['aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two', 'aDrop_fp4_tiHandleIncomingEthernet', 'aiHandleIncomingRouting', 'aDrop_fp4_tiDrop', 'aDrop_fp4_tiHandleIpv4', 'aiHandleIncomingArpResponse', 'aiHandleIncomingArpReqest_part_two', 'aiHandleIncomingArpReqest_part_one'])
-15.972746,12,2801537898,0.785714285714,8,set(['aiSendToLastHop', 'aiArpMiss', 'aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two', 'aDrop_fp4_tiHandleIncomingEthernet', 'aiHandleIncomingRouting', 'aDrop_fp4_tiDrop', 'aDrop_fp4_tiHandleIpv4', 'aiHandleIncomingArpResponse', 'aiHandleIncomingArpReqest_part_two', 'aiHandleIncomingArpReqest_part_one'])
-113.696281,13,1815908743,0.857142857143,9,set(['aiSendToLastHop', 'aiArpMiss', 'aiForMe', 'aDrop_fp4_tiHandleIncomingArpReqest_part_two', 'aDrop_fp4_tiHandleIncomingEthernet', 'aiHandleIncomingRouting', 'aDrop_fp4_tiDrop', 'aDrop_fp4_tiHandleIpv4', 'aiHandleIncomingArpResponse', 'aiHandleIncomingArpReqest_part_two', 'aiHandleIncomingArpReqest_part_one', 'aiHandleOutgoingRouting'])
+time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen
