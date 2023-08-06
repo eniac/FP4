@@ -116,7 +116,7 @@ class DTController:
             outFile.close()
             process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()
-            time.sleep(1)
+            # time.sleep(1)
         print("====== add_entries epilogue ======")
         return       
  

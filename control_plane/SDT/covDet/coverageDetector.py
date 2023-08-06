@@ -14,22 +14,50 @@ class CoverageDetector(object):
 
         ingress_plan_json = None
         egress_plan_json = None
+
+        # A path is uniquely defined by a tuple of encoding values
+        self.paths_seen = []
+        self.field2index_intra_path_seen = {}
+        self.total_num_paths = 1
+        self.total_num_actions = 0
+        self.field2encoding2path = {}
+        self.total_num_vars = 0
         print("--- Read ingress plan ---")
         with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_ingress.json") as f:
             ingress_plan_json = json.load(f)
         self.ingress_num_vars = ingress_plan_json["num_vars"]
+        self.total_num_vars += self.ingress_num_vars
         print("ingress_num_vars: {}".format(self.ingress_num_vars))
+        intra_index = 0
         for var in range(self.ingress_num_vars):
-            print("var {0}, num_paths: {1}".format(var, ingress_plan_json[str(var)]["num_paths"]))
+            num_paths = ingress_plan_json[str(var)]["num_paths"]
+            print("var {0}, num_paths: {1}".format(var, num_paths))
+            self.total_num_paths *= num_paths
+            self.field2encoding2path["encoding_i"+str(var)] = ingress_plan_json[str(var)]["encoding_to_path"]
+            self.field2index_intra_path_seen["encoding_i"+str(var)] = intra_index
+            intra_index += 1
+        # Get the total number of actions
+        self.total_num_actions += sum(len(actions) for actions in ingress_plan_json["table2actions_dict"].values())
 
         print("--- Read egress plan ---")
         with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_egress.json") as f:
             egress_plan_json = json.load(f)
         self.egress_num_vars = egress_plan_json["num_vars"]
+        self.total_num_vars += self.egress_num_vars
         print("egress_num_vars: {}".format(self.egress_num_vars))
         for var in range(self.egress_num_vars):
-            print("var {0}, num_paths: {1}".format(var, egress_plan_json[str(var)]["num_paths"]))
+            num_paths = egress_plan_json[str(var)]["num_paths"]
+            print("var {0}, num_paths: {1}".format(var, num_paths))
+            self.total_num_paths *= num_paths
+            self.field2encoding2path["encoding_e"+str(var)] = egress_plan_json[str(var)]["encoding_to_path"]
+            self.field2index_intra_path_seen["encoding_e"+str(var)] = intra_index
+            intra_index += 1
+        self.total_num_actions += sum(len(actions) for actions in egress_plan_json["table2actions_dict"].values())
 
+        print("self.total_num_paths: {}".format(self.total_num_paths))
+        print("self.total_num_actions: {}".format(self.total_num_actions))
+        print("self.field2encoding2path: {}".format(self.field2encoding2path))
+        
         # Action name is the key, value is the number of times seen
         self.actionToCount = dict()
         self.totalUniqueActions = 0
@@ -79,6 +107,7 @@ class CoverageDetector(object):
         self.packets_forwarded = 0
         self.start_time = None
         self.coverage = 0
+        self.path_coverage = 0
 
         self.set_out_file()
         print("header written")
@@ -508,6 +537,7 @@ class CoverageDetector(object):
         flag = False
         # print("fieldName", fieldName)
         # print(packet.headers)
+        path_seen = [-1 for _ in range(self.total_num_vars)]
         for field_name in packet.headers["pfuzz_visited"]:
             print("--- field_name: {} ---".format(field_name))
             if field_name not in self.actionList:
@@ -515,24 +545,34 @@ class CoverageDetector(object):
                 continue
 
             bitList = packet.headers["pfuzz_visited"][field_name]
-            print("bitList: {}".format(bitList))
+            encoding_val = 0
+            for bit in bitList:
+                encoding_val = (encoding_val << 1) | bit
+            print("bitList: {0}, encoding_val: {1}".format(bitList, encoding_val))
+            path_seen[self.field2index_intra_path_seen[field_name]] = encoding_val
+
             # if len(bitList) > 1:
                 # print("It cannot be more than one")
                 # exit()
 
-            bitValue = bitList[0]
-            if bitValue == 0:
-                continue
+            # bitValue = bitList[0]
+            # if bitValue == 0:
+                # continue
 
-            self.actionToCount[field_name] += 1
-            self.seenActions.add(field_name)
+            # Update the action related statistics
+            print("Encoded path: {}".format(self.field2encoding2path[field_name][str(encoding_val)]))
+            for node in self.field2encoding2path[field_name][str(encoding_val)]:
+                if "_pfuzz_" in node:
+                    # self.actionToCount[node] += 1
+                    self.seenActions.add(node)
                 # if self.actionToCount[field_name] > 1:
                 #     continue
 
             flag = True
             # counter += 1
             # fieldName = "field" + str(counter)
-
+        print("--- path_seen {} ---".format(path_seen))
+        self.paths_seen.append(path_seen)
         self.coverage = len(self.seenActions)/(self.totalUniqueActions*1.0)
         
         if self.start_time is None:
@@ -541,12 +581,14 @@ class CoverageDetector(object):
         else:
             self.write_output((datetime.now() - self.start_time).total_seconds())        
 
-        print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ), "number_of_seeds: ", self.numSeeds, " time: ", datetime.now().time())
+        print("--- Path coverage: {0}/{1}={2} ---".format(len(self.paths_seen), self.total_num_paths, 1.0*len(self.paths_seen)/self.total_num_paths))
+        print("self.paths_seen: {}".format(self.paths_seen))
+        print("--- Action coverage: {0}, number_of_seeds: {1}, time: {2}".format(1.0*len(self.seenActions)/self.total_num_actions, self.numSeeds, datetime.now().time()))
+        print("self.seenActions: {}".format(self.seenActions))
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
         #self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions)+"\n")
 
         if ((datetime.now() - self.start_time).total_seconds() > 300):
-            print("")
             print("totalUniqueActions: ", self.totalUniqueActions)
             print("actionToCount", self.actionToCount)
             print("Coverage complete", self.coverage)
