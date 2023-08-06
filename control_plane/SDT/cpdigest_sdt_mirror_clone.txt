@@ -1,2 +1,2 @@
-time,number_of_seeds,packets_forwarded,coverage,total_packets_received,action_seen
-0,2,433757,0.714285714286,1,set(['aeUpdateOriginal', 'aiSendClone', 'aeReadMirror', 'aeGetDiff', 'aiSetOutputPort'])
+time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen
+0,2,500756,0.714285714286,0.0625,1,set([u'aiSetOutputPort_pfuzz_tiSetOutputPort', u'aeGetDiff_pfuzz_teGetDiff', u'aiSendClone_pfuzz_tiSendClone', u'aeUpdateOriginal_pfuzz_teUpdateOriginal', u'aeReadMirror_pfuzz_teReadMirror'])

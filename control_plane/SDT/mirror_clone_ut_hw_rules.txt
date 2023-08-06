@@ -1,0 +1,4 @@
+pd teUpdateMirror set_default_action aeUpdateMirror
+pd teReadOriginal set_default_action aeReadOriginal
+pd teReadMirror set_default_action aeReadMirror
+pd teUpdateOriginal set_default_action aeUpdateOriginal
