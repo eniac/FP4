@@ -42,6 +42,9 @@ def parse_aruments():
 
     return parser.parse_args()
 
+import importlib
+
+
 def main():
     arguments = parse_aruments()
     print("Waiting for switch to be up")
@@ -50,7 +53,9 @@ def main():
     controller.bring_ports_up()
     controller.add_entries()
     if arguments.dynamic is not None:
-        eval('import run_dynamic from %s' % arguments.dynamic)
+        # eval('import run_dynamic from %s' % arguments.dynamic)
+        module = importlib.import_module(arguments.dynamic)
+        run_dynamic = getattr(module, 'run_dynamic')
         run_dynamic(controller, arguments.optional)
     print("add_entries")
 
