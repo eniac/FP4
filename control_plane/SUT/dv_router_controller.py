@@ -128,7 +128,9 @@ class Controller(pystate.TrackState):
             ingress_port = struct.unpack("!H", packet[index:index+2])[0]
             ingress_port = ingress_port & 511
             index+=2
-            entryValue = arp.targetHA.split(".")[0]
+            # Note the match...
+            entryValue = arp.targetPA
+            print("!!!entryValue: {0}, self.arp_entries:{1}".format(entryValue, self.arp_entries))
             if entryValue not in self.arp_entries:
                 self.arp_entries.add(entryValue)
                 ruleList.extend(Controller.AddARPEntry(ingress_port, arp.senderHA, arp.targetHA, arp.targetPA))
@@ -143,6 +145,7 @@ class Controller(pystate.TrackState):
             dv.src = dv.src & 511
             dv.src = (dv.src % 16)*4
             ruleList.extend(self.ProcessRoutingUpdate(dv.src, dv.length, dv.data))
+            # print("adding dist entry", ruleList[-1])
         else:
             print("Unknown ethernetType: {}".format(ethernetType))
 
@@ -277,4 +280,5 @@ class Controller(pystate.TrackState):
             rule = 'pd tiHandleIpv4 mod_entry aiFindNextL3Hop by_match_spec ipv4_dstAddr ' + str(prefix) + ' ipv4_dstAddr_prefix_length ' \
             + str(length) + ' action_nextHop ' + str(nextHop)
             ruleList.append(rule)
+            # self.existingEntries.append((prefix, length))
         return ruleList
