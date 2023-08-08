@@ -33,7 +33,8 @@ extern "C" {
 #define PKTGEN_APP_1_OFFSET 0
 
 // Has to be >=54B
-#define MIN_PKTGEN_SIZE 54
+// #define MIN_PKTGEN_SIZE 54
+#define MIN_PKTGEN_SIZE 256
 
 #define DEV_ID 0
 
@@ -66,9 +67,28 @@ void pkt_init_ip(uint8_t pkt_type) {
     // 0-3b Version
     // 4-7b IHL (number of 32b words), min 5
     p4sync_pkt.ipv4[0] = 0;  // O.w., bogus ipv4 version, or invalid IHL
+    p4sync_pkt.ipv4[1] = 0;
+    p4sync_pkt.ipv4[2] = 0;
+    p4sync_pkt.ipv4[3] = 0;
+    p4sync_pkt.ipv4[4] = 0;
+    p4sync_pkt.ipv4[5] = 0;
+    p4sync_pkt.ipv4[6] = 0;
+    p4sync_pkt.ipv4[7] = 0;
+    p4sync_pkt.ipv4[8] = 0;    
     p4sync_pkt.ipv4[9] = 0;  //type
-    upkt = (uint8_t *) malloc(sz);
-    memcpy(upkt, &p4sync_pkt, sz);
+    p4sync_pkt.ipv4[10] = 0;
+    p4sync_pkt.ipv4[11] = 0;
+    p4sync_pkt.ipv4[12] = 0;
+    p4sync_pkt.ipv4[13] = 0;
+    p4sync_pkt.ipv4[14] = 0;
+    p4sync_pkt.ipv4[15] = 0;
+    p4sync_pkt.ipv4[16] = 0;
+    p4sync_pkt.ipv4[17] = 0;     
+    p4sync_pkt.ipv4[18] = 0;
+    p4sync_pkt.ipv4[19] = 0;
+    // upkt = (uint8_t *) malloc(sz);
+    // memcpy(upkt, &p4sync_pkt, sz);
+    upkt = (uint8_t*) calloc(1, MIN_PKTGEN_SIZE);
 }
 
 void pktgen_init(int pipe_id, int app_id, int pkt_offset, int timer_ns, int batch_size) {
