@@ -1,2 +1,5 @@
 time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen
-0,3,557987,0.5,0.1,1,set([u'drop_packet_pfuzz_ecmp_nhop', u'set_ecmp_select_pfuzz_ecmp_group', u'drop_packet_pfuzz_send_frame'])
+0,3,417384,0.5,0.1,1,set([u'drop_packet_pfuzz_ecmp_group', u'rewrite_mac_pfuzz_send_frame', u'set_nhop_pfuzz_ecmp_nhop'])
+0.101266,4,9746319,1.0,0.2,2,set([u'rewrite_mac_pfuzz_send_frame', u'drop_packet_pfuzz_send_frame', u'drop_packet_pfuzz_ecmp_nhop', u'drop_packet_pfuzz_ecmp_group', u'set_nhop_pfuzz_ecmp_nhop', u'set_ecmp_select_pfuzz_ecmp_group'])
+0.199071,5,18883397,1.0,0.3,3,set([u'rewrite_mac_pfuzz_send_frame', u'drop_packet_pfuzz_send_frame', u'drop_packet_pfuzz_ecmp_nhop', u'drop_packet_pfuzz_ecmp_group', u'set_nhop_pfuzz_ecmp_nhop', u'set_ecmp_select_pfuzz_ecmp_group'])
+0.297333,6,28041211,1.0,0.4,4,set([u'rewrite_mac_pfuzz_send_frame', u'drop_packet_pfuzz_send_frame', u'drop_packet_pfuzz_ecmp_nhop', u'drop_packet_pfuzz_ecmp_group', u'set_nhop_pfuzz_ecmp_nhop', u'set_ecmp_select_pfuzz_ecmp_group'])
