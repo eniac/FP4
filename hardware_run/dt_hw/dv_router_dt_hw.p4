@@ -267,11 +267,6 @@ field_list_calculation ipv4_checksum {
 
 
 
-
-
-
-
-
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
@@ -355,22 +350,22 @@ field_list_calculation bloom_filter_hash_32{
 }
 
 field_list fi_bf_hash_fields_16 {
+  pfuzz_visited.encoding_i0;
   pfuzz_visited.encoding_i1;
   pfuzz_visited.encoding_i9;
   pfuzz_visited.encoding_i2;
   pfuzz_visited.encoding_i3;
   pfuzz_visited.encoding_i7;
-  pfuzz_visited.encoding_i0;
 }
 
 
 field_list fi_bf_hash_fields_32 {
+  pfuzz_visited.encoding_i0;
   pfuzz_visited.encoding_i1;
   pfuzz_visited.encoding_i9;
   pfuzz_visited.encoding_i2;
   pfuzz_visited.encoding_i3;
   pfuzz_visited.encoding_i7;
-  pfuzz_visited.encoding_i0;
 }
 
 
@@ -451,12 +446,12 @@ action ai_recycle_packet() {
   remove_header(ipv4);
   remove_header(ipv4_clone);
   modify_field(pfuzz_visited.pkt_type, 0);
+  modify_field(pfuzz_visited.encoding_i0, 0);
   modify_field(pfuzz_visited.encoding_i1, 0);
   modify_field(pfuzz_visited.encoding_i9, 0);
   modify_field(pfuzz_visited.encoding_i2, 0);
   modify_field(pfuzz_visited.encoding_i3, 0);
   modify_field(pfuzz_visited.encoding_i7, 0);
-  modify_field(pfuzz_visited.encoding_i0, 0);
 }
 
 table ti_get_random_seed {

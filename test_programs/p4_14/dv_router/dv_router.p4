@@ -148,9 +148,8 @@ table tiHandleIncomingEthernet {
     actions {
         aiForMe;
         aDrop;
-        ai_nop;
     }
-    default_action: ai_nop();
+    default_action: aDrop();
 }
 
 
@@ -215,9 +214,8 @@ table tiHandleIncomingArpReqest_part_two {
     actions {
         aiHandleIncomingArpReqest_part_two;
         aDrop;
-        ai_nop;
     }
-    default_action: ai_nop();
+    default_action: aDrop();
 }
 
 // field_list arp_digest {
@@ -236,9 +234,8 @@ action aiHandleIncomingArpResponse() {
 table tiHandleIncomingArpResponse {
     actions {
         aiHandleIncomingArpResponse;
-        ai_nop;
     }
-    default_action: ai_nop();
+    default_action: aiHandleIncomingArpResponse();
 }
 
 
@@ -258,9 +255,8 @@ table tiHandleIpv4 {
         aiFindNextL3Hop;
         aiSendToLastHop;
         aDrop;
-        ai_nop;
     }
-    default_action: ai_nop();
+    default_action: aDrop();
 }
 
 
@@ -317,9 +313,8 @@ action aiHandleIncomingRouting() {
 table tiHandleIncomingRouting {
     actions {
         aiHandleIncomingRouting;
-        ai_nop;
     }
-    default_action: ai_nop();
+    default_action: aiHandleIncomingRouting();
 }
 
 

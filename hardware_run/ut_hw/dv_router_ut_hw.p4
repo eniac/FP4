@@ -145,9 +145,8 @@ table tiHandleIncomingEthernet {
     actions {
         aiForMe_pfuzz_tiHandleIncomingEthernet;
         aDrop_pfuzz_tiHandleIncomingEthernet;
-        ai_nop_pfuzz_tiHandleIncomingEthernet;
     }
-    default_action:ai_nop_pfuzz_tiHandleIncomingEthernet();
+    default_action:aDrop_pfuzz_tiHandleIncomingEthernet();
 }
 
 
@@ -187,9 +186,8 @@ table tiHandleIncomingArpReqest_part_two {
     actions {
         aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two;
         aDrop_pfuzz_tiHandleIncomingArpReqest_part_two;
-        ai_nop_pfuzz_tiHandleIncomingArpReqest_part_two;
     }
-    default_action:ai_nop_pfuzz_tiHandleIncomingArpReqest_part_two();
+    default_action:aDrop_pfuzz_tiHandleIncomingArpReqest_part_two();
 }
 
 
@@ -197,9 +195,8 @@ table tiHandleIncomingArpReqest_part_two {
 table tiHandleIncomingArpResponse {
     actions {
         aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse;
-        ai_nop_pfuzz_tiHandleIncomingArpResponse;
     }
-    default_action:ai_nop_pfuzz_tiHandleIncomingArpResponse();
+    default_action:aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse();
 }
 
 
@@ -213,9 +210,8 @@ table tiHandleIpv4 {
         aiFindNextL3Hop_pfuzz_tiHandleIpv4;
         aiSendToLastHop_pfuzz_tiHandleIpv4;
         aDrop_pfuzz_tiHandleIpv4;
-        ai_nop_pfuzz_tiHandleIpv4;
     }
-    default_action:ai_nop_pfuzz_tiHandleIpv4();
+    default_action:aDrop_pfuzz_tiHandleIpv4();
 }
 
 
@@ -238,9 +234,8 @@ table tiHandleOutgoingEthernet {
 table tiHandleIncomingRouting {
     actions {
         aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting;
-        ai_nop_pfuzz_tiHandleIncomingRouting;
     }
-    default_action:ai_nop_pfuzz_tiHandleIncomingRouting();
+    default_action:aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting();
 }
 
 
@@ -278,7 +273,7 @@ control ingress     {
 
             }
             else  {
-                apply(ti_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2);
+                apply(ti_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2);
                 if (valid(arp) && arp.oper == 2)  {
                     apply(tiHandleIncomingArpResponse);
 
@@ -339,7 +334,7 @@ field_list_calculation ipv4_checksum {
 }
 
 action aDrop_pfuzz_tiDrop() {
-    add_to_field(pfuzz_visited.encoding_i1, 1);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
@@ -351,10 +346,6 @@ action aiForMe_pfuzz_tiHandleIncomingEthernet() {
 action aDrop_pfuzz_tiHandleIncomingEthernet() {
     add_to_field(pfuzz_visited.encoding_i9, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
-}
-
-action ai_nop_pfuzz_tiHandleIncomingEthernet() {
-    add_to_field(pfuzz_visited.encoding_i9, 13);
 }
 
 action aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting(egress_port) {
@@ -396,17 +387,9 @@ action aDrop_pfuzz_tiHandleIncomingArpReqest_part_two() {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
-action ai_nop_pfuzz_tiHandleIncomingArpReqest_part_two() {
-    add_to_field(pfuzz_visited.encoding_i1, 4);
-}
-
 action aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse() {
     clone_i2e(98);
     add_to_field(pfuzz_visited.encoding_i3, 1);
-}
-
-action ai_nop_pfuzz_tiHandleIncomingArpResponse() {
-    add_to_field(pfuzz_visited.encoding_i3, 2);
 }
 
 action aiFindNextL3Hop_pfuzz_tiHandleIpv4(nextHop) {
@@ -422,10 +405,6 @@ action aiSendToLastHop_pfuzz_tiHandleIpv4() {
 action aDrop_pfuzz_tiHandleIpv4() {
     add_to_field(pfuzz_visited.encoding_i2, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
-}
-
-action ai_nop_pfuzz_tiHandleIpv4() {
-    add_to_field(pfuzz_visited.encoding_i2, 4);
 }
 
 action aiForward_pfuzz_tiHandleOutgoingEthernet(mac_sa, mac_da, egress_port) {
@@ -461,10 +440,6 @@ action aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting() {
     add_to_field(pfuzz_visited.encoding_i7, 1);
 }
 
-action ai_nop_pfuzz_tiHandleIncomingRouting() {
-    add_to_field(pfuzz_visited.encoding_i7, 2);
-}
-
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
@@ -494,15 +469,15 @@ calculated_field ipv4.hdrChecksum{
 }
 
 
-action ai_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2() {
-  add_to_field(pfuzz_visited.encoding_i0, 1);
+action ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2() {
+  add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
-table ti_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2{
+table ti_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2{
   actions {
-    ai_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2;
+    ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2;
   }
-  default_action: ai_mvbl_0_ai_nop_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2();
+  default_action: ai_mvbl_1_VIRTUAL_START_hdrarpisValidhdrarpoper2();
 }
 
 action ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1() {

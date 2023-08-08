@@ -1,7 +1,7 @@
 {
-    "build_date": "Tue Aug  1 05:45:50 2023", 
+    "build_date": "Tue Aug  8 15:04:40 2023", 
     "program_name": "dv_router", 
-    "run_id": "aae04b0795e55741", 
+    "run_id": "1317c5c52200740b", 
     "compiler_version": "9.2.0", 
     "schema_version": "1.0.0", 
     "tables": [
@@ -393,10 +393,6 @@
                 {
                     "action_name": "aDrop", 
                     "parameters": []
-                }, 
-                {
-                    "action_name": "ai_nop", 
-                    "parameters": []
                 }
             ], 
             "stage_allocation": [
@@ -415,7 +411,7 @@
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 45, 
-                            "entry_bit_width_allocated": 37, 
+                            "entry_bit_width_allocated": 36, 
                             "ideal_entries_per_table_word": 3, 
                             "ideal_table_word_bit_width": 128
                         }
@@ -433,9 +429,9 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 2, 
+                                        "bit_width": 1, 
                                         "start_bit": 0, 
-                                        "memory_start_bit": 4
+                                        "memory_start_bit": 2
                                     }, 
                                     {
                                         "name": "version", 
@@ -474,9 +470,9 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 2, 
+                                        "bit_width": 1, 
                                         "start_bit": 0, 
-                                        "memory_start_bit": 2
+                                        "memory_start_bit": 1
                                     }, 
                                     {
                                         "name": "version", 
@@ -515,7 +511,7 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 2, 
+                                        "bit_width": 1, 
                                         "start_bit": 0, 
                                         "memory_start_bit": 0
                                     }, 
@@ -567,10 +563,6 @@
             "action_parameters": [
                 {
                     "action_name": "aiHandleIncomingArpResponse", 
-                    "parameters": []
-                }, 
-                {
-                    "action_name": "ai_nop", 
                     "parameters": []
                 }
             ], 
@@ -642,10 +634,6 @@
                 }, 
                 {
                     "action_name": "aDrop", 
-                    "parameters": []
-                }, 
-                {
-                    "action_name": "ai_nop", 
                     "parameters": []
                 }
             ], 
@@ -748,10 +736,6 @@
                 {
                     "action_name": "aiHandleIncomingRouting", 
                     "parameters": []
-                }, 
-                {
-                    "action_name": "ai_nop", 
-                    "parameters": []
                 }
             ], 
             "stage_allocation": [
@@ -825,10 +809,6 @@
                 }, 
                 {
                     "action_name": "aDrop", 
-                    "parameters": []
-                }, 
-                {
-                    "action_name": "ai_nop", 
                     "parameters": []
                 }
             ], 
