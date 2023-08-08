@@ -241,6 +241,8 @@ class CoverageDetector(object):
 
                 if fieldName == "__pad":
                     continue
+                if fieldName == "temp_port":
+                    continue
                 elif "assertion" in fieldName:
                     continue
             # print("length: ", self.fieldToLen[fieldName])
@@ -253,7 +255,7 @@ class CoverageDetector(object):
                 self.actionList.append(fieldName) 
 
                 self.actionToCount[fieldName] = 0
-
+        print("self.actionList: {}".format(self.actionList))
         for header_list in data["headers"]:
             for headerName, numHeaders in header_list.items():
                 self.headerOrder[headerName] =  numHeaders
@@ -603,7 +605,8 @@ class CoverageDetector(object):
         print("self.paths_seen: {}".format(self.paths_seen))
         print("--- Action coverage: {0}/{1}={2}, number_of_seeds: {3}, time: {4}".format(len(self.seenActions), self.total_num_actions, self.action_coverage, self.numSeeds, datetime.now().time()))
         print("self.seenActions: {}".format(self.seenActions))
-        print("self.all_actions - self.seenActions: {}".format(list(set(self.all_actions) - set(self.seenActions))))
+        print("--- self.all_actions - self.seenActions ---")
+        print(list(set(self.all_actions) - set(self.seenActions)))
         sys.stdout.flush()
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
         #self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions)+"\n")
