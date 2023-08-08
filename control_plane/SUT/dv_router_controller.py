@@ -17,18 +17,26 @@ def run_dynamic(static_controller, *args, **kwargs):
     # dp_iface = DataplaneSocket(static_controller.TOFINO_INTERFACE)
     dp_iface = DataplaneSocket(static_controller.interace_name)
     dynamic_controller = Controller(dp_iface)
+
+    installed_rules = []
     while True:
+        print("============")
         switchData = dp_iface.receive_packet()
         if switchData is not None:
             ruleList, to_send = dynamic_controller.parsePacket(switchData)
             if not ruleList:
-                print("ruleList empty")
+                print("Empty ruleList")
             else:
+                print("--- Install ruleList len: {} ---".format(len(ruleList)))
+                print(ruleList)
+                ruleList = [rule for rule in ruleList if rule not in installed_rules]
+                print("--- Sanitized ruleList len: {} ---".format(len(ruleList)))
                 static_controller.generate_output_rules(ruleList)
                 static_controller.add_entries()
+                installed_rules.extend(ruleList)
 
-            if to_send is not None:
-                dynamic_controller.SDTsocket.sendto(to_send, (kwargs["SUT_IP"], kwargs["SUT_Port"]))
+            # if to_send is not None:
+                # dynamic_controller.SDTsocket.sendto(to_send, (kwargs["SUT_IP"], kwargs["SUT_Port"]))
 
 class ARP:
     def __init__(self):
@@ -59,6 +67,7 @@ class Controller(pystate.TrackState):
         self.dvLock = threading.Lock()
         self.myIPs = []
         self.visited_bytes = visited_bytes
+        self.visited_bytes = 19
         self.arp_entries = set()
         self.dist_entires = set()
         self.SDTsocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -81,7 +90,7 @@ class Controller(pystate.TrackState):
 
     @pystate.track_stack_calls
     def SendDistanceVector(self):
-        time.sleep(30)
+        time.sleep(40)
         while True:
             # build payload
             for ip in self.myIPs:
@@ -94,7 +103,9 @@ class Controller(pystate.TrackState):
 
     @pystate.track_stack_calls
     def parsePacket(self, packet):
+        print("--- parsePacket ---")
         ruleList = []
+        # Need to be careful here, visited_bytes need to be the size of the whole pfuzz_visited
         fp4_header = packet[:self.visited_bytes]
         index = self.visited_bytes + 12
         ethernetType = struct.unpack("!H", packet[index:index+2])[0]
@@ -102,6 +113,7 @@ class Controller(pystate.TrackState):
         index = index + 2
         to_send = None
         if ethernetType == 2054:
+            print("ethernetType == 2054")
             arp = ARP()
             arp.htype, arp.ptype, arp.hlen, arp.plane, arp.oper = struct.unpack("!HHBBH", packet[index:index+8])
             index += 8
@@ -123,6 +135,7 @@ class Controller(pystate.TrackState):
                 print("adding arp entry", ruleList[-1])
 
         elif ethernetType == 1363:
+            print("ethernetType == 1363")
             dv = DISTANCE_VEC()
             dv.preamble, dv.src, dv.length = struct.unpack("!IIH", packet[index:index+10])
             index+=10
@@ -130,6 +143,8 @@ class Controller(pystate.TrackState):
             dv.src = dv.src & 511
             dv.src = (dv.src % 16)*4
             ruleList.extend(self.ProcessRoutingUpdate(dv.src, dv.length, dv.data))
+        else:
+            print("Unknown ethernetType: {}".format(ethernetType))
 
         # --- Begin state tracking code ---
         self.dp_rules_shadow += ruleList
@@ -253,7 +268,7 @@ class Controller(pystate.TrackState):
         ruleList = []
         rule = 'pd tiHandleIpv4 add_entry aiFindNextL3Hop ipv4_dstAddr ' + str(prefix) + ' ipv4_dstAddr_prefix_length ' \
             + str(length) + ' action_nextHop ' + str(nextHop)
-        ruleList.append(rule)
+        # ruleList.append(rule)
 
         if (prefix, length) not in self.existingEntries:
             ruleList.append(rule)
