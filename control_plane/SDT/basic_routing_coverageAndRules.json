@@ -38,6 +38,9 @@
         },
         {
             "encoding_i1": 8
+        },
+        {
+            "temp_port": 16
         }
     ],
     "number_of_extract_paths": 2,
