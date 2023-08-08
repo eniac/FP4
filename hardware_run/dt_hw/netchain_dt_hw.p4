@@ -372,7 +372,7 @@ header_type pfuzz_visited_t {
         encoding_i1 : 8;
         encoding_i2 : 8;
         encoding_i3 : 8;
-        temp_port : 8;
+        temp_port : 16;
     }
 }
 

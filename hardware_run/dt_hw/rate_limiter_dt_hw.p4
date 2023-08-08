@@ -267,7 +267,7 @@ header_type pfuzz_visited_t {
         encoding_e1 : 8;
         encoding_i0 : 8;
         encoding_i1 : 8;
-        temp_port : 8;
+        temp_port : 16;
     }
 }
 
