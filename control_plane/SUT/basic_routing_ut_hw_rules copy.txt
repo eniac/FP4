@@ -1,0 +1,27 @@
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 0 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 4 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 8 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 12 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 16 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 20 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 32 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 36 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 40 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 44 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 48 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 52 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 56 action_bd 10
+pd port_mapping add_entry set_bd_pfuzz_port_mapping ig_intr_md_ingress_port 60 action_bd 10
+
+pd bd add_entry set_vrf_pfuzz_bd ingress_metadata_bd 10 action_vrf 200
+
+pd ipv4_fib add_entry fib_hit_nexthop_pfuzz_ipv4_fib ingress_metadata_vrf 200 ipv4_dstAddr 10.0.0.1 action_nexthop_index 1
+
+pd ipv4_fib_lpm add_entry fib_hit_nexthop_pfuzz_ipv4_fib_lpm ingress_metadata_vrf 200 ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 1
+
+pd nexthop add_entry set_egress_details_pfuzz_nexthop ingress_metadata_nexthop_index 1 action_egress_spec 0
+
+pd rewrite_mac add_entry rewrite_src_dst_mac_pfuzz_rewrite_mac ingress_metadata_nexthop_index 1 action_smac 0xaaaaac action_dmac 0xaaaaac
+
+pd ti_port2count add_entry ai_port2count ipv4_dstAddr 10.0.0.1
+pd te_port2count add_entry ae_port2count ipv4_dstAddr 10.0.0.1
