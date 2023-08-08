@@ -182,7 +182,33 @@ table nexthop {
 }
 
 
+action ai_no_action() {
+}
+register ri_port2count {
+  width: 32;
+  instance_count : 256;
+}
+blackbox stateful_alu bi_port2count {
+    reg: ri_port2count;
+    update_lo_1_value: register_lo + 1;
+    output_value: alu_lo;
+}
+action ai_port2count() {
+    bi_port2count.execute_stateful_alu(ig_intr_md.ingress_port);
+}
+table ti_port2count {
+  reads {
+    ipv4.dstAddr: exact;
+  }
+  actions {
+    ai_port2count;
+    ai_no_action;
+  }
+  default_action: ai_no_action;
+}
 control ingress     {
+    // apply(te_check_ip);
+    apply(ti_port2count);
     if (valid(ipv4))  {
         apply(port_mapping);
 
@@ -256,11 +282,11 @@ action fib_hit_nexthop_pfuzz_ipv4_fib_lpm(nexthop_index) {
 }
 
 action ai_drop_pfuzz_ti_drop() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_drop_pfuzz_nexthop() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action set_egress_details_pfuzz_nexthop(egress_spec) {
@@ -292,10 +318,33 @@ header_type pfuzz_visited_t {
 header pfuzz_visited_t pfuzz_visited;
 
 
+action ae_no_action() {
+}
+register re_port2count {
+  width: 32;
+  instance_count : 256;
+}
+blackbox stateful_alu be_port2count {
+    reg: re_port2count;
+    update_lo_1_value: register_lo + 1;
+    output_value: alu_lo;
+}
+action ae_port2count() {
+    be_port2count.execute_stateful_alu(ig_intr_md_for_tm.ucast_egress_port);
+}
+table te_port2count {
+  reads {
+    ipv4.dstAddr: exact;
+  }
+  actions {
+    ae_port2count;
+    ae_no_action;
+  }
+  default_action: ae_no_action;
+}
 control egress     {
     apply(rewrite_mac);
-
-
+    apply(te_port2count);
 }
 
 

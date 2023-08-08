@@ -428,8 +428,8 @@ header tcp_t tcp_clone;
 header udp_t udp_clone;
 
 action ai_get_reg_pos() {
-  modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_one, 0, bloom_filter_hash_16, 4096);
-  modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_two, 0, bloom_filter_hash_32, 4096);
+  modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_one, 0, bloom_filter_hash_16, 65536);
+  modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_two, 0, bloom_filter_hash_32, 65536);
 }
 
 table ti_get_reg_pos {
@@ -468,12 +468,12 @@ field_list fi_bf_hash_fields_32 {
 
 register ri_bloom_filter_1 {
   width: 1;
-  instance_count : 4096;
+  instance_count : 65536;
 }
 
 register ri_bloom_filter_2 {
   width: 1;
-  instance_count : 4096;
+  instance_count : 65536;
 }
 
 blackbox stateful_alu ri_bloom_filter_1_alu_update {
@@ -481,12 +481,14 @@ blackbox stateful_alu ri_bloom_filter_1_alu_update {
     output_value: alu_lo;
     output_dst: pfuzz_metadata.reg_val_one;
     update_lo_1_value: set_bit;
+    initial_register_lo_value : 0;
 }
 blackbox stateful_alu ri_bloom_filter_2_alu_update {
     reg: ri_bloom_filter_2;
     output_value: alu_lo;
     output_dst: pfuzz_metadata.reg_val_two;
     update_lo_1_value: set_bit;
+    initial_register_lo_value : 0;
 }
 action ai_read_values_1() {
     ri_bloom_filter_1_alu_update.execute_stateful_alu(pfuzz_metadata.reg_pos_one);

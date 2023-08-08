@@ -274,7 +274,7 @@ table ipv4_lpm {
 
 action drop_packet_pfuzz_te_drop() {
     add_to_field(pfuzz_visited.encoding_e1, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action ae_rate_limit_pfuzz_te_rate_limit(x) {
@@ -304,12 +304,12 @@ action ipv4_forward_pfuzz_ipv4_lpm(dstAddr, port) {
 
 action drop_packet_pfuzz_ipv4_lpm() {
     add_to_field(pfuzz_visited.encoding_i1, 2);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action ai_noOp_pfuzz_ipv4_lpm() {
     add_to_field(pfuzz_visited.encoding_i1, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 header_type pfuzz_visited_t {
