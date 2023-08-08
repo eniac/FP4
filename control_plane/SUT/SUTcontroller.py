@@ -52,12 +52,41 @@ def main():
     controller = StaticController(arguments.program)
     controller.bring_ports_up()
     controller.add_entries()
+    sys.stdout.flush()
     if arguments.dynamic is not None:
         # eval('import run_dynamic from %s' % arguments.dynamic)
         module = importlib.import_module(arguments.dynamic)
         run_dynamic = getattr(module, 'run_dynamic')
+        print("=== run_dynamic ===")
         run_dynamic(controller, arguments.optional)
+
     print("add_entries")
+
+    # while True:
+    #     time.sleep(1)
+        # check_ip_counter = controller.readRegister('re_check_ip', 0)
+        # for port_indx in range(0, 68):
+        #     port_counter = controller.readRegister('re_port2count', port_indx)
+        #     if port_counter != 0:
+        #         print(port_indx, port_counter)
+        # print("check_ip_counter: {}".format(check_ip_counter))
+        # for i in range(0, 68):
+        #     counter_ingress = controller.readRegister('ri_port2count', i)
+        #     counter_egress = controller.readRegister('re_port2count', i)
+        #     if counter_ingress != 0:
+        #         print("port_indx {0} counter_ingress {1}".format(i, counter_ingress))
+        #     if counter_egress != 0:
+        #         print("port_indx {0} counter_egress {1}".format(i, counter_egress))
+        # for i in range(0, 68):
+        #     e0 = controller.readRegister('re_e02count', i)
+        #     i0 = controller.readRegister('re_i02count', i)
+        #     i1 = controller.readRegister('re_i12count', i)
+        #     if e0 !=0:
+        #         print("e0 {0}: {1}".format(i, e0))
+        #     if i0 !=0:
+        #         print("i0 {0}: {1}".format(i, i0))
+        #     if i1 !=0:
+        #         print("i1 {0}: {1}".format(i, i1))
 
 def mirror_session_new(mir_type, mir_dir, sid, egr_port=0, egr_port_v=False,
                         egr_port_queue=0, packet_color=0, mcast_grp_a=0,

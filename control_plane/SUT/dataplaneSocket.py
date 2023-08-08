@@ -12,7 +12,7 @@ class DataplaneSocket():
 
     def send_packet(self, p, initial_bytes=7):
         # Send packet containing the data
-        print("sending packet")
+        print("--- send_packet ---")
 
         prepend_bytes = "000000000000C0"
         for i in range(initial_bytes - 7):
@@ -21,12 +21,11 @@ class DataplaneSocket():
         prepend_bytes = prepend_bytes.decode("hex")
         p = prepend_bytes + p
         bytes_sent = self.dpSocket.send(p)
-        print("sent bytes: ", bytes_sent)
+        print("bytes_sent: ", bytes_sent)
 
     def receive_packet(self):
         # Read data from the dataplane and return raw packet
         try:
-            print("waiting for packet")
             packet, addr = self.dpSocket.recvfrom(512)
             # print("str size:", len(packet))
             # if not self.timeoutUpdated:
@@ -34,7 +33,10 @@ class DataplaneSocket():
             #     self.dpSocket.settimeout(1)
             #     print("Timeout Updated")
             packet = bytearray(packet)
-            print("packet received of size: ", len(packet))
+            print("--- packet received of size: {} ---".format(len(packet)))
+            # print(" ".join(str(byte) for byte in packet))
+            hex_string = " ".join("{:02x}".format(byte) for byte in packet)
+            print(hex_string)
             return packet
         except socket.timeout:
             print("No packet within timeout")
