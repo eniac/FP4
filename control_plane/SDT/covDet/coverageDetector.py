@@ -278,6 +278,11 @@ class CoverageDetector(object):
     def add_initial_seed_packets(self):
         print("====== add_initial_seed_packets prologue ======")
         ruleList = []
+
+        # Test only
+        # ruleList.append("pd ti_port2count add_entry ai_port2count ipv4_dstAddr 10.0.0.1")
+        # ruleList.append("pd te_port2count add_entry ae_port2count ipv4_dstAddr 10.0.0.1")        
+
         # ruleList.append("table_add ti_port_correction ai_drop_packet 0 =>")
         if self.simulation:
             for i in range(0,16):
@@ -488,7 +493,8 @@ class CoverageDetector(object):
             if self.simulation:
                 ruleList.append("table_add te_set_table_seed ae_set_table_seed " + str(seedNum) + " " + str(i) + "&&&" + str(i) + " => " + str(i) + " " + str(15 - i))
             else:
-                ruleList.append("pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(i) + " pfuzz_metadata_table_seed_mask " + str(i) + " priority " + str(15 - i) + " action_real_table_seed " + str(i))
+                # ruleList.append("pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(i) + " pfuzz_metadata_table_seed_mask " + str(i) + " priority " + str(15 - i) + " action_real_table_seed " + str(i))
+                ruleList.append("pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num " + str(seedNum) + " pfuzz_metadata_table_seed " + str(i) + " pfuzz_metadata_table_seed_mask " + str(CoverageDetector.shift_bit_length(i+1)) + " priority " + str(15 - i) + " action_real_table_seed " + str(i))                
 
         for table_num, table_name in enumerate(table_list):
             if self.simulation:
