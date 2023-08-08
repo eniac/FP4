@@ -23,6 +23,7 @@ class CoverageDetector(object):
         self.total_num_actions = 0
         self.field2encoding2path = {}
         self.total_num_vars = 0
+        self.all_actions = []
         print("--- Read ingress plan ---")
         with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_ingress.json") as f:
             ingress_plan_json = json.load(f)
@@ -39,7 +40,10 @@ class CoverageDetector(object):
             intra_index += 1
         # Get the total number of actions
         if self.ingress_num_vars != 0:
-            self.total_num_actions += sum(len(actions) for actions in ingress_plan_json["table2actions_dict"].values())
+            for actions in ingress_plan_json["table2actions_dict"].values():
+                self.total_num_actions += len(actions)
+                self.all_actions.extend(actions)
+            
 
         print("--- Read egress plan ---")
         with open("/home/leoyu/FP4/instrumentation/mvbl/plan/"+baseName+"_egress.json") as f:
@@ -55,10 +59,14 @@ class CoverageDetector(object):
             self.field2index_intra_path_seen["encoding_e"+str(var)] = intra_index
             intra_index += 1
         if self.egress_num_vars != 0:
-            self.total_num_actions += sum(len(actions) for actions in egress_plan_json["table2actions_dict"].values())
+            for actions in egress_plan_json["table2actions_dict"].values():
+                self.total_num_actions += len(actions)
+                self.all_actions.extend(actions)
+        
 
         print("self.total_num_paths: {}".format(self.total_num_paths))
         print("self.total_num_actions: {}".format(self.total_num_actions))
+        print("self.all_actions: {}".format(self.all_actions))
         print("self.field2encoding2path: {}".format(self.field2encoding2path))
         
         # Action name is the key, value is the number of times seen
@@ -595,6 +603,7 @@ class CoverageDetector(object):
         print("self.paths_seen: {}".format(self.paths_seen))
         print("--- Action coverage: {0}/{1}={2}, number_of_seeds: {3}, time: {4}".format(len(self.seenActions), self.total_num_actions, self.action_coverage, self.numSeeds, datetime.now().time()))
         print("self.seenActions: {}".format(self.seenActions))
+        print("self.all_actions - self.seenActions: {}".format(list(set(self.all_actions) - set(self.seenActions))))
         sys.stdout.flush()
         # print("Coverage: ", len(self.seenActions)/(self.totalUniqueActions*1.0 ))
         #self.outfile.write("coverage: " + str(len(self.seenActions)/(self.totalUniqueActions*1.0 )) + ' actions seen: ' + str(self.seenActions)+"\n")
