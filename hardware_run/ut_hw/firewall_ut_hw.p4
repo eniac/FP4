@@ -425,7 +425,7 @@ action ipv4_forward_pfuzz_ipv4_lpm(dstAddr, port) {
 
 action drop_packet_pfuzz_ipv4_lpm() {
     add_to_field(pfuzz_visited.encoding_i3, 4);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_noOp_pfuzz_ipv4_lpm() {
@@ -455,7 +455,7 @@ action ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2() {
 
 action drop_packet_pfuzz_ti_apply_filter() {
     add_to_field(pfuzz_visited.encoding_i2, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_noOp_pfuzz_ti_apply_filter() {

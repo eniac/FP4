@@ -340,7 +340,7 @@ field_list_calculation ipv4_checksum {
 
 action aDrop_pfuzz_tiDrop() {
     add_to_field(pfuzz_visited.encoding_i1, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action aiForMe_pfuzz_tiHandleIncomingEthernet() {
@@ -350,7 +350,7 @@ action aiForMe_pfuzz_tiHandleIncomingEthernet() {
 
 action aDrop_pfuzz_tiHandleIncomingEthernet() {
     add_to_field(pfuzz_visited.encoding_i9, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_nop_pfuzz_tiHandleIncomingEthernet() {
@@ -393,7 +393,7 @@ action aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_t
 
 action aDrop_pfuzz_tiHandleIncomingArpReqest_part_two() {
     add_to_field(pfuzz_visited.encoding_i1, 2);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_nop_pfuzz_tiHandleIncomingArpReqest_part_two() {
@@ -421,7 +421,7 @@ action aiSendToLastHop_pfuzz_tiHandleIpv4() {
 
 action aDrop_pfuzz_tiHandleIpv4() {
     add_to_field(pfuzz_visited.encoding_i2, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_nop_pfuzz_tiHandleIpv4() {

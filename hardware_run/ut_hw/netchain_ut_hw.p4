@@ -369,7 +369,7 @@ action set_egress_pfuzz_ipv4_route(egress_spec) {
 }
 
 action drop_action_pfuzz_ipv4_route() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action decode_action_pfuzz_decode_table() {

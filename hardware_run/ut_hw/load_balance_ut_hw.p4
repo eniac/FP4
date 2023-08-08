@@ -207,7 +207,7 @@ table send_frame {
 
 action drop_packet_pfuzz_ecmp_group() {
     add_to_field(pfuzz_visited.encoding_i0, 1);
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action set_ecmp_select_pfuzz_ecmp_group() {
@@ -216,7 +216,7 @@ action set_ecmp_select_pfuzz_ecmp_group() {
 }
 
 action drop_packet_pfuzz_ecmp_nhop() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action set_nhop_pfuzz_ecmp_nhop(nhop_dmac, nhop_ipv4, port) {
@@ -233,7 +233,7 @@ action rewrite_mac_pfuzz_send_frame(smac) {
 }
 
 action drop_packet_pfuzz_send_frame() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 header_type pfuzz_visited_t {

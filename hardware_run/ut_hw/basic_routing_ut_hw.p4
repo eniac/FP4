@@ -256,11 +256,11 @@ action fib_hit_nexthop_pfuzz_ipv4_fib_lpm(nexthop_index) {
 }
 
 action ai_drop_pfuzz_ti_drop() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action ai_drop_pfuzz_nexthop() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, 0);
 }
 
 action set_egress_details_pfuzz_nexthop(egress_spec) {
