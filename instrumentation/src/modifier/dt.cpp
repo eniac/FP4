@@ -1937,6 +1937,7 @@ void DTModifier::ProcessCPU(AstNode* root) {
         oss << "  modify_field(standard_metadata.egress_spec, outPort);\n";
     } else if (strcmp(target_, "hw")==0) {
         oss << "  modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);\n";
+        oss << "  modify_field(pfuzz_visited.temp_port, outPort);\n";
     }
     oss << "}\n";
     unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string(kAiSetPort), new string(kAiSetPort)));

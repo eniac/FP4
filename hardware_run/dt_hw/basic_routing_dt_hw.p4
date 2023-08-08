@@ -182,6 +182,7 @@ header_type pfuzz_visited_t {
         encoding_e0 : 8;
         encoding_i0 : 8;
         encoding_i1 : 8;
+        temp_port : 8;
     }
 }
 
@@ -497,6 +498,7 @@ table ti_set_port {
 
 action ai_set_port(outPort) {
   modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);
+  modify_field(pfuzz_visited.temp_port, outPort);
 }
 
 table te_get_table_seed {

@@ -248,6 +248,12 @@ HeaderTypeDeclarationNode* P4Modifier::DeclVisitedHdr() {
         AddFieldToJson(it->first, it->second);
     }
 
+    name_ = new NameNode(new string("temp_port"));
+    size_ = new IntegerNode(new string(to_string(8)));
+    currentField = new FieldDecNode(name_, size_, NULL);
+    field_list -> push_back(currentField);    
+    AddFieldToJson("temp_port", 8);
+
   // Name of new header
     name_ = new NameNode(new string(sig_+"_visited_t"));
 

@@ -287,6 +287,7 @@ header_type pfuzz_visited_t {
         encoding_i7 : 8;
         encoding_i8 : 8;
         encoding_i9 : 8;
+        temp_port : 8;
     }
 }
 
@@ -540,22 +541,14 @@ table ti_create_packet {
   }
   actions {
     ai_drop_packet;
-    ai_add_ethernet_distance_vec;
     ai_add_distance_vec;
     ai_add_ethernet;
     ai_add_ethernet_ipv4;
     ai_add_ethernet_arp;
+    ai_add_ethernet_distance_vec;
   }
   default_action : ai_drop_packet();
   size: 64;
-}
-
-action ai_add_ethernet_distance_vec() {
-  add_header(ethernet);
-  add_header(ethernet_clone);
-  add_header(distance_vec);
-  add_header(distance_vec_clone);
-  modify_field(ethernet.etherType, 0x0553);
 }
 
 action ai_add_distance_vec() {
@@ -584,29 +577,28 @@ action ai_add_ethernet_arp() {
   modify_field(ethernet.etherType, 0x0806);
 }
 
+action ai_add_ethernet_distance_vec() {
+  add_header(ethernet);
+  add_header(ethernet_clone);
+  add_header(distance_vec);
+  add_header(distance_vec_clone);
+  modify_field(ethernet.etherType, 0x0553);
+}
+
 table ti_add_fields {
   reads {
     pfuzz_metadata.seed_num: exact;
   }
   actions {
     ai_NoAction;
-    ai_add_fixed_ethernet_distance_vec;
     ai_add_fixed_distance_vec;
     ai_add_fixed_ethernet;
     ai_add_fixed_ethernet_ipv4;
     ai_add_fixed_ethernet_arp;
+    ai_add_fixed_ethernet_distance_vec;
   }
   default_action : ai_NoAction();
   size: 64;
-}
-
-action ai_add_fixed_ethernet_distance_vec(ethernetdstAddr, ethernetsrcAddr, ethernetetherType, distance_vecsrc, distance_veclength_dist, distance_vecdata) {
-  modify_field(ethernet.dstAddr, ethernetdstAddr);
-  modify_field(ethernet.srcAddr, ethernetsrcAddr);
-  modify_field(ethernet.etherType, ethernetetherType);
-  modify_field(distance_vec.src, distance_vecsrc);
-  modify_field(distance_vec.length_dist, distance_veclength_dist);
-  modify_field(distance_vec.data, distance_vecdata);
 }
 
 action ai_add_fixed_distance_vec(distance_vecsrc, distance_veclength_dist, distance_vecdata) {
@@ -654,6 +646,15 @@ action ai_add_fixed_ethernet_arp(ethernetdstAddr, ethernetsrcAddr, ethernetether
   modify_field(arp.targetPA, arptargetPA);
 }
 
+action ai_add_fixed_ethernet_distance_vec(ethernetdstAddr, ethernetsrcAddr, ethernetetherType, distance_vecsrc, distance_veclength_dist, distance_vecdata) {
+  modify_field(ethernet.dstAddr, ethernetdstAddr);
+  modify_field(ethernet.srcAddr, ethernetsrcAddr);
+  modify_field(ethernet.etherType, ethernetetherType);
+  modify_field(distance_vec.src, distance_vecsrc);
+  modify_field(distance_vec.length_dist, distance_veclength_dist);
+  modify_field(distance_vec.data, distance_vecdata);
+}
+
 table ti_set_port {
   reads { 
     pfuzz_metadata.temp_port : exact;
@@ -667,6 +668,7 @@ table ti_set_port {
 
 action ai_set_port(outPort) {
   modify_field(ig_intr_md_for_tm.ucast_egress_port, outPort);
+  modify_field(pfuzz_visited.temp_port, outPort);
 }
 
 table te_get_table_seed {
@@ -704,25 +706,25 @@ table te_move_fields {
   }
   actions {
     ai_NoAction;
-    ae_move_IF_CONDITION_5_parser_4;
-    ae_move_tiHandleIncomingArpReqest_part_two_parser_4;
-    ae_move_tiHandleIncomingEthernet_parser_4;
-    ae_move_tiHandleOutgoingEthernet_parser_3;
+    ae_move_IF_CONDITION_5_parser_3;
+    ae_move_tiHandleIncomingArpReqest_part_two_parser_3;
+    ae_move_tiHandleIncomingEthernet_parser_3;
+    ae_move_tiHandleOutgoingEthernet_parser_2;
   }
   default_action : ai_NoAction();
 }
 
-action ae_move_IF_CONDITION_5_parser_4(){
+action ae_move_IF_CONDITION_5_parser_3(){
   modify_field(pfuzz_metadata.max_bits_field0, ethernet.dstAddr);
   modify_field(pfuzz_metadata.max_bits_field1, arp.oper);
 }
-action ae_move_tiHandleIncomingArpReqest_part_two_parser_4(){
+action ae_move_tiHandleIncomingArpReqest_part_two_parser_3(){
   modify_field(pfuzz_metadata.max_bits_field0, arp.targetPA);
 }
-action ae_move_tiHandleIncomingEthernet_parser_4(){
+action ae_move_tiHandleIncomingEthernet_parser_3(){
   modify_field(pfuzz_metadata.max_bits_field0, ethernet.dstAddr);
 }
-action ae_move_tiHandleOutgoingEthernet_parser_3(){
+action ae_move_tiHandleOutgoingEthernet_parser_2(){
   modify_field(pfuzz_metadata.max_bits_field0, ipv4.dstAddr);
 }
 table te_apply_mutations0 {
@@ -756,52 +758,52 @@ table te_move_back_fields {
   actions {
     ai_NoAction;
     ai_drop_packet;
-    ae_move_back_IF_CONDITION_5_parser_4;
-    ae_move_back_fix_IF_CONDITION_5_parser_4;
-    ae_move_back_tiHandleIncomingArpReqest_part_two_parser_4;
-    ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_4;
-    ae_move_back_tiHandleIncomingEthernet_parser_4;
-    ae_move_back_fix_tiHandleIncomingEthernet_parser_4;
-    ae_move_back_tiHandleOutgoingEthernet_parser_3;
-    ae_move_back_fix_tiHandleOutgoingEthernet_parser_3;
+    ae_move_back_IF_CONDITION_5_parser_3;
+    ae_move_back_fix_IF_CONDITION_5_parser_3;
+    ae_move_back_tiHandleIncomingArpReqest_part_two_parser_3;
+    ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_3;
+    ae_move_back_tiHandleIncomingEthernet_parser_3;
+    ae_move_back_fix_tiHandleIncomingEthernet_parser_3;
+    ae_move_back_tiHandleOutgoingEthernet_parser_2;
+    ae_move_back_fix_tiHandleOutgoingEthernet_parser_2;
   }
   default_action : ai_NoAction();
   size: 2048;
 }
 
-action ae_move_back_IF_CONDITION_5_parser_4(){
+action ae_move_back_IF_CONDITION_5_parser_3(){
   modify_field(ethernet.dstAddr, pfuzz_metadata.max_bits_field0);
   modify_field(ethernet_clone.dstAddr, pfuzz_metadata.max_bits_field0);
   modify_field(arp.oper, pfuzz_metadata.max_bits_field1);
   modify_field(arp_clone.oper, pfuzz_metadata.max_bits_field1);
 }
-action ae_move_back_tiHandleIncomingArpReqest_part_two_parser_4(){
+action ae_move_back_tiHandleIncomingArpReqest_part_two_parser_3(){
   modify_field(arp.targetPA, pfuzz_metadata.max_bits_field0);
   modify_field(arp_clone.targetPA, pfuzz_metadata.max_bits_field0);
 }
-action ae_move_back_tiHandleIncomingEthernet_parser_4(){
+action ae_move_back_tiHandleIncomingEthernet_parser_3(){
   modify_field(ethernet.dstAddr, pfuzz_metadata.max_bits_field0);
   modify_field(ethernet_clone.dstAddr, pfuzz_metadata.max_bits_field0);
 }
-action ae_move_back_tiHandleOutgoingEthernet_parser_3(){
+action ae_move_back_tiHandleOutgoingEthernet_parser_2(){
   modify_field(ipv4.dstAddr, pfuzz_metadata.max_bits_field0);
   modify_field(ipv4_clone.dstAddr, pfuzz_metadata.max_bits_field0);
 }
-action ae_move_back_fix_IF_CONDITION_5_parser_4(ethernet_dstAddr, arp_oper){
+action ae_move_back_fix_IF_CONDITION_5_parser_3(ethernet_dstAddr, arp_oper){
   modify_field(ethernet.dstAddr, ethernet_dstAddr);
   modify_field(ethernet_clone.dstAddr, ethernet_dstAddr);
   modify_field(arp.oper, arp_oper);
   modify_field(arp_clone.oper, arp_oper);
 }
-action ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_4(arp_targetPA){
+action ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_3(arp_targetPA){
   modify_field(arp.targetPA, arp_targetPA);
   modify_field(arp_clone.targetPA, arp_targetPA);
 }
-action ae_move_back_fix_tiHandleIncomingEthernet_parser_4(ethernet_dstAddr){
+action ae_move_back_fix_tiHandleIncomingEthernet_parser_3(ethernet_dstAddr){
   modify_field(ethernet.dstAddr, ethernet_dstAddr);
   modify_field(ethernet_clone.dstAddr, ethernet_dstAddr);
 }
-action ae_move_back_fix_tiHandleOutgoingEthernet_parser_3(ipv4_dstAddr){
+action ae_move_back_fix_tiHandleOutgoingEthernet_parser_2(ipv4_dstAddr){
   modify_field(ipv4.dstAddr, ipv4_dstAddr);
   modify_field(ipv4_clone.dstAddr, ipv4_dstAddr);
 }
@@ -845,23 +847,14 @@ table ti_add_clones {
   // I think the default action should be ai_NoAction
   actions {
     ai_NoAction;
-    ai_add_clone_ethernet_distance_vec;
     ai_add_clone_distance_vec;
     ai_add_clone_ethernet;
     ai_add_clone_ethernet_ipv4;
     ai_add_clone_ethernet_arp;
+    ai_add_clone_ethernet_distance_vec;
   }
   default_action : ai_NoAction();
   size: 16;
-}
-
-action ai_add_clone_ethernet_distance_vec() {
-  modify_field(ethernet_clone.dstAddr, ethernet.dstAddr);
-  modify_field(ethernet_clone.srcAddr, ethernet.srcAddr);
-  modify_field(ethernet_clone.etherType, ethernet.etherType);
-  modify_field(distance_vec_clone.src, distance_vec.src);
-  modify_field(distance_vec_clone.length_dist, distance_vec.length_dist);
-  modify_field(distance_vec_clone.data, distance_vec.data);
 }
 
 action ai_add_clone_distance_vec() {
@@ -907,6 +900,15 @@ action ai_add_clone_ethernet_arp() {
   modify_field(arp_clone.senderPA, arp.senderPA);
   modify_field(arp_clone.targetHA, arp.targetHA);
   modify_field(arp_clone.targetPA, arp.targetPA);
+}
+
+action ai_add_clone_ethernet_distance_vec() {
+  modify_field(ethernet_clone.dstAddr, ethernet.dstAddr);
+  modify_field(ethernet_clone.srcAddr, ethernet.srcAddr);
+  modify_field(ethernet_clone.etherType, ethernet.etherType);
+  modify_field(distance_vec_clone.src, distance_vec.src);
+  modify_field(distance_vec_clone.length_dist, distance_vec.length_dist);
+  modify_field(distance_vec_clone.data, distance_vec.data);
 }
 
 action ai_set_visited_type() {
