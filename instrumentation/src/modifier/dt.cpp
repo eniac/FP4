@@ -1346,12 +1346,14 @@ void DTModifier::ProcessUTSim(AstNode* root) {
             << "    output_value: alu_lo;\n"
             << "    output_dst: " << kGlobalMetadata << ".reg_val_one;\n"
             << "    update_lo_1_value: set_bit;\n"
+            << "    initial_register_lo_value : 0;\n"
             << "}\n";
         oss << "blackbox stateful_alu " << kRiBloomFilter2Sim << "_alu_update {\n"
             << "    reg: " << kRiBloomFilter2Sim << ";\n"
             << "    output_value: alu_lo;\n"
             << "    output_dst: " << kGlobalMetadata << ".reg_val_two;\n"
             << "    update_lo_1_value: set_bit;\n"
+            << "    initial_register_lo_value : 0;\n"
             << "}\n";
     }
 

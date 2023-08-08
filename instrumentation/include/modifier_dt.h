@@ -5,7 +5,7 @@
 #include "../src/static_analysis/static_analysis.cpp"
 #include "../src/modifier/parser_graph.cpp"
 
-#define BLOOM_FILTER_ENTRIES 4096
+#define BLOOM_FILTER_ENTRIES 65536
 #define BLOOM_FILTER_BIT_WIDTH 1
 
 

@@ -694,10 +694,18 @@ void UTModifier::redirectDroppedPacket(AstNode* root) {
                             new NameNode(new string("egress_spec")),
                             NULL));
                     }
-                BodyWordNode* portNum = new BodyWordNode(BodyWordNode::INTEGER, new IntegerNode(new string(std::to_string(RESERVED_PORT))));;
+                // BodyWordNode* portNum = new BodyWordNode(BodyWordNode::INTEGER, new IntegerNode(new string(std::to_string(RESERVED_PORT))));;
+
+                BodyWordNode* portassign = new BodyWordNode(
+                    BodyWordNode::FIELD, 
+                    new FieldNode(
+                    new NameNode(new string("pfuzz_visited")), 
+                    new NameNode(new string("temp_port")),
+                    NULL));
 
                 argList -> push_back(updateField);
-                argList -> push_back(portNum);
+                argList -> push_back(portassign);
+                // argList -> push_back(portNum);
 
                 ActionStmtNode* redirectStmt = new ActionStmtNode(funcName, argList, ActionStmtNode::NAME_ARGLIST, NULL, NULL);
                 tmpstmts.push_back(redirectStmt);
