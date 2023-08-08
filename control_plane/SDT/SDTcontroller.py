@@ -200,6 +200,13 @@ class DTController:
             sys.stdout.flush()
             switchData = self.dp_iface.receive_packet()
             packetsForwarded = self.readRegister('forward_count_register', 0)
+            # for i in range(68):
+            #     counter_ingress = self.readRegister('ri_port2count', i)
+            #     # counter_egress = self.readRegister('re_port2count', i)
+            #     if counter_ingress != 0:
+            #         print("port_indx {0} counter_ingress {1}".format(i, counter_ingress))
+            #     # if counter_egress != 0:
+            #         # print("port_indx {0} counter_egress {1}".format(i, counter_egress))
 
             if packetsForwarded < 0:
                 packetsForwarded += (2**32)
