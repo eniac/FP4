@@ -737,7 +737,16 @@ control ingress     {
 
     }
 
-
+    apply(ti_temp_port);
+}
+action ai_temp_port() {
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+}
+table ti_temp_port {
+    actions {
+        ai_temp_port;
+    }
+    default_action: ai_temp_port();
 }
 
 

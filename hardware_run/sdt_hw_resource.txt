@@ -9,3 +9,4 @@ mirror_clone_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1561 \\
 netchain_dt_hw & 9 & 23 & 3 & 400 & 10.24 & 2457 \\
 mac_learning_dt_hw & 9 & 21 & 3 & 336 & 10.24 & 1433 \\
 dos_defense_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2141 \\
+cheetah_groupby_dt_hw & 8 & 22 & 3 & 320 & 10.24 & 727 \\
