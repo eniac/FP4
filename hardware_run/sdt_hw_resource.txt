@@ -1,9 +1,11 @@
 Program & Stages & Tables & sALUs & SRAM (KB) & TCAM (KB) & Metadata (b) \\
 === SDT ===
-Firewall_dt_hw & 9 & 22 & 3 & 352 & 10.24 & 2093 \\
-LoadBalance_dt_hw & 9 & 22 & 3 & 352 & 10.24 & 2061 \\
-RateLimiter_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1433 \\
-basic_routing_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1433 \\
-dv_router_dt_hw & 9 & 23 & 3 & 368 & 10.24 & 1775 \\
-mirror_clone_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1417 \\
-netchain_dt_hw & 9 & 23 & 3 & 384 & 10.24 & 2377 \\
+firewall_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2157 \\
+load_balance_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2141 \\
+rate_limiter_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1513 \\
+basic_routing_dt_hw & 9 & 22 & 3 & 336 & 10.24 & 1497 \\
+dv_router_dt_hw & 9 & 23 & 3 & 368 & 10.24 & 1951 \\
+mirror_clone_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1561 \\
+netchain_dt_hw & 9 & 23 & 3 & 400 & 10.24 & 2457 \\
+mac_learning_dt_hw & 9 & 21 & 3 & 336 & 10.24 & 1433 \\
+dos_defense_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2141 \\
