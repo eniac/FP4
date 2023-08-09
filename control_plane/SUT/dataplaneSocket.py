@@ -26,6 +26,7 @@ class DataplaneSocket():
     def receive_packet(self):
         # Read data from the dataplane and return raw packet
         try:
+            print("--- receive_packet ---")
             packet, addr = self.dpSocket.recvfrom(512)
             # print("str size:", len(packet))
             # if not self.timeoutUpdated:
