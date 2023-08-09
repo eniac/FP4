@@ -93,8 +93,8 @@ context_to_dot_label_mapping = {
     "(cis553_metadata.forMe == 0)": "\"meta.cis553_metadata.forMe == 0;\"",
     "(cheetah_md.prune == 0)": "\"meta.cheetah_md.prune == 0;\"",
     "(cheetah_md.prune == 1)": "\"meta.cheetah_md.prune == 1;\"",
-    "(meta.reg_val_one_warning > 100)": "\"meta.meta.reg_val_one_warning > 100;\"",
-    "(meta.reg_val_two_warning > 100)": "\"meta.meta.reg_val_two_warning > 100;\"",
+    "(meta.reg_val_one_warning == 1)": "\"meta.meta.reg_val_one_warning == 1;\"",
+    "(meta.reg_val_two_warning == 1)": "\"meta.meta.reg_val_two_warning == 1;\"",
 }
 
 

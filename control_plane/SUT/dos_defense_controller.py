@@ -20,7 +20,7 @@ def run_dynamic(static_controller, *args, **kwargs):
     installed_rules = []
 
     ruleList = []
-    # ruleList.append("pd ipv4_lpm add_entry ai_handle_blacklist_pfuzz_ipv4_lpm ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8 ")
+    ruleList.append("pd ipv4_lpm add_entry ai_handle_blacklist_pfuzz_ipv4_lpm ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8")
     static_controller.generate_output_rules(ruleList)
     static_controller.add_entries()
     installed_rules.extend(ruleList)

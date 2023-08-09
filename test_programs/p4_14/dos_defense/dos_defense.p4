@@ -288,12 +288,14 @@ table ti_write_flow_counter_2 {
 blackbox stateful_alu riw_flow_counter_1 {
     reg: flow_counter_1;
     update_lo_1_value: register_lo + 1;
+    output_value: register_lo;
     output_dst: meta.reg_val_one;
 }
 
 blackbox stateful_alu riw_flow_counter_2 {
     reg: flow_counter_2;
     update_lo_1_value: register_lo + 1;
+    output_value: register_lo;
     output_dst: meta.reg_val_two;
 }
 
@@ -326,6 +328,7 @@ blackbox stateful_alu riw_flow_counter_warning_1 {
     condition_lo: meta.reg_val_one > 64;
     update_lo_1_predicate: condition_lo;
     update_lo_1_value: 1;
+    output_value: register_lo;
     output_dst: meta.reg_val_one_warning;
 }
 
@@ -334,6 +337,7 @@ blackbox stateful_alu riw_flow_counter_warning_2 {
     condition_lo: meta.reg_val_two > 64;
     update_lo_1_predicate: condition_lo;
     update_lo_1_value: 1;
+    output_value: register_lo;
     output_dst: meta.reg_val_two_warning;
 }
 

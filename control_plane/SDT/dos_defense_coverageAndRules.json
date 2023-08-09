@@ -29,9 +29,6 @@
     "number_of_extract_paths": 3,
     "extract": [
         [
-            "ethernet"
-        ],
-        [
             "ethernet",
             "ipv4"
         ],
@@ -39,10 +36,12 @@
             "ethernet",
             "ipv4",
             "tcp"
+        ],
+        [
+            "ethernet"
         ]
     ],
     "fixed_fields": [
-        null,
         {
             "ethernet.etherType": "0x0800"
         },
@@ -103,11 +102,6 @@
         "ai_set_fixed_header": [
             "real_fixed_header"
         ],
-        "ai_add_fixed_ethernet": [
-            "ethernetdstAddr",
-            "ethernetsrcAddr",
-            "ethernetetherType"
-        ],
         "ai_add_fixed_ethernet_ipv4": [
             "ethernetdstAddr",
             "ethernetsrcAddr",
@@ -155,6 +149,11 @@
             "tcpwindow",
             "tcpchecksum",
             "tcpurgentPtr"
+        ],
+        "ai_add_fixed_ethernet": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType"
         ],
         "ae_set_table_seed": [
             "real_table_seed"

@@ -1,5 +1,5 @@
 {
-  "build_date": "Wed Aug  9 20:22:29 2023",
+  "build_date": "Wed Aug  9 20:40:48 2023",
   "schema_version": "1.11.0",
   "compiler_version": "9.2.0",
   "target": "tofino",
@@ -21175,6 +21175,7 @@
                   "operand_2_type": "immediate",
                   "operand_2_value": "1"
                 },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" },
                 "output_dst": "meta.reg_val_one"
               }
             }
@@ -21346,6 +21347,7 @@
                   "operand_2_type": "immediate",
                   "operand_2_value": "1"
                 },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" },
                 "output_dst": "meta.reg_val_two"
               }
             }
@@ -21507,7 +21509,11 @@
                 "algorithm": "identity"
               },
               "hash_inputs": [ "meta.reg_pos_one" ],
-              "stateful_alu_details": { "single_bit_mode": false, "name": "riw_flow_counter_warning" }
+              "stateful_alu_details": {
+                "single_bit_mode": false,
+                "name": "riw_flow_counter_warning",
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
+              }
             },
             {
               "name": "ModifyFieldPrimitive",
@@ -21674,7 +21680,11 @@
                 "algorithm": "identity"
               },
               "hash_inputs": [ "meta.reg_pos_two" ],
-              "stateful_alu_details": { "single_bit_mode": false, "name": "riw_flow_counter_warning_0" }
+              "stateful_alu_details": {
+                "single_bit_mode": false,
+                "name": "riw_flow_counter_warning_0",
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
+              }
             },
             {
               "name": "ModifyFieldPrimitive",
@@ -24426,6 +24436,6 @@
       "hash_bit_width": 32
     }
   ],
-  "run_id": "97868e81dd00002a",
+  "run_id": "ec44bae1772c5850",
   "driver_options": { "hash_parity_enabled": false, "high_availability_enabled": true }
 }
