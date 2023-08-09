@@ -264,6 +264,7 @@ header_type pfuzz_metadata_t {
         table_seed : 4;
         __pad1 : 4;
         temp_data : 32;
+        max_bits_field0 : 16;
     }
 }
 
@@ -276,6 +277,7 @@ control egress {
     apply(te_get_table_seed);
     apply(te_set_table_seed);
     apply(te_move_fields);
+    apply(te_apply_mutations0);
     apply(te_move_back_fields);
     apply(te_do_resubmit);
   }
@@ -597,8 +599,23 @@ table te_move_fields {
   }
   actions {
     ai_NoAction;
+    ae_move_tiSendClone;
   }
   default_action : ai_NoAction();
+}
+
+action ae_move_tiSendClone(){
+  modify_field(pfuzz_metadata.max_bits_field0, ethernet.etherType);
+}
+table te_apply_mutations0 {
+  actions {
+    ae_apply_mutations0;
+  }
+  default_action : ae_apply_mutations0();
+}
+
+action ae_apply_mutations0() {
+  modify_field_rng_uniform(pfuzz_metadata.max_bits_field0, 0,0xffff);
 }
 
 table te_move_back_fields {
@@ -610,11 +627,21 @@ table te_move_back_fields {
   actions {
     ai_NoAction;
     ai_drop_packet;
+    ae_move_back_tiSendClone;
+    ae_move_back_fix_tiSendClone;
   }
   default_action : ai_NoAction();
   size: 2048;
 }
 
+action ae_move_back_tiSendClone(){
+  modify_field(ethernet.etherType, pfuzz_metadata.max_bits_field0);
+  modify_field(ethernet_clone.etherType, pfuzz_metadata.max_bits_field0);
+}
+action ae_move_back_fix_tiSendClone(ethernet_etherType){
+  modify_field(ethernet.etherType, ethernet_etherType);
+  modify_field(ethernet_clone.etherType, ethernet_etherType);
+}
 
 field_list fe_resub_fields {
   pfuzz_metadata.apply_mutations;

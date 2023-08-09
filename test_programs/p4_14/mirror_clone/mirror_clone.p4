@@ -113,8 +113,7 @@ field_list flLastSeen {
 action aiSendClone() {
     // clone_i2e(CPU_INGRESS_MIRROR_ID, flLastSeen);
     // Should still clone the full packet, otherwise the cloned packet will be invalid syntax
-    // clone_i2e(MC1_INGRESS_MIRROR_ID, flLastSeen);
-    clone_i2e(MC1_INGRESS_MIRROR_ID);
+    clone_i2e(MC1_INGRESS_MIRROR_ID, flLastSeen);
 }
 
 
