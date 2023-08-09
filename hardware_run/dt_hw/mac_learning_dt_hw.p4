@@ -14,27 +14,6 @@ header_type ethernet_t {
 header ethernet_t ethernet;
 
 
-header_type ipv4_t {
-    fields {
-        version : 4;
-        ihl : 4;
-        diffserv : 8;
-        totalLen : 16;
-        identification : 16;
-        flags : 3;
-        fragOffset : 13;
-        ttl : 8;
-        protocol : 8;
-        hdrChecksum : 16;
-        srcAddr : 32;
-        dstAddr : 32;
-    }
-}
-
-
-header ipv4_t ipv4;
-
-
 parser start_clone {
     extract(ethernet_clone);
 
@@ -135,7 +114,6 @@ control egress {
 
 
 header ethernet_t ethernet_clone;
-header ipv4_t ipv4_clone;
 
 action ai_get_reg_pos() {
   modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_one, 0, bloom_filter_hash_16, 65536);
@@ -242,8 +220,6 @@ action ai_send_to_control_plane() {
 action ai_recycle_packet() {
   remove_header(ethernet);
   remove_header(ethernet_clone);
-  remove_header(ipv4);
-  remove_header(ipv4_clone);
   modify_field(pfuzz_visited.pkt_type, 0);
   modify_field(pfuzz_visited.encoding_i0, 0);
 }
@@ -461,7 +437,6 @@ action ai_NoAction() {
 table ti_add_clones {
   reads {
     ethernet.valid: exact;
-    ipv4.valid: exact;
   }
   // I think the default action should be ai_NoAction
   actions {

@@ -18,24 +18,6 @@ header_type ethernet_t {
 }
 header ethernet_t ethernet;
 
-header_type ipv4_t {
-    fields {
-        version : 4;
-        ihl : 4;
-        diffserv : 8;
-        totalLen : 16;
-        identification : 16;
-        flags : 3;
-        fragOffset : 13;
-        ttl : 8;
-        protocol : 8;
-        hdrChecksum : 16;
-        srcAddr : 32;
-        dstAddr : 32;
-    }
-}
-header ipv4_t ipv4;
-
 /*************************************************************************
 ***********************  P A R S E   P A C K E T *************************
 *************************************************************************/

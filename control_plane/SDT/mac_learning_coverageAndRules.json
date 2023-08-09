@@ -65,8 +65,7 @@
             "pfuzz_metadata_make_clone"
         ],
         "ti_add_clones": [
-            "ethernet_valid",
-            "ipv4_valid"
+            "ethernet_valid"
         ]
     },
     "action_params": {
@@ -92,9 +91,6 @@
     "headers": [
         {
             "ethernet": "0"
-        },
-        {
-            "ipv4": "0"
         }
     ]
 }
