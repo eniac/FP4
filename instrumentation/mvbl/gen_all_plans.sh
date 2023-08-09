@@ -5,13 +5,16 @@ set -ex
 SDE_PREFIX=/home/leoyu/bf-sde-9.2.0/pkgsrc/p4-build/tofino
 
 program_list=(
-    "basic_routing"
-   #  "mirror_clone"
+   # "basic_routing"
+   # "mirror_clone"
+   # "cheetah_groupby"
+   "dos_defense"
    #  "load_balance"
    #  "rate_limiter"
    #  "netchain"
    #  "firewall"
    # "dv_router"
+   # "mac_learning"
    # "switch_80019"
 )
 

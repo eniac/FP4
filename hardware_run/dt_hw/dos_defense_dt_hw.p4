@@ -589,12 +589,17 @@ table ti_create_packet {
   }
   actions {
     ai_drop_packet;
+    ai_add_ethernet;
     ai_add_ethernet_ipv4;
     ai_add_ethernet_ipv4_tcp;
-    ai_add_ethernet;
   }
   default_action : ai_drop_packet();
   size: 64;
+}
+
+action ai_add_ethernet() {
+  add_header(ethernet);
+  add_header(ethernet_clone);
 }
 
 action ai_add_ethernet_ipv4() {
@@ -616,23 +621,24 @@ action ai_add_ethernet_ipv4_tcp() {
   modify_field(ipv4.protocol, 6);
 }
 
-action ai_add_ethernet() {
-  add_header(ethernet);
-  add_header(ethernet_clone);
-}
-
 table ti_add_fields {
   reads {
     pfuzz_metadata.seed_num: exact;
   }
   actions {
     ai_NoAction;
+    ai_add_fixed_ethernet;
     ai_add_fixed_ethernet_ipv4;
     ai_add_fixed_ethernet_ipv4_tcp;
-    ai_add_fixed_ethernet;
   }
   default_action : ai_NoAction();
   size: 64;
+}
+
+action ai_add_fixed_ethernet(ethernetdstAddr, ethernetsrcAddr, ethernetetherType) {
+  modify_field(ethernet.dstAddr, ethernetdstAddr);
+  modify_field(ethernet.srcAddr, ethernetsrcAddr);
+  modify_field(ethernet.etherType, ethernetetherType);
 }
 
 action ai_add_fixed_ethernet_ipv4(ethernetdstAddr, ethernetsrcAddr, ethernetetherType, ipv4version, ipv4ihl, ipv4diffserv, ipv4totalLen, ipv4identification, ipv4flags, ipv4fragOffset, ipv4ttl, ipv4protocol, ipv4hdrChecksum, ipv4srcAddr, ipv4dstAddr) {
@@ -683,12 +689,6 @@ action ai_add_fixed_ethernet_ipv4_tcp(ethernetdstAddr, ethernetsrcAddr, ethernet
   modify_field(tcp.window, tcpwindow);
   modify_field(tcp.checksum, tcpchecksum);
   modify_field(tcp.urgentPtr, tcpurgentPtr);
-}
-
-action ai_add_fixed_ethernet(ethernetdstAddr, ethernetsrcAddr, ethernetetherType) {
-  modify_field(ethernet.dstAddr, ethernetdstAddr);
-  modify_field(ethernet.srcAddr, ethernetsrcAddr);
-  modify_field(ethernet.etherType, ethernetetherType);
 }
 
 table ti_set_port {
@@ -824,12 +824,18 @@ table ti_add_clones {
   // I think the default action should be ai_NoAction
   actions {
     ai_NoAction;
+    ai_add_clone_ethernet;
     ai_add_clone_ethernet_ipv4;
     ai_add_clone_ethernet_ipv4_tcp;
-    ai_add_clone_ethernet;
   }
   default_action : ai_NoAction();
   size: 16;
+}
+
+action ai_add_clone_ethernet() {
+  modify_field(ethernet_clone.dstAddr, ethernet.dstAddr);
+  modify_field(ethernet_clone.srcAddr, ethernet.srcAddr);
+  modify_field(ethernet_clone.etherType, ethernet.etherType);
 }
 
 action ai_add_clone_ethernet_ipv4() {
@@ -880,12 +886,6 @@ action ai_add_clone_ethernet_ipv4_tcp() {
   modify_field(tcp_clone.window, tcp.window);
   modify_field(tcp_clone.checksum, tcp.checksum);
   modify_field(tcp_clone.urgentPtr, tcp.urgentPtr);
-}
-
-action ai_add_clone_ethernet() {
-  modify_field(ethernet_clone.dstAddr, ethernet.dstAddr);
-  modify_field(ethernet_clone.srcAddr, ethernet.srcAddr);
-  modify_field(ethernet_clone.etherType, ethernet.etherType);
 }
 
 action ai_set_visited_type() {

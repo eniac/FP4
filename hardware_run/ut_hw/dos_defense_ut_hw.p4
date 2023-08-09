@@ -397,7 +397,6 @@ action ai_get_incoming_pos_pfuzz_ti_get_incoming_pos() {
 action ai_calculate_hash_pfuzz_ti_calculate_hash() {
     modify_field_with_hash_based_offset(meta.reg_pos_one, 0, hasher_64, 1024);
     modify_field_with_hash_based_offset(meta.reg_pos_two, 0, hasher_32, 1024);
-    add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
 action ipv4_forward_pfuzz_ipv4_lpm(dstAddr, port) {
@@ -432,6 +431,7 @@ action ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1() {
 
 action ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2() {
     riw_flow_counter_warning_2 . execute_stateful_alu ( meta.reg_pos_two );
+    add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
 header_type pfuzz_visited_t {
