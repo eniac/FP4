@@ -14,9 +14,11 @@ program_list=(
    # "firewall"
    # "load_balance"
    # "rate_limiter"
-   # "basic_routing_old"
-   "dv_router"
+   # "dv_router"
+   # "mac_learning"
    # "mirror_clone"
+   "cheetah_groupby"
+   # "dos_defense"
    # "netchain"
    # "switch_80019"
 )

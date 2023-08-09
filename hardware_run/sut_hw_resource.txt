@@ -20,4 +20,4 @@ mirror_clone_ut_hw & 1 & 7 & 2 & 128 & 0.0 & 925 \\
 netchain_ut_hw & 3 & 7 & 1 & 544 & 1.28 & 1283 \\
 mac_learning_ut_hw & 3 & 3 & 0 & 176 & 0.0 & 758 \\
 dos_defense_ut_hw & 6 & 9 & 4 & 160 & 2.56 & 1311 \\
-cheetah_groupby_ut_hw & 8 & 16 & 10 & 1216 & 0.0 & 443 \\
+cheetah_groupby_ut_hw & 7 & 16 & 10 & 1216 & 0.0 & 443 \\
