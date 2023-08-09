@@ -237,7 +237,7 @@ table teGetDiff {
 
 
 action aiSetOutputPort_pfuzz_tiSetOutputPort() {
-    add_to_field(ig_intr_md_for_tm.ucast_egress_port, 4);
+    add_to_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action aiSendClone_pfuzz_tiSendClone() {
