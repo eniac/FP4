@@ -1,5 +1,5 @@
 {
-  "build_date": "Wed Aug  9 22:12:17 2023",
+  "build_date": "Wed Aug  9 22:37:15 2023",
   "schema_version": "1.11.0",
   "compiler_version": "9.2.0",
   "target": "tofino",
@@ -14202,7 +14202,8 @@
               "stateful_alu_details": {
                 "single_bit_mode": false,
                 "name": "alu_sketch_one_value_0",
-                "output_value": { "operand_1_type": "memory", "operand_1_value": "memory_hi" }
+                "update_lo_1_value": { "operand_1_type": "immediate", "operand_1_value": "1" },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
               }
             },
             {
@@ -18613,7 +18614,7 @@
             "size": 12288,
             "stage_table_type": "hash_match",
             "logical_table_id": 0,
-            "has_attached_gateway": true,
+            "has_attached_gateway": false,
             "default_next_table": 255,
             "hash_functions": [
               {
@@ -19865,7 +19866,7 @@
                 "table_name": "--END_OF_PIPELINE--",
                 "next_table": 0,
                 "next_table_full": 33,
-                "vliw_instruction": 1,
+                "vliw_instruction": 0,
                 "vliw_instruction_full": 65,
                 "next_tables": [
                   {
@@ -19882,7 +19883,7 @@
                 "table_name": "--END_OF_PIPELINE--",
                 "next_table": 0,
                 "next_table_full": 33,
-                "vliw_instruction": 2,
+                "vliw_instruction": 1,
                 "vliw_instruction_full": 64,
                 "next_tables": [
                   {
@@ -19922,7 +19923,7 @@
                           "msb_mem_word_idx": 0,
                           "source": "stful_ptr",
                           "enable_pfe": false,
-                          "lsb_mem_word_offset": 6,
+                          "lsb_mem_word_offset": 3,
                           "field_name": "meter_addr",
                           "match_mode": "unused"
                         },
@@ -19933,25 +19934,14 @@
                           "msb_mem_word_idx": 0,
                           "source": "stful_ptr",
                           "enable_pfe": false,
-                          "lsb_mem_word_offset": 16,
+                          "lsb_mem_word_offset": 13,
                           "field_name": "meter_pfe",
-                          "match_mode": "unused"
-                        },
-                        {
-                          "start_bit": 24,
-                          "field_width": 3,
-                          "lsb_mem_word_idx": 0,
-                          "msb_mem_word_idx": 0,
-                          "source": "stful_ptr",
-                          "enable_pfe": false,
-                          "lsb_mem_word_offset": 17,
-                          "field_name": "meter_type",
                           "match_mode": "unused"
                         },
                         {
                           "field_name": "cheetah.flowId",
                           "source": "spec",
-                          "lsb_mem_word_offset": 50,
+                          "lsb_mem_word_offset": 42,
                           "start_bit": 10,
                           "immediate_name": "",
                           "lsb_mem_word_idx": 0,
@@ -19962,7 +19952,7 @@
                         },
                         {
                           "start_bit": 0,
-                          "field_width": 2,
+                          "field_width": 1,
                           "lsb_mem_word_idx": 0,
                           "msb_mem_word_idx": 0,
                           "source": "instr",
@@ -20014,12 +20004,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 2,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20041,7 +20031,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 34,
+                            "lsb_mem_word_offset": 25,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20052,25 +20042,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 44,
+                            "lsb_mem_word_offset": 35,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 45,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 66,
+                            "lsb_mem_word_offset": 58,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20086,12 +20065,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
+                            "lsb_mem_word_offset": 1,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20113,7 +20092,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
+                            "lsb_mem_word_offset": 14,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20124,25 +20103,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 30,
+                            "lsb_mem_word_offset": 24,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 31,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 58,
+                            "lsb_mem_word_offset": 50,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20158,7 +20126,7 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
@@ -20185,7 +20153,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 6,
+                            "lsb_mem_word_offset": 3,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20196,25 +20164,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 17,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 50,
+                            "lsb_mem_word_offset": 42,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20225,35 +20182,35 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 4,
+                            "field_width": 2,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
-                            "field_name": "--padding_2_5--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_2--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 28,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
-                            "field_name": "--padding_20_49--",
+                            "lsb_mem_word_offset": 14,
+                            "field_name": "--padding_14_41--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 56,
+                            "field_width": 64,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 56,
-                            "field_name": "--padding_56_111--",
+                            "lsb_mem_word_offset": 48,
+                            "field_name": "--padding_48_111--",
                             "match_mode": "unused"
                           },
                           {
@@ -20300,12 +20257,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 2,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20327,7 +20284,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 34,
+                            "lsb_mem_word_offset": 25,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20338,25 +20295,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 44,
+                            "lsb_mem_word_offset": 35,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 45,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 66,
+                            "lsb_mem_word_offset": 58,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20372,12 +20318,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
+                            "lsb_mem_word_offset": 1,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20399,7 +20345,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
+                            "lsb_mem_word_offset": 14,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20410,25 +20356,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 30,
+                            "lsb_mem_word_offset": 24,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 31,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 58,
+                            "lsb_mem_word_offset": 50,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20444,7 +20379,7 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
@@ -20471,7 +20406,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 6,
+                            "lsb_mem_word_offset": 3,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20482,25 +20417,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 17,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 50,
+                            "lsb_mem_word_offset": 42,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20511,35 +20435,35 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 4,
+                            "field_width": 2,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
-                            "field_name": "--padding_2_5--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_2--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 28,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
-                            "field_name": "--padding_20_49--",
+                            "lsb_mem_word_offset": 14,
+                            "field_name": "--padding_14_41--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 56,
+                            "field_width": 64,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 56,
-                            "field_name": "--padding_56_111--",
+                            "lsb_mem_word_offset": 48,
+                            "field_name": "--padding_48_111--",
                             "match_mode": "unused"
                           },
                           {
@@ -20586,12 +20510,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 2,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20613,7 +20537,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 34,
+                            "lsb_mem_word_offset": 25,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20624,25 +20548,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 44,
+                            "lsb_mem_word_offset": 35,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 45,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 66,
+                            "lsb_mem_word_offset": 58,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20658,12 +20571,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
+                            "lsb_mem_word_offset": 1,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20685,7 +20598,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
+                            "lsb_mem_word_offset": 14,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20696,25 +20609,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 30,
+                            "lsb_mem_word_offset": 24,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 31,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 58,
+                            "lsb_mem_word_offset": 50,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20730,7 +20632,7 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
@@ -20757,7 +20659,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 6,
+                            "lsb_mem_word_offset": 3,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20768,25 +20670,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 17,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 50,
+                            "lsb_mem_word_offset": 42,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20797,35 +20688,35 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 4,
+                            "field_width": 2,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
-                            "field_name": "--padding_2_5--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_2--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 28,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
-                            "field_name": "--padding_20_49--",
+                            "lsb_mem_word_offset": 14,
+                            "field_name": "--padding_14_41--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 56,
+                            "field_width": 64,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 56,
-                            "field_name": "--padding_56_111--",
+                            "lsb_mem_word_offset": 48,
+                            "field_name": "--padding_48_111--",
                             "match_mode": "unused"
                           },
                           {
@@ -20872,12 +20763,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 4,
+                            "lsb_mem_word_offset": 2,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20899,7 +20790,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 34,
+                            "lsb_mem_word_offset": 25,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20910,25 +20801,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 44,
+                            "lsb_mem_word_offset": 35,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 45,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 66,
+                            "lsb_mem_word_offset": 58,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -20944,12 +20824,12 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
+                            "lsb_mem_word_offset": 1,
                             "field_name": "action",
                             "match_mode": "unused"
                           },
@@ -20971,7 +20851,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
+                            "lsb_mem_word_offset": 14,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -20982,25 +20862,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 30,
+                            "lsb_mem_word_offset": 24,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 31,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 58,
+                            "lsb_mem_word_offset": 50,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -21016,7 +20885,7 @@
                         "fields": [
                           {
                             "start_bit": 0,
-                            "field_width": 2,
+                            "field_width": 1,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "instr",
@@ -21043,7 +20912,7 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 6,
+                            "lsb_mem_word_offset": 3,
                             "field_name": "meter_addr",
                             "match_mode": "unused"
                           },
@@ -21054,25 +20923,14 @@
                             "msb_mem_word_idx": 0,
                             "source": "stful_ptr",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 16,
+                            "lsb_mem_word_offset": 13,
                             "field_name": "meter_pfe",
-                            "match_mode": "unused"
-                          },
-                          {
-                            "start_bit": 24,
-                            "field_width": 3,
-                            "lsb_mem_word_idx": 0,
-                            "msb_mem_word_idx": 0,
-                            "source": "stful_ptr",
-                            "enable_pfe": false,
-                            "lsb_mem_word_offset": 17,
-                            "field_name": "meter_type",
                             "match_mode": "unused"
                           },
                           {
                             "field_name": "cheetah.flowId",
                             "source": "spec",
-                            "lsb_mem_word_offset": 50,
+                            "lsb_mem_word_offset": 42,
                             "start_bit": 10,
                             "immediate_name": "",
                             "lsb_mem_word_idx": 0,
@@ -21083,35 +20941,35 @@
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 4,
+                            "field_width": 2,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 2,
-                            "field_name": "--padding_2_5--",
+                            "lsb_mem_word_offset": 1,
+                            "field_name": "--padding_1_2--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 30,
+                            "field_width": 28,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 20,
-                            "field_name": "--padding_20_49--",
+                            "lsb_mem_word_offset": 14,
+                            "field_name": "--padding_14_41--",
                             "match_mode": "unused"
                           },
                           {
                             "start_bit": 0,
-                            "field_width": 56,
+                            "field_width": 64,
                             "lsb_mem_word_idx": 0,
                             "msb_mem_word_idx": 0,
                             "source": "zero",
                             "enable_pfe": false,
-                            "lsb_mem_word_offset": 56,
-                            "field_name": "--padding_56_111--",
+                            "lsb_mem_word_offset": 48,
+                            "field_name": "--padding_48_111--",
                             "match_mode": "unused"
                           },
                           {
@@ -21164,7 +21022,8 @@
               "stateful_alu_details": {
                 "single_bit_mode": false,
                 "name": "alu_sketch_two_value_0",
-                "output_value": { "operand_1_type": "memory", "operand_1_value": "memory_hi" }
+                "update_lo_1_value": { "operand_1_type": "immediate", "operand_1_value": "1" },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
               }
             },
             {
@@ -21216,28 +21075,6 @@
           "is_action_meter_color_aware": false
         }
       ]
-    },
-    {
-      "direction": "ingress",
-      "attached_to": "table_sketch_two_value",
-      "handle": 1879048192,
-      "name": "cond-3",
-      "table_type": "condition",
-      "stage_tables": [
-        {
-          "next_tables": { "false": 96, "true": 32 },
-          "memory_resource_allocation": { "memory_unit": 10, "memory_type": "gateway", "payload_buses": [] },
-          "pack_format": [],
-          "next_table_names": { "false": "table_prune", "true": "table_sketch_two_value" },
-          "logical_table_id": 0,
-          "stage_number": 2,
-          "stage_table_type": "gateway",
-          "size": 0
-        }
-      ],
-      "condition_fields": [ { "name": "cheetah_md.prune", "start_bit": 0, "bit_width": 8 } ],
-      "condition": "(cheetah_md.prune == 0)",
-      "size": 0
     },
     {
       "direction": "ingress",
@@ -30422,7 +30259,8 @@
               "stateful_alu_details": {
                 "single_bit_mode": false,
                 "name": "alu_sketch_three_value_0",
-                "output_value": { "operand_1_type": "memory", "operand_1_value": "memory_hi" }
+                "update_lo_1_value": { "operand_1_type": "immediate", "operand_1_value": "1" },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
               }
             },
             {
@@ -34325,7 +34163,8 @@
               "stateful_alu_details": {
                 "single_bit_mode": false,
                 "name": "alu_sketch_four_value_0",
-                "output_value": { "operand_1_type": "memory", "operand_1_value": "memory_hi" }
+                "update_lo_1_value": { "operand_1_type": "immediate", "operand_1_value": "1" },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
               }
             },
             {
@@ -36301,7 +36140,8 @@
               "stateful_alu_details": {
                 "single_bit_mode": false,
                 "name": "alu_sketch_five_value_0",
-                "output_value": { "operand_1_type": "memory", "operand_1_value": "memory_hi" }
+                "update_lo_1_value": { "operand_1_type": "immediate", "operand_1_value": "1" },
+                "output_value": { "operand_1_type": "memory", "operand_1_value": "mem_lo" }
               }
             },
             {
@@ -38093,8 +37933,8 @@
     {
       "direction": "ingress",
       "attached_to": "table_prune",
-      "handle": 1879048193,
-      "name": "cond-4",
+      "handle": 1879048192,
+      "name": "cond-2",
       "table_type": "condition",
       "stage_tables": [
         {
@@ -38366,7 +38206,7 @@
     {
       "fully_qualified_name": "mau[2].dp.match_input_xbar_din_power_ctl",
       "name": "stage_2_match_input_xbar_din_power_ctl",
-      "value": "0000000300000000000000000000000000000008000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      "value": "0000000300000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     },
     {
       "fully_qualified_name": "mau[2].dp.xbar_hash.hash.hash_seed",
@@ -40705,6 +40545,6 @@
       "hash_bit_width": 17
     }
   ],
-  "run_id": "d1f4dfe9695676ac",
+  "run_id": "f1e927f711ba8db6",
   "driver_options": { "hash_parity_enabled": false, "high_availability_enabled": true }
 }

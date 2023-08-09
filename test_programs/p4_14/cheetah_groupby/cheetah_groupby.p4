@@ -90,11 +90,15 @@ blackbox stateful_alu alu_sketch_one_value {
     // update_lo_1_value : cheetah.value;
 
     // update_hi_1_predicate : condition_lo and condition_hi;
-    update_hi_1_value : 1;
+    // update_hi_1_value : 1;
     // update_hi_2_predicate : condition_lo or not condition_hi;
-    update_hi_2_value : 0;
+    // update_hi_2_value : 0;
 
-    output_value : alu_hi;
+    // output_value : alu_hi;
+
+    update_lo_1_value: 1;
+
+    output_value : register_lo;
     output_dst : cheetah_md.prune;
 }
 
@@ -189,11 +193,14 @@ blackbox stateful_alu alu_sketch_two_value {
     // update_lo_1_value : cheetah.value;
 
     // update_hi_1_predicate : condition_lo and condition_hi;
-    update_hi_1_value : 1;
+    // update_hi_1_value : 1;
     // update_hi_2_predicate : condition_lo or not condition_hi;
-    update_hi_2_value : 0;
+    // update_hi_2_value : 0;
 
-    output_value : alu_hi;
+    // output_value : alu_hi;
+    update_lo_1_value: 1;
+
+    output_value : register_lo;    
     output_dst : cheetah_md.prune;
 }
 
@@ -288,11 +295,14 @@ blackbox stateful_alu alu_sketch_three_value {
     // update_lo_1_value : cheetah.value;
 
     // update_hi_1_predicate : condition_lo and condition_hi;
-    update_hi_1_value : 1;
+    // update_hi_1_value : 1;
     // update_hi_2_predicate : condition_lo or not condition_hi;
-    update_hi_2_value : 0;
+    // update_hi_2_value : 0;
 
-    output_value : alu_hi;
+    // output_value : alu_hi;
+    update_lo_1_value: 1;
+
+    output_value : register_lo;
     output_dst : cheetah_md.prune;
 }
 
@@ -387,11 +397,14 @@ blackbox stateful_alu alu_sketch_four_value {
     // update_lo_1_value : cheetah.value;
 
     // update_hi_1_predicate : condition_lo and condition_hi;
-    update_hi_1_value : 1;
+    // update_hi_1_value : 1;
     // update_hi_2_predicate : condition_lo or not condition_hi;
-    update_hi_2_value : 0;
+    // update_hi_2_value : 0;
 
-    output_value : alu_hi;
+    // output_value : alu_hi;
+    update_lo_1_value: 1;
+
+    output_value : register_lo;    
     output_dst : cheetah_md.prune;
 }
 
@@ -486,11 +499,14 @@ blackbox stateful_alu alu_sketch_five_value {
     // update_lo_1_value : cheetah.value;
 
     // update_hi_1_predicate : condition_lo and condition_hi;
-    update_hi_1_value : 1;
+    // update_hi_1_value : 1;
     // update_hi_2_predicate : condition_lo or not condition_hi;
-    update_hi_2_value : 0;
+    // update_hi_2_value : 0;
 
-    output_value : alu_hi;
+    // output_value : alu_hi;
+    update_lo_1_value: 1;
+
+    output_value : register_lo;
     output_dst : cheetah_md.prune;
 }
 
@@ -649,7 +665,7 @@ control ingress {
 
     apply(table_hash_init_two);
 
-    if (cheetah_md.prune == 0x0) {
+    // if (cheetah_md.prune == 0x0) {
         apply(table_sketch_two_key);
         apply(table_sketch_two_value);
         apply(table_sketch_three_key);
@@ -658,7 +674,7 @@ control ingress {
         apply(table_sketch_four_value);
         apply(table_sketch_five_key);
         apply(table_sketch_five_value);
-    }
+    // }
     
     apply(table_hash_init_three);
 

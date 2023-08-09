@@ -95,11 +95,9 @@ register reg_sketch_one_value {
 blackbox stateful_alu alu_sketch_one_value {
     reg : reg_sketch_one_value;
 
-    update_hi_1_value : 1;
+    update_lo_1_value : 1;
 
-    update_hi_2_value : 0;
-
-    output_value : alu_hi;
+    output_value : register_lo;
 
     output_dst : cheetah_md.prune;
 
@@ -161,11 +159,9 @@ register reg_sketch_two_value {
 blackbox stateful_alu alu_sketch_two_value {
     reg : reg_sketch_two_value;
 
-    update_hi_1_value : 1;
+    update_lo_1_value : 1;
 
-    update_hi_2_value : 0;
-
-    output_value : alu_hi;
+    output_value : register_lo;
 
     output_dst : cheetah_md.prune;
 
@@ -227,11 +223,9 @@ register reg_sketch_three_value {
 blackbox stateful_alu alu_sketch_three_value {
     reg : reg_sketch_three_value;
 
-    update_hi_1_value : 1;
+    update_lo_1_value : 1;
 
-    update_hi_2_value : 0;
-
-    output_value : alu_hi;
+    output_value : register_lo;
 
     output_dst : cheetah_md.prune;
 
@@ -293,11 +287,9 @@ register reg_sketch_four_value {
 blackbox stateful_alu alu_sketch_four_value {
     reg : reg_sketch_four_value;
 
-    update_hi_1_value : 1;
+    update_lo_1_value : 1;
 
-    update_hi_2_value : 0;
-
-    output_value : alu_hi;
+    output_value : register_lo;
 
     output_dst : cheetah_md.prune;
 
@@ -359,11 +351,9 @@ register reg_sketch_five_value {
 blackbox stateful_alu alu_sketch_five_value {
     reg : reg_sketch_five_value;
 
-    update_hi_1_value : 1;
+    update_lo_1_value : 1;
 
-    update_hi_2_value : 0;
-
-    output_value : alu_hi;
+    output_value : register_lo;
 
     output_dst : cheetah_md.prune;
 
@@ -438,7 +428,6 @@ header_type pfuzz_visited_t {
         encoding_i1 : 8;
         encoding_i2 : 8;
         encoding_i3 : 8;
-        encoding_i4 : 8;
         temp_port : 16;
     }
 }
@@ -518,20 +507,18 @@ field_list_calculation bloom_filter_hash_32{
 }
 
 field_list fi_bf_hash_fields_16 {
-  pfuzz_visited.encoding_i2;
-  pfuzz_visited.encoding_i3;
-  pfuzz_visited.encoding_i0;
   pfuzz_visited.encoding_i1;
-  pfuzz_visited.encoding_i4;
+  pfuzz_visited.encoding_i0;
+  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i2;
 }
 
 
 field_list fi_bf_hash_fields_32 {
-  pfuzz_visited.encoding_i2;
-  pfuzz_visited.encoding_i3;
-  pfuzz_visited.encoding_i0;
   pfuzz_visited.encoding_i1;
-  pfuzz_visited.encoding_i4;
+  pfuzz_visited.encoding_i0;
+  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i2;
 }
 
 
@@ -606,11 +593,10 @@ action ai_recycle_packet() {
   remove_header(cheetah);
   remove_header(cheetah_clone);
   modify_field(pfuzz_visited.pkt_type, 0);
-  modify_field(pfuzz_visited.encoding_i2, 0);
-  modify_field(pfuzz_visited.encoding_i3, 0);
-  modify_field(pfuzz_visited.encoding_i0, 0);
   modify_field(pfuzz_visited.encoding_i1, 0);
-  modify_field(pfuzz_visited.encoding_i4, 0);
+  modify_field(pfuzz_visited.encoding_i0, 0);
+  modify_field(pfuzz_visited.encoding_i3, 0);
+  modify_field(pfuzz_visited.encoding_i2, 0);
 }
 
 table ti_get_random_seed {

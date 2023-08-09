@@ -1,7 +1,7 @@
 {
-    "build_date": "Wed Aug  9 22:12:17 2023", 
+    "build_date": "Wed Aug  9 22:37:15 2023", 
     "program_name": "cheetah_groupby", 
-    "run_id": "d1f4dfe9695676ac", 
+    "run_id": "f1e927f711ba8db6", 
     "compiler_version": "9.2.0", 
     "schema_version": "1.0.0", 
     "tables": [
@@ -2393,7 +2393,7 @@
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 
-                            "entry_bit_width_allocated": 26, 
+                            "entry_bit_width_allocated": 22, 
                             "ideal_entries_per_table_word": 5, 
                             "ideal_table_word_bit_width": 128
                         }, 
@@ -2419,9 +2419,9 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 2, 
+                                        "bit_width": 1, 
                                         "start_bit": 0, 
-                                        "memory_start_bit": 4
+                                        "memory_start_bit": 2
                                     }, 
                                     {
                                         "name": "version", 
@@ -2433,25 +2433,19 @@
                                         "name": "meter_addr", 
                                         "bit_width": 10, 
                                         "start_bit": 5, 
-                                        "memory_start_bit": 34
+                                        "memory_start_bit": 25
                                     }, 
                                     {
                                         "name": "meter_pfe", 
                                         "bit_width": 1, 
                                         "start_bit": 23, 
-                                        "memory_start_bit": 44
-                                    }, 
-                                    {
-                                        "name": "meter_type", 
-                                        "bit_width": 3, 
-                                        "start_bit": 24, 
-                                        "memory_start_bit": 45
+                                        "memory_start_bit": 35
                                     }, 
                                     {
                                         "name": "cheetah.flowId", 
                                         "bit_width": 6, 
                                         "start_bit": 10, 
-                                        "memory_start_bit": 66
+                                        "memory_start_bit": 58
                                     }
                                 ]
                             }, 
@@ -2460,9 +2454,9 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 2, 
+                                        "bit_width": 1, 
                                         "start_bit": 0, 
-                                        "memory_start_bit": 2
+                                        "memory_start_bit": 1
                                     }, 
                                     {
                                         "name": "version", 
@@ -2474,25 +2468,19 @@
                                         "name": "meter_addr", 
                                         "bit_width": 10, 
                                         "start_bit": 5, 
-                                        "memory_start_bit": 20
+                                        "memory_start_bit": 14
                                     }, 
                                     {
                                         "name": "meter_pfe", 
                                         "bit_width": 1, 
                                         "start_bit": 23, 
-                                        "memory_start_bit": 30
-                                    }, 
-                                    {
-                                        "name": "meter_type", 
-                                        "bit_width": 3, 
-                                        "start_bit": 24, 
-                                        "memory_start_bit": 31
+                                        "memory_start_bit": 24
                                     }, 
                                     {
                                         "name": "cheetah.flowId", 
                                         "bit_width": 6, 
                                         "start_bit": 10, 
-                                        "memory_start_bit": 58
+                                        "memory_start_bit": 50
                                     }
                                 ]
                             }, 
@@ -2501,7 +2489,7 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 2, 
+                                        "bit_width": 1, 
                                         "start_bit": 0, 
                                         "memory_start_bit": 0
                                     }, 
@@ -2515,25 +2503,19 @@
                                         "name": "meter_addr", 
                                         "bit_width": 10, 
                                         "start_bit": 5, 
-                                        "memory_start_bit": 6
+                                        "memory_start_bit": 3
                                     }, 
                                     {
                                         "name": "meter_pfe", 
                                         "bit_width": 1, 
                                         "start_bit": 23, 
-                                        "memory_start_bit": 16
-                                    }, 
-                                    {
-                                        "name": "meter_type", 
-                                        "bit_width": 3, 
-                                        "start_bit": 24, 
-                                        "memory_start_bit": 17
+                                        "memory_start_bit": 13
                                     }, 
                                     {
                                         "name": "cheetah.flowId", 
                                         "bit_width": 6, 
                                         "start_bit": 10, 
-                                        "memory_start_bit": 50
+                                        "memory_start_bit": 42
                                     }
                                 ]
                             }
