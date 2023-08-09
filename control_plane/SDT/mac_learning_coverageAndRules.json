@@ -22,11 +22,21 @@
             "temp_port": 16
         }
     ],
-    "number_of_extract_paths": 1,
+    "number_of_extract_paths": 2,
     "extract": [
         [
             "ethernet"
+        ],
+        [
+            "ethernet",
+            "ipv4"
         ]
+    ],
+    "fixed_fields": [
+        null,
+        {
+            "ethernet.etherType": "0x0800"
+        }
     ],
     "table_keys": {
         "ti_path_assertion": [
@@ -65,7 +75,8 @@
             "pfuzz_metadata_make_clone"
         ],
         "ti_add_clones": [
-            "ethernet_valid"
+            "ethernet_valid",
+            "ipv4_valid"
         ]
     },
     "action_params": {
@@ -83,6 +94,23 @@
             "ethernetsrcAddr",
             "ethernetetherType"
         ],
+        "ai_add_fixed_ethernet_ipv4": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "ipv4version",
+            "ipv4ihl",
+            "ipv4diffserv",
+            "ipv4totalLen",
+            "ipv4identification",
+            "ipv4flags",
+            "ipv4fragOffset",
+            "ipv4ttl",
+            "ipv4protocol",
+            "ipv4hdrChecksum",
+            "ipv4srcAddr",
+            "ipv4dstAddr"
+        ],
         "ae_set_table_seed": [
             "real_table_seed"
         ]
@@ -91,6 +119,9 @@
     "headers": [
         {
             "ethernet": "0"
+        },
+        {
+            "ipv4": "0"
         }
     ]
 }

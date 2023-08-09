@@ -14,17 +14,74 @@ header_type ethernet_t {
 header ethernet_t ethernet;
 
 
-parser start_clone {
-    extract(ethernet_clone);
+header_type ipv4_t {
+    fields {
+        version : 4;
+        ihl : 4;
+        diffserv : 8;
+        totalLen : 16;
+        identification : 16;
+        flags : 3;
+        fragOffset : 13;
+        ttl : 8;
+        protocol : 8;
+        hdrChecksum : 16;
+        srcAddr : 32;
+        dstAddr : 32;
+    }
+}
 
-    return ingress;
+
+header ipv4_t ipv4;
+
+
+parser start_clone {
+    
+    return parse_ethernet_clone;
 
 }
 
 
 parser start {
     extract(pfuzz_visited);
+    
+    return parse_ethernet;
+
+}
+
+
+parser parse_ethernet_clone {
+    extract(ethernet_clone);
+
+    return select(ethernet_clone.etherType) { 
+        0x0800 : parse_ipv4_clone;
+        default  : ingress;
+    }
+
+}
+
+
+parser parse_ethernet {
     extract(ethernet);
+
+    return select(ethernet.etherType) { 
+        0x0800 : parse_ipv4;
+        default  : start_clone;
+    }
+
+}
+
+
+parser parse_ipv4_clone {
+    extract(ipv4_clone);
+
+    return ingress;
+
+}
+
+
+parser parse_ipv4 {
+    extract(ipv4);
 
     return start_clone;
 
@@ -114,6 +171,7 @@ control egress {
 
 
 header ethernet_t ethernet_clone;
+header ipv4_t ipv4_clone;
 
 action ai_get_reg_pos() {
   modify_field_with_hash_based_offset(pfuzz_metadata.reg_pos_one, 0, bloom_filter_hash_16, 65536);
@@ -220,6 +278,8 @@ action ai_send_to_control_plane() {
 action ai_recycle_packet() {
   remove_header(ethernet);
   remove_header(ethernet_clone);
+  remove_header(ipv4);
+  remove_header(ipv4_clone);
   modify_field(pfuzz_visited.pkt_type, 0);
   modify_field(pfuzz_visited.encoding_i0, 0);
 }
@@ -307,6 +367,7 @@ table ti_create_packet {
   actions {
     ai_drop_packet;
     ai_add_ethernet;
+    ai_add_ethernet_ipv4;
   }
   default_action : ai_drop_packet();
   size: 64;
@@ -317,6 +378,14 @@ action ai_add_ethernet() {
   add_header(ethernet_clone);
 }
 
+action ai_add_ethernet_ipv4() {
+  add_header(ethernet);
+  add_header(ethernet_clone);
+  add_header(ipv4);
+  add_header(ipv4_clone);
+  modify_field(ethernet.etherType, 0x0800);
+}
+
 table ti_add_fields {
   reads {
     pfuzz_metadata.seed_num: exact;
@@ -324,6 +393,7 @@ table ti_add_fields {
   actions {
     ai_NoAction;
     ai_add_fixed_ethernet;
+    ai_add_fixed_ethernet_ipv4;
   }
   default_action : ai_NoAction();
   size: 64;
@@ -333,6 +403,24 @@ action ai_add_fixed_ethernet(ethernetdstAddr, ethernetsrcAddr, ethernetetherType
   modify_field(ethernet.dstAddr, ethernetdstAddr);
   modify_field(ethernet.srcAddr, ethernetsrcAddr);
   modify_field(ethernet.etherType, ethernetetherType);
+}
+
+action ai_add_fixed_ethernet_ipv4(ethernetdstAddr, ethernetsrcAddr, ethernetetherType, ipv4version, ipv4ihl, ipv4diffserv, ipv4totalLen, ipv4identification, ipv4flags, ipv4fragOffset, ipv4ttl, ipv4protocol, ipv4hdrChecksum, ipv4srcAddr, ipv4dstAddr) {
+  modify_field(ethernet.dstAddr, ethernetdstAddr);
+  modify_field(ethernet.srcAddr, ethernetsrcAddr);
+  modify_field(ethernet.etherType, ethernetetherType);
+  modify_field(ipv4.version, ipv4version);
+  modify_field(ipv4.ihl, ipv4ihl);
+  modify_field(ipv4.diffserv, ipv4diffserv);
+  modify_field(ipv4.totalLen, ipv4totalLen);
+  modify_field(ipv4.identification, ipv4identification);
+  modify_field(ipv4.flags, ipv4flags);
+  modify_field(ipv4.fragOffset, ipv4fragOffset);
+  modify_field(ipv4.ttl, ipv4ttl);
+  modify_field(ipv4.protocol, ipv4protocol);
+  modify_field(ipv4.hdrChecksum, ipv4hdrChecksum);
+  modify_field(ipv4.srcAddr, ipv4srcAddr);
+  modify_field(ipv4.dstAddr, ipv4dstAddr);
 }
 
 table ti_set_port {
@@ -437,11 +525,13 @@ action ai_NoAction() {
 table ti_add_clones {
   reads {
     ethernet.valid: exact;
+    ipv4.valid: exact;
   }
   // I think the default action should be ai_NoAction
   actions {
     ai_NoAction;
     ai_add_clone_ethernet;
+    ai_add_clone_ethernet_ipv4;
   }
   default_action : ai_NoAction();
   size: 16;
@@ -451,6 +541,24 @@ action ai_add_clone_ethernet() {
   modify_field(ethernet_clone.dstAddr, ethernet.dstAddr);
   modify_field(ethernet_clone.srcAddr, ethernet.srcAddr);
   modify_field(ethernet_clone.etherType, ethernet.etherType);
+}
+
+action ai_add_clone_ethernet_ipv4() {
+  modify_field(ethernet_clone.dstAddr, ethernet.dstAddr);
+  modify_field(ethernet_clone.srcAddr, ethernet.srcAddr);
+  modify_field(ethernet_clone.etherType, ethernet.etherType);
+  modify_field(ipv4_clone.version, ipv4.version);
+  modify_field(ipv4_clone.ihl, ipv4.ihl);
+  modify_field(ipv4_clone.diffserv, ipv4.diffserv);
+  modify_field(ipv4_clone.totalLen, ipv4.totalLen);
+  modify_field(ipv4_clone.identification, ipv4.identification);
+  modify_field(ipv4_clone.flags, ipv4.flags);
+  modify_field(ipv4_clone.fragOffset, ipv4.fragOffset);
+  modify_field(ipv4_clone.ttl, ipv4.ttl);
+  modify_field(ipv4_clone.protocol, ipv4.protocol);
+  modify_field(ipv4_clone.hdrChecksum, ipv4.hdrChecksum);
+  modify_field(ipv4_clone.srcAddr, ipv4.srcAddr);
+  modify_field(ipv4_clone.dstAddr, ipv4.dstAddr);
 }
 
 action ai_set_visited_type() {

@@ -18,15 +18,44 @@ header_type ethernet_t {
 }
 header ethernet_t ethernet;
 
+header_type ipv4_t {
+    fields {
+        version : 4;
+        ihl : 4;
+        diffserv : 8;
+        totalLen : 16;
+        identification : 16;
+        flags : 3;
+        fragOffset : 13;
+        ttl : 8;
+        protocol : 8;
+        hdrChecksum : 16;
+        srcAddr : 32;
+        dstAddr : 32;
+    }
+}
+header ipv4_t ipv4;
+
 /*************************************************************************
 ***********************  P A R S E   P A C K E T *************************
 *************************************************************************/
 
 parser start {
-    extract(ethernet);
-    return ingress;
+    return parse_ethernet;
 }
 
+parser parse_ethernet {
+    extract(ethernet);
+    return select(ethernet.etherType) {
+        0x0800: parse_ipv4;
+        default: ingress;
+    }
+}
+
+parser parse_ipv4 {
+    extract(ipv4);
+    return ingress;
+}
 /*************************************************************************
 ***********************  I N G R E S S  **********************************
 *************************************************************************/

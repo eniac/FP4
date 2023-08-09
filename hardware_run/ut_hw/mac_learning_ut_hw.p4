@@ -14,9 +14,48 @@ header_type ethernet_t {
 header ethernet_t ethernet;
 
 
+header_type ipv4_t {
+    fields {
+        version : 4;
+        ihl : 4;
+        diffserv : 8;
+        totalLen : 16;
+        identification : 16;
+        flags : 3;
+        fragOffset : 13;
+        ttl : 8;
+        protocol : 8;
+        hdrChecksum : 16;
+        srcAddr : 32;
+        dstAddr : 32;
+    }
+}
+
+
+header ipv4_t ipv4;
+
+
 parser start {
     extract(pfuzz_visited);
+    
+    return parse_ethernet;
+
+}
+
+
+parser parse_ethernet {
     extract(ethernet);
+
+    return select(ethernet.etherType) { 
+        0x0800 : parse_ipv4;
+        default  : ingress;
+    }
+
+}
+
+
+parser parse_ipv4 {
+    extract(ipv4);
 
     return ingress;
 
@@ -97,7 +136,7 @@ action aiFilter_pfuzz_tiFilter() {
 }
 
 action aiNoOp_pfuzz_tiFilter() {
-    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
+    modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);    
     add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
