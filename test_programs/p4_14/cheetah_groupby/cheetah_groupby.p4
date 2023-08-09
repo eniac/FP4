@@ -697,7 +697,7 @@ control ingress {
     //     apply(table_sketch_five_value);
     // }
 
-    if (cheetah_md.prune == 0x1) {
+    // if (cheetah_md.prune == 0x1) {
         apply(table_prune);
-    }
+    // }
 }

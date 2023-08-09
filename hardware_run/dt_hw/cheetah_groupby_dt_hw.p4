@@ -428,6 +428,7 @@ header_type pfuzz_visited_t {
         encoding_i1 : 8;
         encoding_i2 : 8;
         encoding_i3 : 8;
+        encoding_i4 : 8;
         temp_port : 16;
     }
 }
@@ -508,17 +509,19 @@ field_list_calculation bloom_filter_hash_32{
 
 field_list fi_bf_hash_fields_16 {
   pfuzz_visited.encoding_i1;
-  pfuzz_visited.encoding_i0;
-  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i4;
   pfuzz_visited.encoding_i2;
+  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i0;
 }
 
 
 field_list fi_bf_hash_fields_32 {
   pfuzz_visited.encoding_i1;
-  pfuzz_visited.encoding_i0;
-  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i4;
   pfuzz_visited.encoding_i2;
+  pfuzz_visited.encoding_i3;
+  pfuzz_visited.encoding_i0;
 }
 
 
@@ -594,9 +597,10 @@ action ai_recycle_packet() {
   remove_header(cheetah_clone);
   modify_field(pfuzz_visited.pkt_type, 0);
   modify_field(pfuzz_visited.encoding_i1, 0);
-  modify_field(pfuzz_visited.encoding_i0, 0);
-  modify_field(pfuzz_visited.encoding_i3, 0);
+  modify_field(pfuzz_visited.encoding_i4, 0);
   modify_field(pfuzz_visited.encoding_i2, 0);
+  modify_field(pfuzz_visited.encoding_i3, 0);
+  modify_field(pfuzz_visited.encoding_i0, 0);
 }
 
 table ti_get_random_seed {

@@ -71,6 +71,9 @@
             "encoding_i3": 8
         },
         {
+            "encoding_i4": 8
+        },
+        {
             "temp_port": 16
         }
     ],

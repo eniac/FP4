@@ -19,8 +19,7 @@ label="", labeljust=r, style=bold];
 14[label=table_hash_init_three, margin="", shape=ellipse, style=solid];
 15[label=table_hash_init_four, margin="", shape=ellipse, style=solid];
 16[label=table_hash_init_five, margin="", shape=ellipse, style=solid];
-17[label="meta.cheetah_md.prune == 1;", margin="", shape=rectangle, style=solid];
-18[label=table_prune, margin="", shape=ellipse, style=solid];
+17[label=table_prune, margin="", shape=ellipse, style=solid];
 0 -> 2[label=""];
 2 -> 3[label=""];
 3 -> 4[label=""];
@@ -37,8 +36,6 @@ label="", labeljust=r, style=bold];
 14 -> 15[label=""];
 15 -> 16[label=""];
 16 -> 17[label=""];
-17 -> 18[label=TRUE];
-17 -> 1[label=FALSE];
-18 -> 1[label=""];
+17 -> 1[label=""];
 }
 }
