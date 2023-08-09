@@ -1,0 +1,1381 @@
+PROGRAM: dos_defense_dt_hw
+SIMULATION: False
+CPU_PORT: 192
+TOFINO_INTERFACE: enp6s0
+RULES file: dos_defense_ut_hw_rules.txt
+Mode: normal
+C_IP: None
+====== Waiting for switch to start ======
+--- Assuming switch has started ---
+====== DTController ======
+('program_name', 'dos_defense_dt_hw')
+====== bring_ports_up ======
+enabling ports: ['9/0', '10/0', '11/0', '12/0', '13/0', '14/0', '15/0', '16/0', '17/0', '18/0', '19/0', '20/0', '21/0', '22/0', '23/0', '24/0'] (dev ids: [60, 52, 44, 36, 28, 20, 12, 4, 0, 8, 16, 24, 32, 40, 48, 56]) at rate: 100G
+port: 60
+port: 52
+port: 44
+port: 36
+port: 28
+port: 20
+port: 12
+port: 4
+port: 0
+port: 8
+port: 16
+port: 24
+port: 32
+port: 40
+port: 48
+port: 56
+All ports up
+====== initialize_CLI_variables ======
+baseName: dos_defense
+====== StateMachine filename dos_defense_parserFile.json ======
+parse_tcp
+parse_tcp_clone
+parse_ipv4
+parse_ipv4_clone
+parse_ethernet
+parse_ethernet_clone
+start
+start_clone
+====== CoverageDetector ======
+--- Read ingress plan ---
+ingress_num_vars: 3
+var 0, num_paths: 3
+var 1, num_paths: 3
+var 2, num_paths: 4
+--- Read egress plan ---
+egress_num_vars: 0
+self.total_num_paths: 36
+self.total_num_actions: 11
+self.all_actions: [u'aiSendDigest_pfuzz_tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'ipv4_forward_pfuzz_ipv4_lpm', u'drop_packet_pfuzz_ipv4_lpm', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos']
+self.field2encoding2path: {'encoding_i2': {u'1': [u'ipv4_lpm', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1'], u'0': [], u'3': [u'ipv4_lpm', u'ipv4_forward_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1'], u'2': [u'ipv4_lpm', u'drop_packet_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']}, 'encoding_i0': {u'1': [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1'], u'0': [], u'2': [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']}, 'encoding_i1': {u'1': [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1'], u'0': [u'hdripv4isValid'], u'2': [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']}}
+('file path', 'dos_defense_coverageAndRules.json')
+[[u'ethernet'], [u'ethernet', u'ipv4'], [u'ethernet', u'ipv4', u'tcp']]
+self.actionList: [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+header written
+====== add_initial_seed_packets prologue ======
+(0, 0)
+(0, 1)
+(1, 0)
+(1, 1)
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 1 pfuzz_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 0 pfuzz_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 1 pfuzz_metadata_seed_num_mask 1 priority 254 action_real_seed_num 1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 2 pfuzz_metadata_seed_num_mask 3 priority 253 action_real_seed_num 2
+pd ti_set_resubmit add_entry ai_set_resubmit pfuzz_metadata_make_clone 0 pfuzz_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_ethernet pfuzz_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_ethernet pfuzz_metadata_seed_num 0 action_ethernetdstAddr 0x21eae4609c16 action_ethernetsrcAddr 0x729b2a4411e0 action_ethernetetherType 40975
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 1
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 1 action_ethernetdstAddr 0x9047543ad70c action_ethernetsrcAddr 0xe805b9e24696 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 4247005272 action_ipv4dstAddr 1505912849
+pd ti_create_packet add_entry ai_add_ethernet_ipv4_tcp pfuzz_metadata_seed_num 2
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4_tcp pfuzz_metadata_seed_num 2 action_ethernetdstAddr 0x9a62fb95e27 action_ethernetsrcAddr 0x623550ecef0 action_ethernetetherType 2048 action_ipv4version 0 action_ipv4ihl 12 action_ipv4diffserv 79 action_ipv4totalLen 25061 action_ipv4identification 58555 action_ipv4flags 3 action_ipv4fragOffset 1057 action_ipv4ttl 236 action_ipv4protocol 6 action_ipv4hdrChecksum 39647 action_ipv4srcAddr 1166124419 action_ipv4dstAddr 2254882361 action_tcpsrcPort 23892 action_tcpdstPort 22026 action_tcpseqNo 3757472173 action_tcpackNo 4248198149 action_tcpdataOffset 11 action_tcpres 1 action_tcpecn 6 action_tcpctrl 1 action_tcprst 1 action_tcpsyn 1 action_tcpfin 1 action_tcpwindow 12655 action_tcpchecksum 15031 action_tcpurgentPtr 32941
+pd ti_add_clones add_entry ai_add_clone_ethernet ethernet_valid 1 ipv4_valid 0 tcp_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4 ethernet_valid 1 ipv4_valid 1 tcp_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4_tcp ethernet_valid 1 ipv4_valid 1 tcp_valid 1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1
+====== add_initial_seed_packets epilog ======
+====== add_entries prologue ======
+--- current_list of len 50 ---
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 1 pfuzz_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 0 pfuzz_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 1 pfuzz_metadata_seed_num_mask 1 priority 254 action_real_seed_num 1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 2 pfuzz_metadata_seed_num_mask 3 priority 253 action_real_seed_num 2
+pd ti_set_resubmit add_entry ai_set_resubmit pfuzz_metadata_make_clone 0 pfuzz_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_ethernet pfuzz_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_ethernet pfuzz_metadata_seed_num 0 action_ethernetdstAddr 0x21eae4609c16 action_ethernetsrcAddr 0x729b2a4411e0 action_ethernetetherType 40975
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 1
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 1 action_ethernetdstAddr 0x9047543ad70c action_ethernetsrcAddr 0xe805b9e24696 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 4247005272 action_ipv4dstAddr 1505912849
+pd ti_create_packet add_entry ai_add_ethernet_ipv4_tcp pfuzz_metadata_seed_num 2
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4_tcp pfuzz_metadata_seed_num 2 action_ethernetdstAddr 0x9a62fb95e27 action_ethernetsrcAddr 0x623550ecef0 action_ethernetetherType 2048 action_ipv4version 0 action_ipv4ihl 12 action_ipv4diffserv 79 action_ipv4totalLen 25061 action_ipv4identification 58555 action_ipv4flags 3 action_ipv4fragOffset 1057 action_ipv4ttl 236 action_ipv4protocol 6 action_ipv4hdrChecksum 39647 action_ipv4srcAddr 1166124419 action_ipv4dstAddr 2254882361 action_tcpsrcPort 23892 action_tcpdstPort 22026 action_tcpseqNo 3757472173 action_tcpackNo 4248198149 action_tcpdataOffset 11 action_tcpres 1 action_tcpecn 6 action_tcpctrl 1 action_tcprst 1 action_tcpsyn 1 action_tcpfin 1 action_tcpwindow 12655 action_tcpchecksum 15031 action_tcpurgentPtr 32941
+pd ti_add_clones add_entry ai_add_clone_ethernet ethernet_valid 1 ipv4_valid 0 tcp_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4 ethernet_valid 1 ipv4_valid 1 tcp_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4_tcp ethernet_valid 1 ipv4_valid 1 tcp_valid 1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+--- current_list of len 8 ---
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1
+====== add_entries epilogue ======
+====== initialize_CLI_variables epilogue ======
+====== main_loop prologue ======
+Before entering loop time 21:11:27.193681
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 0, time: 21:11:42.210585
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+--- Timeout Updated to 1s ---
+
+
+
+[INFO] Packet received of size: 302
+First packet forwarded on port 0, counter 1020739, time: 21:11:50.278448
+====== parsePacket prologue    ﬁ≠æ@ êGT:◊Ëπ‚Fñ CƒtºΩ◊áOh˘˝$(X„ AÙêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X„ AÙ                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ipv4_lpm', u'drop_packet_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [1, 1, 2] ---
+--- Path coverage: 1/36=0.0277777777778 ---
+self.paths_seen: [[1, 1, 2]]
+--- Action coverage: 7/11=0.636363636364, number_of_seeds: 3, time: 21:11:50.283466
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ipv4_forward_pfuzz_ipv4_lpm']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 3
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 3 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 227.32.65.244
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 3 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 3 pfuzz_metadata_seed_num_mask 3 priority 252 action_real_seed_num 3
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 47035761, since first packet 0.20339s
+====== parsePacket prologue    ﬁ≠æ@    ™™¨   ™™¨ CƒtºΩ◊áNßø˝$(X<—êGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X<—                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 1], encoding_val: 3
+Encoded path: [u'ipv4_lpm', u'ipv4_forward_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [1, 1, 3] ---
+--- Path coverage: 2/36=0.0555555555556 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3]]
+--- Action coverage: 8/11=0.727272727273, number_of_seeds: 4, time: 21:11:50.490815
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 4
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 4 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 22.60.209.18
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 4 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 4 pfuzz_metadata_seed_num_mask 7 priority 251 action_real_seed_num 4
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 90890804, since first packet 0.405541s
+====== parsePacket prologue    ﬁ≠æ@ 4êGT:◊Ëπ‚Fñ CƒtºΩ◊áO˙ñ˝$(X21aFêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X21aF                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ipv4_lpm', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [1, 1, 1] ---
+--- Path coverage: 3/36=0.0833333333333 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1]]
+--- Action coverage: 9/11=0.818181818182, number_of_seeds: 5, time: 21:11:50.692050
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[u'aiSendDigest_pfuzz_tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 5
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 5 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 50.49.97.70
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 5 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 5 pfuzz_metadata_seed_num_mask 7 priority 250 action_real_seed_num 5
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 145707696, since first packet 0.603244s
+====== parsePacket prologue    ﬁ≠æ@ êGT:◊Ëπ‚Fñ CƒtºΩ◊áOÃ:˝$(XY¬hêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(XY¬h                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ipv4_lpm', u'drop_packet_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [1, 2, 2] ---
+--- Path coverage: 4/36=0.111111111111 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2]]
+--- Action coverage: 10/11=0.909090909091, number_of_seeds: 6, time: 21:11:50.892271
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 6
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 6 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 89.194.104.17
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 6 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 6 pfuzz_metadata_seed_num_mask 7 priority 249 action_real_seed_num 6
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 201089380, since first packet 0.816431s
+====== parsePacket prologue    ﬁ≠æ@ <êGT:◊Ëπ‚Fñ CƒtºΩ◊áOÃ:˝$(XY¬hêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(XY¬h                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ipv4_lpm', u'drop_packet_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [2, 2, 2] ---
+--- Path coverage: 5/36=0.138888888889 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 7, time: 21:11:51.102398
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 7
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 7 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 89.194.104.17
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 7 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 7 pfuzz_metadata_seed_num_mask 7 priority 248 action_real_seed_num 7
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 257910255, since first packet 1.016793s
+====== parsePacket prologue    ﬁ≠æ@ êGT:◊Ëπ‚Fñ CƒtºΩ◊áO√˛˝$(X’≠ÙaêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X’≠Ùa                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ipv4_lpm', u'drop_packet_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [2, 1, 2] ---
+--- Path coverage: 6/36=0.166666666667 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 8, time: 21:11:51.304011
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 8
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 8 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 213.173.244.97
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 8 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 8 pfuzz_metadata_seed_num_mask 15 priority 247 action_real_seed_num 8
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 318133282, since first packet 1.21367s
+====== parsePacket prologue    ﬁ≠æ@ (   ™™¨   ™™¨ CƒtºΩ◊áNa®˝$(X5Ô˜vêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X5Ô˜v                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 1], encoding_val: 3
+Encoded path: [u'ipv4_lpm', u'ipv4_forward_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [1, 2, 3] ---
+--- Path coverage: 7/36=0.194444444444 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2], [1, 2, 3]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 9, time: 21:11:51.502803
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 9
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 9 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 53.239.247.118
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 9 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 9 pfuzz_metadata_seed_num_mask 15 priority 246 action_real_seed_num 9
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 393145350, since first packet 1.415708s
+====== parsePacket prologue    ﬁ≠æ@ $êGT:◊Ëπ‚Fñ CƒtºΩ◊áOcÙ˝$(X2W˜¬êGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X2W˜¬                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ipv4_lpm', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [2, 1, 1] ---
+--- Path coverage: 8/36=0.222222222222 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2], [1, 2, 3], [2, 1, 1]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 10, time: 21:11:51.701716
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 10
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 10 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 50.87.247.194
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 10 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 10 pfuzz_metadata_seed_num_mask 15 priority 245 action_real_seed_num 10
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 468387922, since first packet 1.620957s
+====== parsePacket prologue    ﬁ≠æ@    ™™¨   ™™¨ CƒtºΩ◊áN–-˝$(XüªAêGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(XüªA                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 1], encoding_val: 3
+Encoded path: [u'ipv4_lpm', u'ipv4_forward_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [2, 1, 3] ---
+--- Path coverage: 9/36=0.25 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2], [1, 2, 3], [2, 1, 1], [2, 1, 3]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 11, time: 21:11:51.908654
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 11
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 11 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 3.159.187.65
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 11 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 11 pfuzz_metadata_seed_num_mask 15 priority 244 action_real_seed_num 11
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 542021721, since first packet 1.823016s
+====== parsePacket prologue    ﬁ≠æ@ 8êGT:◊Ëπ‚Fñ CƒtºΩ◊áOg˝$(X2&Ù€êGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X2&Ù€                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ipv4_lpm', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [1, 2, 1] ---
+--- Path coverage: 10/36=0.277777777778 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2], [1, 2, 3], [2, 1, 1], [2, 1, 3], [1, 2, 1]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 12, time: 21:11:52.111018
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 12
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 12 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 50.38.244.219
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 12 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 12 pfuzz_metadata_seed_num_mask 15 priority 243 action_real_seed_num 12
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 617930123, since first packet 2.031457s
+====== parsePacket prologue    ﬁ≠æ@    ™™¨   ™™¨ CƒtºΩ◊áN˝$(X
+ êGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X
+                                                                                                                                                                                                                                ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 1], encoding_val: 3
+Encoded path: [u'ipv4_lpm', u'ipv4_forward_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [2, 2, 3] ---
+--- Path coverage: 11/36=0.305555555556 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2], [1, 2, 3], [2, 1, 1], [2, 1, 3], [1, 2, 1], [2, 2, 3]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 13, time: 21:11:52.317513
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 13
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 13 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 10.0.6.1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 13 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 13 pfuzz_metadata_seed_num_mask 15 priority 242 action_real_seed_num 13
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 691645207, since first packet 2.234013s
+====== parsePacket prologue    ﬁ≠æ@  êGT:◊Ëπ‚Fñ CƒtºΩ◊áOf˝$(X2ı€êGT:◊Ëπ‚Fñ CƒtºΩ◊áOΩD˝$(X2ı€                                                                                                                                                                                                                               ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'ti_get_incoming_pos', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ti_calculate_hash', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ti_write_flow_counter_1', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'ti_write_flow_counter_warning_1', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'tiSendDigest_1', u'aiSendDigest_pfuzz_tiSendDigest_1']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 0], encoding_val: 2
+Encoded path: [u'hdripv4isValid', u'ti_write_flow_counter_warning_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'metametareg_val_one_warning1', u'tiSendDigest_2', u'aiSendDigest_pfuzz_tiSendDigest_2']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'ipv4_lpm', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ti_write_flow_counter_2', u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'metametareg_val_two_warning1']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2']
+--- path_seen [2, 2, 1] ---
+--- Path coverage: 12/36=0.333333333333 ---
+self.paths_seen: [[1, 1, 2], [1, 1, 3], [1, 1, 1], [1, 2, 2], [2, 2, 2], [2, 1, 2], [1, 2, 3], [2, 1, 1], [2, 1, 3], [1, 2, 1], [2, 2, 3], [2, 2, 1]]
+--- Action coverage: 11/11=1.0, number_of_seeds: 14, time: 21:11:52.520026
+self.seenActions: set([u'ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2', u'aiSendDigest_pfuzz_tiSendDigest_1', u'ai_get_incoming_pos_pfuzz_ti_get_incoming_pos', u'ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1', u'aiSendDigest_pfuzz_tiSendDigest_2', u'ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2', u'ipv4_forward_pfuzz_ipv4_lpm', u'ai_calculate_hash_pfuzz_ti_calculate_hash', u'ai_handle_blacklist_pfuzz_ipv4_lpm', u'ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1', u'drop_packet_pfuzz_ipv4_lpm'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 15 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 14
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 14 action_ethernetdstAddr 158636030220044 action_ethernetsrcAddr 255111291094678 action_ethernetetherType 2048 action_ipv4version 4 action_ipv4ihl 3 action_ipv4diffserv 196 action_ipv4totalLen 29884 action_ipv4identification 48599 action_ipv4flags 4 action_ipv4fragOffset 1796 action_ipv4ttl 79 action_ipv4protocol 23 action_ipv4hdrChecksum 48452 action_ipv4srcAddr 253.36.40.88 action_ipv4dstAddr 50.21.245.219
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_ipv4_dstAddr 10.0.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_ipv4_dstAddr 10.1.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_ipv4_dstAddr 10.0.4.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_ipv4_dstAddr 10.5.0.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_ipv4_dstAddr 10.0.6.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_ipv4_dstAddr 10.0.7.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_ipv4_dstAddr 10.0.20.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_ipv4_dstAddr 10.0.30.1
+pd te_move_back_fields add_entry ae_move_back_fix_ipv4_lpm pfuzz_metadata_seed_num 14 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_ipv4_dstAddr 10.0.50.1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 14 pfuzz_metadata_seed_num_mask 15 priority 241 action_real_seed_num 14
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1129852092, since first packet 3.438008s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1494846573, since first packet 4.440686s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1859874335, since first packet 5.443391s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2224876278, since first packet 6.445989s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2589826474, since first packet 7.448569s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2954903347, since first packet 8.451292s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3319582439, since first packet 9.453095s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3684707599, since first packet 10.45604s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4049654241, since first packet 11.458339s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 119757002, since first packet 12.461009s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 484864305, since first packet 13.463724s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 849800612, since first packet 14.466195s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1214789780, since first packet 15.46875s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1579804691, since first packet 16.471533s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1944623690, since first packet 17.473648s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2309611355, since first packet 18.476293s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2674693410, since first packet 19.478956s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3039494678, since first packet 20.481247s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3404259984, since first packet 21.482995s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3768929656, since first packet 22.484836s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4133702562, since first packet 23.486716s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 203806511, since first packet 24.489315s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 568773016, since first packet 25.491919s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 933575130, since first packet 26.49418s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1298580028, since first packet 27.496841s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1663239393, since first packet 28.498668s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2028109991, since first packet 29.50077s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2392889557, since first packet 30.502816s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2757927434, since first packet 31.50539s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3122888146, since first packet 32.507997s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3487951153, since first packet 33.510806s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3852977155, since first packet 34.513544s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4217838005, since first packet 35.51585s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 287861707, since first packet 36.518439s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 652560010, since first packet 37.520122s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1017644148, since first packet 38.522715s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1382692686, since first packet 39.525455s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1747662913, since first packet 40.528015s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2112483310, since first packet 41.529937s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2477460561, since first packet 42.532549s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2842257800, since first packet 43.534625s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3207298632, since first packet 44.53742s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3572304911, since first packet 45.53986s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3937324864, since first packet 46.542677s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 7542412, since first packet 47.545499s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 372165482, since first packet 48.547358s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 737234869, since first packet 49.550079s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1102285023, since first packet 50.552827s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1467375732, since first packet 51.555423s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1832355065, since first packet 52.558014s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2197163710, since first packet 53.560045s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2561930030, since first packet 54.56201s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2926726389, since first packet 55.564004s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3291768884, since first packet 56.566736s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3656769806, since first packet 57.56929s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4021789919, since first packet 58.571825s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 91810151, since first packet 59.574398s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 456465475, since first packet 60.576122s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 821610201, since first packet 61.579375s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1186738538, since first packet 62.582122s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1551862127, since first packet 63.584887s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1916914397, since first packet 64.587746s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2281938217, since first packet 65.59034s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2646750023, since first packet 66.592187s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3011528083, since first packet 67.594075s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3376295598, since first packet 68.596048s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3741007484, since first packet 69.597622s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4105960556, since first packet 70.60018s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 175992288, since first packet 71.602772s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 540683078, since first packet 72.604449s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 905732809, since first packet 73.607102s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1270493520, since first packet 74.60908s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1635332150, since first packet 75.611184s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2000102821, since first packet 76.613054s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2365117465, since first packet 77.615875s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2730141737, since first packet 78.618623s
+--- self.dp_iface.receive_packet ---

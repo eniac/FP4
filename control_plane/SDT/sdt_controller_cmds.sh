@@ -6,3 +6,4 @@ sudo -E python -u SDTcontroller.py -p mirror_clone_dt_hw -r mirror_clone_ut_hw_r
 sudo -E python -u SDTcontroller.py -p netchain_dt_hw -r netchain_ut_hw_rules.txt | tee log_netchain.txt
 sudo -E python -u SDTcontroller.py -p rate_limiter_dt_hw -r rate_limiter_ut_hw_rules.txt | tee log_rate_limiter.txt
 sudo -E python -u SDTcontroller.py -p mac_learning_dt_hw -r mac_learning_ut_hw_rules.txt | tee log_mac_learning.txt
+sudo -E python -u SDTcontroller.py -p dos_defense_dt_hw -r dos_defense_ut_hw_rules.txt | tee log_dos_defense.txt
