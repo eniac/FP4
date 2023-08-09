@@ -62,6 +62,7 @@ instrumentation/out
 bf_drivers.log*
 control_plane/SDT/*_dt_hw_rules.txt
 control_plane/SUT/*_hw_output_rules.txt
+control_plane/SDT/header.py
 test_programs/**/*.c
 test_programs/**/*.tmp
 **/*.log

@@ -1,0 +1,4 @@
+time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen
+0,2,653341,0.5,0.125,1,set([u'aiForwardUnknown_pfuzz_tiForward', u'aiNoOp_pfuzz_tiFilter', u'aiSendDigest_pfuzz_tiLearnMAC'])
+0.095379,3,64019876,0.833333333333,0.25,2,set([u'aiForwardUnknown_pfuzz_tiForward', u'aiNoOp_pfuzz_tiLearnMAC', u'aiNoOp_pfuzz_tiFilter', u'aiSendDigest_pfuzz_tiLearnMAC', u'aiFilter_pfuzz_tiFilter'])
+0.185241,4,121231741,1.0,0.375,3,set([u'aiForwardUnknown_pfuzz_tiForward', u'aiNoOp_pfuzz_tiFilter', u'aiNoOp_pfuzz_tiLearnMAC', u'aiFilter_pfuzz_tiFilter', u'aiSendDigest_pfuzz_tiLearnMAC', u'aiForward_pfuzz_tiForward'])

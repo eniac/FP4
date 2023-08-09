@@ -1,0 +1,1098 @@
+PROGRAM: mac_learning_dt_hw
+SIMULATION: False
+CPU_PORT: 192
+TOFINO_INTERFACE: enp6s0
+RULES file: mac_learning_ut_hw_rules.txt
+Mode: normal
+C_IP: None
+====== Waiting for switch to start ======
+--- Assuming switch has started ---
+====== DTController ======
+('program_name', 'mac_learning_dt_hw')
+====== bring_ports_up ======
+enabling ports: ['9/0', '10/0', '11/0', '12/0', '13/0', '14/0', '15/0', '16/0', '17/0', '18/0', '19/0', '20/0', '21/0', '22/0', '23/0', '24/0'] (dev ids: [60, 52, 44, 36, 28, 20, 12, 4, 0, 8, 16, 24, 32, 40, 48, 56]) at rate: 100G
+port: 60
+port: 52
+port: 44
+port: 36
+port: 28
+port: 20
+port: 12
+port: 4
+port: 0
+port: 8
+port: 16
+port: 24
+port: 32
+port: 40
+port: 48
+port: 56
+All ports up
+====== initialize_CLI_variables ======
+baseName: mac_learning
+====== StateMachine filename mac_learning_parserFile.json ======
+parse_ipv4
+parse_ipv4_clone
+parse_ethernet
+parse_ethernet_clone
+start
+start_clone
+====== CoverageDetector ======
+--- Read ingress plan ---
+ingress_num_vars: 1
+var 0, num_paths: 8
+--- Read egress plan ---
+egress_num_vars: 0
+self.total_num_paths: 8
+self.total_num_actions: 6
+self.all_actions: [u'aiNoOp_pfuzz_tiLearnMAC', u'aiSendDigest_pfuzz_tiLearnMAC', u'aiFilter_pfuzz_tiFilter', u'aiNoOp_pfuzz_tiFilter', u'aiForward_pfuzz_tiForward', u'aiForwardUnknown_pfuzz_tiForward']
+self.field2encoding2path: {'encoding_i0': {u'1': [u'tiLearnMAC', u'aiNoOp_pfuzz_tiLearnMAC', u'tiForward', u'aiForwardUnknown_pfuzz_tiForward', u'tiFilter', u'aiNoOp_pfuzz_tiFilter'], u'0': [u'tiLearnMAC', u'aiNoOp_pfuzz_tiLearnMAC', u'tiForward', u'aiForwardUnknown_pfuzz_tiForward', u'tiFilter', u'aiFilter_pfuzz_tiFilter'], u'3': [u'tiLearnMAC', u'aiNoOp_pfuzz_tiLearnMAC', u'tiForward', u'aiForward_pfuzz_tiForward', u'tiFilter', u'aiNoOp_pfuzz_tiFilter'], u'2': [u'tiLearnMAC', u'aiNoOp_pfuzz_tiLearnMAC', u'tiForward', u'aiForward_pfuzz_tiForward', u'tiFilter', u'aiFilter_pfuzz_tiFilter'], u'5': [u'tiLearnMAC', u'aiSendDigest_pfuzz_tiLearnMAC', u'tiForward', u'aiForwardUnknown_pfuzz_tiForward', u'tiFilter', u'aiNoOp_pfuzz_tiFilter'], u'4': [u'tiLearnMAC', u'aiSendDigest_pfuzz_tiLearnMAC', u'tiForward', u'aiForwardUnknown_pfuzz_tiForward', u'tiFilter', u'aiFilter_pfuzz_tiFilter'], u'7': [u'tiLearnMAC', u'aiSendDigest_pfuzz_tiLearnMAC', u'tiForward', u'aiForward_pfuzz_tiForward', u'tiFilter', u'aiNoOp_pfuzz_tiFilter'], u'6': [u'tiLearnMAC', u'aiSendDigest_pfuzz_tiLearnMAC', u'tiForward', u'aiForward_pfuzz_tiForward', u'tiFilter', u'aiFilter_pfuzz_tiFilter']}}
+('file path', 'mac_learning_coverageAndRules.json')
+[[u'ethernet'], [u'ethernet', u'ipv4']]
+self.actionList: [u'encoding_i0']
+header written
+====== add_initial_seed_packets prologue ======
+(0, 0)
+(0, 1)
+(1, 0)
+(1, 1)
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 1 pfuzz_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 0 pfuzz_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 1 pfuzz_metadata_seed_num_mask 1 priority 254 action_real_seed_num 1
+pd ti_set_resubmit add_entry ai_set_resubmit pfuzz_metadata_make_clone 0 pfuzz_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_ethernet pfuzz_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_ethernet pfuzz_metadata_seed_num 0 action_ethernetdstAddr 0xae7b9d0dde70 action_ethernetsrcAddr 0x4d6157a725ba action_ethernetetherType 62401
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 1
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 1 action_ethernetdstAddr 0x54f27bf95645 action_ethernetsrcAddr 0xd44f2647d9be action_ethernetetherType 2048 action_ipv4version 3 action_ipv4ihl 13 action_ipv4diffserv 245 action_ipv4totalLen 22606 action_ipv4identification 37036 action_ipv4flags 5 action_ipv4fragOffset 2603 action_ipv4ttl 130 action_ipv4protocol 86 action_ipv4hdrChecksum 7163 action_ipv4srcAddr 3129044808 action_ipv4dstAddr 921584062
+pd ti_add_clones add_entry ai_add_clone_ethernet ethernet_valid 1 ipv4_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4 ethernet_valid 1 ipv4_valid 1
+pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1
+====== add_initial_seed_packets epilog ======
+====== add_entries prologue ======
+--- current_list of len 30 ---
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 1 pfuzz_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 0 pfuzz_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 1 pfuzz_metadata_seed_num_mask 1 priority 254 action_real_seed_num 1
+pd ti_set_resubmit add_entry ai_set_resubmit pfuzz_metadata_make_clone 0 pfuzz_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_ethernet pfuzz_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_ethernet pfuzz_metadata_seed_num 0 action_ethernetdstAddr 0xae7b9d0dde70 action_ethernetsrcAddr 0x4d6157a725ba action_ethernetetherType 62401
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 1
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 1 action_ethernetdstAddr 0x54f27bf95645 action_ethernetsrcAddr 0xd44f2647d9be action_ethernetetherType 2048 action_ipv4version 3 action_ipv4ihl 13 action_ipv4diffserv 245 action_ipv4totalLen 22606 action_ipv4identification 37036 action_ipv4flags 5 action_ipv4fragOffset 2603 action_ipv4ttl 130 action_ipv4protocol 86 action_ipv4hdrChecksum 7163 action_ipv4srcAddr 3129044808 action_ipv4dstAddr 921584062
+pd ti_add_clones add_entry ai_add_clone_ethernet ethernet_valid 1 ipv4_valid 0
+pd ti_add_clones add_entry ai_add_clone_ethernet_ipv4 ethernet_valid 1 ipv4_valid 1
+pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1
+====== add_entries epilogue ======
+====== initialize_CLI_variables epilogue ======
+====== main_loop prologue ======
+Before entering loop time 06:33:30.255986
+--- self.dp_iface.receive_packet ---
+len(packet): 90
+--- Timeout Updated to 1s ---
+
+
+
+[INFO] Packet received of size: 90
+First packet forwarded on port 0, counter 1, time: 06:33:30.257455
+====== parsePacket prologue 33       Ü›`    $ ˛Ä       ˇ˛  ˇ             :    è j      ˇ         ˇ   ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+--- prevState == currentState ---
+Transition to default ingress
+Unknown packet - not from dataplane - discarding packet
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:31.262363
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:32.264477
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:33.267042
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:34.269139
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:35.271818
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:36.274176
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:37.276766
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:38.279344
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:39.281983
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:40.284589
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:41.287220
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:42.289989
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:43.292690
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:44.295234
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:45.297441
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:46.300211
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:47.302128
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:48.303720
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:49.305286
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:50.307266
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:51.309892
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:52.311596
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:53.314142
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:54.315701
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:55.318219
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:56.320041
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 1, time: 06:33:57.321706
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+First packet forwarded on port 0, counter 653341, time: 06:33:57.331044
+====== parsePacket prologue    ﬁ≠æ@ 0TÚ{˘VE‘O&GŸæ =ıXNê¨™+ÇV˚∫ÅoH6ÓAæTÚ{˘VE‘O&GŸæ =ıXNê¨™+ÇV˚∫ÅoH6ÓAæ                                                                                                                                                                                                                                 ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 1, 0, 1], encoding_val: 5
+Encoded path: [u'tiLearnMAC', u'aiSendDigest_pfuzz_tiLearnMAC', u'tiForward', u'aiForwardUnknown_pfuzz_tiForward', u'tiFilter', u'aiNoOp_pfuzz_tiFilter']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0']
+--- path_seen [5] ---
+--- Path coverage: 1/8=0.125 ---
+self.paths_seen: [[5]]
+--- Action coverage: 3/6=0.5, number_of_seeds: 2, time: 06:33:57.336626
+self.seenActions: set([u'aiForwardUnknown_pfuzz_tiForward', u'aiNoOp_pfuzz_tiFilter', u'aiSendDigest_pfuzz_tiLearnMAC'])
+--- self.all_actions - self.seenActions ---
+[u'aiForward_pfuzz_tiForward', u'aiFilter_pfuzz_tiFilter', u'aiNoOp_pfuzz_tiLearnMAC']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 3 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 2
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 2 action_ethernetdstAddr 93400438756933 action_ethernetsrcAddr 233436409747902 action_ethernetetherType 2048 action_ipv4version 3 action_ipv4ihl 13 action_ipv4diffserv 245 action_ipv4totalLen 22606 action_ipv4identification 37036 action_ipv4flags 5 action_ipv4fragOffset 2603 action_ipv4ttl 130 action_ipv4protocol 86 action_ipv4hdrChecksum 7163 action_ipv4srcAddr 186.129.111.72 action_ipv4dstAddr 54.238.65.190
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 2 pfuzz_metadata_seed_num_mask 3 priority 253 action_real_seed_num 2
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 64019876, since first packet 0.092195s
+====== parsePacket prologue    ﬁ≠æ@  0TÚ{˘VE‘O&GŸæ =ıXNê¨™+ÇV˚∫ÅoH6ÓAæTÚ{˘VE‘O&GŸæ =ıXNê¨™+ÇV˚∫ÅoH6ÓAæ                                                                                                                                                                                                                                 ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 0], encoding_val: 0
+Encoded path: [u'tiLearnMAC', u'aiNoOp_pfuzz_tiLearnMAC', u'tiForward', u'aiForwardUnknown_pfuzz_tiForward', u'tiFilter', u'aiFilter_pfuzz_tiFilter']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0']
+--- path_seen [0] ---
+--- Path coverage: 2/8=0.25 ---
+self.paths_seen: [[5], [0]]
+--- Action coverage: 5/6=0.833333333333, number_of_seeds: 3, time: 06:33:57.431888
+self.seenActions: set([u'aiForwardUnknown_pfuzz_tiForward', u'aiNoOp_pfuzz_tiLearnMAC', u'aiNoOp_pfuzz_tiFilter', u'aiSendDigest_pfuzz_tiLearnMAC', u'aiFilter_pfuzz_tiFilter'])
+--- self.all_actions - self.seenActions ---
+[u'aiForward_pfuzz_tiForward']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 3 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 3
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 3 action_ethernetdstAddr 93400438756933 action_ethernetsrcAddr 233436409747902 action_ethernetetherType 2048 action_ipv4version 3 action_ipv4ihl 13 action_ipv4diffserv 245 action_ipv4totalLen 22606 action_ipv4identification 37036 action_ipv4flags 5 action_ipv4fragOffset 2603 action_ipv4ttl 130 action_ipv4protocol 86 action_ipv4hdrChecksum 7163 action_ipv4srcAddr 186.129.111.72 action_ipv4dstAddr 54.238.65.190
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 3 pfuzz_metadata_seed_num_mask 3 priority 252 action_real_seed_num 3
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 302
+
+
+
+[INFO] Packet received of size: 302
+Packet forwarded on port 0, counter 121231741, since first packet 0.182634s
+====== parsePacket prologue    ﬁ≠æ@                                                                                                                                                                                                                                                                                                    ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_ethernet
+--- currentState parse_ethernet ---
+--- extract ethernet ---
+--- Checking transition ---
+Transition to state parse_ipv4
+--- currentState parse_ipv4 ---
+--- extract ipv4 ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_ethernet_clone
+--- currentState parse_ethernet_clone ---
+--- extract ethernet_clone ---
+--- Checking transition ---
+Transition to state parse_ipv4_clone
+--- currentState parse_ipv4_clone ---
+--- extract ipv4_clone ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 1, 1], encoding_val: 3
+Encoded path: [u'tiLearnMAC', u'aiNoOp_pfuzz_tiLearnMAC', u'tiForward', u'aiForward_pfuzz_tiForward', u'tiFilter', u'aiNoOp_pfuzz_tiFilter']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0']
+--- path_seen [3] ---
+--- Path coverage: 3/8=0.375 ---
+self.paths_seen: [[5], [0], [3]]
+--- Action coverage: 6/6=1.0, number_of_seeds: 4, time: 06:33:57.521804
+self.seenActions: set([u'aiForwardUnknown_pfuzz_tiForward', u'aiNoOp_pfuzz_tiFilter', u'aiNoOp_pfuzz_tiLearnMAC', u'aiFilter_pfuzz_tiFilter', u'aiSendDigest_pfuzz_tiLearnMAC', u'aiForward_pfuzz_tiForward'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 3 ---
+pd ti_create_packet add_entry ai_add_ethernet_ipv4 pfuzz_metadata_seed_num 4
+pd ti_add_fields add_entry ai_add_fixed_ethernet_ipv4 pfuzz_metadata_seed_num 4 action_ethernetdstAddr 0 action_ethernetsrcAddr 0 action_ethernetetherType 2048 action_ipv4version 0 action_ipv4ihl 0 action_ipv4diffserv 0 action_ipv4totalLen 0 action_ipv4identification 0 action_ipv4flags 0 action_ipv4fragOffset 0 action_ipv4ttl 0 action_ipv4protocol 0 action_ipv4hdrChecksum 0 action_ipv4srcAddr 0.0.0.0 action_ipv4dstAddr 0.0.0.0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 4 pfuzz_metadata_seed_num_mask 7 priority 251 action_real_seed_num 4
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 801892848, since first packet 1.273792s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1426176759, since first packet 2.275689s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2050827447, since first packet 3.278291s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2675504729, since first packet 4.280863s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3299911757, since first packet 5.283004s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3924110019, since first packet 6.284868s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 253828715, since first packet 7.287584s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 878575326, since first packet 8.290189s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1503259159, since first packet 9.292806s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2127328388, since first packet 10.29448s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2751526399, since first packet 11.296272s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3376198919, since first packet 12.298877s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4000587390, since first packet 13.301081s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 330122805, since first packet 14.303344s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 954763887, since first packet 15.305925s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1579421857, since first packet 16.308425s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2204072271, since first packet 17.311107s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2828485206, since first packet 18.313227s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3452949389, since first packet 19.315446s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4077739711, since first packet 20.318327s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 406984977, since first packet 21.320164s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1031249966, since first packet 22.322086s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1655940596, since first packet 23.324746s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2280732428, since first packet 24.327522s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2905047066, since first packet 25.329524s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3529825648, since first packet 26.332314s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4154525069, since first packet 27.334918s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 484215422, since first packet 28.33754s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1108912966, since first packet 29.340113s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1733028115, since first packet 30.341912s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2357734886, since first packet 31.344511s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2982496864, since first packet 32.347211s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3606642810, since first packet 33.349043s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4231108784, since first packet 34.351244s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 560355620, since first packet 35.353085s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1184757330, since first packet 36.355246s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1809308345, since first packet 37.357518s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2433854474, since first packet 38.360051s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3058535491, since first packet 39.362695s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3683194343, since first packet 40.365279s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 12843667, since first packet 41.367825s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 637417450, since first packet 42.37041s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1262268558, since first packet 43.372928s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1886275851, since first packet 44.374676s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2510430776, since first packet 45.376439s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3135157594, since first packet 46.379142s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3759368713, since first packet 47.38093s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 89105000, since first packet 48.383573s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 713366347, since first packet 49.385578s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1337662054, since first packet 50.387582s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1961969080, since first packet 51.389545s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2586591027, since first packet 52.392091s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3211293348, since first packet 53.394721s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3835666266, since first packet 54.396799s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 165426736, since first packet 55.399503s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 790174367, since first packet 56.402295s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1414649199, since first packet 57.404553s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2039455588, since first packet 58.407353s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2664139201, since first packet 59.410076s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3288319728, since first packet 60.411753s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3913001437, since first packet 61.41437s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 242685744, since first packet 62.416991s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 867405399, since first packet 63.419679s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1492262889, since first packet 64.422535s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2116912075, since first packet 65.425122s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2741601362, since first packet 66.42773s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3365684532, since first packet 67.429163s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3989939094, since first packet 68.431249s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 319602886, since first packet 69.433896s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 943891104, since first packet 70.435776s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1568408440, since first packet 71.438237s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2192537940, since first packet 72.439907s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2817220969, since first packet 73.44248s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3442008513, since first packet 74.445299s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4066776813, since first packet 75.447991s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 395865845, since first packet 76.449665s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1020173624, since first packet 77.451656s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1644927338, since first packet 78.454539s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2269280891, since first packet 79.456463s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2893666895, since first packet 80.458615s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3518368233, since first packet 81.46126s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4143075546, since first packet 82.463865s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 472781081, since first packet 83.466545s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1097263440, since first packet 84.468736s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1721864935, since first packet 85.471297s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2346033869, since first packet 86.473069s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2970463244, since first packet 87.475303s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3595260001, since first packet 88.478138s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4219577003, since first packet 89.480064s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 548712218, since first packet 90.481874s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1172923630, since first packet 91.483644s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1797558486, since first packet 92.486205s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2421747942, since first packet 93.487977s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3046398205, since first packet 94.490542s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3671051709, since first packet 95.493183s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 289146, since first packet 96.494936s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 624920172, since first packet 97.497493s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1249079096, since first packet 98.499317s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1873242897, since first packet 99.5011s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2471802268, since first packet 100.503252s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3045671048, since first packet 101.506047s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3619525312, since first packet 102.508792s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4193017957, since first packet 103.510934s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 471777284, since first packet 104.513474s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1045133016, since first packet 105.515407s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1618481927, since first packet 106.517262s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2192200525, since first packet 107.51975s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2766029354, since first packet 108.522593s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3339885193, since first packet 109.525285s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3913663475, since first packet 110.528021s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 191926859, since first packet 111.529659s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 765267635, since first packet 112.531574s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1339003425, since first packet 113.534265s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1912587415, since first packet 114.536474s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2486417903, since first packet 115.539169s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3060170273, since first packet 116.541776s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3633896583, since first packet 117.54428s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4207261508, since first packet 118.546226s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 485656784, since first packet 119.5481s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1059380356, since first packet 120.55065s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1633133678, since first packet 121.553258s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2206821123, since first packet 122.555761s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2780212696, since first packet 123.557824s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3353961477, since first packet 124.560413s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3927157399, since first packet 125.562018s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 205509026, since first packet 126.563881s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 779321977, since first packet 127.566501s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1352722617, since first packet 128.568611s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1926598808, since first packet 129.571413s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2500365389, since first packet 130.574121s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3074184620, since first packet 131.57672s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3648022071, since first packet 132.579527s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4221347491, since first packet 133.581328s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 499796489, since first packet 134.583351s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1073357281, since first packet 135.585563s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1647186935, since first packet 136.588278s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2220576524, since first packet 137.5903s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2794430606, since first packet 138.593233s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3367929524, since first packet 139.59524s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3941674483, since first packet 140.5979s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 220457591, since first packet 141.600416s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 793735957, since first packet 142.602296s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1367061496, since first packet 143.603914s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1940775850, since first packet 144.606691s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2514474614, since first packet 145.609201s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3088210612, since first packet 146.611805s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3661958320, since first packet 147.614309s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4235667686, since first packet 148.61685s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 514424037, since first packet 149.619447s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1087870844, since first packet 150.621533s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1661131519, since first packet 151.6232s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2234856114, since first packet 152.625815s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2808140737, since first packet 153.627606s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3381922323, since first packet 154.630185s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3955663415, since first packet 155.632853s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 234451904, since first packet 156.635467s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 808178897, since first packet 157.638042s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1381949021, since first packet 158.640639s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1955685613, since first packet 159.643303s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2529352822, since first packet 160.645793s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3103141666, since first packet 161.648398s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3676490458, since first packet 162.650317s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4249808854, since first packet 163.652095s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 528646193, since first packet 164.654853s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1102474842, since first packet 165.657561s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1675752256, since first packet 166.659369s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2249428127, since first packet 167.661872s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2823206903, since first packet 168.664372s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3396920517, since first packet 169.667028s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3970656187, since first packet 170.66959s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 249541510, since first packet 171.672321s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 823369303, since first packet 172.675065s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1396516141, since first packet 173.67674s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1970241234, since first packet 174.679294s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2543729702, since first packet 175.681327s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3117459291, since first packet 176.68388s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3691191384, since first packet 177.686439s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4265034634, since first packet 178.689207s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 543772482, since first packet 179.691812s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1117550954, since first packet 180.694458s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1691334414, since first packet 181.697077s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2265061154, since first packet 182.69963s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2838833304, since first packet 183.702241s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3412046333, since first packet 184.703839s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3985867792, since first packet 185.706496s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 264679371, since first packet 186.709204s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 838465900, since first packet 187.711901s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1412245870, since first packet 188.714546s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1986009877, since first packet 189.717217s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2559914769, since first packet 190.72003s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3133677749, since first packet 191.722722s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3707503514, since first packet 192.725316s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4281191368, since first packet 193.727916s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 559549276, since first packet 194.729746s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1133325952, since first packet 195.732337s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1707074408, since first packet 196.734972s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2280762023, since first packet 197.737524s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2854559017, since first packet 198.740268s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3428419199, since first packet 199.742967s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4002215049, since first packet 200.745652s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 280614968, since first packet 201.747647s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 853903834, since first packet 202.749459s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1427394630, since first packet 203.751624s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2001271231, since first packet 204.754439s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2575115399, since first packet 205.75713s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3148783064, since first packet 206.7597s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3722470392, since first packet 207.76215s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1206447, since first packet 208.764587s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 574987553, since first packet 209.767307s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1148823756, since first packet 210.77006s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1722640164, since first packet 211.772804s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2296334452, since first packet 212.775279s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2869568554, since first packet 213.776739s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3442691261, since first packet 214.778537s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4016598335, since first packet 215.781358s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 295135139, since first packet 216.783474s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 868622529, since first packet 217.785653s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1442484057, since first packet 218.788499s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2015956959, since first packet 219.790572s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2589720300, since first packet 220.793248s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3163499721, since first packet 221.795839s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3737218076, since first packet 222.798448s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 16064859, since first packet 223.801112s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 589843449, since first packet 224.803763s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1163588928, since first packet 225.806346s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1736795889, since first packet 226.807976s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2310144822, since first packet 227.810002s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2884097810, since first packet 228.812921s
+--- self.dp_iface.receive_packet ---
