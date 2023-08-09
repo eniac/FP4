@@ -1,0 +1,386 @@
+{
+    "build_date": "Wed Aug  9 03:41:14 2023", 
+    "program_name": "mac_learning", 
+    "run_id": "461e5e02a37ae425", 
+    "compiler_version": "9.2.0", 
+    "schema_version": "1.0.0", 
+    "tables": [
+        {
+            "name": "tiFilter", 
+            "gress": "ingress", 
+            "lookup_types": [
+                "exact"
+            ], 
+            "entries_requested": 9216, 
+            "entries_allocated": 9216, 
+            "match_fields": [
+                {
+                    "name": "ig_intr_md.ingress_port", 
+                    "start_bit": 0, 
+                    "bit_width": 9, 
+                    "lookup_type": "exact"
+                }, 
+                {
+                    "name": "ig_intr_md_for_tm.ucast_egress_port", 
+                    "start_bit": 0, 
+                    "bit_width": 9, 
+                    "lookup_type": "exact"
+                }
+            ], 
+            "action_parameters": [
+                {
+                    "action_name": "aiFilter", 
+                    "parameters": []
+                }, 
+                {
+                    "action_name": "aiNoOp", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 2, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 3, 
+                            "table_type": "match", 
+                            "num_memories": 3, 
+                            "entries_requested": 9216, 
+                            "entries_allocated": 9216, 
+                            "imm_bit_width_in_overhead_requested": 0, 
+                            "imm_bit_width_in_overhead_allocated": 0, 
+                            "entry_bit_width_requested": 22, 
+                            "entry_bit_width_allocated": 13, 
+                            "ideal_entries_per_table_word": 5, 
+                            "ideal_table_word_bit_width": 128
+                        }
+                    ], 
+                    "overhead_fields": [
+                        {
+                            "name": "version/valid", 
+                            "bit_width": 4
+                        }
+                    ], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 2, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 2
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 120
+                                    }, 
+                                    {
+                                        "name": "ig_intr_md.ingress_port", 
+                                        "bit_width": 8, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 48
+                                    }
+                                ]
+                            }, 
+                            {
+                                "entry_number": 1, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 1
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 116
+                                    }, 
+                                    {
+                                        "name": "ig_intr_md.ingress_port", 
+                                        "bit_width": 8, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 40
+                                    }
+                                ]
+                            }, 
+                            {
+                                "entry_number": 0, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 0
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 112
+                                    }, 
+                                    {
+                                        "name": "ig_intr_md.ingress_port", 
+                                        "bit_width": 8, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 32
+                                    }
+                                ]
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "tiForward", 
+            "gress": "ingress", 
+            "lookup_types": [
+                "exact"
+            ], 
+            "entries_requested": 4096, 
+            "entries_allocated": 4096, 
+            "match_fields": [
+                {
+                    "name": "ethernet.dstAddr", 
+                    "start_bit": 0, 
+                    "bit_width": 48, 
+                    "lookup_type": "exact"
+                }
+            ], 
+            "action_parameters": [
+                {
+                    "action_name": "aiForward", 
+                    "parameters": [
+                        {
+                            "name": "egress_port", 
+                            "bit_width": 9
+                        }
+                    ]
+                }, 
+                {
+                    "action_name": "aiForwardUnknown", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 1, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 4, 
+                            "entries_requested": 4096, 
+                            "entries_allocated": 4096, 
+                            "imm_bit_width_in_overhead_requested": 10, 
+                            "imm_bit_width_in_overhead_allocated": 10, 
+                            "entry_bit_width_requested": 62, 
+                            "entry_bit_width_allocated": 53, 
+                            "ideal_entries_per_table_word": 11, 
+                            "ideal_table_word_bit_width": 640
+                        }
+                    ], 
+                    "overhead_fields": [
+                        {
+                            "name": "immediate", 
+                            "bit_width": 10
+                        }, 
+                        {
+                            "name": "version/valid", 
+                            "bit_width": 4
+                        }
+                    ], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 0
+                                    }, 
+                                    {
+                                        "name": "immediate", 
+                                        "bit_width": 10, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 1
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 112
+                                    }, 
+                                    {
+                                        "name": "ethernet.dstAddr", 
+                                        "bit_width": 6, 
+                                        "start_bit": 10, 
+                                        "memory_start_bit": 66
+                                    }, 
+                                    {
+                                        "name": "ethernet.dstAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 16, 
+                                        "memory_start_bit": 32
+                                    }, 
+                                    {
+                                        "name": "ethernet.dstAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 24, 
+                                        "memory_start_bit": 40
+                                    }, 
+                                    {
+                                        "name": "ethernet.dstAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 32, 
+                                        "memory_start_bit": 48
+                                    }, 
+                                    {
+                                        "name": "ethernet.dstAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 40, 
+                                        "memory_start_bit": 56
+                                    }
+                                ]
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "tiLearnMAC", 
+            "gress": "ingress", 
+            "lookup_types": [
+                "exact"
+            ], 
+            "entries_requested": 4096, 
+            "entries_allocated": 4096, 
+            "match_fields": [
+                {
+                    "name": "ethernet.srcAddr", 
+                    "start_bit": 0, 
+                    "bit_width": 48, 
+                    "lookup_type": "exact"
+                }
+            ], 
+            "action_parameters": [
+                {
+                    "action_name": "aiNoOp", 
+                    "parameters": []
+                }, 
+                {
+                    "action_name": "aiSendDigest", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 0, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 128, 
+                            "memory_word_width": 128, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 4, 
+                            "entries_requested": 4096, 
+                            "entries_allocated": 4096, 
+                            "imm_bit_width_in_overhead_requested": 10, 
+                            "imm_bit_width_in_overhead_allocated": 10, 
+                            "entry_bit_width_requested": 62, 
+                            "entry_bit_width_allocated": 53, 
+                            "ideal_entries_per_table_word": 11, 
+                            "ideal_table_word_bit_width": 640
+                        }
+                    ], 
+                    "overhead_fields": [
+                        {
+                            "name": "immediate", 
+                            "bit_width": 10
+                        }, 
+                        {
+                            "name": "version/valid", 
+                            "bit_width": 4
+                        }
+                    ], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": [
+                                    {
+                                        "name": "action", 
+                                        "bit_width": 1, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 0
+                                    }, 
+                                    {
+                                        "name": "immediate", 
+                                        "bit_width": 10, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 1
+                                    }, 
+                                    {
+                                        "name": "version", 
+                                        "bit_width": 4, 
+                                        "start_bit": 0, 
+                                        "memory_start_bit": 112
+                                    }, 
+                                    {
+                                        "name": "ethernet.srcAddr", 
+                                        "bit_width": 6, 
+                                        "start_bit": 10, 
+                                        "memory_start_bit": 66
+                                    }, 
+                                    {
+                                        "name": "ethernet.srcAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 16, 
+                                        "memory_start_bit": 32
+                                    }, 
+                                    {
+                                        "name": "ethernet.srcAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 24, 
+                                        "memory_start_bit": 40
+                                    }, 
+                                    {
+                                        "name": "ethernet.srcAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 32, 
+                                        "memory_start_bit": 48
+                                    }, 
+                                    {
+                                        "name": "ethernet.srcAddr", 
+                                        "bit_width": 8, 
+                                        "start_bit": 40, 
+                                        "memory_start_bit": 56
+                                    }
+                                ]
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }
+    ]
+}

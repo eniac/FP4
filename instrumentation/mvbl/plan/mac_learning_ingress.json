@@ -1,0 +1,252 @@
+{
+    "0": {
+        "edge_dst_to_edge": {
+            "aiForward_pfuzz_tiForward": "tiForward -> aiForward_pfuzz_tiForward",
+            "aiNoOp_pfuzz_tiFilter": "tiFilter -> aiNoOp_pfuzz_tiFilter",
+            "aiSendDigest_pfuzz_tiLearnMAC": "tiLearnMAC -> aiSendDigest_pfuzz_tiLearnMAC"
+        },
+        "edge_dst_to_increment": {
+            "aiForward_pfuzz_tiForward": 2,
+            "aiNoOp_pfuzz_tiFilter": 1,
+            "aiSendDigest_pfuzz_tiLearnMAC": 4
+        },
+        "edges": [
+            "VIRTUAL_START -> tiLearnMAC",
+            "aiForwardUnknown_pfuzz_tiForward -> tiFilter",
+            "aiForward_pfuzz_tiForward -> tiFilter",
+            "aiNoOp_pfuzz_tiLearnMAC -> tiForward",
+            "aiSendDigest_pfuzz_tiLearnMAC -> tiForward",
+            "tiFilter -> aiFilter_pfuzz_tiFilter",
+            "tiFilter -> aiNoOp_pfuzz_tiFilter",
+            "tiForward -> aiForwardUnknown_pfuzz_tiForward",
+            "tiForward -> aiForward_pfuzz_tiForward",
+            "tiLearnMAC -> aiNoOp_pfuzz_tiLearnMAC",
+            "tiLearnMAC -> aiSendDigest_pfuzz_tiLearnMAC"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "tiLearnMAC",
+                "aiNoOp_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForwardUnknown_pfuzz_tiForward",
+                "tiFilter",
+                "aiFilter_pfuzz_tiFilter"
+            ],
+            "1": [
+                "tiLearnMAC",
+                "aiNoOp_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForwardUnknown_pfuzz_tiForward",
+                "tiFilter",
+                "aiNoOp_pfuzz_tiFilter"
+            ],
+            "2": [
+                "tiLearnMAC",
+                "aiNoOp_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForward_pfuzz_tiForward",
+                "tiFilter",
+                "aiFilter_pfuzz_tiFilter"
+            ],
+            "3": [
+                "tiLearnMAC",
+                "aiNoOp_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForward_pfuzz_tiForward",
+                "tiFilter",
+                "aiNoOp_pfuzz_tiFilter"
+            ],
+            "4": [
+                "tiLearnMAC",
+                "aiSendDigest_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForwardUnknown_pfuzz_tiForward",
+                "tiFilter",
+                "aiFilter_pfuzz_tiFilter"
+            ],
+            "5": [
+                "tiLearnMAC",
+                "aiSendDigest_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForwardUnknown_pfuzz_tiForward",
+                "tiFilter",
+                "aiNoOp_pfuzz_tiFilter"
+            ],
+            "6": [
+                "tiLearnMAC",
+                "aiSendDigest_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForward_pfuzz_tiForward",
+                "tiFilter",
+                "aiFilter_pfuzz_tiFilter"
+            ],
+            "7": [
+                "tiLearnMAC",
+                "aiSendDigest_pfuzz_tiLearnMAC",
+                "tiForward",
+                "aiForward_pfuzz_tiForward",
+                "tiFilter",
+                "aiNoOp_pfuzz_tiFilter"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "aiForward_pfuzz_tiForward": "tiForward -> aiForward_pfuzz_tiForward",
+            "aiNoOp_pfuzz_tiFilter": "tiFilter -> aiNoOp_pfuzz_tiFilter",
+            "aiSendDigest_pfuzz_tiLearnMAC": "tiLearnMAC -> aiSendDigest_pfuzz_tiLearnMAC"
+        },
+        "final_edge_dst_to_increment": {
+            "aiForward_pfuzz_tiForward": 2,
+            "aiNoOp_pfuzz_tiFilter": 1,
+            "aiSendDigest_pfuzz_tiLearnMAC": 4
+        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {
+            "tiFilter -> aiNoOp_pfuzz_tiFilter": 1,
+            "tiForward -> aiForward_pfuzz_tiForward": 2,
+            "tiLearnMAC -> aiSendDigest_pfuzz_tiLearnMAC": 4
+        },
+        "nodes": [
+            "VIRTUAL_START",
+            "aiFilter_pfuzz_tiFilter",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "aiForward_pfuzz_tiForward",
+            "aiNoOp_pfuzz_tiFilter",
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC",
+            "tiFilter",
+            "tiForward",
+            "tiLearnMAC"
+        ],
+        "non_action_to_increment": {},
+        "nonzero_edge_list": {
+            "tiFilter -> aiNoOp_pfuzz_tiFilter": 1,
+            "tiForward -> aiForward_pfuzz_tiForward": 2,
+            "tiLearnMAC -> aiSendDigest_pfuzz_tiLearnMAC": 4
+        },
+        "num_bits": 8,
+        "num_bits_original": 3,
+        "num_paths": 8
+    },
+    "global_num_paths": 8,
+    "global_paths": [
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForward_pfuzz_tiForward",
+            "tiFilter",
+            "aiFilter_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForward_pfuzz_tiForward",
+            "tiFilter",
+            "aiNoOp_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "tiFilter",
+            "aiFilter_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "tiFilter",
+            "aiNoOp_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForward_pfuzz_tiForward",
+            "tiFilter",
+            "aiFilter_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForward_pfuzz_tiForward",
+            "tiFilter",
+            "aiNoOp_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "tiFilter",
+            "aiFilter_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "tiFilter",
+            "aiNoOp_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ]
+    ],
+    "num_vars": 1,
+    "stage2tables_dict": {
+        "0": [
+            "tiLearnMAC"
+        ],
+        "1": [
+            "tiForward"
+        ],
+        "2": [
+            "tiFilter"
+        ]
+    },
+    "stage2tables_dict_sanitized": {
+        "0": [
+            "tiLearnMAC"
+        ],
+        "1": [
+            "tiForward"
+        ],
+        "2": [
+            "tiFilter"
+        ]
+    },
+    "sum_num_paths": 8,
+    "table2actions_dict": {
+        "tiFilter": [
+            "aiFilter_pfuzz_tiFilter",
+            "aiNoOp_pfuzz_tiFilter"
+        ],
+        "tiForward": [
+            "aiForward_pfuzz_tiForward",
+            "aiForwardUnknown_pfuzz_tiForward"
+        ],
+        "tiLearnMAC": [
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC"
+        ]
+    }
+}
