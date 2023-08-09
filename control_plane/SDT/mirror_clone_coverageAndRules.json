@@ -4,11 +4,6 @@
             "ethernet.etherType": "exact"
         }
     },
-    "table": {
-        "tiSendClone": [
-            "ethernet.etherType"
-        ]
-    },
     "visited": [
         {
             "__pad": 6
@@ -132,9 +127,6 @@
         ],
         "ae_set_table_seed": [
             "real_table_seed"
-        ],
-        "ae_move_back_fix_tiSendClone": [
-            "ethernet_etherType"
         ]
     },
     "num_assertions": 0,

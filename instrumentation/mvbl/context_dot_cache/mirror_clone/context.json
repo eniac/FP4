@@ -1,5 +1,5 @@
 {
-  "build_date": "Wed Aug  9 14:29:23 2023",
+  "build_date": "Wed Aug  9 14:54:54 2023",
   "schema_version": "1.11.0",
   "compiler_version": "9.2.0",
   "target": "tofino",
@@ -99,48 +99,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -199,7 +157,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -221,7 +179,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -1034,48 +992,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -1134,7 +1050,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -1156,7 +1072,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -1969,48 +1885,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -2069,7 +1943,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -2091,7 +1965,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -2904,48 +2778,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -3004,7 +2836,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -3026,7 +2858,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -3839,48 +3671,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -3939,7 +3729,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -3961,7 +3751,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -4774,48 +4564,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -4874,7 +4622,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -4896,7 +4644,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -5709,48 +5457,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -5809,7 +5515,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -5831,7 +5537,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -6644,48 +6350,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -6744,7 +6408,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -6766,7 +6430,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -7579,48 +7243,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -7679,7 +7301,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -7701,7 +7323,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -8514,48 +8136,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -8614,7 +8194,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -8636,7 +8216,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -9449,48 +9029,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -9549,7 +9087,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -9571,7 +9109,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -10384,48 +9922,6 @@
     {
       "ingress": [
         {
-          "phv_number": 0,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 42,
-              "field_name": "meta.count_mirror",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
-          "phv_number": 1,
-          "container_type": "normal",
-          "records": [
-            {
-              "position_offset": 46,
-              "field_name": "meta.count_original",
-              "field_msb": 31,
-              "field_lsb": 0,
-              "field_width": 4,
-              "phv_msb": 31,
-              "phv_lsb": 0,
-              "is_compiler_generated": false,
-              "is_pov": false,
-              "live_start": "parser",
-              "live_end": "deparser",
-              "mutually_exclusive_with": []
-            }
-          ],
-          "word_bit_width": 32
-        },
-        {
           "phv_number": 64,
           "container_type": "normal",
           "records": [
@@ -10484,7 +9980,7 @@
               "pov_headers": [
                 {
                   "bit_index": 0,
-                  "position_offset": 50,
+                  "position_offset": 42,
                   "header_name": "ethernet.$valid",
                   "hidden": false
                 }
@@ -10506,7 +10002,7 @@
               "pov_headers": [
                 {
                   "bit_index": 1,
-                  "position_offset": 51,
+                  "position_offset": 43,
                   "header_name": "ipv4.$valid",
                   "hidden": false
                 }
@@ -17573,16 +17069,6 @@
     }
   ],
   "dynamic_hash_calculations": [],
-  "flexible_headers": [
-    {
-      "name": "ingress_mirror_tmp_1",
-      "fields": [
-        { "name": "__field_0", "slice": { "start_bit": 0, "bit_width": 8 } },
-        { "name": "__field_1", "slice": { "start_bit": 0, "bit_width": 32 } },
-        { "name": "__field_2", "slice": { "start_bit": 0, "bit_width": 32 } }
-      ]
-    }
-  ],
-  "run_id": "94a061ba16ac512e",
+  "run_id": "6915d303f3c2a54d",
   "driver_options": { "hash_parity_enabled": false, "high_availability_enabled": true }
 }

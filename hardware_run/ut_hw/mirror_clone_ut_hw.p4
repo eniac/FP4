@@ -241,7 +241,7 @@ action aiSetOutputPort_pfuzz_tiSetOutputPort() {
 }
 
 action aiSendClone_pfuzz_tiSendClone() {
-    clone_i2e(101, flLastSeen);
+    clone_i2e(101);
 }
 
 action aeReadMirror_pfuzz_teReadMirror() {
