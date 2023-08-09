@@ -107,6 +107,80 @@ bfshell> exit
 None
 ============
 --- receive_packet ---
+--- packet received of size: 90 ---
+33 33 00 00 00 16 00 02 00 00 03 00 86 dd 60 00 00 00 00 24 00 01 fe 80 00 00 00 00 00 00 02 02 00 ff fe 00 03 00 ff 02 00 00 00 00 00 00 00 00 00 00 00 00 00 16 3a 00 05 02 00 00 01 00 8f 00 6a 07 00 00 00 01 04 00 00 00 ff 02 00 00 00 00 00 00 00 00 00 01 ff 00 03 00
+--- parsePacket ---
+--- dst_ip: 0.0.2.2 ---
+--- Install ruleList len: 1 ---
+['pd ipv4_lpm add_entry ai_handle_blacklist_pfuzz_ipv4_lpm ipv4_dstAddr 0.0.2.2 ipv4_dstAddr_prefix_length 8']
+--- Sanitized ruleList len: 1 ---
+=== add_entries via bfshell ===
+('Command:', '/home/leoyu/bf-sde-9.2.0/install/bin/bfshell -f dos_defense_ut_hw_output_rules.txt')
+
+pd-dos-defense-ut-hw
+pd ipv4_lpm add_entry ai_handle_blacklist_pfuzz_ipv4_lpm ipv4_dstAddr 0.0.2.2 ipv4_dstAddr_prefix_length 8
+end
+exit
+
+        ********************************************
+        *      WARNING: Authorised Access Only     *
+        ********************************************
+    
+bfshell> 
+bfshell> pd-dos-defense-ut-hw
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ai_handle_blacklist_pfuzz_ipv4_lpmE ipv4_dstAddr 0.0.2.2 ipv4_dstAddr_prefix_length 8
+entry_hdl: 11 (0xb)
+pd-dos-defense-ut-hw:0> end
+bfshell> exit
+
+None
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
 No packet within timeout
 ============
 --- receive_packet ---
