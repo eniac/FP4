@@ -1,0 +1,486 @@
+PROGRAM: cheetah_groupby_dt_hw
+SIMULATION: False
+CPU_PORT: 192
+TOFINO_INTERFACE: enp6s0
+RULES file: cheetah_groupby_ut_hw_rules.txt
+Mode: normal
+C_IP: None
+====== Waiting for switch to start ======
+--- Assuming switch has started ---
+====== DTController ======
+('program_name', 'cheetah_groupby_dt_hw')
+====== bring_ports_up ======
+enabling ports: ['9/0', '10/0', '11/0', '12/0', '13/0', '14/0', '15/0', '16/0', '17/0', '18/0', '19/0', '20/0', '21/0', '22/0', '23/0', '24/0'] (dev ids: [60, 52, 44, 36, 28, 20, 12, 4, 0, 8, 16, 24, 32, 40, 48, 56]) at rate: 100G
+port: 60
+port: 52
+port: 44
+port: 36
+port: 28
+port: 20
+port: 12
+port: 4
+port: 0
+port: 8
+port: 16
+port: 24
+port: 32
+port: 40
+port: 48
+port: 56
+All ports up
+====== initialize_CLI_variables ======
+baseName: cheetah_groupby
+====== StateMachine filename cheetah_groupby_parserFile.json ======
+parse_cheetah
+parse_cheetah_clone
+start
+start_clone
+====== CoverageDetector ======
+--- Read ingress plan ---
+ingress_num_vars: 5
+var 0, num_paths: 8
+var 1, num_paths: 8
+var 2, num_paths: 16
+var 3, num_paths: 8
+var 4, num_paths: 8
+--- Read egress plan ---
+egress_num_vars: 0
+self.total_num_paths: 65536
+self.total_num_actions: 32
+self.all_actions: [u'modify_hash_five_pfuzz_table_hash_init_five', u'nop_pfuzz_table_hash_init_five', u'action_sketch_five_value_pfuzz_table_sketch_five_value', u'nop_pfuzz_table_sketch_five_value', u'modify_hash_three_pfuzz_table_hash_init_three', u'nop_pfuzz_table_hash_init_three', u'prune_pfuzz_table_prune', u'nop_pfuzz_table_prune', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'nop_pfuzz_table_sketch_five_key', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'nop_pfuzz_table_sketch_four_key', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'nop_pfuzz_table_sketch_two_value', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'nop_pfuzz_table_sketch_two_key', u'modify_hash_pfuzz_table_hash_init', u'nop_pfuzz_table_hash_init', u'modify_hash_two_pfuzz_table_hash_init_two', u'nop_pfuzz_table_hash_init_two', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'nop_pfuzz_table_sketch_three_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'nop_pfuzz_table_sketch_one_value', u'modify_hash_four_pfuzz_table_hash_init_four', u'nop_pfuzz_table_hash_init_four']
+self.field2encoding2path: {'encoding_i4': {u'1': [u'table_sketch_one_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'nop_pfuzz_table_hash_init_five'], u'0': [u'table_sketch_one_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'modify_hash_five_pfuzz_table_hash_init_five'], u'3': [u'table_sketch_one_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'nop_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'nop_pfuzz_table_hash_init_five'], u'2': [u'table_sketch_one_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'nop_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'modify_hash_five_pfuzz_table_hash_init_five'], u'5': [u'table_sketch_one_value', u'nop_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'nop_pfuzz_table_hash_init_five'], u'4': [u'table_sketch_one_value', u'nop_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'modify_hash_five_pfuzz_table_hash_init_five'], u'7': [u'table_sketch_one_value', u'nop_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'nop_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'nop_pfuzz_table_hash_init_five'], u'6': [u'table_sketch_one_value', u'nop_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'nop_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'modify_hash_five_pfuzz_table_hash_init_five']}, 'encoding_i2': {u'11': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'10': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'13': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'12': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'15': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'14': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'1': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'0': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'3': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'2': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'5': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'4': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'7': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'6': [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four'], u'9': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four'], u'8': [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four']}, 'encoding_i3': {u'1': [u'table_sketch_two_value', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'nop_pfuzz_table_hash_init_three'], u'0': [u'table_sketch_two_value', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'modify_hash_three_pfuzz_table_hash_init_three'], u'3': [u'table_sketch_two_value', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'nop_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'nop_pfuzz_table_hash_init_three'], u'2': [u'table_sketch_two_value', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'nop_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'modify_hash_three_pfuzz_table_hash_init_three'], u'5': [u'table_sketch_two_value', u'nop_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'nop_pfuzz_table_hash_init_three'], u'4': [u'table_sketch_two_value', u'nop_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'modify_hash_three_pfuzz_table_hash_init_three'], u'7': [u'table_sketch_two_value', u'nop_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'nop_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'nop_pfuzz_table_hash_init_three'], u'6': [u'table_sketch_two_value', u'nop_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'nop_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'modify_hash_three_pfuzz_table_hash_init_three']}, 'encoding_i0': {u'1': [u'table_sketch_two_key', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'table_prune', u'prune_pfuzz_table_prune'], u'0': [u'table_sketch_two_key', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'table_prune', u'nop_pfuzz_table_prune'], u'3': [u'table_sketch_two_key', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'nop_pfuzz_table_sketch_five_key', u'table_prune', u'prune_pfuzz_table_prune'], u'2': [u'table_sketch_two_key', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'nop_pfuzz_table_sketch_five_key', u'table_prune', u'nop_pfuzz_table_prune'], u'5': [u'table_sketch_two_key', u'nop_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'table_prune', u'prune_pfuzz_table_prune'], u'4': [u'table_sketch_two_key', u'nop_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'table_prune', u'nop_pfuzz_table_prune'], u'7': [u'table_sketch_two_key', u'nop_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'nop_pfuzz_table_sketch_five_key', u'table_prune', u'prune_pfuzz_table_prune'], u'6': [u'table_sketch_two_key', u'nop_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'nop_pfuzz_table_sketch_five_key', u'table_prune', u'nop_pfuzz_table_prune']}, 'encoding_i1': {u'1': [u'table_hash_init', u'modify_hash_pfuzz_table_hash_init', u'table_hash_init_two', u'modify_hash_two_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'nop_pfuzz_table_sketch_five_value'], u'0': [u'table_hash_init', u'modify_hash_pfuzz_table_hash_init', u'table_hash_init_two', u'modify_hash_two_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'action_sketch_five_value_pfuzz_table_sketch_five_value'], u'3': [u'table_hash_init', u'modify_hash_pfuzz_table_hash_init', u'table_hash_init_two', u'nop_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'nop_pfuzz_table_sketch_five_value'], u'2': [u'table_hash_init', u'modify_hash_pfuzz_table_hash_init', u'table_hash_init_two', u'nop_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'action_sketch_five_value_pfuzz_table_sketch_five_value'], u'5': [u'table_hash_init', u'nop_pfuzz_table_hash_init', u'table_hash_init_two', u'modify_hash_two_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'nop_pfuzz_table_sketch_five_value'], u'4': [u'table_hash_init', u'nop_pfuzz_table_hash_init', u'table_hash_init_two', u'modify_hash_two_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'action_sketch_five_value_pfuzz_table_sketch_five_value'], u'7': [u'table_hash_init', u'nop_pfuzz_table_hash_init', u'table_hash_init_two', u'nop_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'nop_pfuzz_table_sketch_five_value'], u'6': [u'table_hash_init', u'nop_pfuzz_table_hash_init', u'table_hash_init_two', u'nop_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'action_sketch_five_value_pfuzz_table_sketch_five_value']}}
+('file path', 'cheetah_groupby_coverageAndRules.json')
+[[u'cheetah']]
+self.actionList: [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+header written
+====== add_initial_seed_packets prologue ======
+(0, 0)
+(0, 1)
+(1, 0)
+(1, 1)
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 1 pfuzz_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 0 pfuzz_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_resubmit add_entry ai_set_resubmit pfuzz_metadata_make_clone 0 pfuzz_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_cheetah pfuzz_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_cheetah pfuzz_metadata_seed_num 0 action_cheetahflowId 40913 action_cheetahrowId 803828759 action_cheetahkey 2207142440
+pd ti_add_clones add_entry ai_add_clone_cheetah cheetah_valid 1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 10 pfuzz_metadata_fixed_header_seed_mask 15 priority 245 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 11 pfuzz_metadata_fixed_header_seed_mask 15 priority 244 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 12 pfuzz_metadata_fixed_header_seed_mask 15 priority 243 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 13 pfuzz_metadata_fixed_header_seed_mask 15 priority 242 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 14 pfuzz_metadata_fixed_header_seed_mask 15 priority 241 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 15 pfuzz_metadata_fixed_header_seed_mask 15 priority 240 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 16 pfuzz_metadata_fixed_header_seed_mask 31 priority 239 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 17 pfuzz_metadata_fixed_header_seed_mask 31 priority 238 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 18 pfuzz_metadata_fixed_header_seed_mask 31 priority 237 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 19 pfuzz_metadata_fixed_header_seed_mask 31 priority 236 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 20 pfuzz_metadata_fixed_header_seed_mask 31 priority 235 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 21 pfuzz_metadata_fixed_header_seed_mask 31 priority 234 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 22 pfuzz_metadata_fixed_header_seed_mask 31 priority 233 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 23 pfuzz_metadata_fixed_header_seed_mask 31 priority 232 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 24 pfuzz_metadata_fixed_header_seed_mask 31 priority 231 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 25 pfuzz_metadata_fixed_header_seed_mask 31 priority 230 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 26 pfuzz_metadata_fixed_header_seed_mask 31 priority 229 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 27 pfuzz_metadata_fixed_header_seed_mask 31 priority 228 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 28 pfuzz_metadata_fixed_header_seed_mask 31 priority 227 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 29 pfuzz_metadata_fixed_header_seed_mask 31 priority 226 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 30 pfuzz_metadata_fixed_header_seed_mask 31 priority 225 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 31 pfuzz_metadata_fixed_header_seed_mask 31 priority 224 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 32 pfuzz_metadata_fixed_header_seed_mask 63 priority 223 action_cheetah_flowId 1
+pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1
+====== add_initial_seed_packets epilog ======
+====== add_entries prologue ======
+--- current_list of len 50 ---
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 0 action_outPort 0
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 1 action_outPort 4
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 2 action_outPort 8
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 3 action_outPort 12
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 4 action_outPort 16
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 5 action_outPort 20
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 6 action_outPort 24
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 7 action_outPort 28
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 8 action_outPort 32
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 9 action_outPort 36
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 10 action_outPort 40
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 11 action_outPort 44
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 12 action_outPort 48
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 13 action_outPort 52
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 14 action_outPort 56
+pd ti_set_port add_entry ai_set_port pfuzz_metadata_temp_port 15 action_outPort 60
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 0
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 0 pfuzz_metadata_reg_val_two 1
+pd ti_path_assertion add_entry ai_send_to_control_plane pfuzz_metadata_reg_val_one 1 pfuzz_metadata_reg_val_two 0
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 0 pfuzz_metadata_seed_num_mask 1 priority 255 action_real_seed_num 0
+pd ti_set_resubmit add_entry ai_set_resubmit pfuzz_metadata_make_clone 0 pfuzz_metadata_make_clone_mask 1 priority 255 action_real_resubmit 0
+pd ti_set_fixed_header add_entry ai_set_fixed_header pfuzz_metadata_make_clone_start 2 pfuzz_metadata_make_clone_end 255 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255 action_real_fixed_header 0
+pd ti_create_packet add_entry ai_add_cheetah pfuzz_metadata_seed_num 0
+pd ti_add_fields add_entry ai_add_fixed_cheetah pfuzz_metadata_seed_num 0 action_cheetahflowId 40913 action_cheetahrowId 803828759 action_cheetahkey 2207142440
+pd ti_add_clones add_entry ai_add_clone_cheetah cheetah_valid 1
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 10 pfuzz_metadata_fixed_header_seed_mask 15 priority 245 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 11 pfuzz_metadata_fixed_header_seed_mask 15 priority 244 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 12 pfuzz_metadata_fixed_header_seed_mask 15 priority 243 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 13 pfuzz_metadata_fixed_header_seed_mask 15 priority 242 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 14 pfuzz_metadata_fixed_header_seed_mask 15 priority 241 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 15 pfuzz_metadata_fixed_header_seed_mask 15 priority 240 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 16 pfuzz_metadata_fixed_header_seed_mask 31 priority 239 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 17 pfuzz_metadata_fixed_header_seed_mask 31 priority 238 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 18 pfuzz_metadata_fixed_header_seed_mask 31 priority 237 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 19 pfuzz_metadata_fixed_header_seed_mask 31 priority 236 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 20 pfuzz_metadata_fixed_header_seed_mask 31 priority 235 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 21 pfuzz_metadata_fixed_header_seed_mask 31 priority 234 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 22 pfuzz_metadata_fixed_header_seed_mask 31 priority 233 action_cheetah_flowId 1
+--- current_list of len 11 ---
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 23 pfuzz_metadata_fixed_header_seed_mask 31 priority 232 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 24 pfuzz_metadata_fixed_header_seed_mask 31 priority 231 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 25 pfuzz_metadata_fixed_header_seed_mask 31 priority 230 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 26 pfuzz_metadata_fixed_header_seed_mask 31 priority 229 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 27 pfuzz_metadata_fixed_header_seed_mask 31 priority 228 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 28 pfuzz_metadata_fixed_header_seed_mask 31 priority 227 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 29 pfuzz_metadata_fixed_header_seed_mask 31 priority 226 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 30 pfuzz_metadata_fixed_header_seed_mask 31 priority 225 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 31 pfuzz_metadata_fixed_header_seed_mask 31 priority 224 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 0 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 32 pfuzz_metadata_fixed_header_seed_mask 63 priority 223 action_cheetah_flowId 1
+pd te_do_resubmit add_entry ae_resubmit pfuzz_metadata_make_clone 1
+====== add_entries epilogue ======
+====== initialize_CLI_variables epilogue ======
+====== main_loop prologue ======
+Before entering loop time 23:41:01.491477
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+First packet forwarded on port 0, counter 0, time: 23:41:16.493243
+--- self.dp_iface.receive_packet ---
+len(packet): 262
+--- Timeout Updated to 1s ---
+
+
+
+[INFO] Packet received of size: 262
+First packet forwarded on port 0, counter 179462, time: 23:41:22.250366
+====== parsePacket prologue    Þ­¾@ A/étƒŽR(A/étƒŽR(                                                                                                                                                                                                                                     ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_cheetah
+--- currentState parse_cheetah ---
+--- extract cheetah ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_cheetah_clone
+--- currentState parse_cheetah_clone ---
+--- extract cheetah_clone ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 1, 1, 0], encoding_val: 6
+Encoded path: [u'table_sketch_two_key', u'nop_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'nop_pfuzz_table_sketch_five_key', u'table_prune', u'nop_pfuzz_table_prune']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 1, 1, 1], encoding_val: 7
+Encoded path: [u'table_hash_init', u'nop_pfuzz_table_hash_init', u'table_hash_init_two', u'nop_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'nop_pfuzz_table_sketch_five_value']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 1, 1, 1, 1], encoding_val: 15
+Encoded path: [u'table_sketch_one_key', u'nop_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'nop_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'nop_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'nop_pfuzz_table_hash_init_four']
+--- field_name: encoding_i3 ---
+bitList: [0, 0, 0, 0, 0, 1, 1, 1], encoding_val: 7
+Encoded path: [u'table_sketch_two_value', u'nop_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'nop_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'nop_pfuzz_table_hash_init_three']
+--- field_name: encoding_i4 ---
+bitList: [0, 0, 0, 0, 0, 1, 1, 1], encoding_val: 7
+Encoded path: [u'table_sketch_one_value', u'nop_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'nop_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'nop_pfuzz_table_hash_init_five']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- path_seen [6, 7, 15, 7, 7] ---
+--- Path coverage: 1/65536=1.52587890625e-05 ---
+self.paths_seen: [[6, 7, 15, 7, 7]]
+--- Action coverage: 16/32=0.5, number_of_seeds: 1, time: 23:41:22.253603
+self.seenActions: set([u'nop_pfuzz_table_hash_init', u'nop_pfuzz_table_sketch_one_value', u'nop_pfuzz_table_sketch_five_key', u'nop_pfuzz_table_sketch_two_key', u'nop_pfuzz_table_hash_init_three', u'nop_pfuzz_table_sketch_four_value', u'nop_pfuzz_table_sketch_two_value', u'nop_pfuzz_table_prune', u'nop_pfuzz_table_sketch_three_key', u'nop_pfuzz_table_sketch_one_key', u'nop_pfuzz_table_sketch_five_value', u'nop_pfuzz_table_hash_init_five', u'nop_pfuzz_table_hash_init_four', u'nop_pfuzz_table_sketch_three_value', u'nop_pfuzz_table_sketch_four_key', u'nop_pfuzz_table_hash_init_two'])
+--- self.all_actions - self.seenActions ---
+[u'modify_hash_pfuzz_table_hash_init', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'modify_hash_four_pfuzz_table_hash_init_four', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'action_sketch_five_value_pfuzz_table_sketch_five_value', u'modify_hash_five_pfuzz_table_hash_init_five', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'modify_hash_three_pfuzz_table_hash_init_three', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'prune_pfuzz_table_prune', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'modify_hash_two_pfuzz_table_hash_init_two', u'action_sketch_five_key_pfuzz_table_sketch_five_key']
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 38 ---
+pd ti_create_packet add_entry ai_add_cheetah pfuzz_metadata_seed_num 1
+pd ti_add_fields add_entry ai_add_fixed_cheetah pfuzz_metadata_seed_num 1 action_cheetahflowId 16670 action_cheetahrowId 803828759 action_cheetahkey 2207142440
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 10 pfuzz_metadata_fixed_header_seed_mask 15 priority 245 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 11 pfuzz_metadata_fixed_header_seed_mask 15 priority 244 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 12 pfuzz_metadata_fixed_header_seed_mask 15 priority 243 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 13 pfuzz_metadata_fixed_header_seed_mask 15 priority 242 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 14 pfuzz_metadata_fixed_header_seed_mask 15 priority 241 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 15 pfuzz_metadata_fixed_header_seed_mask 15 priority 240 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 16 pfuzz_metadata_fixed_header_seed_mask 31 priority 239 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 17 pfuzz_metadata_fixed_header_seed_mask 31 priority 238 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 18 pfuzz_metadata_fixed_header_seed_mask 31 priority 237 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 19 pfuzz_metadata_fixed_header_seed_mask 31 priority 236 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 20 pfuzz_metadata_fixed_header_seed_mask 31 priority 235 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 21 pfuzz_metadata_fixed_header_seed_mask 31 priority 234 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 22 pfuzz_metadata_fixed_header_seed_mask 31 priority 233 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 23 pfuzz_metadata_fixed_header_seed_mask 31 priority 232 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 24 pfuzz_metadata_fixed_header_seed_mask 31 priority 231 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 25 pfuzz_metadata_fixed_header_seed_mask 31 priority 230 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 26 pfuzz_metadata_fixed_header_seed_mask 31 priority 229 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 27 pfuzz_metadata_fixed_header_seed_mask 31 priority 228 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 28 pfuzz_metadata_fixed_header_seed_mask 31 priority 227 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 29 pfuzz_metadata_fixed_header_seed_mask 31 priority 226 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 30 pfuzz_metadata_fixed_header_seed_mask 31 priority 225 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 31 pfuzz_metadata_fixed_header_seed_mask 31 priority 224 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 1 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 32 pfuzz_metadata_fixed_header_seed_mask 63 priority 223 action_cheetah_flowId 1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 1 pfuzz_metadata_seed_num_mask 1 priority 254 action_real_seed_num 1
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+len(packet): 262
+
+
+
+[INFO] Packet received of size: 262
+Packet forwarded on port 0, counter 23760156, since first packet 0.393767s
+====== parsePacket prologue    Þ­¾@     $ /étƒŽR( /étƒŽR(                                                                                                                                                                                                                                     ======
+--- currentState start ---
+--- extract pfuzz_visited ---
+--- prevState == currentState ---
+Transition to default parse_cheetah
+--- currentState parse_cheetah ---
+--- extract cheetah ---
+--- prevState == currentState ---
+Transition to default start_clone
+--- currentState start_clone ---
+--- prevState == currentState ---
+Transition to default parse_cheetah_clone
+--- currentState parse_cheetah_clone ---
+--- extract cheetah_clone ---
+--- prevState == currentState ---
+Transition to default ingress
+--- parsePacket epilog ---
+====== check_coverage_and_add_seed prologue ======
+--- field_name: preamble ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- field_name: pkt_type ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- field_name: __pad ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- field_name: encoding_i0 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 1], encoding_val: 1
+Encoded path: [u'table_sketch_two_key', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'table_sketch_five_key', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'table_prune', u'prune_pfuzz_table_prune']
+--- field_name: encoding_i1 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 0], encoding_val: 0
+Encoded path: [u'table_hash_init', u'modify_hash_pfuzz_table_hash_init', u'table_hash_init_two', u'modify_hash_two_pfuzz_table_hash_init_two', u'table_sketch_five_value', u'action_sketch_five_value_pfuzz_table_sketch_five_value']
+--- field_name: encoding_i2 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 0], encoding_val: 0
+Encoded path: [u'table_sketch_one_key', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'table_sketch_three_key', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'table_sketch_four_value', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'table_hash_init_four', u'modify_hash_four_pfuzz_table_hash_init_four']
+--- field_name: encoding_i3 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 0], encoding_val: 0
+Encoded path: [u'table_sketch_two_value', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'table_sketch_four_key', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'table_hash_init_three', u'modify_hash_three_pfuzz_table_hash_init_three']
+--- field_name: encoding_i4 ---
+bitList: [0, 0, 0, 0, 0, 0, 0, 0], encoding_val: 0
+Encoded path: [u'table_sketch_one_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'table_sketch_three_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'table_hash_init_five', u'modify_hash_five_pfuzz_table_hash_init_five']
+--- field_name: temp_port ---
+Not in self.actionList [u'encoding_i0', u'encoding_i1', u'encoding_i2', u'encoding_i3', u'encoding_i4']
+--- path_seen [1, 0, 0, 0, 0] ---
+--- Path coverage: 2/65536=3.0517578125e-05 ---
+self.paths_seen: [[6, 7, 15, 7, 7], [1, 0, 0, 0, 0]]
+--- Action coverage: 32/32=1.0, number_of_seeds: 2, time: 23:41:22.648470
+self.seenActions: set([u'action_sketch_five_value_pfuzz_table_sketch_five_value', u'action_sketch_one_value_pfuzz_table_sketch_one_value', u'nop_pfuzz_table_sketch_four_value', u'nop_pfuzz_table_prune', u'action_sketch_one_key_pfuzz_table_sketch_one_key', u'nop_pfuzz_table_sketch_five_value', u'action_sketch_three_value_pfuzz_table_sketch_three_value', u'nop_pfuzz_table_hash_init_four', u'nop_pfuzz_table_sketch_four_key', u'nop_pfuzz_table_hash_init_two', u'action_sketch_three_key_pfuzz_table_sketch_three_key', u'nop_pfuzz_table_sketch_one_value', u'prune_pfuzz_table_prune', u'nop_pfuzz_table_sketch_three_key', u'action_sketch_four_value_pfuzz_table_sketch_four_value', u'nop_pfuzz_table_sketch_three_value', u'nop_pfuzz_table_hash_init', u'nop_pfuzz_table_sketch_five_key', u'modify_hash_five_pfuzz_table_hash_init_five', u'nop_pfuzz_table_sketch_two_key', u'nop_pfuzz_table_sketch_two_value', u'modify_hash_two_pfuzz_table_hash_init_two', u'modify_hash_pfuzz_table_hash_init', u'nop_pfuzz_table_sketch_one_key', u'action_sketch_two_value_pfuzz_table_sketch_two_value', u'nop_pfuzz_table_hash_init_five', u'action_sketch_four_key_pfuzz_table_sketch_four_key', u'modify_hash_four_pfuzz_table_hash_init_four', u'action_sketch_five_key_pfuzz_table_sketch_five_key', u'modify_hash_three_pfuzz_table_hash_init_three', u'action_sketch_two_key_pfuzz_table_sketch_two_key', u'nop_pfuzz_table_hash_init_three'])
+--- self.all_actions - self.seenActions ---
+[]
+--- add_seed_packet prologue ---
+--- add_seed_packet epilog ---
+--- check_coverage_and_add_seed epilog ---
+====== add_entries prologue ======
+--- current_list of len 38 ---
+pd ti_create_packet add_entry ai_add_cheetah pfuzz_metadata_seed_num 2
+pd ti_add_fields add_entry ai_add_fixed_cheetah pfuzz_metadata_seed_num 2 action_cheetahflowId 1 action_cheetahrowId 803828759 action_cheetahkey 2207142440
+pd te_set_table_seed add_entry ae_set_table_seed pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_table_seed_mask 1 priority 15 action_real_table_seed 0
+pd te_move_fields add_entry ae_move_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0
+pd te_move_back_fields add_entry ae_move_back_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 0 pfuzz_metadata_fixed_header_seed_mask 0 priority 255
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 1 pfuzz_metadata_fixed_header_seed_mask 1 priority 254 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 2 pfuzz_metadata_fixed_header_seed_mask 3 priority 253 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 3 pfuzz_metadata_fixed_header_seed_mask 3 priority 252 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 4 pfuzz_metadata_fixed_header_seed_mask 7 priority 251 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 5 pfuzz_metadata_fixed_header_seed_mask 7 priority 250 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 6 pfuzz_metadata_fixed_header_seed_mask 7 priority 249 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 7 pfuzz_metadata_fixed_header_seed_mask 7 priority 248 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 8 pfuzz_metadata_fixed_header_seed_mask 15 priority 247 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 9 pfuzz_metadata_fixed_header_seed_mask 15 priority 246 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 10 pfuzz_metadata_fixed_header_seed_mask 15 priority 245 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 11 pfuzz_metadata_fixed_header_seed_mask 15 priority 244 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 12 pfuzz_metadata_fixed_header_seed_mask 15 priority 243 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 13 pfuzz_metadata_fixed_header_seed_mask 15 priority 242 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 14 pfuzz_metadata_fixed_header_seed_mask 15 priority 241 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 15 pfuzz_metadata_fixed_header_seed_mask 15 priority 240 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 16 pfuzz_metadata_fixed_header_seed_mask 31 priority 239 action_cheetah_flowId 0
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 17 pfuzz_metadata_fixed_header_seed_mask 31 priority 238 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 18 pfuzz_metadata_fixed_header_seed_mask 31 priority 237 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 19 pfuzz_metadata_fixed_header_seed_mask 31 priority 236 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 20 pfuzz_metadata_fixed_header_seed_mask 31 priority 235 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 21 pfuzz_metadata_fixed_header_seed_mask 31 priority 234 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 22 pfuzz_metadata_fixed_header_seed_mask 31 priority 233 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 23 pfuzz_metadata_fixed_header_seed_mask 31 priority 232 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 24 pfuzz_metadata_fixed_header_seed_mask 31 priority 231 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 25 pfuzz_metadata_fixed_header_seed_mask 31 priority 230 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 26 pfuzz_metadata_fixed_header_seed_mask 31 priority 229 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 27 pfuzz_metadata_fixed_header_seed_mask 31 priority 228 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 28 pfuzz_metadata_fixed_header_seed_mask 31 priority 227 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 29 pfuzz_metadata_fixed_header_seed_mask 31 priority 226 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 30 pfuzz_metadata_fixed_header_seed_mask 31 priority 225 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 31 pfuzz_metadata_fixed_header_seed_mask 31 priority 224 action_cheetah_flowId 1
+pd te_move_back_fields add_entry ae_move_back_fix_table_sketch_two_value pfuzz_metadata_seed_num 2 pfuzz_metadata_table_seed 0 pfuzz_metadata_fixed_header_seed 32 pfuzz_metadata_fixed_header_seed_mask 63 priority 223 action_cheetah_flowId 1
+pd ti_set_seed_num add_entry ai_set_seed_num pfuzz_metadata_seed_num 2 pfuzz_metadata_seed_num_mask 3 priority 253 action_real_seed_num 2
+====== add_entries epilogue ======
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 991070930, since first packet 1.77722s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1692437744, since first packet 2.779982s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2393539904, since first packet 3.782666s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3094770935, since first packet 4.785369s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3795895473, since first packet 5.787914s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 202150383, since first packet 6.790713s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 903413187, since first packet 7.793515s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1604531716, since first packet 8.796081s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2305648349, since first packet 9.798699s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3006756223, since first packet 10.801269s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3707875861, since first packet 11.803873s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 113419759, since first packet 12.805551s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 814613534, since first packet 13.808321s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1515133987, since first packet 14.809979s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2215579805, since first packet 15.811697s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2916694715, since first packet 16.814293s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3617287060, since first packet 17.816044s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 23410759, since first packet 18.818596s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 724625513, since first packet 19.8214s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1425266682, since first packet 20.82324s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2126287436, since first packet 21.825724s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2827494910, since first packet 22.828443s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3528759585, since first packet 23.831231s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4229873032, since first packet 24.833887s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 636016281, since first packet 25.836418s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 1337286009, since first packet 26.83921s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2038405743, since first packet 27.841853s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 2739087678, since first packet 28.843848s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 3439917601, since first packet 29.84597s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 4141217550, since first packet 30.84888s
+--- self.dp_iface.receive_packet ---
+No packet within timeout
+Packet forwarded on port 0, counter 546775344, since first packet 31.850631s
+--- self.dp_iface.receive_packet ---
