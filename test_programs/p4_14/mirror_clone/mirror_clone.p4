@@ -6,6 +6,7 @@
 #define CPU_PORT 192 // For Hardware
 #define CPU_INGRESS_MIRROR_ID 98
 #define CPU_EGRESS_MIRROR_ID 99
+#define MC1_INGRESS_MIRROR_ID 101
 #define ETHERTYPE_IPV4 0x0800
 
 
@@ -110,7 +111,8 @@ field_list flLastSeen {
 }
 
 action aiSendClone() {
-    clone_i2e(CPU_INGRESS_MIRROR_ID, flLastSeen);
+    // clone_i2e(CPU_INGRESS_MIRROR_ID, flLastSeen);
+    clone_i2e(MC1_INGRESS_MIRROR_ID, flLastSeen);
 }
 
 

@@ -32,6 +32,7 @@ TOFINO_INTERFACE = 'enp6s0'
 CPU_PORT = 192
 CPU_INGRESS_MIRROR_ID = 98
 MC0_INGRESS_MIRROR_ID = 100
+MC1_INGRESS_MIRROR_ID = 101
 
 
 def parse_aruments():
@@ -182,6 +183,11 @@ class StaticController:
 
     def add_mirror_session_mc0(self):
         info = mirror_session_new(MirrorType_e.PD_MIRROR_TYPE_NORM, Direction_e.PD_DIR_INGRESS, MC0_INGRESS_MIRROR_ID, 0, True, max_pkt_len=512)  # 512 matters?
+        self.mirror.mirror_session_create(self.conn_hdl, self.dev_tgt, info)
+        self.conn.complete_operations(self.conn_hdl)
+
+    def add_mirror_session_mc1(self):
+        info = mirror_session_new(MirrorType_e.PD_MIRROR_TYPE_NORM, Direction_e.PD_DIR_INGRESS, MC1_INGRESS_MIRROR_ID, 40, True, max_pkt_len=128)
         self.mirror.mirror_session_create(self.conn_hdl, self.dev_tgt, info)
         self.conn.complete_operations(self.conn_hdl)
 
