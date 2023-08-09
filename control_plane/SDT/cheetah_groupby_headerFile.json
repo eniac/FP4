@@ -1,0 +1,69 @@
+{
+    "cheetah_md_t": [
+        {
+            "prune": "8"
+        },
+        {
+            "sketch_one_same_key": "8"
+        },
+        {
+            "sketch_two_same_key": "8"
+        },
+        {
+            "sketch_three_same_key": "8"
+        },
+        {
+            "sketch_four_same_key": "8"
+        },
+        {
+            "sketch_five_same_key": "8"
+        },
+        {
+            "hash_value": "32"
+        }
+    ],
+    "cheetah_t": [
+        {
+            "flowId": "16"
+        },
+        {
+            "rowId": "32"
+        },
+        {
+            "key": "32"
+        }
+    ],
+    "type_to_instance": {
+        "cheetah_t": "cheetah",
+        "pfuzz_visited_t": "pfuzz_visited"
+    },
+    "pfuzz_visited_t": [
+        {
+            "preamble": "48"
+        },
+        {
+            "pkt_type": "2"
+        },
+        {
+            "__pad": "6"
+        },
+        {
+            "encoding_i0": "8"
+        },
+        {
+            "encoding_i1": "8"
+        },
+        {
+            "encoding_i2": "8"
+        },
+        {
+            "encoding_i3": "8"
+        },
+        {
+            "encoding_i4": "8"
+        },
+        {
+            "temp_port": "16"
+        }
+    ]
+}

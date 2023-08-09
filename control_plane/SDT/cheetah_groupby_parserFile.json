@@ -1,0 +1,43 @@
+{
+    "initial_state": "start",
+    "final_state": "ingress",
+    "states": [
+        "parse_cheetah",
+        "parse_cheetah_clone",
+        "start",
+        "start_clone"
+    ],
+    "extract": {
+        "parse_cheetah": [
+            "cheetah"
+        ],
+        "parse_cheetah_clone": [
+            "cheetah_clone"
+        ],
+        "start": [
+            "pfuzz_visited"
+        ]
+    },
+    "transitions": [
+        {
+            "from": "parse_cheetah",
+            "to": "start_clone",
+            "condition": 0
+        },
+        {
+            "from": "parse_cheetah_clone",
+            "to": "ingress",
+            "condition": 0
+        },
+        {
+            "from": "start",
+            "to": "parse_cheetah",
+            "condition": 0
+        },
+        {
+            "from": "start_clone",
+            "to": "parse_cheetah_clone",
+            "condition": 0
+        }
+    ]
+}

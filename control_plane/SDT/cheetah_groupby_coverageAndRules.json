@@ -1,0 +1,154 @@
+{
+    "original_keys": {
+        "table_prune": {
+            "cheetah.flowId": "exact"
+        },
+        "table_hash_init_five": {
+            "cheetah.flowId": "exact"
+        },
+        "table_hash_init_four": {
+            "cheetah.flowId": "exact"
+        },
+        "table_hash_init_three": {
+            "cheetah.flowId": "exact"
+        },
+        "table_hash_init_two": {
+            "cheetah.flowId": "exact"
+        },
+        "table_hash_init": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_five_value": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_five_key": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_four_value": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_four_key": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_three_value": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_three_key": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_two_value": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_two_key": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_one_value": {
+            "cheetah.flowId": "exact"
+        },
+        "table_sketch_one_key": {
+            "cheetah.flowId": "exact"
+        }
+    },
+    "table": {
+        "table_sketch_two_value": [
+            "cheetah.flowId"
+        ]
+    },
+    "visited": [
+        {
+            "__pad": 6
+        },
+        {
+            "encoding_i0": 8
+        },
+        {
+            "encoding_i1": 8
+        },
+        {
+            "encoding_i2": 8
+        },
+        {
+            "encoding_i3": 8
+        },
+        {
+            "encoding_i4": 8
+        },
+        {
+            "temp_port": 16
+        }
+    ],
+    "number_of_extract_paths": 1,
+    "extract": [
+        [
+            "cheetah"
+        ]
+    ],
+    "table_keys": {
+        "ti_path_assertion": [
+            "pfuzz_metadata_reg_val_one",
+            "pfuzz_metadata_reg_val_two"
+        ],
+        "ti_set_seed_num": [
+            "pfuzz_metadata_seed_num"
+        ],
+        "ti_set_resubmit": [
+            "pfuzz_metadata_make_clone"
+        ],
+        "ti_set_fixed_header": [
+            "pfuzz_metadata_fixed_header_seed"
+        ],
+        "ti_create_packet": [
+            "pfuzz_metadata_seed_num"
+        ],
+        "ti_add_fields": [
+            "pfuzz_metadata_seed_num"
+        ],
+        "te_set_table_seed": [
+            "pfuzz_metadata_seed_num",
+            "pfuzz_metadata_table_seed"
+        ],
+        "te_move_fields": [
+            "pfuzz_metadata_seed_num",
+            "pfuzz_metadata_table_seed"
+        ],
+        "te_move_back_fields": [
+            "pfuzz_metadata_seed_num",
+            "pfuzz_metadata_table_seed",
+            "pfuzz_metadata_fixed_header_seed"
+        ],
+        "te_do_resubmit": [
+            "pfuzz_metadata_make_clone"
+        ],
+        "ti_add_clones": [
+            "cheetah_valid"
+        ]
+    },
+    "action_params": {
+        "ai_set_seed_num": [
+            "real_seed_num"
+        ],
+        "ai_set_resubmit": [
+            "real_resubmit"
+        ],
+        "ai_set_fixed_header": [
+            "real_fixed_header"
+        ],
+        "ai_add_fixed_cheetah": [
+            "cheetahflowId",
+            "cheetahrowId",
+            "cheetahkey"
+        ],
+        "ae_set_table_seed": [
+            "real_table_seed"
+        ],
+        "ae_move_back_fix_table_sketch_two_value": [
+            "cheetah_flowId"
+        ]
+    },
+    "num_assertions": 0,
+    "headers": [
+        {
+            "cheetah": "0"
+        }
+    ]
+}
