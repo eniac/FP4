@@ -31,6 +31,7 @@ from ptf.thriftutils import hex_to_i16
 TOFINO_INTERFACE = 'enp6s0'
 CPU_PORT = 192
 CPU_INGRESS_MIRROR_ID = 98
+MC0_INGRESS_MIRROR_ID = 100
 
 
 def parse_aruments():
@@ -142,6 +143,7 @@ class StaticController:
         self.dev_tgt = DevTarget_t(0, hex_to_i16(0xFFFF))
         self.generate_output_rules()
         self.add_mirror_session_new()
+        self.add_mirror_session_mc0()
 
         self.interace_name = TOFINO_INTERFACE
 
@@ -175,6 +177,11 @@ class StaticController:
 
     def add_mirror_session_new(self):
         info = mirror_session_new(MirrorType_e.PD_MIRROR_TYPE_NORM, Direction_e.PD_DIR_INGRESS, CPU_INGRESS_MIRROR_ID, CPU_PORT, True, max_pkt_len=128)
+        self.mirror.mirror_session_create(self.conn_hdl, self.dev_tgt, info)
+        self.conn.complete_operations(self.conn_hdl)
+
+    def add_mirror_session_mc0(self):
+        info = mirror_session_new(MirrorType_e.PD_MIRROR_TYPE_NORM, Direction_e.PD_DIR_INGRESS, MC0_INGRESS_MIRROR_ID, 0, True, max_pkt_len=128)
         self.mirror.mirror_session_create(self.conn_hdl, self.dev_tgt, info)
         self.conn.complete_operations(self.conn_hdl)
 

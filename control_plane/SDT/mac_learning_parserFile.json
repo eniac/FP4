@@ -1,0 +1,29 @@
+{
+    "initial_state": "start",
+    "final_state": "ingress",
+    "states": [
+        "start",
+        "start_clone"
+    ],
+    "extract": {
+        "start": [
+            "ethernet",
+            "pfuzz_visited"
+        ],
+        "start_clone": [
+            "ethernet_clone"
+        ]
+    },
+    "transitions": [
+        {
+            "from": "start",
+            "to": "start_clone",
+            "condition": 0
+        },
+        {
+            "from": "start_clone",
+            "to": "ingress",
+            "condition": 0
+        }
+    ]
+}
