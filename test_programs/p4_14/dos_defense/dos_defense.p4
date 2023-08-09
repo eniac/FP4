@@ -156,10 +156,10 @@ control ingress {
         apply(ti_write_flow_counter_warning_1);            
         apply(ti_write_flow_counter_2);
         apply(ti_write_flow_counter_warning_2);
-        if (meta.reg_val_one_warning > 100) {
+        if (meta.reg_val_one_warning == 1) {
             apply(tiSendDigest_1);
         }
-        if (meta.reg_val_two_warning > 100) {
+        if (meta.reg_val_two_warning == 1) {
             apply(tiSendDigest_2);
         }
     }

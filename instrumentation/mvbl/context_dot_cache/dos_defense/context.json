@@ -1,5 +1,5 @@
 {
-  "build_date": "Wed Aug  9 20:15:02 2023",
+  "build_date": "Wed Aug  9 20:22:29 2023",
   "schema_version": "1.11.0",
   "compiler_version": "9.2.0",
   "target": "tofino",
@@ -22246,11 +22246,8 @@
           "size": 0
         }
       ],
-      "condition_fields": [
-        { "name": "meta.reg_val_one_warning", "start_bit": 32, "bit_width": 4 },
-        { "name": "meta.reg_val_one_warning", "start_bit": 36, "bit_width": 4 }
-      ],
-      "condition": "(meta.reg_val_one_warning > 100)",
+      "condition_fields": [ { "name": "meta.reg_val_one_warning", "start_bit": 0, "bit_width": 8 } ],
+      "condition": "(meta.reg_val_one_warning == 1)",
       "size": 0
     },
     {
@@ -22711,11 +22708,8 @@
           "size": 0
         }
       ],
-      "condition_fields": [
-        { "name": "meta.reg_val_two_warning", "start_bit": 32, "bit_width": 4 },
-        { "name": "meta.reg_val_two_warning", "start_bit": 36, "bit_width": 4 }
-      ],
-      "condition": "(meta.reg_val_two_warning > 100)",
+      "condition_fields": [ { "name": "meta.reg_val_two_warning", "start_bit": 0, "bit_width": 8 } ],
+      "condition": "(meta.reg_val_two_warning == 1)",
       "size": 0
     }
   ],
@@ -22985,19 +22979,9 @@
       "value": "0000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     },
     {
-      "fully_qualified_name": "mau[4].dp.xbar_hash.hash.parity_group_mask",
-      "name": "stage_4_parity_group_mask",
-      "value": "00000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-    },
-    {
       "fully_qualified_name": "mau[5].dp.match_input_xbar_din_power_ctl",
       "name": "stage_5_match_input_xbar_din_power_ctl",
       "value": "0000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-    },
-    {
-      "fully_qualified_name": "mau[5].dp.xbar_hash.hash.parity_group_mask",
-      "name": "stage_5_parity_group_mask",
-      "value": "00000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     }
   ],
   "dynamic_hash_calculations": [
@@ -24442,6 +24426,6 @@
       "hash_bit_width": 32
     }
   ],
-  "run_id": "d290ec4f0dae8278",
+  "run_id": "97868e81dd00002a",
   "driver_options": { "hash_parity_enabled": false, "high_availability_enabled": true }
 }

@@ -82,23 +82,21 @@
     },
     "1": {
         "edge_dst_to_edge": {
-            "tiSendDigest_2": "metametareg_val_one_warning100 -> tiSendDigest_2",
-            "ti_calculate_hash": "hdripv4isValid -> ti_calculate_hash"
+            "tiSendDigest_2": "metametareg_val_one_warning1 -> tiSendDigest_2",
+            "ti_write_flow_counter_warning_2": "hdripv4isValid -> ti_write_flow_counter_warning_2"
         },
         "edge_dst_to_increment": {
             "tiSendDigest_2": 1,
-            "ti_calculate_hash": 1
+            "ti_write_flow_counter_warning_2": 1
         },
         "edges": [
             "VIRTUAL_START -> hdripv4isValid",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash -> ti_write_flow_counter_warning_2",
-            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2 -> metametareg_val_one_warning100",
+            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2 -> metametareg_val_one_warning1",
             "hdripv4isValid -> 000_virtual_hdripv4isValid",
-            "hdripv4isValid -> ti_calculate_hash",
-            "metametareg_val_one_warning100 -> 000_virtual_metametareg_val_one_warning100",
-            "metametareg_val_one_warning100 -> tiSendDigest_2",
+            "hdripv4isValid -> ti_write_flow_counter_warning_2",
+            "metametareg_val_one_warning1 -> 000_virtual_metametareg_val_one_warning1",
+            "metametareg_val_one_warning1 -> tiSendDigest_2",
             "tiSendDigest_2 -> aiSendDigest_pfuzz_tiSendDigest_2",
-            "ti_calculate_hash -> ai_calculate_hash_pfuzz_ti_calculate_hash",
             "ti_write_flow_counter_warning_2 -> ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2"
         ],
         "encoding_to_path": {
@@ -107,60 +105,54 @@
             ],
             "1": [
                 "hdripv4isValid",
-                "ti_calculate_hash",
-                "ai_calculate_hash_pfuzz_ti_calculate_hash",
                 "ti_write_flow_counter_warning_2",
                 "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-                "metametareg_val_one_warning100"
+                "metametareg_val_one_warning1"
             ],
             "2": [
                 "hdripv4isValid",
-                "ti_calculate_hash",
-                "ai_calculate_hash_pfuzz_ti_calculate_hash",
                 "ti_write_flow_counter_warning_2",
                 "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-                "metametareg_val_one_warning100",
+                "metametareg_val_one_warning1",
                 "tiSendDigest_2",
                 "aiSendDigest_pfuzz_tiSendDigest_2"
             ]
         },
         "final_edge_dst_to_edge": {
             "aiSendDigest_pfuzz_tiSendDigest_2": "tiSendDigest_2 -> aiSendDigest_pfuzz_tiSendDigest_2",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash": "ti_calculate_hash -> ai_calculate_hash_pfuzz_ti_calculate_hash"
+            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2": "ti_write_flow_counter_warning_2 -> ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2"
         },
         "final_edge_dst_to_increment": {
             "aiSendDigest_pfuzz_tiSendDigest_2": 1,
-            "ai_calculate_hash_pfuzz_ti_calculate_hash": 1
+            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {
             "tiSendDigest_2 -> aiSendDigest_pfuzz_tiSendDigest_2": 1,
-            "ti_calculate_hash -> ai_calculate_hash_pfuzz_ti_calculate_hash": 1
+            "ti_write_flow_counter_warning_2 -> ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2": 1
         },
         "nodes": [
             "000_virtual_hdripv4isValid",
-            "000_virtual_metametareg_val_one_warning100",
+            "000_virtual_metametareg_val_one_warning1",
             "VIRTUAL_START",
             "aiSendDigest_pfuzz_tiSendDigest_2",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
             "hdripv4isValid",
-            "metametareg_val_one_warning100",
+            "metametareg_val_one_warning1",
             "tiSendDigest_2",
-            "ti_calculate_hash",
             "ti_write_flow_counter_warning_2"
         ],
         "non_action_to_increment": {
             "tiSendDigest_2": 1,
-            "ti_calculate_hash": 1
+            "ti_write_flow_counter_warning_2": 1
         },
         "nonzero_edge_list": {
-            "hdripv4isValid -> ti_calculate_hash": 1,
-            "metametareg_val_one_warning100 -> tiSendDigest_2": 1
+            "hdripv4isValid -> ti_write_flow_counter_warning_2": 1,
+            "metametareg_val_one_warning1 -> tiSendDigest_2": 1
         },
         "num_bits": 8,
-        "num_bits_original": 5,
+        "num_bits_original": 4,
         "num_paths": 3
     },
     "2": {
@@ -177,13 +169,15 @@
         "edges": [
             "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
             "VIRTUAL_START -> ipv4_lpm",
-            "ai_handle_blacklist_pfuzz_ipv4_lpm -> ti_write_flow_counter_2",
-            "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2 -> metametareg_val_two_warning100",
-            "drop_packet_pfuzz_ipv4_lpm -> ti_write_flow_counter_2",
-            "ipv4_forward_pfuzz_ipv4_lpm -> ti_write_flow_counter_2",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash -> ti_write_flow_counter_2",
+            "ai_handle_blacklist_pfuzz_ipv4_lpm -> ti_calculate_hash",
+            "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2 -> metametareg_val_two_warning1",
+            "drop_packet_pfuzz_ipv4_lpm -> ti_calculate_hash",
+            "ipv4_forward_pfuzz_ipv4_lpm -> ti_calculate_hash",
             "ipv4_lpm -> ai_handle_blacklist_pfuzz_ipv4_lpm",
             "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
             "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm",
+            "ti_calculate_hash -> ai_calculate_hash_pfuzz_ti_calculate_hash",
             "ti_write_flow_counter_2 -> ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2"
         ],
         "encoding_to_path": {
@@ -191,23 +185,29 @@
             "1": [
                 "ipv4_lpm",
                 "ai_handle_blacklist_pfuzz_ipv4_lpm",
+                "ti_calculate_hash",
+                "ai_calculate_hash_pfuzz_ti_calculate_hash",
                 "ti_write_flow_counter_2",
                 "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
-                "metametareg_val_two_warning100"
+                "metametareg_val_two_warning1"
             ],
             "2": [
                 "ipv4_lpm",
                 "drop_packet_pfuzz_ipv4_lpm",
+                "ti_calculate_hash",
+                "ai_calculate_hash_pfuzz_ti_calculate_hash",
                 "ti_write_flow_counter_2",
                 "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
-                "metametareg_val_two_warning100"
+                "metametareg_val_two_warning1"
             ],
             "3": [
                 "ipv4_lpm",
                 "ipv4_forward_pfuzz_ipv4_lpm",
+                "ti_calculate_hash",
+                "ai_calculate_hash_pfuzz_ti_calculate_hash",
                 "ti_write_flow_counter_2",
                 "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
-                "metametareg_val_two_warning100"
+                "metametareg_val_two_warning1"
             ]
         },
         "final_edge_dst_to_edge": {
@@ -230,12 +230,14 @@
         "nodes": [
             "000_virtual_VIRTUAL_START",
             "VIRTUAL_START",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash",
             "ai_handle_blacklist_pfuzz_ipv4_lpm",
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "drop_packet_pfuzz_ipv4_lpm",
             "ipv4_forward_pfuzz_ipv4_lpm",
             "ipv4_lpm",
-            "metametareg_val_two_warning100",
+            "metametareg_val_two_warning1",
+            "ti_calculate_hash",
             "ti_write_flow_counter_2"
         ],
         "non_action_to_increment": {
@@ -247,7 +249,7 @@
             "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm": 2
         },
         "num_bits": 8,
-        "num_bits_original": 4,
+        "num_bits_original": 5,
         "num_paths": 4
     },
     "global_num_paths": 13,
@@ -269,8 +271,29 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "metametareg_val_two_warning1",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash",
+            "ti_write_flow_counter_1",
+            "ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1",
+            "ti_write_flow_counter_warning_1",
+            "ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1",
+            "ti_write_flow_counter_2",
+            "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
+            "ti_write_flow_counter_warning_2",
+            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
+            "metametareg_val_one_warning1",
+            "metametareg_val_two_warning1",
             "tiSendDigest_2",
             "aiSendDigest_pfuzz_tiSendDigest_2",
             "000_virtual_EXIT"
@@ -292,8 +315,10 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "tiSendDigest_1",
+            "aiSendDigest_pfuzz_tiSendDigest_1",
+            "metametareg_val_two_warning1",
             "000_virtual_EXIT"
         ],
         [
@@ -313,56 +338,10 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
+            "metametareg_val_one_warning1",
             "tiSendDigest_1",
             "aiSendDigest_pfuzz_tiSendDigest_1",
-            "metametareg_val_two_warning100",
-            "tiSendDigest_2",
-            "aiSendDigest_pfuzz_tiSendDigest_2",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash",
-            "ti_write_flow_counter_1",
-            "ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1",
-            "ti_write_flow_counter_warning_1",
-            "ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1",
-            "ti_write_flow_counter_2",
-            "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
-            "ti_write_flow_counter_warning_2",
-            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "tiSendDigest_1",
-            "aiSendDigest_pfuzz_tiSendDigest_1",
-            "metametareg_val_two_warning100",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_handle_blacklist_pfuzz_ipv4_lpm",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash",
-            "ti_write_flow_counter_1",
-            "ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1",
-            "ti_write_flow_counter_warning_1",
-            "ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1",
-            "ti_write_flow_counter_2",
-            "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
-            "ti_write_flow_counter_warning_2",
-            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "metametareg_val_two_warning100",
+            "metametareg_val_two_warning1",
             "tiSendDigest_2",
             "aiSendDigest_pfuzz_tiSendDigest_2",
             "000_virtual_EXIT"
@@ -384,8 +363,8 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "metametareg_val_two_warning1",
             "000_virtual_EXIT"
         ],
         [
@@ -405,10 +384,8 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "tiSendDigest_1",
-            "aiSendDigest_pfuzz_tiSendDigest_1",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "metametareg_val_two_warning1",
             "tiSendDigest_2",
             "aiSendDigest_pfuzz_tiSendDigest_2",
             "000_virtual_EXIT"
@@ -430,17 +407,17 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
+            "metametareg_val_one_warning1",
             "tiSendDigest_1",
             "aiSendDigest_pfuzz_tiSendDigest_1",
-            "metametareg_val_two_warning100",
+            "metametareg_val_two_warning1",
             "000_virtual_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm",
+            "ai_handle_blacklist_pfuzz_ipv4_lpm",
             "ti_get_incoming_pos",
             "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
             "ti_calculate_hash",
@@ -453,8 +430,10 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "tiSendDigest_1",
+            "aiSendDigest_pfuzz_tiSendDigest_1",
+            "metametareg_val_two_warning1",
             "tiSendDigest_2",
             "aiSendDigest_pfuzz_tiSendDigest_2",
             "000_virtual_EXIT"
@@ -476,8 +455,8 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "metametareg_val_two_warning1",
             "000_virtual_EXIT"
         ],
         [
@@ -497,10 +476,8 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
-            "tiSendDigest_1",
-            "aiSendDigest_pfuzz_tiSendDigest_1",
-            "metametareg_val_two_warning100",
+            "metametareg_val_one_warning1",
+            "metametareg_val_two_warning1",
             "tiSendDigest_2",
             "aiSendDigest_pfuzz_tiSendDigest_2",
             "000_virtual_EXIT"
@@ -522,10 +499,35 @@
             "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
             "ti_write_flow_counter_warning_2",
             "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
-            "metametareg_val_one_warning100",
+            "metametareg_val_one_warning1",
             "tiSendDigest_1",
             "aiSendDigest_pfuzz_tiSendDigest_1",
-            "metametareg_val_two_warning100",
+            "metametareg_val_two_warning1",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash",
+            "ti_write_flow_counter_1",
+            "ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1",
+            "ti_write_flow_counter_warning_1",
+            "ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1",
+            "ti_write_flow_counter_2",
+            "ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2",
+            "ti_write_flow_counter_warning_2",
+            "ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2",
+            "metametareg_val_one_warning1",
+            "tiSendDigest_1",
+            "aiSendDigest_pfuzz_tiSendDigest_1",
+            "metametareg_val_two_warning1",
+            "tiSendDigest_2",
+            "aiSendDigest_pfuzz_tiSendDigest_2",
             "000_virtual_EXIT"
         ],
         [
@@ -554,11 +556,11 @@
         ],
         "4": [
             "tiSendDigest_1",
-            "\"meta.meta.reg_val_one_warning > 100;\""
+            "\"meta.meta.reg_val_one_warning == 1;\""
         ],
         "5": [
             "tiSendDigest_2",
-            "\"meta.meta.reg_val_two_warning > 100;\""
+            "\"meta.meta.reg_val_two_warning == 1;\""
         ]
     },
     "stage2tables_dict_sanitized": {
@@ -580,11 +582,11 @@
         ],
         "4": [
             "tiSendDigest_1",
-            "metametareg_val_one_warning100"
+            "metametareg_val_one_warning1"
         ],
         "5": [
             "tiSendDigest_2",
-            "metametareg_val_two_warning100"
+            "metametareg_val_two_warning1"
         ]
     },
     "sum_num_paths": 10,
