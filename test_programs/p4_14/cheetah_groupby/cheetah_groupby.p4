@@ -636,6 +636,7 @@ table table_prune {
 
     actions {
         prune;
+        nop;
     }
     default_action: nop;    
 }

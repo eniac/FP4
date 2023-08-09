@@ -15,7 +15,10 @@ prog_names = [
         "dv_router",
         "mirror_clone",
         "netchain",
-        "switch_80019"
+        "mac_learning",
+        "dos_defense",
+        "cheetah_groupby"
+        #"switch_80019"
         ]
 
 prefix="/home/leoyu/bf-sde-9.2.0/pkgsrc/p4-build/tofino/"
