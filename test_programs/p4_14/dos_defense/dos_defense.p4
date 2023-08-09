@@ -133,8 +133,13 @@ parser parse_tcp {
 action aiSendDigest() {
     clone_i2e(CPU_INGRESS_MIRROR_ID);
 }
-
-table tiSendDigest {
+table tiSendDigest_1 {
+    actions {
+        aiSendDigest;
+    }
+    default_action: aiSendDigest();
+}
+table tiSendDigest_2 {
     actions {
         aiSendDigest;
     }
@@ -147,15 +152,15 @@ control ingress {
         apply(ipv4_lpm);
         apply(ti_get_incoming_pos);
         apply(ti_calculate_hash);
-        if (tcp.syn == 1) {
-            apply(ti_write_flow_counter_1);
-            apply(ti_write_flow_counter_warning_1);            
-        } else {
-            apply(ti_write_flow_counter_2);
-            apply(ti_write_flow_counter_warning_2);
-        }
+        apply(ti_write_flow_counter_1);
+        apply(ti_write_flow_counter_warning_1);            
+        apply(ti_write_flow_counter_2);
+        apply(ti_write_flow_counter_warning_2);
         if (meta.reg_val_one_warning > 100) {
-            apply(tiSendDigest);
+            apply(tiSendDigest_1);
+        }
+        if (meta.reg_val_two_warning > 100) {
+            apply(tiSendDigest_2);
         }
     }
 }

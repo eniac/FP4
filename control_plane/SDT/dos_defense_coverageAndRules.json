@@ -4,11 +4,6 @@
             "ipv4.dstAddr": "lpm"
         }
     },
-    "fixed_values": {
-        "tcp.syn": [
-            "1"
-        ]
-    },
     "table": {
         "ipv4_lpm": [
             "ipv4.dstAddr"

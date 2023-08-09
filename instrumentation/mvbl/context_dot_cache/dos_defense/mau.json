@@ -1,7 +1,7 @@
 {
-    "build_date": "Wed Aug  9 18:41:16 2023", 
+    "build_date": "Wed Aug  9 19:45:36 2023", 
     "program_name": "dos_defense", 
-    "run_id": "132420495a6c348c", 
+    "run_id": "0bf8788c2e117a69", 
     "compiler_version": "9.2.0", 
     "schema_version": "1.0.0", 
     "tables": [
@@ -265,7 +265,7 @@
             ]
         }, 
         {
-            "name": "tiSendDigest", 
+            "name": "tiSendDigest_1", 
             "gress": "ingress", 
             "lookup_types": [], 
             "entries_requested": 0, 
@@ -280,6 +280,58 @@
             "stage_allocation": [
                 {
                     "stage_number": 4, 
+                    "memories": [
+                        {
+                            "memory_type": "sram", 
+                            "table_word_width": 0, 
+                            "memory_word_width": 44, 
+                            "entries_per_table_word": 1, 
+                            "table_type": "match", 
+                            "num_memories": 0, 
+                            "entries_requested": 0, 
+                            "entries_allocated": 0, 
+                            "imm_bit_width_in_overhead_requested": 10, 
+                            "imm_bit_width_in_overhead_allocated": 10, 
+                            "entry_bit_width_requested": 0, 
+                            "entry_bit_width_allocated": 0, 
+                            "ideal_entries_per_table_word": 0, 
+                            "ideal_table_word_bit_width": 0
+                        }
+                    ], 
+                    "overhead_fields": [
+                        {
+                            "name": "immediate", 
+                            "bit_width": 10
+                        }
+                    ], 
+                    "match_format": {
+                        "entries": [
+                            {
+                                "entry_number": 0, 
+                                "fields": []
+                            }
+                        ]
+                    }, 
+                    "action_formats": []
+                }
+            ]
+        }, 
+        {
+            "name": "tiSendDigest_2", 
+            "gress": "ingress", 
+            "lookup_types": [], 
+            "entries_requested": 0, 
+            "entries_allocated": 0, 
+            "match_fields": [], 
+            "action_parameters": [
+                {
+                    "action_name": "aiSendDigest", 
+                    "parameters": []
+                }
+            ], 
+            "stage_allocation": [
+                {
+                    "stage_number": 5, 
                     "memories": [
                         {
                             "memory_type": "sram", 

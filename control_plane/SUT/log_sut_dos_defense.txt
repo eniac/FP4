@@ -1,0 +1,210 @@
+Waiting for switch to be up
+enabling ports: ['9/0', '10/0', '11/0', '12/0', '13/0', '14/0', '15/0', '16/0', '17/0', '18/0', '19/0', '20/0', '21/0', '22/0', '23/0', '24/0'] (dev ids: [60, 52, 44, 36, 28, 20, 12, 4, 0, 8, 16, 24, 32, 40, 48, 56]) at rate: 100G
+port: 60
+port: 52
+port: 44
+port: 36
+port: 28
+port: 20
+port: 12
+port: 4
+port: 0
+port: 8
+port: 16
+port: 24
+port: 32
+port: 40
+port: 48
+port: 56
+=== add_entries via bfshell ===
+('Command:', '/home/leoyu/bf-sde-9.2.0/install/bin/bfshell -f dos_defense_ut_hw_output_rules.txt')
+
+pd-dos-defense-ut-hw
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 4
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.1.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 8
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.4.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 12
+pd ipv4_lpm add_entry drop_packet_pfuzz_ipv4_lpm ipv4_dstAddr 10.5.0.1 ipv4_dstAddr_prefix_length 16 
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.6.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 20
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.7.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 24
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.20.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 28
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.30.1 ipv4_dstAddr_prefix_length 2 action_dstAddr 0xaaaaac action_port 32
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.50.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 36
+end
+exit
+
+        ********************************************
+        *      WARNING: Authorised Access Only     *
+        ********************************************
+    
+bfshell> 
+bfshell> pd-dos-defense-ut-hw
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 4
+entry_hdl: 2 (0x2)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.1.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 8
+entry_hdl: 3 (0x3)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.4.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 12
+entry_hdl: 4 (0x4)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry drop_packet_pfuzz_ipv4_lpm ipv4_dsEtAddr 10.5.0.1 ipv4_dstAddr_prefix_length 16 
+entry_hdl: 5 (0x5)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.6.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 20
+entry_hdl: 6 (0x6)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.7.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 24
+entry_hdl: 7 (0x7)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.20.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_poErt 28
+entry_hdl: 8 (0x8)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.30.1 ipv4_dstAddr_prefix_length 2 action_dstAddr 0xaaaaac action_porEt 32
+entry_hdl: 9 (0x9)
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.50.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_poErt 36
+entry_hdl: 10 (0xa)
+pd-dos-defense-ut-hw:0> end
+bfshell> exit
+
+None
+=== run_dynamic ===
+=== add_entries via bfshell ===
+('Command:', '/home/leoyu/bf-sde-9.2.0/install/bin/bfshell -f dos_defense_ut_hw_output_rules.txt')
+
+pd-dos-defense-ut-hw
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 4
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.1.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 8
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.4.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 12
+pd ipv4_lpm add_entry drop_packet_pfuzz_ipv4_lpm ipv4_dstAddr 10.5.0.1 ipv4_dstAddr_prefix_length 16 
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.6.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 20
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.7.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 24
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.20.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 28
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.30.1 ipv4_dstAddr_prefix_length 2 action_dstAddr 0xaaaaac action_port 32
+pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dstAddr 10.0.50.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_port 36
+end
+exit
+
+        ********************************************
+        *      WARNING: Authorised Access Only     *
+        ********************************************
+    
+bfshell> 
+bfshell> pd-dos-defense-ut-hw
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 4
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.1.0.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 8
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.4.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 12
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry drop_packet_pfuzz_ipv4_lpm ipv4_dsEtAddr 10.5.0.1 ipv4_dstAddr_prefix_length 16 
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.6.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 20
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.7.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_porEt 24
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.20.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_poErt 28
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.30.1 ipv4_dstAddr_prefix_length 2 action_dstAddr 0xaaaaac action_porEt 32
+operation failed
+pd-dos-defense-ut-hw:0> pd ipv4_lpm add_entry ipv4_forward_pfuzz_ipv4_lpm ipv4_dEstAddr 10.0.50.1 ipv4_dstAddr_prefix_length 24 action_dstAddr 0xaaaaac action_poErt 36
+operation failed
+pd-dos-defense-ut-hw:0> end
+bfshell> exit
+
+None
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============
+--- receive_packet ---
+No packet within timeout
+============

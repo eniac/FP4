@@ -12,7 +12,6 @@ import sys
 from dataplaneSocket import DataplaneSocket
 import random
 
-# pd ipv4_lpm add_entry ai_noOp ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8 
 def run_dynamic(static_controller, *args, **kwargs):
     # dp_iface = DataplaneSocket(static_controller.TOFINO_INTERFACE)
     dp_iface = DataplaneSocket(static_controller.interace_name)
@@ -22,8 +21,7 @@ def run_dynamic(static_controller, *args, **kwargs):
 
     # TODO: data plane not mirroring any packets, probably the mirror bug, add 1 rule to bootstrap; however, still not receiving any rules...
     ruleList = []
-    ruleList.append("pd tiLearnMAC add_entry aiNoOp_pfuzz_tiLearnMAC ethernet_srcAddr 0x000000000000")
-    ruleList.append("pd tiForward add_entry aiForward_pfuzz_tiForward ethernet_dstAddr 0x000000000000 action_egress_port 0")
+    # ruleList.append("pd ipv4_lpm add_entry ai_handle_blacklist_pfuzz_ipv4_lpm ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8 ")
     static_controller.generate_output_rules(ruleList)
     static_controller.add_entries()
     installed_rules.extend(ruleList)
@@ -72,18 +70,17 @@ class Controller(pystate.TrackState):
         src_mac = Controller.prettify_mac(src_mac)
         print("--- src_mac: {} ---".format(src_mac))
         sys.stdout.flush()
-        if src_mac not in self.src_macs:
-            self.src_macs.add(src_mac)
-            # Install rules for tiLearnMAC
-            rule = ("pd tiLearnMAC add_entry aiNoOp_pfuzz_tiLearnMAC ethernet_srcAddr 0x" + str(src_mac).replace(":",""))
-            ruleList.append(rule)
+        # if src_mac not in self.src_macs:
+        #     self.src_macs.add(src_mac)
+        #     # Install rules for tiLearnMAC
+        #     rule = ("pd tiLearnMAC add_entry aiNoOp_pfuzz_tiLearnMAC ethernet_srcAddr 0x" + str(src_mac).replace(":",""))
+        #     ruleList.append(rule)
 
-            # Instal rules for tiForward
-            port_list = [i for i in range(0, 4, 60)]
-            random_port = random.choice(port_list)
-            rule = ("pd tiForward add_entry aiForward_pfuzz_tiForward ethernet_dstAddr 0x" + str(src_mac).replace(":","") + " action_egress_port " + str(random_port))
-            ruleList.append(rule)
-            # TODO: differentiate update/write
+        #     # Instal rules for tiForward
+        #     port_list = [i for i in range(0, 4, 60)]
+        #     random_port = random.choice(port_list)
+        #     rule = ("pd tiForward add_entry aiForward_pfuzz_tiForward ethernet_dstAddr 0x" + str(src_mac).replace(":","") + " action_egress_port " + str(random_port))
+        #     ruleList.append(rule)
         return ruleList
 
     @staticmethod

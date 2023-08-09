@@ -180,6 +180,7 @@ parser parse_tcp {
 
 
 
+
 control ingress {
   if (pfuzz_visited.pkt_type == 1 || pfuzz_visited.pkt_type == 3) {
     apply(ti_get_reg_pos);
@@ -334,6 +335,7 @@ blackbox stateful_alu riw_flow_counter_warning_2 {
 
 
 
+
 header_type pfuzz_visited_t {
     fields {
         preamble : 48;
@@ -404,15 +406,15 @@ field_list_calculation bloom_filter_hash_32{
 }
 
 field_list fi_bf_hash_fields_16 {
-  pfuzz_visited.encoding_i1;
   pfuzz_visited.encoding_i0;
+  pfuzz_visited.encoding_i1;
   pfuzz_visited.encoding_i2;
 }
 
 
 field_list fi_bf_hash_fields_32 {
-  pfuzz_visited.encoding_i1;
   pfuzz_visited.encoding_i0;
+  pfuzz_visited.encoding_i1;
   pfuzz_visited.encoding_i2;
 }
 
@@ -492,8 +494,8 @@ action ai_recycle_packet() {
   remove_header(tcp);
   remove_header(tcp_clone);
   modify_field(pfuzz_visited.pkt_type, 0);
-  modify_field(pfuzz_visited.encoding_i1, 0);
   modify_field(pfuzz_visited.encoding_i0, 0);
+  modify_field(pfuzz_visited.encoding_i1, 0);
   modify_field(pfuzz_visited.encoding_i2, 0);
 }
 

@@ -142,11 +142,19 @@ parser parse_tcp {
 
 
 
-table tiSendDigest {
+table tiSendDigest_1 {
     actions {
-        aiSendDigest_pfuzz_tiSendDigest;
+        aiSendDigest_pfuzz_tiSendDigest_1;
     }
-    default_action:aiSendDigest_pfuzz_tiSendDigest();
+    default_action:aiSendDigest_pfuzz_tiSendDigest_1();
+}
+
+
+table tiSendDigest_2 {
+    actions {
+        aiSendDigest_pfuzz_tiSendDigest_2;
+    }
+    default_action:aiSendDigest_pfuzz_tiSendDigest_2();
 }
 
 
@@ -158,23 +166,22 @@ control ingress     {
 
         apply(ti_calculate_hash);
 
-        if (tcp.syn == 1)  {
-            apply(ti_write_flow_counter_1);
+        apply(ti_write_flow_counter_1);
 
-            apply(ti_write_flow_counter_warning_1);
+        apply(ti_write_flow_counter_warning_1);
 
+        apply(ti_write_flow_counter_2);
 
-        }
-        else  {
-            apply(ti_write_flow_counter_2);
+        apply(ti_write_flow_counter_warning_2);
 
-            apply(ti_write_flow_counter_warning_2);
-
-
-        }
-        apply(ti_mvbl_2_hdripv4isValid_metametareg_val_one_warning100);
         if (meta.reg_val_one_warning > 100)  {
-            apply(tiSendDigest);
+            apply(tiSendDigest_1);
+
+
+        }
+
+        if (meta.reg_val_two_warning > 100)  {
+            apply(tiSendDigest_2);
 
 
         }
@@ -361,7 +368,12 @@ blackbox stateful_alu riw_flow_counter_warning_2 {
 }
 
 
-action aiSendDigest_pfuzz_tiSendDigest() {
+action aiSendDigest_pfuzz_tiSendDigest_1() {
+    clone_i2e(98);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
+}
+
+action aiSendDigest_pfuzz_tiSendDigest_2() {
     clone_i2e(98);
     add_to_field(pfuzz_visited.encoding_i1, 1);
 }
@@ -384,27 +396,25 @@ action ipv4_forward_pfuzz_ipv4_lpm(dstAddr, port) {
     modify_field(ethernet.srcAddr, dstAddr);
     modify_field(ethernet.dstAddr, dstAddr);
     subtract_from_field(ipv4.ttl, 1);
-    add_to_field(pfuzz_visited.encoding_i1, 9);
+    add_to_field(pfuzz_visited.encoding_i2, 3);
 }
 
 action drop_packet_pfuzz_ipv4_lpm() {
-    add_to_field(pfuzz_visited.encoding_i1, 5);
+    add_to_field(pfuzz_visited.encoding_i2, 2);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action ai_handle_blacklist_pfuzz_ipv4_lpm() {
-    add_to_field(pfuzz_visited.encoding_i1, 1);
+    add_to_field(pfuzz_visited.encoding_i2, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action ai_write_flow_counter_1_pfuzz_ti_write_flow_counter_1() {
     riw_flow_counter_1 . execute_stateful_alu ( meta.reg_pos_one );
-    add_to_field(pfuzz_visited.encoding_i1, 2);
 }
 
 action ai_write_flow_counter_2_pfuzz_ti_write_flow_counter_2() {
     riw_flow_counter_2 . execute_stateful_alu ( meta.reg_pos_two );
-    add_to_field(pfuzz_visited.encoding_i2, 2);
 }
 
 action ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1() {
@@ -413,7 +423,7 @@ action ai_write_flow_counter_warning_1_pfuzz_ti_write_flow_counter_warning_1() {
 
 action ai_write_flow_counter_warning_2_pfuzz_ti_write_flow_counter_warning_2() {
     riw_flow_counter_warning_2 . execute_stateful_alu ( meta.reg_pos_two );
-    add_to_field(pfuzz_visited.encoding_i0, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
 header_type pfuzz_visited_t {
@@ -433,15 +443,4 @@ header pfuzz_visited_t pfuzz_visited;
 
 
 
-
-action ai_mvbl_2_hdripv4isValid_metametareg_val_one_warning100() {
-  add_to_field(pfuzz_visited.encoding_i2, 1);
-}
-
-table ti_mvbl_2_hdripv4isValid_metametareg_val_one_warning100{
-  actions {
-    ai_mvbl_2_hdripv4isValid_metametareg_val_one_warning100;
-  }
-  default_action: ai_mvbl_2_hdripv4isValid_metametareg_val_one_warning100();
-}
 
