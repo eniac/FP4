@@ -188,7 +188,7 @@ class DTController:
             print("Packet counter {0}".format(packetsForwarded))
 
         print("=== Digest ===")
-
+        header.get_digest()
         print("==============")
 
 class PFuzzHeader:
@@ -271,7 +271,7 @@ class PFuzzHeader:
         index += 1  # Skip pkt_type and pad
 
         # Now go through each of the encoding
-        path_seen = []
+        current_path = []
         for field2bits in self.name2encodinglist[self.program_name]:
             field_name = field2bits[0]
             bits = field2bits[1]
@@ -288,17 +288,17 @@ class PFuzzHeader:
             print("field_name: {0}, value: {1}".format(field_name, encoding_val))
             print("sub-DAG path: {}".format(self.field2encoding2path[field_name][str(encoding_val)]))
             for node in self.field2encoding2path[field_name][str(encoding_val)]:
-                path_seen.append(node)
+                current_path.append(node)
                 if "_pfuzz_" in node:
                     if node not in self.actions_seen:
                         self.actions_seen.append(node)
 
-        print("path_seen: {}".format(path_seen))
+        print("current_path: {}".format(current_path))
         print("self.actions_seen: {}".format(self.actions_seen))
-        if path_seen not in self.paths_seen:
-            self.paths_seen.append(path_seen)
+        if current_path not in self.paths_seen:
+            self.paths_seen.append(current_path)
         else:
-            print("path_seen already in self.paths_seen!")
+            print("current_path already in self.paths_seen!")
 
         self.action_coverage = 1.0*len(self.actions_seen)/self.total_num_actions
         self.path_coverage = 1.0*len(self.paths_seen)/self.total_num_paths
