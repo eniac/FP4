@@ -108,7 +108,7 @@
             "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"
         ]
     },
-    "cis553": {
+    "dv_router": {
         "node_coverage": 0.96,
         "number_of_paths": 23,
         "number_of_actions": 18,

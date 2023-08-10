@@ -170,21 +170,32 @@ class DTController:
 
         print("Sending {} packets...".format(len(packet_list)))
         for packet in packet_list:
-            time.sleep(2)
-            print("--- Original payload to send ---")
-            print(packet)
+            time.sleep(0.5)
+            print("--- Original payload to send of size {} ---".format(len(packet)))
             sys.stdout.flush()
+            print("Print packet")
+            print(packet)
+            # print(type(packet))  # unicode
+            sys.stdout.flush()
+            print("Constructing payload")
             payload = bytearray(eval(packet))
+
             self.dp_iface.send_packet(payload, initial_bytes=header.get_header_size())
 
             print("--- self.dp_iface.receive_packet ---")
             switchData = self.dp_iface.receive_packet()
-            # print(type(switchData))
-            header.decode_rcv_bytearray(switchData)
-            hex_string = " ".join("{:02x}".format(byte) for byte in switchData)
-            print(hex_string)
-            packetsForwarded = self.readRegister('forward_count_register', 0)
+            # TODO: for some packets there is no packet back
+            # while switchData == None:
+                # print("Call self.dp_iface.receive_packet() again")
+                # sys.stdout.flush()
+                # switchData = self.dp_iface.receive_packet()
+            if switchData:
+                hex_string = " ".join("{:02x}".format(byte) for byte in switchData)
+                print(hex_string)
+                # print(type(switchData))
+                is_successful = header.decode_rcv_bytearray(switchData)
 
+            packetsForwarded = self.readRegister('forward_count_register', 0)
             print("Packet counter {0}".format(packetsForwarded))
 
         print("=== Digest ===")
@@ -279,6 +290,8 @@ class PFuzzHeader:
 
         self.all_actions = []
 
+        self.path_coverage = 0.0
+        self.action_coverage = 0.0
         self.total_num_paths = 1
         self.total_num_actions = 0
 
@@ -335,7 +348,9 @@ class PFuzzHeader:
         pkt_type = int(data[index] >> 6)
         # print("pkt_type: {}".format(pkt_type))
         if pkt_type != 1:
-            raise Exception("pkt_type != 1")
+            # raise Exception("pkt_type != 1")
+            print("[WARNING] Probably received a mirrored packet")
+            return False
         index += 1  # Skip pkt_type and pad
 
         # Now go through each of the encoding
@@ -377,6 +392,8 @@ class PFuzzHeader:
         print("--- self.all_actions - self.seenActions ---")
         print(list(set(self.all_actions) - set(self.actions_seen)))
         sys.stdout.flush()  
+
+        return True
     
     def get_digest(self):
         print("self.paths_seen: {}".format(self.paths_seen))
