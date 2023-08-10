@@ -1,7 +1,7 @@
 {
-    "build_date": "Tue Aug  8 15:04:40 2023", 
+    "build_date": "Thu Aug 10 02:18:22 2023", 
     "program_name": "dv_router", 
-    "run_id": "1317c5c52200740b", 
+    "run_id": "9a5f56acae12397a", 
     "compiler_version": "9.2.0", 
     "schema_version": "1.0.0", 
     "tables": [
@@ -15,53 +15,6 @@
             "action_parameters": [
                 {
                     "action_name": "act", 
-                    "parameters": []
-                }
-            ], 
-            "stage_allocation": [
-                {
-                    "stage_number": 1, 
-                    "memories": [
-                        {
-                            "memory_type": "sram", 
-                            "table_word_width": 0, 
-                            "memory_word_width": 44, 
-                            "entries_per_table_word": 1, 
-                            "table_type": "match", 
-                            "num_memories": 0, 
-                            "entries_requested": 0, 
-                            "entries_allocated": 0, 
-                            "imm_bit_width_in_overhead_requested": 0, 
-                            "imm_bit_width_in_overhead_allocated": 0, 
-                            "entry_bit_width_requested": 0, 
-                            "entry_bit_width_allocated": 0, 
-                            "ideal_entries_per_table_word": 0, 
-                            "ideal_table_word_bit_width": 0
-                        }
-                    ], 
-                    "overhead_fields": [], 
-                    "match_format": {
-                        "entries": [
-                            {
-                                "entry_number": 0, 
-                                "fields": []
-                            }
-                        ]
-                    }, 
-                    "action_formats": []
-                }
-            ]
-        }, 
-        {
-            "name": "tiDrop", 
-            "gress": "ingress", 
-            "lookup_types": [], 
-            "entries_requested": 0, 
-            "entries_allocated": 0, 
-            "match_fields": [], 
-            "action_parameters": [
-                {
-                    "action_name": "aDrop", 
                     "parameters": []
                 }
             ], 

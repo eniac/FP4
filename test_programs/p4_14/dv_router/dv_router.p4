@@ -358,9 +358,10 @@ control ingress {
                 } else {
                     if (valid(distance_vec)) {
                         apply(tiHandleIncomingRouting);
-                    } else {
-                        apply(tiDrop);
-                    }                
+                    }
+                    // else {
+                        // apply(tiDrop);
+                    // }                
                 }
             }
         }

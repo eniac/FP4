@@ -4,7 +4,7 @@ firewall & 7 & 12 & 2 & 160 & 2.56 & 1043 \\
 load_balance & 2 & 4 & 0 & 144 & 2.56 & 948 \\
 rate_limiter & 5 & 7 & 3 & 128 & 2.56 & 755 \\
 basic_routing & 7 & 9 & 0 & 2096 & 81.92 & 651 \\
-dv_router & 3 & 11 & 0 & 352 & 2.56 & 949 \\
+dv_router & 3 & 10 & 0 & 352 & 2.56 & 949 \\
 mirror_clone & 1 & 7 & 2 & 128 & 0.0 & 651 \\
 netchain & 3 & 6 & 1 & 544 & 1.28 & 1084 \\
 mac_learning & 3 & 3 & 0 & 176 & 0.0 & 599 \\
@@ -15,7 +15,7 @@ firewall_ut_hw & 7 & 12 & 2 & 160 & 2.56 & 1250 \\
 load_balance_ut_hw & 2 & 4 & 0 & 144 & 2.56 & 1136 \\
 rate_limiter_ut_hw & 5 & 7 & 3 & 128 & 2.56 & 959 \\
 basic_routing_ut_hw & 7 & 9 & 0 & 2096 & 81.92 & 842 \\
-dv_router_ut_hw & 3 & 16 & 0 & 336 & 2.56 & 1252 \\
+dv_router_ut_hw & 3 & 14 & 0 & 352 & 2.56 & 1236 \\
 mirror_clone_ut_hw & 1 & 7 & 2 & 128 & 0.0 & 925 \\
 netchain_ut_hw & 3 & 7 & 1 & 544 & 1.28 & 1283 \\
 mac_learning_ut_hw & 3 & 3 & 0 & 176 & 0.0 & 758 \\
