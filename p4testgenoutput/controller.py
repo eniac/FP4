@@ -196,6 +196,15 @@ class PFuzzHeader:
         self.program_name = program_name
         self.name2bytes = {
             "basic_routing": 12,
+            "firewall": 13,
+            "cheetah_groupby": 14,
+            "dos_defense": 12,
+            "mac_learning": 10,
+            "load_balance": 12,
+            "netchain": 13,
+            "mirror_clone": 17,
+            "rate_limiter": 13,
+            "dv_router": 18,
         }
         self.name2encodinglist = {
             "basic_routing": [
@@ -203,6 +212,65 @@ class PFuzzHeader:
                 ("encoding_i0", 8),
                 ("encoding_i1", 8)
             ],
+            "firewall": [
+                ("encoding_i0", 8),
+                ("encoding_i1", 8),               
+                ("encoding_i2", 8), 
+                ("encoding_i3", 8),                
+            ],
+            "cheetah_groupby": [
+                ("encoding_i0", 8),
+                ("encoding_i1", 8),               
+                ("encoding_i2", 8), 
+                ("encoding_i3", 8),    
+                ("encoding_i4", 8),             
+            ],
+            "dos_defense": [
+                ("encoding_i0", 8),
+                ("encoding_i1", 8),               
+                ("encoding_i2", 8), 
+            ],
+            "mac_learning": [
+                ("encoding_i0", 8),
+            ],
+            "load_balance": [
+                ("encoding_e0", 8),
+                ("encoding_i0", 8),
+                ("encoding_i1", 8)
+            ],
+            "netchain": [
+                ("encoding_i0", 8),
+                ("encoding_i1", 8),               
+                ("encoding_i2", 8), 
+                ("encoding_i3", 8), 
+            ],
+            "mirror_clone": [
+                ("encoding_e0", 8),
+                ("encoding_e1", 8),               
+                ("encoding_e2", 8), 
+                ("encoding_e3", 8),    
+                ("encoding_e4", 8), 
+                ("encoding_e5", 8), 
+                ("encoding_i0", 8),
+                ("encoding_i1", 8),              
+            ],
+            "rate_limiter": [
+                ("encoding_e0", 8),
+                ("encoding_e1", 8),
+                ("encoding_i0", 8),
+                ("encoding_i1", 8)
+            ],
+            "dv_router": [
+                ("encoding_i0", 8),
+                ("encoding_i1", 8),               
+                ("encoding_i2", 8), 
+                ("encoding_i3", 8),
+                ("encoding_i4", 8),
+                ("encoding_i5", 8),               
+                ("encoding_i6", 8), 
+                ("encoding_i7", 8),                
+                ("encoding_i8", 8),                 
+            ]
         }
 
         # Some global statistics
@@ -273,6 +341,7 @@ class PFuzzHeader:
         # Now go through each of the encoding
         current_path = []
         for field2bits in self.name2encodinglist[self.program_name]:
+            print("--- Examine {} ---".format(field2bits))
             field_name = field2bits[0]
             bits = field2bits[1]
             if bits % 8 != 0:
