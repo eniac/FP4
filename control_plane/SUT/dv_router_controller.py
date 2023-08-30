@@ -28,7 +28,7 @@ def run_dynamic(static_controller, *args, **kwargs):
                 print("Empty ruleList")
             else:
                 print("--- Install ruleList len: {} ---".format(len(ruleList)))
-                print(ruleList)
+                # print(ruleList)
                 ruleList = [rule for rule in ruleList if rule not in installed_rules]
                 print("--- Sanitized ruleList len: {} ---".format(len(ruleList)))
                 static_controller.generate_output_rules(ruleList)
@@ -67,7 +67,7 @@ class Controller(pystate.TrackState):
         self.dvLock = threading.Lock()
         self.myIPs = []
         self.visited_bytes = visited_bytes
-        self.visited_bytes = 19
+        self.visited_bytes = 18  # TODO: avoid hardcoding, read from json
         self.arp_entries = set()
         self.dist_entires = set()
         self.SDTsocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -77,9 +77,9 @@ class Controller(pystate.TrackState):
         self.dp_rules_shadow = []
         # --- End state tracking code ---
 
-        config = json.loads('[{"ip": "10.0.1.100", "prefix_len": 24, "mac": "00:00:00:01:01:00", "port": 1}, ' \
-                             '{"ip": "20.0.1.1",   "prefix_len": 24, "mac": "00:00:00:01:02:00", "port": 2}, ' \
-                             '{"ip": "20.0.2.1",   "prefix_len": 24, "mac": "00:00:00:01:03:00", "port": 3}]')
+        config = json.loads('[{"ip": "100.0.1.100", "prefix_len": 8, "mac": "00:00:00:01:01:00", "port": 1}, ' \
+                             '{"ip": "20.0.1.1",   "prefix_len": 8, "mac": "00:00:00:01:02:00", "port": 2}, ' \
+                             '{"ip": "20.0.2.1",   "prefix_len": 8, "mac": "00:00:00:01:03:00", "port": 3}]')
 
         for p in config:
             self.myIPs.append(p["ip"])

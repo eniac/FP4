@@ -124,7 +124,7 @@ class CoverageDetector(object):
         print("header written")
 
     def set_out_file(self):
-        self.outfile = open("cpdigest_sdt_"+self.baseName+".txt", 'w')
+        self.outfile = open("cpdigest_sdt_"+self.baseName+"_" + str(self.mode) +".txt", 'w')
         self.outfile.write("time,number_of_seeds,packets_forwarded,action_coverage,path_coverage,total_packets_received,action_seen\n")
 
     def write_output(self, time):

@@ -36,8 +36,8 @@ class DataplaneSocket():
             packet = bytearray(packet)
             print("--- packet received of size: {} ---".format(len(packet)))
             # print(" ".join(str(byte) for byte in packet))
-            hex_string = " ".join("{:02x}".format(byte) for byte in packet)
-            print(hex_string)
+            # hex_string = " ".join("{:02x}".format(byte) for byte in packet)
+            # print(hex_string)
             return packet
         except socket.timeout:
             print("No packet within timeout")
