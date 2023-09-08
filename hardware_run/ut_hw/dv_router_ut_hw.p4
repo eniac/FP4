@@ -255,34 +255,39 @@ control ingress     {
 
     }
     else  {
-        apply(ti_mvbl_3_VIRTUAL_START_hdripv4isValid);
+        apply(ti_mvbl_8_hdrethernetisValid_hdripv4isValid);
         if (valid(ipv4))  {
             apply(tiHandleIpv4);
-
+            apply(ti_mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet);
             apply(tiHandleOutgoingEthernet);
 
 
         }
         else  {
-            apply(ti_mvbl_4_VIRTUAL_START_hdrarpisValidhdrarpoper1);
+            apply(ti_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1);
             if (valid(arp) && arp.oper == 1)  {
                 apply(tiHandleIncomingArpReqest_part_one);
-                apply(ti_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_two);
+
                 apply(tiHandleIncomingArpReqest_part_two);
 
 
             }
             else  {
-                apply(ti_mvbl_0_VIRTUAL_START_hdrarpisValidhdrarpoper2);
+                apply(ti_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2);
                 if (valid(arp) && arp.oper == 2)  {
                     apply(tiHandleIncomingArpResponse);
 
 
                 }
                 else  {
-                    apply(ti_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_hdrdistance_vecisValid);
+                    apply(ti_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid);
                     if (valid(distance_vec))  {
                         apply(tiHandleIncomingRouting);
+
+
+                    }
+                    else  {
+                        apply(tiDrop);
 
 
                     }
@@ -298,8 +303,8 @@ control ingress     {
 
 
     }
-    apply(ti_temp_port);
 }
+
 action ai_temp_port() {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
@@ -337,16 +342,17 @@ field_list_calculation ipv4_checksum {
 }
 
 action aDrop_pfuzz_tiDrop() {
+    add_to_field(pfuzz_visited.encoding_i1, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action aiForMe_pfuzz_tiHandleIncomingEthernet() {
     modify_field(cis553_metadata.forMe, 1);
-    add_to_field(pfuzz_visited.encoding_i1, 5);
+    add_to_field(pfuzz_visited.encoding_i9, 7);
 }
 
 action aDrop_pfuzz_tiHandleIncomingEthernet() {
-    add_to_field(pfuzz_visited.encoding_i1, 1);
+    add_to_field(pfuzz_visited.encoding_i9, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
@@ -356,11 +362,11 @@ action aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting(egress_port) {
     modify_field(ethernet.dstAddr, 0xffffffffffff);
     modify_field(ethernet.etherType, 0x553);
     modify_field(cis553_metadata.forMe, 0);
-    add_to_field(pfuzz_visited.encoding_i8, 1);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
 action ai_nop_pfuzz_tiHandleOutgoingRouting() {
-    add_to_field(pfuzz_visited.encoding_i8, 5);
+    add_to_field(pfuzz_visited.encoding_i0, 3);
 }
 
 action aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one(mac_sa) {
@@ -371,40 +377,41 @@ action aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_o
     modify_field(arp.targetHA, arp.senderHA);
     modify_field(arp.senderHA, mac_sa);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, ig_intr_md.ingress_port);
-    add_to_field(pfuzz_visited.encoding_i2, 1);
+    add_to_field(pfuzz_visited.encoding_i9, 1);
 }
 
 action ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one() {
-    add_to_field(pfuzz_visited.encoding_i2, 2);
+    add_to_field(pfuzz_visited.encoding_i9, 2);
 }
 
 action aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two() {
     modify_field(arp.targetPA, arp.senderPA);
     modify_field(arp.senderPA, cis553_metadata.temp);
-    add_to_field(pfuzz_visited.encoding_i1, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 3);
 }
 
 action aDrop_pfuzz_tiHandleIncomingArpReqest_part_two() {
+    add_to_field(pfuzz_visited.encoding_i1, 2);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
 action aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse() {
     clone_i2e(98);
-    add_to_field(pfuzz_visited.encoding_i6, 1);
+    add_to_field(pfuzz_visited.encoding_i3, 1);
 }
 
 action aiFindNextL3Hop_pfuzz_tiHandleIpv4(nextHop) {
     modify_field(cis553_metadata.nextHop, nextHop);
-    add_to_field(pfuzz_visited.encoding_i8, 2);
+    add_to_field(pfuzz_visited.encoding_i2, 2);
 }
 
 action aiSendToLastHop_pfuzz_tiHandleIpv4() {
     modify_field(cis553_metadata.nextHop, ipv4.dstAddr);
-    add_to_field(pfuzz_visited.encoding_i8, 3);
+    add_to_field(pfuzz_visited.encoding_i2, 3);
 }
 
 action aDrop_pfuzz_tiHandleIpv4() {
-    add_to_field(pfuzz_visited.encoding_i8, 1);
+    add_to_field(pfuzz_visited.encoding_i2, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
@@ -412,7 +419,7 @@ action aiForward_pfuzz_tiHandleOutgoingEthernet(mac_sa, mac_da, egress_port) {
     modify_field(ethernet.srcAddr, mac_sa);
     modify_field(ethernet.dstAddr, mac_da);
     modify_field(standard_metadata.egress_spec, egress_port);
-    add_to_field(pfuzz_visited.encoding_i3, 2);
+    add_to_field(pfuzz_visited.encoding_i9, 1);
 }
 
 action aiArpMiss_pfuzz_tiHandleOutgoingEthernet(local_ip, local_mac, local_port) {
@@ -430,11 +437,10 @@ action aiArpMiss_pfuzz_tiHandleOutgoingEthernet(local_ip, local_mac, local_port)
     modify_field(arp.senderPA, local_ip);
     modify_field(arp.targetHA, 0);
     modify_field(arp.targetPA, cis553_metadata.nextHop);
-    add_to_field(pfuzz_visited.encoding_i3, 1);
 }
 
 action ai_nop_pfuzz_tiHandleOutgoingEthernet() {
-    add_to_field(pfuzz_visited.encoding_i3, 3);
+    add_to_field(pfuzz_visited.encoding_i9, 2);
 }
 
 action aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting() {
@@ -456,6 +462,7 @@ header_type pfuzz_visited_t {
         encoding_i6 : 8;
         encoding_i7 : 8;
         encoding_i8 : 8;
+        encoding_i9 : 8;
         temp_port : 16;
     }
 }
@@ -470,58 +477,58 @@ calculated_field ipv4.hdrChecksum{
 }
 
 
-action ai_mvbl_0_VIRTUAL_START_hdrarpisValidhdrarpoper2() {
+action ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2() {
   add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
-table ti_mvbl_0_VIRTUAL_START_hdrarpisValidhdrarpoper2{
+table ti_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2{
   actions {
-    ai_mvbl_0_VIRTUAL_START_hdrarpisValidhdrarpoper2;
+    ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2;
   }
-  default_action: ai_mvbl_0_VIRTUAL_START_hdrarpisValidhdrarpoper2();
+  default_action: ai_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2();
 }
 
-action ai_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_hdrdistance_vecisValid() {
-  add_to_field(pfuzz_visited.encoding_i1, 1);
+action ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1() {
+  add_to_field(pfuzz_visited.encoding_i5, 1);
 }
 
-table ti_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_hdrdistance_vecisValid{
+table ti_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1{
   actions {
-    ai_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_hdrdistance_vecisValid;
+    ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1;
   }
-  default_action: ai_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_hdrdistance_vecisValid();
+  default_action: ai_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1();
 }
 
-action ai_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_two() {
-  add_to_field(pfuzz_visited.encoding_i1, 2);
+action ai_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid() {
+  add_to_field(pfuzz_visited.encoding_i6, 1);
 }
 
-table ti_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_two{
+table ti_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid{
   actions {
-    ai_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_two;
+    ai_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid;
   }
-  default_action: ai_mvbl_1_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleIncomingArpReqest_part_two();
+  default_action: ai_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid();
 }
 
-action ai_mvbl_3_VIRTUAL_START_hdripv4isValid() {
-  add_to_field(pfuzz_visited.encoding_i3, 1);
+action ai_mvbl_8_hdrethernetisValid_hdripv4isValid() {
+  add_to_field(pfuzz_visited.encoding_i8, 1);
 }
 
-table ti_mvbl_3_VIRTUAL_START_hdripv4isValid{
+table ti_mvbl_8_hdrethernetisValid_hdripv4isValid{
   actions {
-    ai_mvbl_3_VIRTUAL_START_hdripv4isValid;
+    ai_mvbl_8_hdrethernetisValid_hdripv4isValid;
   }
-  default_action: ai_mvbl_3_VIRTUAL_START_hdripv4isValid();
+  default_action: ai_mvbl_8_hdrethernetisValid_hdripv4isValid();
 }
 
-action ai_mvbl_4_VIRTUAL_START_hdrarpisValidhdrarpoper1() {
-  add_to_field(pfuzz_visited.encoding_i4, 1);
+action ai_mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet() {
+  add_to_field(pfuzz_visited.encoding_i9, 3);
 }
 
-table ti_mvbl_4_VIRTUAL_START_hdrarpisValidhdrarpoper1{
+table ti_mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet{
   actions {
-    ai_mvbl_4_VIRTUAL_START_hdrarpisValidhdrarpoper1;
+    ai_mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet;
   }
-  default_action: ai_mvbl_4_VIRTUAL_START_hdrarpisValidhdrarpoper1();
+  default_action: ai_mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet();
 }
 

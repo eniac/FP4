@@ -147,6 +147,9 @@
             "encoding_i8": "8"
         },
         {
+            "encoding_i9": "8"
+        },
+        {
             "temp_port": "16"
         }
     ]
