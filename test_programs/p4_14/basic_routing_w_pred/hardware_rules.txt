@@ -1,0 +1,58 @@
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 0 action_bd 10
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 4 action_bd 20
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 8 action_bd 30
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 12 action_bd 40
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 16 action_bd 50
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 20 action_bd 60
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 32 action_bd 70
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 36 action_bd 80
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 40 action_bd 90
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 44 action_bd 100
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 48 action_bd 110
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 52 action_bd 120
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 56 action_bd 130
+pd port_mapping add_entry set_bd ig_intr_md_ingress_port 60 action_bd 140
+
+pd bd add_entry set_vrf ingress_metadata_bd 10 action_vrf 200
+pd bd add_entry set_vrf ingress_metadata_bd 20 action_vrf 210
+pd bd add_entry set_vrf ingress_metadata_bd 100 action_vrf 220
+pd bd add_entry set_vrf ingress_metadata_bd 110 action_vrf 230
+pd bd add_entry set_vrf ingress_metadata_bd 120 action_vrf 240
+pd bd add_entry set_vrf ingress_metadata_bd 130 action_vrf 250
+pd bd add_entry set_vrf ingress_metadata_bd 140 action_vrf 260
+
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 200 ipv4_dstAddr 10.0.0.1 action_nexthop_index 1
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 210 ipv4_dstAddr 10.1.0.1 action_nexthop_index 2
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 220 ipv4_dstAddr 10.0.4.1 action_nexthop_index 3
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 230 ipv4_dstAddr 10.5.0.1 action_nexthop_index 4
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 240 ipv4_dstAddr 10.0.6.1 action_nexthop_index 5
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 250 ipv4_dstAddr 10.0.7.1 action_nexthop_index 6
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 260 ipv4_dstAddr 10.0.20.1 action_nexthop_index 7
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 200 ipv4_dstAddr 10.0.30.1 action_nexthop_index 8
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 210 ipv4_dstAddr 10.0.50.1 action_nexthop_index 9
+pd ipv4_fib add_entry fib_hit_nexthop ingress_metadata_vrf 220 ipv4_dstAddr 50.0.0.1 action_nexthop_index 10
+
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 200 ipv4_dstAddr 10.0.0.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 1
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 210 ipv4_dstAddr 10.1.0.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 2
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 220 ipv4_dstAddr 10.0.4.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 3
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 230 ipv4_dstAddr 10.5.0.1 ipv4_dstAddr_prefix_length 16 action_nexthop_index 4
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 240 ipv4_dstAddr 10.0.6.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 5
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 250 ipv4_dstAddr 10.0.7.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 6
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 260 ipv4_dstAddr 10.0.20.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 7
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 200 ipv4_dstAddr 10.0.30.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 8
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 210 ipv4_dstAddr 10.0.50.1 ipv4_dstAddr_prefix_length 24 action_nexthop_index 9
+pd ipv4_fib_lpm add_entry fib_hit_nexthop ingress_metadata_vrf 220 ipv4_dstAddr 50.0.0.1 ipv4_dstAddr_prefix_length 8 action_nexthop_index 10
+
+
+pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 1 action_egress_spec 0
+pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 2 action_egress_spec 4
+pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 3 action_egress_spec 12
+pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 8 action_egress_spec 16 
+pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 9 action_egress_spec 32
+pd nexthop add_entry set_egress_details ingress_metadata_nexthop_index 10 action_egress_spec 40
+
+pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 1 action_smac 0xaaaaac action_dmac 0xaaaaac
+pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 2 action_smac 0xaaaaac action_dmac 0xaaaaad
+pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 3 action_smac 0xaaaaac action_dmac 0xaaaaaf
+pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 6 action_smac 0xaaaaac action_dmac 0xaaaaae
+pd rewrite_mac add_entry rewrite_src_dst_mac ingress_metadata_nexthop_index 10 action_smac 0xaaaaac action_dmac 0xaaaaac
