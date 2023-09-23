@@ -24,16 +24,16 @@ mkdir $context_dot_cache_dir || echo "Skipped"
 
 for program in "${program_list[@]}"
 do
-   rm -rf $context_dot_cache_dir/$program
-   mkdir $context_dot_cache_dir/$program
-   cp $SDE_PREFIX/$program/graphs/ingress.dot $context_dot_cache_dir/$program
-   cp $SDE_PREFIX/$program/graphs/egress.dot $context_dot_cache_dir/$program
-   cp $SDE_PREFIX/$program/context.json $context_dot_cache_dir/$program
-   cp $SDE_PREFIX/$program/logs/mau.json $context_dot_cache_dir/$program
-   dot -Tsvg $context_dot_cache_dir/$program/ingress.dot > $context_dot_cache_dir/$program/ingress.svg
-   dot -Tsvg $context_dot_cache_dir/$program/egress.dot > $context_dot_cache_dir/$program/egress.svg
-   python3 gen_mvbl_plan.py -p $program -d $SDE_PREFIX/$program/graphs/ingress.dot -c $SDE_PREFIX/$program/context.json -g ingress
-   python3 gen_mvbl_plan.py -p $program -d $SDE_PREFIX/$program/graphs/egress.dot -c $SDE_PREFIX/$program/context.json -g egress
+   # rm -rf $context_dot_cache_dir/$program
+   # mkdir $context_dot_cache_dir/$program
+   # cp $SDE_PREFIX/$program/graphs/ingress.dot $context_dot_cache_dir/$program
+   # cp $SDE_PREFIX/$program/graphs/egress.dot $context_dot_cache_dir/$program
+   # cp $SDE_PREFIX/$program/context.json $context_dot_cache_dir/$program
+   # cp $SDE_PREFIX/$program/logs/mau.json $context_dot_cache_dir/$program
+   # dot -Tsvg $context_dot_cache_dir/$program/ingress.dot > $context_dot_cache_dir/$program/ingress.svg
+   # dot -Tsvg $context_dot_cache_dir/$program/egress.dot > $context_dot_cache_dir/$program/egress.svg
+   python3 gen_mvbl_plan.py -p $program -d $context_dot_cache_dir/$program/ingress.dot -c $context_dot_cache_dir/$program/context.json -g ingress
+   python3 gen_mvbl_plan.py -p $program -d $context_dot_cache_dir/$program/egress.dot -c $context_dot_cache_dir/$program/context.json -g egress
 done
 
 # python3 gen_mvbl_plan.py -d test_examples/switch_80019/ingress.dot -c test_examples/switch_80019/context.json
