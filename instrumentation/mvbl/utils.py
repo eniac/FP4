@@ -1,6 +1,26 @@
 import networkx as nx
 import re
 
+
+def draw_graph(graph):
+    import networkx as nx
+    import matplotlib.pyplot as plt
+    G =graph.copy()
+    for layer, nodes in enumerate(nx.topological_generations(G)):
+        # `multipartite_layout` expects the layer as a node attribute, so add the
+        # numeric layer value as a node attribute
+        for node in nodes:
+            G.nodes[node]["layer"] = layer
+
+    # Compute the multipartite_layout using the "layer" node attribute
+    pos = nx.multipartite_layout(G, subset_key="layer")
+
+    fig, ax = plt.subplots()
+    nx.draw_networkx(G, pos=pos, ax=ax)
+    ax.set_title("DAG layout in topological order")
+    fig.tight_layout()
+    plt.show()
+
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
 

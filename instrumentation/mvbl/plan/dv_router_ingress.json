@@ -1,145 +1,107 @@
 {
     "0": {
         "edge_dst_to_edge": {
-            "ai_nop_pfuzz_tiHandleOutgoingRouting": "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "hdrarpisValidhdrarpoper2": "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2",
-            "tiHandleOutgoingRouting": "VIRTUAL_START -> tiHandleOutgoingRouting"
+            "ai_nop_pfuzz_tiHandleOutgoingRouting": "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting"
         },
         "edge_dst_to_increment": {
-            "ai_nop_pfuzz_tiHandleOutgoingRouting": 2,
-            "hdrarpisValidhdrarpoper2": 1,
-            "tiHandleOutgoingRouting": 1
+            "ai_nop_pfuzz_tiHandleOutgoingRouting": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
             "VIRTUAL_START -> tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting -> 000_virtual_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
             "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting -> 000_virtual_ai_nop_pfuzz_tiHandleOutgoingRouting",
             "ai_nop_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2",
+            "hdrarpisValidhdrarpoper2 -> VIRTUAL_EXIT",
             "tiHandleOutgoingRouting -> aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
             "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting"
         ],
         "encoding_to_path": {
-            "0": [],
-            "1": [
-                "tiHandleOutgoingRouting",
-                "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting"
-            ],
-            "2": [
+            "0": [
                 "tiHandleOutgoingRouting",
                 "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
                 "hdrarpisValidhdrarpoper2"
             ],
-            "3": [
-                "tiHandleOutgoingRouting",
-                "ai_nop_pfuzz_tiHandleOutgoingRouting"
-            ],
-            "4": [
+            "1": [
                 "tiHandleOutgoingRouting",
                 "ai_nop_pfuzz_tiHandleOutgoingRouting",
                 "hdrarpisValidhdrarpoper2"
             ]
         },
         "final_edge_dst_to_edge": {
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting": "tiHandleOutgoingRouting -> aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting": "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "hdrarpisValidhdrarpoper2": "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2"
+            "ai_nop_pfuzz_tiHandleOutgoingRouting": "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting"
         },
         "final_edge_dst_to_increment": {
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting": 1,
-            "ai_nop_pfuzz_tiHandleOutgoingRouting": 3,
-            "hdrarpisValidhdrarpoper2": 1
+            "ai_nop_pfuzz_tiHandleOutgoingRouting": 1
         },
-        "final_non_action_to_increment": {
-            "hdrarpisValidhdrarpoper2": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdrarpisValidhdrarpoper2": "mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2"
-        },
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2": 1,
-            "ai_nop_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2": 1,
-            "tiHandleOutgoingRouting -> aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting": 1,
-            "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting": 3
+            "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting": 1
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
-            "000_virtual_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "000_virtual_ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "VIRTUAL_EXIT",
             "VIRTUAL_START",
             "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
             "ai_nop_pfuzz_tiHandleOutgoingRouting",
             "hdrarpisValidhdrarpoper2",
             "tiHandleOutgoingRouting"
         ],
-        "non_action_to_increment": {
-            "hdrarpisValidhdrarpoper2": 1,
-            "tiHandleOutgoingRouting": 1
-        },
+        "non_action_to_increment": {},
         "nonzero_edge_list": {
-            "VIRTUAL_START -> tiHandleOutgoingRouting": 1,
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2": 1,
-            "ai_nop_pfuzz_tiHandleOutgoingRouting -> hdrarpisValidhdrarpoper2": 1,
-            "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting": 2
+            "tiHandleOutgoingRouting -> ai_nop_pfuzz_tiHandleOutgoingRouting": 1
         },
         "num_bits": 8,
         "num_bits_original": 2,
-        "num_paths": 5
+        "num_paths": 2
     },
     "1": {
         "edge_dst_to_edge": {
             "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": "tiHandleIncomingArpReqest_part_two -> aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "tiDrop": "VIRTUAL_START -> tiDrop",
             "tiHandleIncomingArpReqest_part_two": "VIRTUAL_START -> tiHandleIncomingArpReqest_part_two"
         },
         "edge_dst_to_increment": {
             "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": 1,
-            "tiDrop": 1,
-            "tiHandleIncomingArpReqest_part_two": 2
+            "tiHandleIncomingArpReqest_part_two": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
             "VIRTUAL_START -> tiDrop",
             "VIRTUAL_START -> tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiDrop -> VIRTUAL_EXIT",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two -> VIRTUAL_EXIT",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two -> VIRTUAL_EXIT",
             "tiDrop -> aDrop_pfuzz_tiDrop",
             "tiHandleIncomingArpReqest_part_two -> aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
             "tiHandleIncomingArpReqest_part_two -> aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two"
         ],
         "encoding_to_path": {
-            "0": [],
-            "1": [
+            "0": [
                 "tiDrop",
                 "aDrop_pfuzz_tiDrop"
             ],
-            "2": [
+            "1": [
                 "tiHandleIncomingArpReqest_part_two",
                 "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two"
             ],
-            "3": [
+            "2": [
                 "tiHandleIncomingArpReqest_part_two",
                 "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two"
             ]
         },
         "final_edge_dst_to_edge": {
-            "aDrop_pfuzz_tiDrop": "tiDrop -> aDrop_pfuzz_tiDrop",
             "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two": "tiHandleIncomingArpReqest_part_two -> aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
             "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": "tiHandleIncomingArpReqest_part_two -> aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two"
         },
         "final_edge_dst_to_increment": {
-            "aDrop_pfuzz_tiDrop": 1,
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two": 2,
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": 3
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two": 1,
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": 2
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {
-            "tiDrop -> aDrop_pfuzz_tiDrop": 1,
-            "tiHandleIncomingArpReqest_part_two -> aDrop_pfuzz_tiHandleIncomingArpReqest_part_two": 2,
-            "tiHandleIncomingArpReqest_part_two -> aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": 3
+            "tiHandleIncomingArpReqest_part_two -> aDrop_pfuzz_tiHandleIncomingArpReqest_part_two": 1,
+            "tiHandleIncomingArpReqest_part_two -> aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": 2
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_EXIT",
             "VIRTUAL_START",
             "aDrop_pfuzz_tiDrop",
             "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
@@ -148,143 +110,91 @@
             "tiHandleIncomingArpReqest_part_two"
         ],
         "non_action_to_increment": {
-            "tiDrop": 1,
-            "tiHandleIncomingArpReqest_part_two": 2
+            "tiHandleIncomingArpReqest_part_two": 1
         },
         "nonzero_edge_list": {
-            "VIRTUAL_START -> tiDrop": 1,
-            "VIRTUAL_START -> tiHandleIncomingArpReqest_part_two": 2,
+            "VIRTUAL_START -> tiHandleIncomingArpReqest_part_two": 1,
             "tiHandleIncomingArpReqest_part_two -> aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two": 1
         },
         "num_bits": 8,
         "num_bits_original": 2,
-        "num_paths": 4
+        "num_paths": 3
     },
     "2": {
         "edge_dst_to_edge": {
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4": "tiHandleIpv4 -> aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4": "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleIpv4": "VIRTUAL_START -> tiHandleIpv4"
+            "aiSendToLastHop_pfuzz_tiHandleIpv4": "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4"
         },
         "edge_dst_to_increment": {
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4": 1,
-            "aiSendToLastHop_pfuzz_tiHandleIpv4": 2,
-            "tiHandleIpv4": 1
+            "aiSendToLastHop_pfuzz_tiHandleIpv4": 2
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
             "VIRTUAL_START -> tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4 -> VIRTUAL_EXIT",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4 -> VIRTUAL_EXIT",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4 -> VIRTUAL_EXIT",
             "tiHandleIpv4 -> aDrop_pfuzz_tiHandleIpv4",
             "tiHandleIpv4 -> aiFindNextL3Hop_pfuzz_tiHandleIpv4",
             "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4"
         ],
         "encoding_to_path": {
-            "0": [],
-            "1": [
+            "0": [
                 "tiHandleIpv4",
                 "aDrop_pfuzz_tiHandleIpv4"
             ],
-            "2": [
+            "1": [
                 "tiHandleIpv4",
                 "aiFindNextL3Hop_pfuzz_tiHandleIpv4"
             ],
-            "3": [
+            "2": [
                 "tiHandleIpv4",
                 "aiSendToLastHop_pfuzz_tiHandleIpv4"
             ]
         },
         "final_edge_dst_to_edge": {
-            "aDrop_pfuzz_tiHandleIpv4": "tiHandleIpv4 -> aDrop_pfuzz_tiHandleIpv4",
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4": "tiHandleIpv4 -> aiFindNextL3Hop_pfuzz_tiHandleIpv4",
             "aiSendToLastHop_pfuzz_tiHandleIpv4": "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4"
         },
         "final_edge_dst_to_increment": {
-            "aDrop_pfuzz_tiHandleIpv4": 1,
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4": 2,
-            "aiSendToLastHop_pfuzz_tiHandleIpv4": 3
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4": 1,
+            "aiSendToLastHop_pfuzz_tiHandleIpv4": 2
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {
-            "tiHandleIpv4 -> aDrop_pfuzz_tiHandleIpv4": 1,
-            "tiHandleIpv4 -> aiFindNextL3Hop_pfuzz_tiHandleIpv4": 2,
-            "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4": 3
+            "tiHandleIpv4 -> aiFindNextL3Hop_pfuzz_tiHandleIpv4": 1,
+            "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4": 2
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "VIRTUAL_EXIT",
             "VIRTUAL_START",
             "aDrop_pfuzz_tiHandleIpv4",
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
             "aiSendToLastHop_pfuzz_tiHandleIpv4",
             "tiHandleIpv4"
         ],
-        "non_action_to_increment": {
-            "tiHandleIpv4": 1
-        },
+        "non_action_to_increment": {},
         "nonzero_edge_list": {
-            "VIRTUAL_START -> tiHandleIpv4": 1,
             "tiHandleIpv4 -> aiFindNextL3Hop_pfuzz_tiHandleIpv4": 1,
             "tiHandleIpv4 -> aiSendToLastHop_pfuzz_tiHandleIpv4": 2
         },
         "num_bits": 8,
         "num_bits_original": 2,
-        "num_paths": 4
+        "num_paths": 3
     },
     "3": {
-        "edge_dst_to_edge": {
-            "tiHandleIncomingArpResponse": "VIRTUAL_START -> tiHandleIncomingArpResponse"
-        },
-        "edge_dst_to_increment": {
-            "tiHandleIncomingArpResponse": 1
-        },
-        "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
-            "VIRTUAL_START -> tiHandleIncomingArpResponse",
-            "tiHandleIncomingArpResponse -> aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse"
-        ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "tiHandleIncomingArpResponse",
-                "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse": "tiHandleIncomingArpResponse -> aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse"
-        },
-        "final_edge_dst_to_increment": {
-            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse": 1
-        },
-        "final_non_action_to_increment": {},
-        "final_non_action_to_increment_rootword": {},
-        "final_nonzero_edge_list": {
-            "tiHandleIncomingArpResponse -> aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse": 1
-        },
-        "nodes": [
-            "000_virtual_VIRTUAL_START",
-            "VIRTUAL_START",
-            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
-            "tiHandleIncomingArpResponse"
-        ],
-        "non_action_to_increment": {
-            "tiHandleIncomingArpResponse": 1
-        },
-        "nonzero_edge_list": {
-            "VIRTUAL_START -> tiHandleIncomingArpResponse": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 1,
-        "num_paths": 2
-    },
-    "4": {
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "VIRTUAL_START -> metacis553_metadataforMe0"
+            "VIRTUAL_START -> tiHandleIncomingArpResponse",
+            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse -> VIRTUAL_EXIT",
+            "tiHandleIncomingArpResponse -> aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse"
         ],
         "encoding_to_path": {
             "0": [
-                "metacis553_metadataforMe0"
+                "tiHandleIncomingArpResponse",
+                "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse"
             ]
         },
         "final_edge_dst_to_edge": {},
@@ -293,6 +203,37 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "VIRTUAL_EXIT",
+            "VIRTUAL_START",
+            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
+            "tiHandleIncomingArpResponse"
+        ],
+        "non_action_to_increment": {},
+        "nonzero_edge_list": {},
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 1
+    },
+    "4": {
+        "edge_dst_to_edge": {},
+        "edge_dst_to_increment": {},
+        "edges": [
+            "VIRTUAL_START -> metacis553_metadataforMe0",
+            "metacis553_metadataforMe0 -> VIRTUAL_EXIT"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "tiHandleIncomingRouting",
+                "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting"
+            ]
+        },
+        "final_edge_dst_to_edge": {},
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
+        "nodes": [
+            "VIRTUAL_EXIT",
             "VIRTUAL_START",
             "metacis553_metadataforMe0"
         ],
@@ -304,224 +245,220 @@
     },
     "5": {
         "edge_dst_to_edge": {
-            "hdrarpisValidhdrarpoper1": "VIRTUAL_START -> hdrarpisValidhdrarpoper1"
-        },
-        "edge_dst_to_increment": {
-            "hdrarpisValidhdrarpoper1": 1
-        },
-        "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
-            "VIRTUAL_START -> hdrarpisValidhdrarpoper1"
-        ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "hdrarpisValidhdrarpoper1"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "hdrarpisValidhdrarpoper1": "VIRTUAL_START -> hdrarpisValidhdrarpoper1"
-        },
-        "final_edge_dst_to_increment": {
-            "hdrarpisValidhdrarpoper1": 1
-        },
-        "final_non_action_to_increment": {
-            "hdrarpisValidhdrarpoper1": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdrarpisValidhdrarpoper1": "mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1"
-        },
-        "final_nonzero_edge_list": {
-            "VIRTUAL_START -> hdrarpisValidhdrarpoper1": 1
-        },
-        "nodes": [
-            "000_virtual_VIRTUAL_START",
-            "VIRTUAL_START",
-            "hdrarpisValidhdrarpoper1"
-        ],
-        "non_action_to_increment": {
-            "hdrarpisValidhdrarpoper1": 1
-        },
-        "nonzero_edge_list": {
-            "VIRTUAL_START -> hdrarpisValidhdrarpoper1": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 1,
-        "num_paths": 2
-    },
-    "6": {
-        "edge_dst_to_edge": {
-            "hdrdistance_vecisValid": "VIRTUAL_START -> hdrdistance_vecisValid"
-        },
-        "edge_dst_to_increment": {
-            "hdrdistance_vecisValid": 1
-        },
-        "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
-            "VIRTUAL_START -> hdrdistance_vecisValid"
-        ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "hdrdistance_vecisValid"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "hdrdistance_vecisValid": "VIRTUAL_START -> hdrdistance_vecisValid"
-        },
-        "final_edge_dst_to_increment": {
-            "hdrdistance_vecisValid": 1
-        },
-        "final_non_action_to_increment": {
-            "hdrdistance_vecisValid": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdrdistance_vecisValid": "mvbl_6_VIRTUAL_START_hdrdistance_vecisValid"
-        },
-        "final_nonzero_edge_list": {
-            "VIRTUAL_START -> hdrdistance_vecisValid": 1
-        },
-        "nodes": [
-            "000_virtual_VIRTUAL_START",
-            "VIRTUAL_START",
-            "hdrdistance_vecisValid"
-        ],
-        "non_action_to_increment": {
-            "hdrdistance_vecisValid": 1
-        },
-        "nonzero_edge_list": {
-            "VIRTUAL_START -> hdrdistance_vecisValid": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 1,
-        "num_paths": 2
-    },
-    "7": {
-        "edge_dst_to_edge": {
-            "tiHandleIncomingRouting": "VIRTUAL_START -> tiHandleIncomingRouting"
-        },
-        "edge_dst_to_increment": {
-            "tiHandleIncomingRouting": 1
-        },
-        "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
-            "VIRTUAL_START -> tiHandleIncomingRouting",
-            "tiHandleIncomingRouting -> aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting"
-        ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "tiHandleIncomingRouting",
-                "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting": "tiHandleIncomingRouting -> aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting"
-        },
-        "final_edge_dst_to_increment": {
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting": 1
-        },
-        "final_non_action_to_increment": {},
-        "final_non_action_to_increment_rootword": {},
-        "final_nonzero_edge_list": {
-            "tiHandleIncomingRouting -> aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting": 1
-        },
-        "nodes": [
-            "000_virtual_VIRTUAL_START",
-            "VIRTUAL_START",
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
-            "tiHandleIncomingRouting"
-        ],
-        "non_action_to_increment": {
-            "tiHandleIncomingRouting": 1
-        },
-        "nonzero_edge_list": {
-            "VIRTUAL_START -> tiHandleIncomingRouting": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 1,
-        "num_paths": 2
-    },
-    "8": {
-        "edge_dst_to_edge": {
-            "hdripv4isValid": "hdrethernetisValid -> hdripv4isValid"
-        },
-        "edge_dst_to_increment": {
-            "hdripv4isValid": 1
-        },
-        "edges": [
-            "VIRTUAL_START -> hdrethernetisValid",
-            "hdrethernetisValid -> 000_virtual_hdrethernetisValid",
-            "hdrethernetisValid -> hdripv4isValid"
-        ],
-        "encoding_to_path": {
-            "0": [
-                "hdrethernetisValid"
-            ],
-            "1": [
-                "hdrethernetisValid",
-                "hdripv4isValid"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "hdripv4isValid": "hdrethernetisValid -> hdripv4isValid"
-        },
-        "final_edge_dst_to_increment": {
-            "hdripv4isValid": 1
-        },
-        "final_non_action_to_increment": {
-            "hdripv4isValid": 1
-        },
-        "final_non_action_to_increment_rootword": {
-            "hdripv4isValid": "mvbl_8_hdrethernetisValid_hdripv4isValid"
-        },
-        "final_nonzero_edge_list": {
-            "hdrethernetisValid -> hdripv4isValid": 1
-        },
-        "nodes": [
-            "000_virtual_hdrethernetisValid",
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "hdripv4isValid"
-        ],
-        "non_action_to_increment": {
-            "hdripv4isValid": 1
-        },
-        "nonzero_edge_list": {
-            "hdrethernetisValid -> hdripv4isValid": 1
-        },
-        "num_bits": 8,
-        "num_bits_original": 2,
-        "num_paths": 2
-    },
-    "9": {
-        "edge_dst_to_edge": {
             "aiForMe_pfuzz_tiHandleIncomingEthernet": "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet",
             "aiForward_pfuzz_tiHandleOutgoingEthernet": "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet",
             "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
             "ai_nop_pfuzz_tiHandleOutgoingEthernet": "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "tiHandleIncomingArpReqest_part_one": "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingEthernet": "VIRTUAL_START -> tiHandleIncomingEthernet",
-            "tiHandleOutgoingEthernet": "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet"
+            "tiHandleOutgoingEthernet": "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet"
         },
         "edge_dst_to_increment": {
-            "aiForMe_pfuzz_tiHandleIncomingEthernet": 6,
+            "aiForMe_pfuzz_tiHandleIncomingEthernet": 5,
             "aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
             "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
             "ai_nop_pfuzz_tiHandleOutgoingEthernet": 2,
-            "tiHandleIncomingArpReqest_part_one": 1,
-            "tiHandleIncomingEthernet": 1,
-            "tiHandleOutgoingEthernet": 3
+            "tiHandleOutgoingEthernet": 2
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper1 -> VIRTUAL_EXIT"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "tiHandleIncomingEthernet",
+                "aDrop_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleIncomingArpReqest_part_one",
+                "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one"
+            ],
+            "1": [
+                "tiHandleIncomingEthernet",
+                "aDrop_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleIncomingArpReqest_part_one",
+                "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one"
+            ],
+            "2": [
+                "tiHandleIncomingEthernet",
+                "aDrop_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleOutgoingEthernet",
+                "aiArpMiss_pfuzz_tiHandleOutgoingEthernet"
+            ],
+            "3": [
+                "tiHandleIncomingEthernet",
+                "aDrop_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleOutgoingEthernet",
+                "aiForward_pfuzz_tiHandleOutgoingEthernet"
+            ],
+            "4": [
+                "tiHandleIncomingEthernet",
+                "aDrop_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleOutgoingEthernet",
+                "ai_nop_pfuzz_tiHandleOutgoingEthernet"
+            ],
+            "5": [
+                "tiHandleIncomingEthernet",
+                "aiForMe_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleIncomingArpReqest_part_one",
+                "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one"
+            ],
+            "6": [
+                "tiHandleIncomingEthernet",
+                "aiForMe_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleIncomingArpReqest_part_one",
+                "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one"
+            ],
+            "7": [
+                "tiHandleIncomingEthernet",
+                "aiForMe_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleOutgoingEthernet",
+                "aiArpMiss_pfuzz_tiHandleOutgoingEthernet"
+            ],
+            "8": [
+                "tiHandleIncomingEthernet",
+                "aiForMe_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleOutgoingEthernet",
+                "aiForward_pfuzz_tiHandleOutgoingEthernet"
+            ],
+            "9": [
+                "tiHandleIncomingEthernet",
+                "aiForMe_pfuzz_tiHandleIncomingEthernet",
+                "tiHandleOutgoingEthernet",
+                "ai_nop_pfuzz_tiHandleOutgoingEthernet"
+            ]
+        },
+        "final_edge_dst_to_edge": {
+            "aiForMe_pfuzz_tiHandleIncomingEthernet": "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet": "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet": "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "tiHandleOutgoingEthernet": "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet"
+        },
+        "final_edge_dst_to_increment": {
+            "aiForMe_pfuzz_tiHandleIncomingEthernet": 5,
+            "aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet": 2,
+            "tiHandleOutgoingEthernet": 2
+        },
+        "final_non_action_to_increment": {
+            "tiHandleOutgoingEthernet": 2
+        },
+        "final_non_action_to_increment_rootword": {
+            "tiHandleOutgoingEthernet": "mvbl_5_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet"
+        },
+        "final_nonzero_edge_list": {
+            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 2,
+            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 2,
+            "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
+            "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet": 5,
+            "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
+            "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet": 2
+        },
+        "nodes": [
+            "VIRTUAL_EXIT",
+            "VIRTUAL_START",
+            "hdrarpisValidhdrarpoper1"
+        ],
+        "non_action_to_increment": {
+            "tiHandleOutgoingEthernet": 2
+        },
+        "nonzero_edge_list": {
+            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 2,
+            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 2,
+            "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
+            "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet": 5,
+            "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
+            "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet": 2
+        },
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 10
+    },
+    "6": {
+        "edge_dst_to_edge": {},
+        "edge_dst_to_increment": {},
+        "edges": [
+            "VIRTUAL_START -> hdrdistance_vecisValid",
+            "hdrdistance_vecisValid -> VIRTUAL_EXIT"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "hdrethernetisValid",
+                "hdripv4isValid"
+            ]
+        },
+        "final_edge_dst_to_edge": {},
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
+        "nodes": [
+            "VIRTUAL_EXIT",
+            "VIRTUAL_START",
+            "hdrdistance_vecisValid"
+        ],
+        "non_action_to_increment": {},
+        "nonzero_edge_list": {},
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 1
+    },
+    "7": {
+        "edge_dst_to_edge": {},
+        "edge_dst_to_increment": {},
+        "edges": [
+            "VIRTUAL_START -> tiHandleIncomingRouting",
+            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting -> VIRTUAL_EXIT",
+            "tiHandleIncomingRouting -> aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting"
+        ],
+        "encoding_to_path": {
+            "0": [
+                "metacis553_metadataforMe0",
+                "hdrarpisValidhdrarpoper1",
+                "hdrdistance_vecisValid"
+            ]
+        },
+        "final_edge_dst_to_edge": {},
+        "final_edge_dst_to_increment": {},
+        "final_non_action_to_increment": {},
+        "final_non_action_to_increment_rootword": {},
+        "final_nonzero_edge_list": {},
+        "nodes": [
+            "VIRTUAL_EXIT",
+            "VIRTUAL_START",
+            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
+            "tiHandleIncomingRouting"
+        ],
+        "non_action_to_increment": {},
+        "nonzero_edge_list": {},
+        "num_bits": 8,
+        "num_bits_original": 1,
+        "num_paths": 1
+    },
+    "8": {
+        "edges": [
+            "VIRTUAL_START -> hdrethernetisValid",
+            "hdrethernetisValid -> hdripv4isValid",
+            "hdripv4isValid -> VIRTUAL_EXIT"
+        ],
+        "nodes": [
+            "VIRTUAL_EXIT",
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "hdripv4isValid"
+        ],
+        "num_bits_original": 2
+    },
+    "9": {
+        "edges": [
             "VIRTUAL_START -> tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet -> 000_virtual_aDrop_pfuzz_tiHandleIncomingEthernet",
             "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one",
             "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet -> 000_virtual_aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet -> VIRTUAL_EXIT",
             "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one",
             "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet -> VIRTUAL_EXIT",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one -> VIRTUAL_EXIT",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one -> VIRTUAL_EXIT",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet -> VIRTUAL_EXIT",
             "tiHandleIncomingArpReqest_part_one -> aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
             "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
             "tiHandleIncomingEthernet -> aDrop_pfuzz_tiHandleIncomingEthernet",
@@ -530,115 +467,8 @@
             "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet",
             "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet"
         ],
-        "encoding_to_path": {
-            "0": [],
-            "1": [
-                "tiHandleIncomingEthernet",
-                "aDrop_pfuzz_tiHandleIncomingEthernet"
-            ],
-            "10": [
-                "tiHandleIncomingEthernet",
-                "aiForMe_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleOutgoingEthernet",
-                "aiArpMiss_pfuzz_tiHandleOutgoingEthernet"
-            ],
-            "11": [
-                "tiHandleIncomingEthernet",
-                "aiForMe_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleOutgoingEthernet",
-                "aiForward_pfuzz_tiHandleOutgoingEthernet"
-            ],
-            "12": [
-                "tiHandleIncomingEthernet",
-                "aiForMe_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleOutgoingEthernet",
-                "ai_nop_pfuzz_tiHandleOutgoingEthernet"
-            ],
-            "2": [
-                "tiHandleIncomingEthernet",
-                "aDrop_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleIncomingArpReqest_part_one",
-                "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one"
-            ],
-            "3": [
-                "tiHandleIncomingEthernet",
-                "aDrop_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleIncomingArpReqest_part_one",
-                "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one"
-            ],
-            "4": [
-                "tiHandleIncomingEthernet",
-                "aDrop_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleOutgoingEthernet",
-                "aiArpMiss_pfuzz_tiHandleOutgoingEthernet"
-            ],
-            "5": [
-                "tiHandleIncomingEthernet",
-                "aDrop_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleOutgoingEthernet",
-                "aiForward_pfuzz_tiHandleOutgoingEthernet"
-            ],
-            "6": [
-                "tiHandleIncomingEthernet",
-                "aDrop_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleOutgoingEthernet",
-                "ai_nop_pfuzz_tiHandleOutgoingEthernet"
-            ],
-            "7": [
-                "tiHandleIncomingEthernet",
-                "aiForMe_pfuzz_tiHandleIncomingEthernet"
-            ],
-            "8": [
-                "tiHandleIncomingEthernet",
-                "aiForMe_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleIncomingArpReqest_part_one",
-                "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one"
-            ],
-            "9": [
-                "tiHandleIncomingEthernet",
-                "aiForMe_pfuzz_tiHandleIncomingEthernet",
-                "tiHandleIncomingArpReqest_part_one",
-                "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one"
-            ]
-        },
-        "final_edge_dst_to_edge": {
-            "aDrop_pfuzz_tiHandleIncomingEthernet": "tiHandleIncomingEthernet -> aDrop_pfuzz_tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet": "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet": "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one": "tiHandleIncomingArpReqest_part_one -> aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet": "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "tiHandleOutgoingEthernet": "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet"
-        },
-        "final_edge_dst_to_increment": {
-            "aDrop_pfuzz_tiHandleIncomingEthernet": 1,
-            "aiForMe_pfuzz_tiHandleIncomingEthernet": 7,
-            "aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 2,
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet": 2,
-            "tiHandleOutgoingEthernet": 3
-        },
-        "final_non_action_to_increment": {
-            "tiHandleOutgoingEthernet": 3
-        },
-        "final_non_action_to_increment_rootword": {
-            "tiHandleOutgoingEthernet": "mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet"
-        },
-        "final_nonzero_edge_list": {
-            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 3,
-            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 3,
-            "tiHandleIncomingArpReqest_part_one -> aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
-            "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 2,
-            "tiHandleIncomingEthernet -> aDrop_pfuzz_tiHandleIncomingEthernet": 1,
-            "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet": 7,
-            "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
-            "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet": 2
-        },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
-            "000_virtual_aDrop_pfuzz_tiHandleIncomingEthernet",
-            "000_virtual_aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "VIRTUAL_EXIT",
             "VIRTUAL_START",
             "aDrop_pfuzz_tiHandleIncomingEthernet",
             "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
@@ -651,25 +481,7 @@
             "tiHandleIncomingEthernet",
             "tiHandleOutgoingEthernet"
         ],
-        "non_action_to_increment": {
-            "tiHandleIncomingArpReqest_part_one": 1,
-            "tiHandleIncomingEthernet": 1,
-            "tiHandleOutgoingEthernet": 3
-        },
-        "nonzero_edge_list": {
-            "VIRTUAL_START -> tiHandleIncomingEthernet": 1,
-            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one": 1,
-            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 3,
-            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one": 1,
-            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet": 3,
-            "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one": 1,
-            "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet": 6,
-            "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet": 1,
-            "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet": 2
-        },
-        "num_bits": 8,
-        "num_bits_original": 4,
-        "num_paths": 13
+        "num_bits_original": 4
     },
     "final_incast_edge_dst_list": [
         "tiHandleOutgoingEthernet"
@@ -679,668 +491,15 @@
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiHandleIncomingRouting",
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiDrop",
-            "aDrop_pfuzz_tiDrop",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "tiHandleIncomingArpResponse",
-            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
             "tiHandleIpv4",
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
             "tiHandleOutgoingEthernet",
             "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "ai_nop_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiHandleIncomingRouting",
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiDrop",
-            "aDrop_pfuzz_tiDrop",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "tiHandleIncomingArpResponse",
-            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleOutgoingRouting",
-            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiHandleIncomingRouting",
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiDrop",
-            "aDrop_pfuzz_tiDrop",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "tiHandleIncomingArpResponse",
-            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
@@ -1348,7 +507,103 @@
             "tiHandleIncomingEthernet",
             "aiForMe_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
-            "000_virtual_EXIT"
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
@@ -1358,11 +613,53 @@
             "metacis553_metadataforMe0",
             "hdripv4isValid",
             "hdrarpisValidhdrarpoper1",
-            "hdrarpisValidhdrarpoper2",
-            "hdrdistance_vecisValid",
-            "tiHandleIncomingRouting",
-            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
-            "000_virtual_EXIT"
+            "tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
@@ -1376,7 +673,21 @@
             "hdrdistance_vecisValid",
             "tiDrop",
             "aDrop_pfuzz_tiDrop",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiHandleIncomingRouting",
+            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
@@ -1389,7 +700,7 @@
             "hdrarpisValidhdrarpoper2",
             "tiHandleIncomingArpResponse",
             "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
@@ -1397,33 +708,130 @@
             "tiHandleIncomingEthernet",
             "aiForMe_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
-            "hdrarpisValidhdrarpoper1",
-            "tiHandleIncomingArpReqest_part_one",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_two",
-            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
             "hdrarpisValidhdrarpoper1",
@@ -1431,13 +839,13 @@
             "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
             "tiHandleIncomingArpReqest_part_two",
             "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
             "hdrarpisValidhdrarpoper1",
@@ -1445,124 +853,528 @@
             "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
             "tiHandleIncomingArpReqest_part_two",
             "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiSendToLastHop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiDrop",
+            "aDrop_pfuzz_tiDrop",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiHandleIncomingRouting",
+            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "tiHandleIncomingArpResponse",
+            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
             "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "aDrop_pfuzz_tiHandleIncomingEthernet",
             "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aDrop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
-            "metacis553_metadataforMe0",
-            "hdripv4isValid",
-            "tiHandleIpv4",
-            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
-            "tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
             "tiHandleIpv4",
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
             "tiHandleOutgoingEthernet",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdrethernetisValid",
-            "tiHandleIncomingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
             "metacis553_metadataforMe0",
             "hdripv4isValid",
             "tiHandleIpv4",
             "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
             "tiHandleOutgoingEthernet",
             "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "000_virtual_EXIT"
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiDrop",
+            "aDrop_pfuzz_tiDrop",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiHandleIncomingRouting",
+            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "tiHandleIncomingArpResponse",
+            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "ai_nop_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiFindNextL3Hop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aiSendToLastHop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiForward_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "tiHandleIpv4",
+            "aDrop_pfuzz_tiHandleIpv4",
+            "tiHandleOutgoingEthernet",
+            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aDrop_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "tiHandleIncomingArpReqest_part_one",
+            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
+            "tiHandleIncomingArpReqest_part_two",
+            "aiHandleIncomingArpReqest_part_two_pfuzz_tiHandleIncomingArpReqest_part_two",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiDrop",
+            "aDrop_pfuzz_tiDrop",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "hdrdistance_vecisValid",
+            "tiHandleIncomingRouting",
+            "aiHandleIncomingRouting_pfuzz_tiHandleIncomingRouting",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "hdripv4isValid",
+            "hdrarpisValidhdrarpoper1",
+            "hdrarpisValidhdrarpoper2",
+            "tiHandleIncomingArpResponse",
+            "aiHandleIncomingArpResponse_pfuzz_tiHandleIncomingArpResponse",
+            "VIRTUAL_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrethernetisValid",
+            "tiHandleOutgoingRouting",
+            "aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting",
+            "metacis553_metadataforMe0",
+            "VIRTUAL_EXIT"
         ]
     ],
     "num_vars": 10,
@@ -1612,7 +1424,7 @@
             "tiHandleOutgoingEthernet"
         ]
     },
-    "sum_num_paths": 37,
+    "sum_num_paths": 22,
     "table2actions_dict": {
         "tiDrop": [
             "aDrop_pfuzz_tiDrop"
