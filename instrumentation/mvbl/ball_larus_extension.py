@@ -5,7 +5,7 @@ from utils import visualize_digraph
 from constants import *
 from utils import check_dag_connected, draw_graph
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 class ExtendBallLarus(object):
     def __init__(self, pulpSolver, full_graph, table2actions_dict, table_conditional_to_exit, global_root_node, json_output_dict, prog_name, direction, if_conditions_list):
@@ -143,7 +143,9 @@ class ExtendBallLarus(object):
             json_output_dict[str(graph_number)][JSON_OUTPUT_EDGES] = sorted(list(nx.generate_edgelist(new_subgraph, delimiter=' -> ', data=False)), key=lambda e: e)
 
         graphs_with_weights = []
+        # print("old_num_graphs", len(new_subgraphs))
         new_subgraphs = self.merge_conditional_graphs(new_subgraphs, if_conditions_list)
+        # print("new_num_graphs", len(new_subgraphs))
         for idx, graph in enumerate(new_subgraphs):
             logging.debug("\n====== Running BL for subgraph {0} ======".format(idx))
             logging.debug("----- Get BL plan for variable {0} additions------".format(idx))
@@ -269,6 +271,7 @@ class ExtendBallLarus(object):
     def merge_conditional_graphs(self, new_subgraphs, if_conditions_list):
         merged_subgraphs = []
         condition_only_graphs = set()
+
         for index, graph in enumerate(new_subgraphs):
             is_graph_condition_only = True
             for node in graph.nodes:

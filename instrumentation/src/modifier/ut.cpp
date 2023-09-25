@@ -22,7 +22,7 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
                                             num_bits});
 
         // Get the list of non actions
-        std::map<std::string, std::string> non_action_name_rootword_map;
+        
         for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
             std::string nonaction_name = it.key();
             std::string rootword = it.value();
@@ -50,6 +50,8 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
                     << "}\n";
                 unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_"+non_action_name_rootword_map[node_name]), new string("ti_"+non_action_name_rootword_map[node_name])));
                 oss.str("");
+
+
             } else {
                 // Action
                 action_2_encoding_field_.insert({node_name, "_i"+std::to_string(var_idx)});
@@ -291,6 +293,13 @@ void UTModifier::addModifyTablesRecurse(AstNode* root, P4ControlBlock* controlBl
             //     controlBlock -> controlStatements_  -> insert(i+1, createTableCall("tstate_" + tableName));
             //     listSize += 1;
             // }
+
+            // Add mvbl table here
+            current_table_name = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
+            if (non_action_name_rootword_map.find(current_table_name) != non_action_name_rootword_map.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall(non_action_name_rootword_map[current_table_name]));
+                listSize += 1;
+            }
         } else if (controlStmt -> stmtType_ == ControlStatement::CONTROL) {
             P4ControlNode* controlNode = FindControlNode(root, dynamic_cast<NameNode*>(controlStmt -> stmt_) -> toString());
             addModifyTablesRecurse(root, controlNode -> controlBlock_);

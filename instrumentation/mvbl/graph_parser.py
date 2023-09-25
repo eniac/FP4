@@ -8,7 +8,7 @@ import re
 from utils import has_numbers, pretty_print_dict
 from constants import *
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 """
 For each table - attach conditions to it
 For each condition - write 
