@@ -1,6 +1,7 @@
 #include "../../include/ast_nodes_p4.hpp"
 #include "../../include/modifier_ut.h"
 #include "../../include/helper.hpp"
+#include "../../util/util.cpp"
 #include <regex>
 
 using namespace std;
@@ -26,29 +27,29 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
         for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
             std::string nonaction_name = it.key();
             std::string rootword = it.value();
-            non_action_name_rootword_map[nonaction_name] = rootword;
+            non_action_name_rootword_map_ingress[nonaction_name] = rootword;
             PRINT_INFO("%s: %s\n", nonaction_name.c_str(), rootword.c_str());
         }
 
         for (nlohmann::json::iterator it = ingress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].begin(); it != ingress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].end(); ++it) {
             std::string node_name = it.key();
             int incre = it.value();
-            if (non_action_name_rootword_map.find(node_name) != non_action_name_rootword_map.end()) {
+            if (non_action_name_rootword_map_ingress.find(node_name) != non_action_name_rootword_map_ingress.end()) {
                 // Non-action
                 std::cout << node_name << ": " << std::to_string(incre) << std::endl;
-                oss << "action ai_" << non_action_name_rootword_map[node_name] << "() {\n"
+                oss << "action ai_" << non_action_name_rootword_map_ingress[node_name] << "() {\n"
                     << "  add_to_field(" << string(sig_+"_visited") << ".encoding_i" << std::to_string(var_idx) << ", " << std::to_string(incre) << ");\n"
                     << "}\n";
-                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_"+non_action_name_rootword_map[node_name]), new string("ai_"+non_action_name_rootword_map[node_name])));
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ai_"+non_action_name_rootword_map_ingress[node_name]), new string("ai_"+non_action_name_rootword_map_ingress[node_name])));
                 oss.str("");
 
-                oss << "table ti_" << non_action_name_rootword_map[node_name] << "{\n"
+                oss << "table ti_" << non_action_name_rootword_map_ingress[node_name] << "{\n"
                     << "  actions {\n"
-                    << "    ai_" << non_action_name_rootword_map[node_name] << ";\n"
+                    << "    ai_" << non_action_name_rootword_map_ingress[node_name] << ";\n"
                     << "  }\n"
-                    << "  default_action: ai_" << non_action_name_rootword_map[node_name] << "();\n"
+                    << "  default_action: ai_" << non_action_name_rootword_map_ingress[node_name] << "();\n"
                     << "}\n";
-                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_"+non_action_name_rootword_map[node_name]), new string("ti_"+non_action_name_rootword_map[node_name])));
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ti_"+non_action_name_rootword_map_ingress[node_name]), new string("ti_"+non_action_name_rootword_map_ingress[node_name])));
                 oss.str("");
 
 
@@ -72,33 +73,32 @@ UTModifier::UTModifier(AstNode* root, char* target, char* ingress_plan, char* eg
                                             num_bits});
 
         // Get the list of non actions
-        std::map<std::string, std::string> non_action_name_rootword_map;
         for (nlohmann::json::iterator it = egress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].begin(); it != egress_plan_json_[std::to_string(var_idx)]["final_non_action_to_increment_rootword"].end(); ++it) {
             std::string nonaction_name = it.key();
             std::string rootword = it.value();
-            non_action_name_rootword_map[nonaction_name] = rootword;
+            non_action_name_rootword_map_egress[nonaction_name] = rootword;
             PRINT_INFO("%s: %s\n", nonaction_name.c_str(), rootword.c_str());
         }
 
         for (nlohmann::json::iterator it = egress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].begin(); it != egress_plan_json_[std::to_string(var_idx)]["final_edge_dst_to_increment"].end(); ++it) {
             std::string node_name = it.key();
             int incre = it.value();
-            if (non_action_name_rootword_map.find(node_name) != non_action_name_rootword_map.end()) {
+            if (non_action_name_rootword_map_egress.find(node_name) != non_action_name_rootword_map_egress.end()) {
                 // Non-action
                 std::cout << node_name << ": " << std::to_string(incre) << std::endl;
-                oss << "action ae_" << non_action_name_rootword_map[node_name] << "() {\n"
+                oss << "action ae_" << non_action_name_rootword_map_egress[node_name] << "() {\n"
                     << "  add_to_field(" << string(sig_+"_visited") << ".encoding_e" << std::to_string(var_idx) << ", " << std::to_string(incre) << ");\n"
                     << "}\n";
-                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ae_"+non_action_name_rootword_map[node_name]), new string("ae_"+non_action_name_rootword_map[node_name])));
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("ae_"+non_action_name_rootword_map_egress[node_name]), new string("ae_"+non_action_name_rootword_map_egress[node_name])));
                 oss.str("");
 
-                oss << "table te_" << non_action_name_rootword_map[node_name] << "{\n"
+                oss << "table te_" << non_action_name_rootword_map_egress[node_name] << "{\n"
                     << "  actions {\n"
-                    << "    ae_" << non_action_name_rootword_map[node_name] << ";\n"
+                    << "    ae_" << non_action_name_rootword_map_egress[node_name] << ";\n"
                     << "  }\n"
-                    << "  default_action: ae_" << non_action_name_rootword_map[node_name] << "();\n"
+                    << "  default_action: ae_" << non_action_name_rootword_map_egress[node_name] << "();\n"
                     << "}\n";
-                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("te_"+non_action_name_rootword_map[node_name]), new string("te_"+non_action_name_rootword_map[node_name])));
+                unanchored_nodes_.push_back(new UnanchoredNode(new string(oss.str()), new string("te_"+non_action_name_rootword_map_egress[node_name]), new string("te_"+non_action_name_rootword_map_egress[node_name])));
                 oss.str("");
             } else {
                 // Action
@@ -295,11 +295,18 @@ void UTModifier::addModifyTablesRecurse(AstNode* root, P4ControlBlock* controlBl
             // }
 
             // Add mvbl table here
-            current_table_name = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
-            if (non_action_name_rootword_map.find(current_table_name) != non_action_name_rootword_map.end()) {
-                controlBlock -> controlStatements_  -> insert(i, createTableCall(non_action_name_rootword_map[current_table_name]));
+            string current_table_name_wo_sanitze = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
+            string current_table_name = sanitizeName(current_table_name_wo_sanitze);
+            if (non_action_name_rootword_map_egress.find(current_table_name) != non_action_name_rootword_map_egress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("te_" +non_action_name_rootword_map_egress[current_table_name]));
                 listSize += 1;
-            }
+                i+=1;
+            } 
+            if (non_action_name_rootword_map_ingress.find(current_table_name) != non_action_name_rootword_map_ingress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress[current_table_name]));
+                listSize += 1;
+                i+=1;
+            } 
         } else if (controlStmt -> stmtType_ == ControlStatement::CONTROL) {
             P4ControlNode* controlNode = FindControlNode(root, dynamic_cast<NameNode*>(controlStmt -> stmt_) -> toString());
             addModifyTablesRecurse(root, controlNode -> controlBlock_);
@@ -313,6 +320,24 @@ void UTModifier::addModifyTablesRecurse(AstNode* root, P4ControlBlock* controlBl
                     addModifyTablesRecurse(root, ifStmt -> elseBlock_ -> ifElseStatement_ -> controlBlock_);
                 }
             }
+            // Add mvbl table here
+            string current_condition_name_wo_sanitze = dynamic_cast<IfElseStatement*>(controlStmt -> stmt_) -> condition_ -> toString();
+            string current_condition_name = sanitizeName(current_condition_name_wo_sanitze);
+            if (non_action_name_rootword_map_egress.find("hdr" + current_condition_name) != non_action_name_rootword_map_egress.end() || non_action_name_rootword_map_egress.find("meta" + current_condition_name) != non_action_name_rootword_map_egress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("te_" +non_action_name_rootword_map_egress[current_condition_name]));
+                listSize += 1;
+                i+=1;
+            } 
+            if (non_action_name_rootword_map_ingress.find("hdr" + current_condition_name) != non_action_name_rootword_map_ingress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress["hdr" + current_condition_name]));
+                listSize += 1;
+                i+=1;
+            } else if (non_action_name_rootword_map_ingress.find("meta" + current_condition_name) != non_action_name_rootword_map_ingress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress["meta" + current_condition_name]));
+                listSize += 1;
+                i+=1;
+            } 
+
         } else if (controlStmt -> stmtType_ == ControlStatement::TABLESELECT) {
             ApplyAndSelectBlock* tableStmt = dynamic_cast<ApplyAndSelectBlock*>(controlStmt -> stmt_); 
             if (tableStmt -> caseList_ != NULL) {

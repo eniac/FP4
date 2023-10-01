@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <iterator>
+#include <regex>
 
 
 static bool endsWith(const std::string& str, const std::string& suffix)
@@ -126,6 +127,11 @@ inline std::string removeLastChar(std::string s) {
         return s;
     }
     return s.substr(0, s.length()-1);
+}
+
+inline std::string sanitizeName(std::string s) {
+    std::regex pattern("\\W+");
+    return std::regex_replace(s, pattern, "");
 }
 
 inline std::string removeLastThreeChar(std::string s) {

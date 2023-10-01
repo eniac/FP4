@@ -16,7 +16,8 @@ public:
 	map<string, string> state_action_2_tbl_;
 	map<string, vector<string> > tbl_2_read_fields_ {};
 	vector<string> popular_actions_;
-    std::map<std::string, std::string> non_action_name_rootword_map;
+    std::map<std::string, std::string> non_action_name_rootword_map_ingress;
+    std::map<std::string, std::string> non_action_name_rootword_map_egress;
 
 	UTModifier(AstNode* head, char* target, char* ingress_plan, char* egress_plan, const char* rules_in, const char* rules_out, int num_assertions, char* out_fn_base);
 
