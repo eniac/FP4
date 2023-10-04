@@ -257,7 +257,7 @@ class GraphParser(object):
         logging.info(full_graph_edges)
         return full_graph_nodes, full_graph_edges
 
-    def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress') -> tuple[dict[str,str], dict[str,str]]:
+    def get_raw_nodes_from_dot(self, dotfile, cnt_blk='MyIngress'): # -> tuple[dict[str,str], dict[str,str]]:
         node_name_label = {}
         ignored_node_name_label = {}
         dot_graph = pydotplus.graphviz.graph_from_dot_file(dotfile) 
@@ -299,7 +299,7 @@ class GraphParser(object):
         pretty_print_dict(ignored_node_name_label)
         return node_name_label, ignored_node_name_label
 
-    def get_edges_from_dot(self, dotfile, nodes, ignored_nodes) -> tuple[list[str], list[str]]:
+    def get_edges_from_dot(self, dotfile, nodes, ignored_nodes): # -> tuple[list[str], list[str]]:
         nodes_to_exit = []
         if_conditions_list = []
         logging.info("--- get_edges_from_dot ---")
@@ -370,7 +370,7 @@ class GraphParser(object):
             new_named_if_conditions.append(current_list)
         return new_named_if_conditions
 
-    def get_table_graph(self, node2label_dict, renamed_edges) -> tuple[tuple[str,str,int], nx.DiGraph]:
+    def get_table_graph(self, node2label_dict, renamed_edges): # -> tuple[tuple[str,str,int], nx.DiGraph]:
         logging.info("--- get_table_graph ---")
         edges_tuples = []
         for e in renamed_edges:
