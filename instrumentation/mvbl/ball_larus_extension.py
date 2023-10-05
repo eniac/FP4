@@ -84,14 +84,42 @@ class ExtendBallLarus(object):
             logging.info("--- Always add a virtual start node, no harm if it is redundant---")
             new_subgraph_root_nodes = [v for v, d in new_subgraph.in_degree() if d == 0]
             new_subgraph_leaf_nodes = [v for v, d in new_subgraph.out_degree() if d == 0]
+            logging.info(new_subgraph_root_nodes)
+            logging.info(new_subgraph_leaf_nodes)
             virtual_nodes.append(virtual_start_node)
+            virtual_nodes.append(virtual_exit_node)
+
             for new_subgraph_root_node in new_subgraph_root_nodes:
                 virtual_edges.append([virtual_start_node, new_subgraph_root_node])
 
-            virtual_nodes.append(virtual_exit_node)
             for new_subgraph_leaf_node in new_subgraph_leaf_nodes:
                 virtual_edges.append([new_subgraph_leaf_node, virtual_exit_node])
-            
+
+            logging.info("--- Check if needed to add an edge from START to EXIT ---")
+            add_virtual_node_from_start = False
+            all_paths = nx.all_simple_paths(full_graph, virtual_start_node, virtual_exit_node)
+            for path in all_paths:
+                if set(path[1:-1]).isdisjoint(included_table_conditional_action):
+                    logging.info("path {0}'s component {1} isdisjoint from {2}".format(path, path[1:-1], included_table_conditional_action))
+                    add_virtual_node_from_start = True
+                    break
+            if add_virtual_node_from_start:
+                logging.info("Add START -> EDGE!")
+                virtual_edges.append([virtual_start_node, virtual_exit_node])
+            else:
+                logging.info("NOT add_virtual_node_from_start!")            
+
+            logging.info("--- Check if needed to add an edge from non-START to EXIT ---")
+            for node_to_branch in included_table_conditional_action:
+                # If the node is the leaf node, don't care as it will not lead to false encoding
+                if node_to_branch in new_subgraph_leaf_nodes:
+                    continue
+                all_paths = nx.all_simple_paths(full_graph, node_to_branch, virtual_exit_node)
+                for path in all_paths:
+                    if set(path[1:-1]).isdisjoint(included_table_conditional_action):
+                        virtual_edges.append([node_to_branch, virtual_exit_node])
+                        break
+
             # logging.info("--- Check if needed to add a virtual node from start node, to avoid false encoding of path 0 ---")
             # add_virtual_node_from_start = False
             # all_paths = nx.all_simple_paths(full_graph, virtual_start_node, virtual_exit_node)
@@ -144,7 +172,7 @@ class ExtendBallLarus(object):
 
         graphs_with_weights = []
         # print("old_num_graphs", len(new_subgraphs))
-        new_subgraphs = self.merge_conditional_graphs(new_subgraphs, if_conditions_list)
+        # new_subgraphs = self.merge_conditional_graphs(new_subgraphs, if_conditions_list)
         # print("new_num_graphs", len(new_subgraphs))
         for idx, graph in enumerate(new_subgraphs):
             logging.debug("\n====== Running BL for subgraph {0} ======".format(idx))
