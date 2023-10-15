@@ -5,10 +5,10 @@ import networkx as nx
 import json
 import copy
 import re
-from utils import has_numbers, pretty_print_dict
+from utils import has_numbers, pretty_print_dict, count_total_conditions
 from constants import *
 import logging
-logging.basicConfig(level=logging.WARN)
+logging.basicConfig(level=logging.INFO)
 
 class GraphParser(object):
     def __init__(self, prog_name, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):
@@ -41,6 +41,7 @@ class GraphParser(object):
 
         logging.info("\n====== extract_stages_p4_14 ======")
         stage2tables_dict, table2actions_dict, actions2Table2nextTable_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values(), direction)
+        exit() 
 
         stage2tables_dict_original = copy.deepcopy(stage2tables_dict)
         json_output_dict[JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL] = stage2tables_dict_original
@@ -196,15 +197,18 @@ class GraphParser(object):
             logging.info("--- {} ---".format(e))
             # dst can be a conditional or table
             if e['src'] in table2actions_dict.keys():
-                logging.info("Mark del")
+                logging.info("Mark del {}".format(e))
                 edges_to_del.append(e)
                 for action in table2actions_dict[e['src']]:
                     edges_to_add.append({'src': e['src'], 'dst': action, 'label': ''})
-                    if action in actions2Table2nextTable_dict and e['src'] in actions2Table2nextTable_dict[action] and e['dst'] in actions2Table2nextTable_dict[action][e['src']]:
-                        edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
-                    elif "isValid" in e['dst'] or "==" in e['dst']:
-                        edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
                     logging.info("Append edge {}".format({'src': e['src'], 'dst': action, 'label': ''}))
+
+                    # TODO: Uncomment it after better understaning context.json
+                    # if action in actions2Table2nextTable_dict and e['src'] in actions2Table2nextTable_dict[action] and e['dst'] in actions2Table2nextTable_dict[action][e['src']]:
+                    #     edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
+                    #     logging.info("Append edge {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
+                    # elif count_total_conditions(e['dst']) > 0:
+                    edges_to_add.append({'src': action, 'dst': e['dst'], 'label': ''})
                     logging.info("Append edge {}".format({'src': action, 'dst': e['dst'], 'label': ''}))
                     full_graph_nodes.append(action)
                     logging.info("Append node: {}".format(action))
@@ -487,5 +491,6 @@ class GraphParser(object):
                 continue
             for next_tables in action_information["next_tables"]:
                 actions2Table2nextTable_dict[action_name][table_name].add(next_tables["next_table_name"])
+                logging.info("Current table {} Action {} next table {}".format(table_name, action_name, next_tables["next_table_name"]))
 
         return actions2Table2nextTable_dict

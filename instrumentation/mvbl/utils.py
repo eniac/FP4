@@ -2,8 +2,14 @@ import networkx as nx
 import re
 import logging
 import json
-logging.basicConfig(level=logging.WARN)
+logging.basicConfig(level=logging.INFO)
 
+def count_total_conditions(table_or_cond):
+    condition_hints = {'isValid', '==', '!=', '>', '<', '>=', '<='}
+    total_conditions = 0
+    for hint in condition_hints:
+        total_conditions += table_or_cond.count(hint)
+    return total_conditions
 
 def draw_graph(graph):
     import networkx as nx
