@@ -11,9 +11,9 @@ program_list=(
    # "dos_defense"
    #  "load_balance"
    #  "rate_limiter"
-   #  "netchain"
+    "netchain"
    #  "firewall"
-   "dv_router"
+   # "dv_router"
    # "mac_learning"
    # "switch_80019"
 )

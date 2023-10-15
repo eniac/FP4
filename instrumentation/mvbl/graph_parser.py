@@ -8,16 +8,7 @@ import re
 from utils import has_numbers, pretty_print_dict
 from constants import *
 import logging
-logging.basicConfig(level=logging.INFO)
-"""
-For each table - attach conditions to it
-For each condition - write 
-    true - > next table
-    false -> next table
-
-For each table and action -> find next table. If condition is attached to that table, it means next is the condition, not the table. This is also available in graph file so not really needed
-if a condition goes to condition, it means it's an elseif
-"""
+logging.basicConfig(level=logging.WARN)
 
 class GraphParser(object):
     def __init__(self, prog_name, dotfile_ing, jsonfile, input_type='p414', direction='ingress'):

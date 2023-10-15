@@ -1,5 +1,8 @@
 import networkx as nx
 import re
+import logging
+import json
+logging.basicConfig(level=logging.WARN)
 
 
 def draw_graph(graph):
@@ -36,11 +39,11 @@ def remove_special_chars(label, cnt_blk):
 
 def check_dag_connected(new_subgraph):
     cycles = list(nx.simple_cycles(new_subgraph))
-    print("cycle num: {}".format(len(cycles)))
+    logging.info("cycle num: {}".format(len(cycles)))
     is_strong = nx.is_strongly_connected(new_subgraph)
-    print('is strongly connected: {}'.format(is_strong))
+    logging.info('is strongly connected: {}'.format(is_strong))
     is_weak = nx.is_weakly_connected(new_subgraph)
-    print('is weakly connected: {}'.format(is_weak))
+    logging.info('is weakly connected: {}'.format(is_weak))
     # Each sub-DAG must be weakly connected DAG for BL to run
     return is_weak, cycles
 
@@ -49,19 +52,22 @@ def set_default(obj):
         return list(obj)
     raise TypeError
 
-import json
 def pretty_print_dict(dictionary):
-    print(json.dumps(dictionary, indent=4, sort_keys=True, default=set_default))
+    logger = logging.getLogger()
+    if logger.getEffectiveLevel() <= logging.INFO:
+        print(json.dumps(dictionary, indent=4, sort_keys=True, default=set_default))
 
 def visualize_digraph(graph, name):
-    print("\n====== Visualize {} ======".format(name))
-    print("--- nodelist ---")
-    for node in graph.nodes:
-        print(node)
-    print("--- edgelist ---")
-    for line in nx.generate_edgelist(graph, delimiter='$', data=False):
-        u, v = line.split('$')
-        print("{0} --> {1}".format(u, v))
+    logger = logging.getLogger()
+    if logger.getEffectiveLevel() <= logging.INFO:
+        print("\n====== Visualize {} ======".format(name))
+        print("--- nodelist ---")
+        for node in graph.nodes:
+            print(node)
+        print("--- edgelist ---")
+        for line in nx.generate_edgelist(graph, delimiter='$', data=False):
+            u, v = line.split('$')
+            print("{0} --> {1}".format(u, v))
 
 def parse_and_transform(input_str):
     # print("input", input_str)

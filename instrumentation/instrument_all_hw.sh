@@ -10,16 +10,16 @@ set -ex
 #!/bin/bash
 
 programs=(
-    #"firewall"
+    # "firewall"
     #"load_balance"
     #"rate_limiter"
     #"basic_routing"
-    "dv_router"
+    # "dv_router"
     #"mac_learning"
     # "mirror_clone"
     # "cheetah_groupby"
     # "dos_defense"
-    #"netchain"
+    "netchain"
 )
 
 first_run=true

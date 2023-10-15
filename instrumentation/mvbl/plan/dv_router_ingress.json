@@ -433,56 +433,6 @@
         "num_bits_original": 1,
         "num_paths": 1
     },
-    "8": {
-        "edges": [
-            "VIRTUAL_START -> hdrethernetisValid",
-            "hdrethernetisValid -> hdripv4isValid",
-            "hdripv4isValid -> VIRTUAL_EXIT"
-        ],
-        "nodes": [
-            "VIRTUAL_EXIT",
-            "VIRTUAL_START",
-            "hdrethernetisValid",
-            "hdripv4isValid"
-        ],
-        "num_bits_original": 2
-    },
-    "9": {
-        "edges": [
-            "VIRTUAL_START -> tiHandleIncomingEthernet",
-            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one",
-            "aDrop_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet -> VIRTUAL_EXIT",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleIncomingArpReqest_part_one",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet -> tiHandleOutgoingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet -> VIRTUAL_EXIT",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one -> VIRTUAL_EXIT",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one -> VIRTUAL_EXIT",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet -> VIRTUAL_EXIT",
-            "tiHandleIncomingArpReqest_part_one -> aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingArpReqest_part_one -> ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingEthernet -> aDrop_pfuzz_tiHandleIncomingEthernet",
-            "tiHandleIncomingEthernet -> aiForMe_pfuzz_tiHandleIncomingEthernet",
-            "tiHandleOutgoingEthernet -> aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "tiHandleOutgoingEthernet -> aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "tiHandleOutgoingEthernet -> ai_nop_pfuzz_tiHandleOutgoingEthernet"
-        ],
-        "nodes": [
-            "VIRTUAL_EXIT",
-            "VIRTUAL_START",
-            "aDrop_pfuzz_tiHandleIncomingEthernet",
-            "aiArpMiss_pfuzz_tiHandleOutgoingEthernet",
-            "aiForMe_pfuzz_tiHandleIncomingEthernet",
-            "aiForward_pfuzz_tiHandleOutgoingEthernet",
-            "aiHandleIncomingArpReqest_part_one_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleIncomingArpReqest_part_one",
-            "ai_nop_pfuzz_tiHandleOutgoingEthernet",
-            "tiHandleIncomingArpReqest_part_one",
-            "tiHandleIncomingEthernet",
-            "tiHandleOutgoingEthernet"
-        ],
-        "num_bits_original": 4
-    },
     "final_incast_edge_dst_list": [
         "tiHandleOutgoingEthernet"
     ],
@@ -1377,7 +1327,7 @@
             "VIRTUAL_EXIT"
         ]
     ],
-    "num_vars": 10,
+    "num_vars": 8,
     "stage2tables_dict": {
         "0": [
             "tiHandleIncomingEthernet",
