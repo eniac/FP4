@@ -41,7 +41,7 @@ class GraphParser(object):
 
         logging.info("\n====== extract_stages_p4_14 ======")
         stage2tables_dict, table2actions_dict, actions2Table2nextTable_dict = self.extract_stages_p4_14(jsonfile, node2label_dict.values(), direction)
-        exit() 
+        # exit() 
 
         stage2tables_dict_original = copy.deepcopy(stage2tables_dict)
         json_output_dict[JSON_OUTPUT_KEY_STAGE_TO_TABLES_DICT_ORIGINAL] = stage2tables_dict_original
@@ -171,12 +171,22 @@ class GraphParser(object):
         logging.info("\n====== Update full_graph with exit ======")
         from ball_larus_extension import ExtendBallLarus
         ball_larus = ExtendBallLarus(pulpSolver, full_graph, table2actions_dict, table_conditional_to_exit, global_root_node, json_output_dict, prog_name, direction, if_conditions_list)
+
+    def replacement_name(self, input_name):
+        input_name = re.sub(r'^hdr\.', '"', input_name)
+        input_name = re.sub(r'^meta\.', '', input_name)
+        input_name = re.sub(r'^"hdr\.', '"', input_name)
+        input_name = re.sub(r'^"meta\.', '', input_name)
+        input_name = re.sub(r' hdr\.', ' ', input_name)
+        input_name = re.sub(r' meta\.', ' ', input_name)
+        return input_name
     
     def sanitize_node_name(self, graph):
         new_node_mapping = {}
         reverse_new_node_mapping = {}
         for node in graph.nodes:
-            new_node = re.sub(r'\W+', '', node)
+            clean_node = self.replacement_name(node)
+            new_node = re.sub(r'\W+', '', clean_node)
             logging.info("--- {0} mapped to {1} ---".format(node, new_node))
             new_node_mapping[node] = new_node
             reverse_new_node_mapping[new_node] = node
@@ -369,6 +379,7 @@ class GraphParser(object):
         logging.info("--- get_table_graph ---")
         edges_tuples = []
         for e in renamed_edges:
+            # print("label length", len(e['label']))
             edges_tuples.append((e['src'], e['dst'], 0))
         edges_tuples = list(set(edges_tuples))
         table_graph = nx.DiGraph()
@@ -434,11 +445,13 @@ class GraphParser(object):
                         if table_name not in table2actions_dict:
                             table2actions_dict[table_name] = []
                         for action in table_information['actions']:
+                            # print("action name being added", action['name'])
+
                             # Each action is renamed to table_name__action_name s.t. actions are unique to a table
                             table2actions_dict[table_name].append(action['name'] + UNIQUE_ACTION_SIG + table_name)
-                            if action['name'] == "NoAction":
-                                logging.info("[ERROR] NoAction! Check if it is from the user or the compiler!")
-                                raise Exception("ERR!")
+                            # if action['name'] == "NoAction":
+                            #     logging.info("[ERROR] NoAction! Check if it is from the user or the compiler!")
+                            #     raise Exception("ERR!")
                         for stage_information in table_information['match_attributes']['stage_tables']:
                             stage_number = stage_information['stage_number']
                             if stage_number not in stage2tables_dict:

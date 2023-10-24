@@ -273,6 +273,7 @@ void UTModifier::addModifyTables(AstNode* root) {
     if (curr != NULL) {
         addModifyTablesRecurse(root, curr -> controlBlock_);
     }
+    // exit(1);
 }
 
 ControlStatement* UTModifier::createTableCall(string tableName) {
@@ -295,8 +296,8 @@ void UTModifier::addModifyTablesRecurse(AstNode* root, P4ControlBlock* controlBl
             // }
 
             // Add mvbl table here
-            string current_table_name_wo_sanitze = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
-            string current_table_name = sanitizeName(current_table_name_wo_sanitze);
+            string current_table_name_wo_sanitize = dynamic_cast<ApplyTableCall*>(controlStmt -> stmt_) -> name_ -> toString();
+            string current_table_name = sanitizeName(current_table_name_wo_sanitize);
             if (non_action_name_rootword_map_egress.find(current_table_name) != non_action_name_rootword_map_egress.end()) {
                 controlBlock -> controlStatements_  -> insert(i, createTableCall("te_" +non_action_name_rootword_map_egress[current_table_name]));
                 listSize += 1;
@@ -322,18 +323,20 @@ void UTModifier::addModifyTablesRecurse(AstNode* root, P4ControlBlock* controlBl
             }
             // Add mvbl table here
             string current_condition_name_wo_sanitze = dynamic_cast<IfElseStatement*>(controlStmt -> stmt_) -> condition_ -> toString();
+            cout << "condtion name wo sanitizeName " << current_condition_name_wo_sanitze << endl;
             string current_condition_name = sanitizeName(current_condition_name_wo_sanitze);
-            if (non_action_name_rootword_map_egress.find("hdr" + current_condition_name) != non_action_name_rootword_map_egress.end() || non_action_name_rootword_map_egress.find("meta" + current_condition_name) != non_action_name_rootword_map_egress.end()) {
+            cout << "condtion name sanitizeName " << current_condition_name << endl;
+            if (non_action_name_rootword_map_egress.find(current_condition_name) != non_action_name_rootword_map_egress.end() || non_action_name_rootword_map_egress.find(current_condition_name) != non_action_name_rootword_map_egress.end()) {
                 controlBlock -> controlStatements_  -> insert(i, createTableCall("te_" +non_action_name_rootword_map_egress[current_condition_name]));
                 listSize += 1;
                 i+=1;
             } 
-            if (non_action_name_rootword_map_ingress.find("hdr" + current_condition_name) != non_action_name_rootword_map_ingress.end()) {
-                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress["hdr" + current_condition_name]));
+            if (non_action_name_rootword_map_ingress.find(current_condition_name) != non_action_name_rootword_map_ingress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress[current_condition_name]));
                 listSize += 1;
                 i+=1;
-            } else if (non_action_name_rootword_map_ingress.find("meta" + current_condition_name) != non_action_name_rootword_map_ingress.end()) {
-                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress["meta" + current_condition_name]));
+            } else if (non_action_name_rootword_map_ingress.find(current_condition_name) != non_action_name_rootword_map_ingress.end()) {
+                controlBlock -> controlStatements_  -> insert(i, createTableCall("ti_" +non_action_name_rootword_map_ingress[current_condition_name]));
                 listSize += 1;
                 i+=1;
             } 
