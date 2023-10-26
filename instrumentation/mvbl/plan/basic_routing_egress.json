@@ -8,8 +8,10 @@
         },
         "edges": [
             "VIRTUAL_START -> rewrite_mac",
+            "on_miss_pfuzz_rewrite_mac -> 000_VIRTUAL_EXIT",
             "rewrite_mac -> on_miss_pfuzz_rewrite_mac",
-            "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac"
+            "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac -> 000_VIRTUAL_EXIT"
         ],
         "encoding_to_path": {
             "0": [
@@ -33,6 +35,7 @@
             "rewrite_mac -> rewrite_src_dst_mac_pfuzz_rewrite_mac": 1
         },
         "nodes": [
+            "000_VIRTUAL_EXIT",
             "VIRTUAL_START",
             "on_miss_pfuzz_rewrite_mac",
             "rewrite_mac",
@@ -51,14 +54,14 @@
         [
             "VIRTUAL_START",
             "rewrite_mac",
-            "on_miss_pfuzz_rewrite_mac",
-            "000_virtual_EXIT"
+            "rewrite_src_dst_mac_pfuzz_rewrite_mac",
+            "000_VIRTUAL_EXIT"
         ],
         [
             "VIRTUAL_START",
             "rewrite_mac",
-            "rewrite_src_dst_mac_pfuzz_rewrite_mac",
-            "000_virtual_EXIT"
+            "on_miss_pfuzz_rewrite_mac",
+            "000_VIRTUAL_EXIT"
         ]
     ],
     "num_vars": 1,

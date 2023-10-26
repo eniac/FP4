@@ -4,6 +4,7 @@
         "edge_dst_to_increment": {},
         "edges": [
             "VIRTUAL_START -> tiSendClone",
+            "aiSendClone_pfuzz_tiSendClone -> 000_virtual_EXIT",
             "tiSendClone -> aiSendClone_pfuzz_tiSendClone"
         ],
         "encoding_to_path": {
@@ -18,6 +19,7 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aiSendClone_pfuzz_tiSendClone",
             "tiSendClone"
@@ -33,6 +35,7 @@
         "edge_dst_to_increment": {},
         "edges": [
             "VIRTUAL_START -> tiSetOutputPort",
+            "aiSetOutputPort_pfuzz_tiSetOutputPort -> 000_virtual_EXIT",
             "tiSetOutputPort -> aiSetOutputPort_pfuzz_tiSetOutputPort"
         ],
         "encoding_to_path": {
@@ -47,6 +50,7 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aiSetOutputPort_pfuzz_tiSetOutputPort",
             "tiSetOutputPort"

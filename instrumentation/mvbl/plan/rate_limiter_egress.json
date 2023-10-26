@@ -3,7 +3,8 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "VIRTUAL_START -> metametacurrent_reading0"
+            "VIRTUAL_START -> metametacurrent_reading0",
+            "metametacurrent_reading0 -> 000_virtual_EXIT"
         ],
         "encoding_to_path": {
             "0": [
@@ -16,6 +17,7 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "metametacurrent_reading0"
         ],
@@ -37,8 +39,9 @@
             "aeInitializeWma_pfuzz_teInitializeWma -> teWmaPhase1",
             "aeWmaPhase1_pfuzz_teWmaPhase1 -> teWmaPhase2",
             "aeWmaPhase2_pfuzz_teWmaPhase2 -> te_rate_limit",
-            "ae_rate_limit_pfuzz_te_rate_limit -> 000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
+            "ae_rate_limit_pfuzz_te_rate_limit -> 000_virtual_EXIT",
             "ae_rate_limit_pfuzz_te_rate_limit -> te_drop",
+            "drop_packet_pfuzz_te_drop -> 000_virtual_EXIT",
             "teInitializeWma -> aeInitializeWma_pfuzz_teInitializeWma",
             "teWmaPhase1 -> aeWmaPhase1_pfuzz_teWmaPhase1",
             "teWmaPhase2 -> aeWmaPhase2_pfuzz_teWmaPhase2",
@@ -81,7 +84,7 @@
             "te_drop -> drop_packet_pfuzz_te_drop": 1
         },
         "nodes": [
-            "000_virtual_ae_rate_limit_pfuzz_te_rate_limit",
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aeInitializeWma_pfuzz_teInitializeWma",
             "aeWmaPhase1_pfuzz_teWmaPhase1",

@@ -4,6 +4,7 @@
         "edge_dst_to_increment": {},
         "edges": [
             "VIRTUAL_START -> teGetDiff",
+            "aeGetDiff_pfuzz_teGetDiff -> 000_virtual_EXIT",
             "teGetDiff -> aeGetDiff_pfuzz_teGetDiff"
         ],
         "encoding_to_path": {
@@ -18,6 +19,7 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aeGetDiff_pfuzz_teGetDiff",
             "teGetDiff"
@@ -32,7 +34,8 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "VIRTUAL_START -> eg_intr_mdegress_port40"
+            "VIRTUAL_START -> eg_intr_mdegress_port40",
+            "eg_intr_mdegress_port40 -> 000_virtual_EXIT"
         ],
         "encoding_to_path": {
             "0": [
@@ -45,6 +48,7 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "eg_intr_mdegress_port40"
         ],
@@ -62,8 +66,9 @@
             "teReadMirror": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> 000_virtual_EXIT",
             "VIRTUAL_START -> teReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror -> 000_virtual_EXIT",
             "teReadMirror -> aeReadMirror_pfuzz_teReadMirror"
         ],
         "encoding_to_path": {
@@ -85,7 +90,7 @@
             "teReadMirror -> aeReadMirror_pfuzz_teReadMirror": 1
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aeReadMirror_pfuzz_teReadMirror",
             "teReadMirror"
@@ -108,8 +113,9 @@
             "teUpdateOriginal": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> 000_virtual_EXIT",
             "VIRTUAL_START -> teUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal -> 000_virtual_EXIT",
             "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal"
         ],
         "encoding_to_path": {
@@ -131,7 +137,7 @@
             "teUpdateOriginal -> aeUpdateOriginal_pfuzz_teUpdateOriginal": 1
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teUpdateOriginal"
@@ -154,8 +160,9 @@
             "teReadOriginal": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> 000_virtual_EXIT",
             "VIRTUAL_START -> teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal -> 000_virtual_EXIT",
             "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal"
         ],
         "encoding_to_path": {
@@ -177,7 +184,7 @@
             "teReadOriginal -> aeReadOriginal_pfuzz_teReadOriginal": 1
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aeReadOriginal_pfuzz_teReadOriginal",
             "teReadOriginal"
@@ -200,8 +207,9 @@
             "teUpdateMirror": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> 000_virtual_EXIT",
             "VIRTUAL_START -> teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror -> 000_virtual_EXIT",
             "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror"
         ],
         "encoding_to_path": {
@@ -223,7 +231,7 @@
             "teUpdateMirror -> aeUpdateMirror_pfuzz_teUpdateMirror": 1
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aeUpdateMirror_pfuzz_teUpdateMirror",
             "teUpdateMirror"
@@ -243,10 +251,10 @@
         [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40",
-            "teReadMirror",
-            "aeReadMirror_pfuzz_teReadMirror",
-            "teUpdateOriginal",
-            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
+            "teUpdateMirror",
+            "aeUpdateMirror_pfuzz_teUpdateMirror",
+            "teReadOriginal",
+            "aeReadOriginal_pfuzz_teReadOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_EXIT"
@@ -254,10 +262,10 @@
         [
             "VIRTUAL_START",
             "eg_intr_mdegress_port40",
-            "teUpdateMirror",
-            "aeUpdateMirror_pfuzz_teUpdateMirror",
-            "teReadOriginal",
-            "aeReadOriginal_pfuzz_teReadOriginal",
+            "teReadMirror",
+            "aeReadMirror_pfuzz_teReadMirror",
+            "teUpdateOriginal",
+            "aeUpdateOriginal_pfuzz_teUpdateOriginal",
             "teGetDiff",
             "aeGetDiff_pfuzz_teGetDiff",
             "000_virtual_EXIT"

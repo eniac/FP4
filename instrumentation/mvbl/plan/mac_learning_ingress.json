@@ -12,8 +12,10 @@
         },
         "edges": [
             "VIRTUAL_START -> tiLearnMAC",
+            "aiFilter_pfuzz_tiFilter -> 000_virtual_EXIT",
             "aiForwardUnknown_pfuzz_tiForward -> tiFilter",
             "aiForward_pfuzz_tiForward -> tiFilter",
+            "aiNoOp_pfuzz_tiFilter -> 000_virtual_EXIT",
             "aiNoOp_pfuzz_tiLearnMAC -> tiForward",
             "aiSendDigest_pfuzz_tiLearnMAC -> tiForward",
             "tiFilter -> aiFilter_pfuzz_tiFilter",
@@ -107,6 +109,7 @@
             "tiLearnMAC -> aiSendDigest_pfuzz_tiLearnMAC": 4
         },
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "aiFilter_pfuzz_tiFilter",
             "aiForwardUnknown_pfuzz_tiForward",
@@ -135,17 +138,7 @@
             "tiLearnMAC",
             "aiNoOp_pfuzz_tiLearnMAC",
             "tiForward",
-            "aiForwardUnknown_pfuzz_tiForward",
-            "tiFilter",
-            "aiFilter_pfuzz_tiFilter",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "tiLearnMAC",
-            "aiNoOp_pfuzz_tiLearnMAC",
-            "tiForward",
-            "aiForwardUnknown_pfuzz_tiForward",
+            "aiForward_pfuzz_tiForward",
             "tiFilter",
             "aiNoOp_pfuzz_tiFilter",
             "000_virtual_EXIT"
@@ -165,6 +158,26 @@
             "tiLearnMAC",
             "aiNoOp_pfuzz_tiLearnMAC",
             "tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "tiFilter",
+            "aiNoOp_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiNoOp_pfuzz_tiLearnMAC",
+            "tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
+            "tiFilter",
+            "aiFilter_pfuzz_tiFilter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "tiLearnMAC",
+            "aiSendDigest_pfuzz_tiLearnMAC",
+            "tiForward",
             "aiForward_pfuzz_tiForward",
             "tiFilter",
             "aiNoOp_pfuzz_tiFilter",
@@ -175,7 +188,7 @@
             "tiLearnMAC",
             "aiSendDigest_pfuzz_tiLearnMAC",
             "tiForward",
-            "aiForwardUnknown_pfuzz_tiForward",
+            "aiForward_pfuzz_tiForward",
             "tiFilter",
             "aiFilter_pfuzz_tiFilter",
             "000_virtual_EXIT"
@@ -195,19 +208,9 @@
             "tiLearnMAC",
             "aiSendDigest_pfuzz_tiLearnMAC",
             "tiForward",
-            "aiForward_pfuzz_tiForward",
+            "aiForwardUnknown_pfuzz_tiForward",
             "tiFilter",
             "aiFilter_pfuzz_tiFilter",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "tiLearnMAC",
-            "aiSendDigest_pfuzz_tiLearnMAC",
-            "tiForward",
-            "aiForward_pfuzz_tiForward",
-            "tiFilter",
-            "aiNoOp_pfuzz_tiFilter",
             "000_virtual_EXIT"
         ]
     ],

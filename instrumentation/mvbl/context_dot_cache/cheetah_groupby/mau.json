@@ -1,7 +1,7 @@
 {
-    "build_date": "Wed Aug  9 23:17:46 2023", 
+    "build_date": "Wed Aug  9 23:43:26 2023", 
     "program_name": "cheetah_groupby", 
-    "run_id": "84e4458d1c509c0c", 
+    "run_id": "e1f0b28c7c24a141", 
     "compiler_version": "9.2.0", 
     "schema_version": "1.0.0", 
     "tables": [
@@ -531,8 +531,8 @@
             "lookup_types": [
                 "exact"
             ], 
-            "entries_requested": 9216, 
-            "entries_allocated": 9216, 
+            "entries_requested": 12288, 
+            "entries_allocated": 12288, 
             "match_fields": [
                 {
                     "name": "cheetah.flowId", 
@@ -553,7 +553,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 1, 
+                    "stage_number": 2, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -561,9 +561,9 @@
                             "memory_word_width": 128, 
                             "entries_per_table_word": 3, 
                             "table_type": "match", 
-                            "num_memories": 3, 
-                            "entries_requested": 9216, 
-                            "entries_allocated": 9216, 
+                            "num_memories": 4, 
+                            "entries_requested": 12288, 
+                            "entries_allocated": 12288, 
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 
@@ -661,8 +661,8 @@
             "lookup_types": [
                 "exact"
             ], 
-            "entries_requested": 12288, 
-            "entries_allocated": 12288, 
+            "entries_requested": 9216, 
+            "entries_allocated": 9216, 
             "match_fields": [
                 {
                     "name": "cheetah.flowId", 
@@ -683,7 +683,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 0, 
+                    "stage_number": 2, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -691,9 +691,9 @@
                             "memory_word_width": 128, 
                             "entries_per_table_word": 3, 
                             "table_type": "match", 
-                            "num_memories": 4, 
-                            "entries_requested": 12288, 
-                            "entries_allocated": 12288, 
+                            "num_memories": 3, 
+                            "entries_requested": 9216, 
+                            "entries_allocated": 9216, 
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 
@@ -813,7 +813,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 2, 
+                    "stage_number": 3, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -827,7 +827,7 @@
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 
-                            "entry_bit_width_allocated": 22, 
+                            "entry_bit_width_allocated": 26, 
                             "ideal_entries_per_table_word": 5, 
                             "ideal_table_word_bit_width": 128
                         }, 
@@ -853,9 +853,9 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 1, 
+                                        "bit_width": 2, 
                                         "start_bit": 0, 
-                                        "memory_start_bit": 2
+                                        "memory_start_bit": 4
                                     }, 
                                     {
                                         "name": "version", 
@@ -867,19 +867,25 @@
                                         "name": "meter_addr", 
                                         "bit_width": 10, 
                                         "start_bit": 5, 
-                                        "memory_start_bit": 25
+                                        "memory_start_bit": 34
                                     }, 
                                     {
                                         "name": "meter_pfe", 
                                         "bit_width": 1, 
                                         "start_bit": 23, 
-                                        "memory_start_bit": 35
+                                        "memory_start_bit": 44
+                                    }, 
+                                    {
+                                        "name": "meter_type", 
+                                        "bit_width": 3, 
+                                        "start_bit": 24, 
+                                        "memory_start_bit": 45
                                     }, 
                                     {
                                         "name": "cheetah.flowId", 
                                         "bit_width": 6, 
                                         "start_bit": 10, 
-                                        "memory_start_bit": 58
+                                        "memory_start_bit": 66
                                     }
                                 ]
                             }, 
@@ -888,9 +894,9 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 1, 
+                                        "bit_width": 2, 
                                         "start_bit": 0, 
-                                        "memory_start_bit": 1
+                                        "memory_start_bit": 2
                                     }, 
                                     {
                                         "name": "version", 
@@ -902,19 +908,25 @@
                                         "name": "meter_addr", 
                                         "bit_width": 10, 
                                         "start_bit": 5, 
-                                        "memory_start_bit": 14
+                                        "memory_start_bit": 20
                                     }, 
                                     {
                                         "name": "meter_pfe", 
                                         "bit_width": 1, 
                                         "start_bit": 23, 
-                                        "memory_start_bit": 24
+                                        "memory_start_bit": 30
+                                    }, 
+                                    {
+                                        "name": "meter_type", 
+                                        "bit_width": 3, 
+                                        "start_bit": 24, 
+                                        "memory_start_bit": 31
                                     }, 
                                     {
                                         "name": "cheetah.flowId", 
                                         "bit_width": 6, 
                                         "start_bit": 10, 
-                                        "memory_start_bit": 50
+                                        "memory_start_bit": 58
                                     }
                                 ]
                             }, 
@@ -923,7 +935,7 @@
                                 "fields": [
                                     {
                                         "name": "action", 
-                                        "bit_width": 1, 
+                                        "bit_width": 2, 
                                         "start_bit": 0, 
                                         "memory_start_bit": 0
                                     }, 
@@ -937,19 +949,25 @@
                                         "name": "meter_addr", 
                                         "bit_width": 10, 
                                         "start_bit": 5, 
-                                        "memory_start_bit": 3
+                                        "memory_start_bit": 6
                                     }, 
                                     {
                                         "name": "meter_pfe", 
                                         "bit_width": 1, 
                                         "start_bit": 23, 
-                                        "memory_start_bit": 13
+                                        "memory_start_bit": 16
+                                    }, 
+                                    {
+                                        "name": "meter_type", 
+                                        "bit_width": 3, 
+                                        "start_bit": 24, 
+                                        "memory_start_bit": 17
                                     }, 
                                     {
                                         "name": "cheetah.flowId", 
                                         "bit_width": 6, 
                                         "start_bit": 10, 
-                                        "memory_start_bit": 42
+                                        "memory_start_bit": 50
                                     }
                                 ]
                             }
@@ -987,7 +1005,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 2, 
+                    "stage_number": 4, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -1139,8 +1157,8 @@
             "lookup_types": [
                 "exact"
             ], 
-            "entries_requested": 9216, 
-            "entries_allocated": 9216, 
+            "entries_requested": 12288, 
+            "entries_allocated": 12288, 
             "match_fields": [
                 {
                     "name": "cheetah.flowId", 
@@ -1161,7 +1179,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 2, 
+                    "stage_number": 3, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -1169,9 +1187,9 @@
                             "memory_word_width": 128, 
                             "entries_per_table_word": 3, 
                             "table_type": "match", 
-                            "num_memories": 3, 
-                            "entries_requested": 9216, 
-                            "entries_allocated": 9216, 
+                            "num_memories": 4, 
+                            "entries_requested": 12288, 
+                            "entries_allocated": 12288, 
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 
@@ -1335,7 +1353,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 2, 
+                    "stage_number": 4, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -1487,8 +1505,8 @@
             "lookup_types": [
                 "exact"
             ], 
-            "entries_requested": 12288, 
-            "entries_allocated": 12288, 
+            "entries_requested": 9216, 
+            "entries_allocated": 9216, 
             "match_fields": [
                 {
                     "name": "cheetah.flowId", 
@@ -1517,9 +1535,9 @@
                             "memory_word_width": 128, 
                             "entries_per_table_word": 3, 
                             "table_type": "match", 
-                            "num_memories": 4, 
-                            "entries_requested": 12288, 
-                            "entries_allocated": 12288, 
+                            "num_memories": 3, 
+                            "entries_requested": 9216, 
+                            "entries_allocated": 9216, 
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 
@@ -1683,7 +1701,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 1, 
+                    "stage_number": 2, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -2031,7 +2049,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 3, 
+                    "stage_number": 4, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -2357,8 +2375,8 @@
             "lookup_types": [
                 "exact"
             ], 
-            "entries_requested": 12288, 
-            "entries_allocated": 12288, 
+            "entries_requested": 9216, 
+            "entries_allocated": 9216, 
             "match_fields": [
                 {
                     "name": "cheetah.flowId", 
@@ -2379,7 +2397,7 @@
             ], 
             "stage_allocation": [
                 {
-                    "stage_number": 3, 
+                    "stage_number": 4, 
                     "memories": [
                         {
                             "memory_type": "sram", 
@@ -2387,9 +2405,9 @@
                             "memory_word_width": 128, 
                             "entries_per_table_word": 3, 
                             "table_type": "match", 
-                            "num_memories": 4, 
-                            "entries_requested": 12288, 
-                            "entries_allocated": 12288, 
+                            "num_memories": 3, 
+                            "entries_requested": 9216, 
+                            "entries_allocated": 9216, 
                             "imm_bit_width_in_overhead_requested": 0, 
                             "imm_bit_width_in_overhead_allocated": 0, 
                             "entry_bit_width_requested": 20, 

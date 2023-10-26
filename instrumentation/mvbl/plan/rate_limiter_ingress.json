@@ -3,7 +3,8 @@
         "edge_dst_to_edge": {},
         "edge_dst_to_increment": {},
         "edges": [
-            "VIRTUAL_START -> hdripv4isValid"
+            "VIRTUAL_START -> hdripv4isValid",
+            "hdripv4isValid -> 000_virtual_EXIT"
         ],
         "encoding_to_path": {
             "0": [
@@ -16,6 +17,7 @@
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {},
         "nodes": [
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "hdripv4isValid"
         ],
@@ -37,8 +39,11 @@
             "ipv4_lpm": 1
         },
         "edges": [
-            "VIRTUAL_START -> 000_virtual_VIRTUAL_START",
+            "VIRTUAL_START -> 000_virtual_EXIT",
             "VIRTUAL_START -> ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm -> 000_virtual_EXIT",
+            "drop_packet_pfuzz_ipv4_lpm -> 000_virtual_EXIT",
+            "ipv4_forward_pfuzz_ipv4_lpm -> 000_virtual_EXIT",
             "ipv4_lpm -> ai_noOp_pfuzz_ipv4_lpm",
             "ipv4_lpm -> drop_packet_pfuzz_ipv4_lpm",
             "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm"
@@ -76,7 +81,7 @@
             "ipv4_lpm -> ipv4_forward_pfuzz_ipv4_lpm": 3
         },
         "nodes": [
-            "000_virtual_VIRTUAL_START",
+            "000_virtual_EXIT",
             "VIRTUAL_START",
             "ai_noOp_pfuzz_ipv4_lpm",
             "drop_packet_pfuzz_ipv4_lpm",
@@ -100,8 +105,6 @@
         [
             "VIRTUAL_START",
             "hdripv4isValid",
-            "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ],
         [
@@ -115,12 +118,14 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdripv4isValid",
+            "ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ]
     ],
