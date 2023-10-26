@@ -336,9 +336,12 @@ class GraphParser(object):
             new_subgraph_root_nodes = [v for v, d in new_subgraph.in_degree() if d == 0]
             new_subgraph_leaf_nodes = [v for v, d in new_subgraph.out_degree() if d == 0]
             virtual_nodes.append(virtual_start_node)
+            virtual_nodes.append(virtual_node_exit)
             for new_subgraph_root_node in new_subgraph_root_nodes:
                 virtual_edges.append([virtual_start_node, new_subgraph_root_node])
-            
+            for new_subgraph_leaf_node in new_subgraph_leaf_nodes:
+                virtual_edges.append([new_subgraph_leaf_node, virtual_node_exit])
+
             print("--- Check if needed to add a virtual node from start node, to avoid false encoding of path 0 ---")
             add_virtual_node_from_start = False
             all_paths = nx.all_simple_paths(full_graph, virtual_start_node, virtual_node_exit)
@@ -348,10 +351,11 @@ class GraphParser(object):
                     add_virtual_node_from_start = True
                     break
             if add_virtual_node_from_start:
-                print("add_virtual_node_from_start!")
-                virtual_node = virtual_node_prefix+virtual_start_node
-                virtual_nodes.append(virtual_node)
-                virtual_edges.append([virtual_start_node, virtual_node])
+                # print("add_virtual_node_from_start!")
+                # virtual_node = virtual_node_prefix+virtual_start_node
+                # virtual_nodes.append(virtual_node)
+                # virtual_edges.append([virtual_start_node, virtual_node])
+                virtual_edges.append([virtual_start_node, virtual_node_exit])
             else:
                 print("NOT add_virtual_node_from_start!")
 
@@ -363,9 +367,10 @@ class GraphParser(object):
                 all_paths = nx.all_simple_paths(full_graph, node_to_branch, virtual_node_exit)
                 for path in all_paths:
                     if set(path[1:-1]).isdisjoint(included_table_conditional_action):
-                        virtual_node = virtual_node_prefix+node_to_branch
-                        virtual_nodes.append(virtual_node)
-                        virtual_edges.append([node_to_branch, virtual_node])
+                        # virtual_node = virtual_node_prefix+node_to_branch
+                        # virtual_nodes.append(virtual_node)
+                        # virtual_edges.append([node_to_branch, virtual_node])
+                        virtual_edges.append([node_to_branch, virtual_node_exit])
                         break
             print("--- virtual_nodes ---")
             print(virtual_nodes)
