@@ -456,14 +456,14 @@ field_list_calculation bloom_filter_hash_32{
 field_list fi_bf_hash_fields_16 {
   pfuzz_visited.encoding_i3;
   pfuzz_visited.encoding_i0;
-  pfuzz_visited.encoding_i2;
+  pfuzz_visited.encoding_i1;
 }
 
 
 field_list fi_bf_hash_fields_32 {
   pfuzz_visited.encoding_i3;
   pfuzz_visited.encoding_i0;
-  pfuzz_visited.encoding_i2;
+  pfuzz_visited.encoding_i1;
 }
 
 
@@ -556,7 +556,7 @@ action ai_recycle_packet() {
   modify_field(pfuzz_visited.pkt_type, 0);
   modify_field(pfuzz_visited.encoding_i3, 0);
   modify_field(pfuzz_visited.encoding_i0, 0);
-  modify_field(pfuzz_visited.encoding_i2, 0);
+  modify_field(pfuzz_visited.encoding_i1, 0);
 }
 
 table ti_get_random_seed {

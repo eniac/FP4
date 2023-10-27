@@ -254,58 +254,34 @@ control ingress     {
     if (cis553_metadata.forMe == 0)  {
 
     }
+    else     if (valid(ipv4))  {
+        apply(tiHandleIpv4);
+
+        apply(ti_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet);
+
+        apply(tiHandleOutgoingEthernet);
+
+
+    }
+    else     if (valid(arp) && arp.oper == 1)  {
+        apply(tiHandleIncomingArpReqest_part_one);
+
+        apply(tiHandleIncomingArpReqest_part_two);
+
+
+    }
+    else     if (valid(arp) && arp.oper == 2)  {
+        apply(tiHandleIncomingArpResponse);
+
+
+    }
+    else     if (valid(distance_vec))  {
+        apply(tiHandleIncomingRouting);
+
+
+    }
     else  {
-        apply(ti_mvbl_4_VIRTUAL_START_ipv4isValid);
-
-        if (valid(ipv4))  {
-            apply(tiHandleIpv4);
-
-            apply(ti_mvbl_9_aDrop_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet);
-
-            apply(tiHandleOutgoingEthernet);
-
-
-        }
-        else  {
-            apply(ti_mvbl_5_VIRTUAL_START_arpisValidarpoper1);
-
-            if (valid(arp) && arp.oper == 1)  {
-                apply(tiHandleIncomingArpReqest_part_one);
-
-                apply(tiHandleIncomingArpReqest_part_two);
-
-
-            }
-            else  {
-                apply(ti_mvbl_1_VIRTUAL_START_arpisValidarpoper2);
-
-                if (valid(arp) && arp.oper == 2)  {
-                    apply(tiHandleIncomingArpResponse);
-
-
-                }
-                else  {
-                    apply(ti_mvbl_8_VIRTUAL_START_distance_vecisValid);
-
-                    if (valid(distance_vec))  {
-                        apply(tiHandleIncomingRouting);
-
-
-                    }
-                    else  {
-                        apply(tiDrop);
-
-
-                    }
-
-
-                }
-
-
-            }
-
-
-        }
+        apply(tiDrop);
 
 
     }

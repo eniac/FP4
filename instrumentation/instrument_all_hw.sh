@@ -19,7 +19,7 @@ programs=(
     # "mirror_clone"
     # "cheetah_groupby"
     # "dos_defense"
-    #"netchain"
+    "netchain"
 )
 
 first_run=true

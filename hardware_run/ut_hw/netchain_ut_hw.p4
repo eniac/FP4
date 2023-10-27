@@ -330,8 +330,12 @@ control ingress     {
     if (valid(nc_hdr))  {
         apply(decode_table);
 
+        apply(ti_mvbl_2_VIRTUAL_START_nc_hdrop0);
+
         if (nc_hdr.op == 0)  {
             apply(acquire_lock_table);
+
+            apply(ti_mvbl_2_nc_hdrop0_metaavailable0);
 
             if (meta.available != 0)  {
                 apply(set_retry_table);
@@ -342,7 +346,8 @@ control ingress     {
 
         }
         else  {
-            apply(ti_mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1);
+            apply(ti_mvbl_1_nc_hdrisValid_nc_hdrop1);
+
             if (nc_hdr.op == 1)  {
                 apply(release_lock_table);
 
@@ -365,7 +370,7 @@ control ingress     {
 action set_egress_pfuzz_ipv4_route(egress_spec) {
     modify_field(ig_intr_md_for_tm.ucast_egress_port, egress_spec);
     add_to_field(ipv4.ttl, -1);
-    add_to_field(pfuzz_visited.encoding_i2, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
 action drop_action_pfuzz_ipv4_route() {
@@ -418,25 +423,36 @@ control egress     {
 }
 
 
-action ai_mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1() {
-  add_to_field(pfuzz_visited.encoding_i1, 1);
-}
-
-table ti_mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1{
-  actions {
-    ai_mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1;
-  }
-  default_action: ai_mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1();
-}
-
-action ai_mvbl_1_hdrnc_hdrisValid_metametaavailable0() {
+action ai_mvbl_1_nc_hdrisValid_nc_hdrop1() {
   add_to_field(pfuzz_visited.encoding_i1, 2);
 }
 
-table ti_mvbl_1_hdrnc_hdrisValid_metametaavailable0{
+table ti_mvbl_1_nc_hdrisValid_nc_hdrop1{
   actions {
-    ai_mvbl_1_hdrnc_hdrisValid_metametaavailable0;
+    ai_mvbl_1_nc_hdrisValid_nc_hdrop1;
   }
-  default_action: ai_mvbl_1_hdrnc_hdrisValid_metametaavailable0();
+  default_action: ai_mvbl_1_nc_hdrisValid_nc_hdrop1();
+}
+
+action ai_mvbl_2_nc_hdrop0_metaavailable0() {
+  add_to_field(pfuzz_visited.encoding_i2, 1);
+}
+
+table ti_mvbl_2_nc_hdrop0_metaavailable0{
+  actions {
+    ai_mvbl_2_nc_hdrop0_metaavailable0;
+  }
+  default_action: ai_mvbl_2_nc_hdrop0_metaavailable0();
+}
+
+action ai_mvbl_2_VIRTUAL_START_nc_hdrop0() {
+  add_to_field(pfuzz_visited.encoding_i2, 1);
+}
+
+table ti_mvbl_2_VIRTUAL_START_nc_hdrop0{
+  actions {
+    ai_mvbl_2_VIRTUAL_START_nc_hdrop0;
+  }
+  default_action: ai_mvbl_2_VIRTUAL_START_nc_hdrop0();
 }
 

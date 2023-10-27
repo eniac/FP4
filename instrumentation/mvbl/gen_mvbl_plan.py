@@ -522,6 +522,8 @@ class GraphParser(object):
         subgraphs = dot_graph.get_subgraphs()  
         for subG in subgraphs:
             for n in subG.get_node_list():
+                if 'label' not in n.obj_dict["attributes"]:
+                    continue
                 label = n.obj_dict["attributes"]['label']
                 print("--- name: {0}, label {1} ---".format(n.get_name(), label))
                 if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__', 'tbl_act']:
@@ -664,11 +666,21 @@ class GraphParser(object):
         pretty_print_dict(table2actions_dict)
         return stage2tables_dict, table2actions_dict
 
+    def replacement_name(self, input_name):
+        input_name = re.sub(r'^hdr\.', '"', input_name)
+        input_name = re.sub(r'^meta\.', '', input_name)
+        input_name = re.sub(r'^"hdr\.', '"', input_name)
+        input_name = re.sub(r'^"meta\.', '', input_name)
+        input_name = re.sub(r' hdr\.', ' ', input_name)
+        input_name = re.sub(r' meta\.', ' ', input_name)
+        return input_name
+
     def sanitize_node_name(self, graph):
         new_node_mapping = {}
         reverse_new_node_mapping = {}
         for node in graph.nodes:
-            new_node = re.sub(r'\W+', '', node)
+            clean_node = self.replacement_name(node)
+            new_node = re.sub(r'\W+', '', clean_node)
             print("--- {0} mapped to {1} ---".format(node, new_node))
             new_node_mapping[node] = new_node
             reverse_new_node_mapping[new_node] = node
