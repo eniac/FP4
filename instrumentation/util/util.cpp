@@ -8,12 +8,57 @@
 #include <iomanip>
 #include <algorithm>
 #include <iterator>
+#include <regex>
 
 
 static bool endsWith(const std::string& str, const std::string& suffix)
 {
     return str.size() >= suffix.size() && 0 == str.compare(str.size()-suffix.size(), suffix.size(), suffix);
 }
+
+inline std::vector<size_t> find_all_positions(std::string s) {
+    std::string sub = "valid(";
+
+    std::vector<size_t> positions; // holds all the positions that sub occurs within str
+
+    size_t pos = s.find(sub, 0);
+    while(pos != std::string::npos)
+    {
+        positions.push_back(pos);
+        pos = s.find(sub,pos+1);
+    }
+    return positions;
+}
+
+inline std::vector<size_t> find_all_end_positions(std::string s, std::vector<size_t> start_positions) {
+    std::string sub = ")";
+
+    std::vector<size_t> end_positions; // holds all the positions that sub occurs within str
+
+    for(int i : start_positions) {
+        end_positions.push_back(s.find_first_of(sub, i));
+    }
+
+    return end_positions;
+}
+
+inline std::string sanitizeName(std::string s) {
+    std::vector<size_t> positions = find_all_positions(s);
+    std::vector<size_t> end_positions = find_all_end_positions(s, positions);
+    for (int i = end_positions.size() - 1; i >= 0; --i) {
+        s.insert(end_positions[i], "isValid");
+    }
+    std::cout << "in sanitizeName" << std::endl;
+    std::regex pattern("valid\\(");
+    std::cout << "About to replace" << std::endl;
+    s = std::regex_replace(s, pattern, "");    
+
+    std::regex second_pattern("\\W+");
+    std::string clean_string = std::regex_replace(s, second_pattern, "");
+    
+    return clean_string;
+}
+
 
 // template<typename T>
 inline size_t RemoveDuplicatesKeepOrder(std::vector<std::string> vec)
