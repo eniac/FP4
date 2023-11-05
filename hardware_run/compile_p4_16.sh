@@ -7,8 +7,8 @@ fi
 
 set -ex
 
-export SDE="${HOME}/bf-sde-9.2.0"
-export P4C="${HOME}/bf-sde-9.2.0/install/bin/bf-p4c"
+export SDE="/home/leoyu/bf-sde-9.2.0"
+export P4C="/home/leoyu/bf-sde-9.2.0/install/bin/bf-p4c"
 export CURR=$(pwd)
 export SDE_BUILD=$SDE"/build"
 export SDE_INSTALL=$SDE"/install"
@@ -18,7 +18,7 @@ export PATH=$SDE_INSTALL/bin:$PATH
 echo "Compile "$1
 prog_name=$(basename $1 .p4)
 
-DEFAULT_ARGS="-g --verbose 3 --create-graphs --display-power-budget --arch tna --target tofino"
+DEFAULT_ARGS="--std p4_16 -g --verbose 3 --create-graphs --display-power-budget --arch tna --target tofino"
 WITH_BFRT="--bf-rt-schema custom_build/$name.tofino/bfrt.json"
 # (binary, json)
 WITH_P4RT="--p4runtime-file custom_build/$name.tofino/p4info.proto.txt --p4runtime-format text"
@@ -50,7 +50,7 @@ check_env() {
     return 0
 }
 
-build_p4_16) {
+build_p4_16() {
 
     echo "Building $1 in build_dir $P4_BUILD ... "
    
@@ -64,16 +64,16 @@ build_p4_16) {
     # bf-p4c by default, no need for --with-p4c
     cd $SDE/pkgsrc/p4-build
     ./configure \
-    --prefix=$SDE_INSTALL --enable-thrift --with-tofino --with-p4c=p4c \
-    P4_NAME=$prog_name P4_PATH=$CURR/$1  P4_ARCHITECTURE=tna &&
+    --prefix=$SDE_INSTALL --enable-thrift --with-tofino  \
+    P4_NAME=$prog_name P4_PATH=$CURR/$1 P4_VERSION=p4-16 P4_ARCHITECTURE=tna &&
     make clean && make -j4 && make install &&
     # Retain the custom modifications
     # make && make install &&
 
     echo "Install conf needed by the driver ... "
-    CONF_IN=${SDE}"/pkgsrc/p4-examples/tofino/tofino_single_device.conf.in"
+    # CONF_IN=${SDE}"/pkgsrc/p4-examples/tofino/tofino_single_device.conf.in"
     # P4_16
-    # CONF_IN=$SDE_PKGSRC/${p4_examples}/tofino/tofino_single_device_bfrt.conf.in
+    CONF_IN=$SDE_PKGSRC/${p4_examples}/tofino/tofino_single_device_bfrt.conf.in
     if [ ! -f $CONF_IN ]; then
         cat <<EOF
 ERROR: Template config.in file `$CONF_IN` missing.
