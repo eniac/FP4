@@ -73,7 +73,7 @@ build_p4_16() {
     echo "Install conf needed by the driver ... "
     # CONF_IN=${SDE}"/pkgsrc/p4-examples/tofino/tofino_single_device.conf.in"
     # P4_16
-    CONF_IN=$SDE_PKGSRC/${p4_examples}/tofino/tofino_single_device_bfrt.conf.in
+    CONF_IN=${SDE}"/pkgsrc/p4-examples/tofino/tofino_single_device_bfrt.conf.in"
     if [ ! -f $CONF_IN ]; then
         cat <<EOF
 ERROR: Template config.in file `$CONF_IN` missing.

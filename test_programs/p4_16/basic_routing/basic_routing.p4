@@ -11,15 +11,15 @@ header ipv4_t {
     bit<4> version;
     bit<4> ihl;
     bit<8> diffserv;
-    bit<16> totalLen;
+    bit<16> total_len;
     bit<16> identification;
     bit<3> flags;
-    bit<13> fragOffset;
+    bit<13> frag_offset;
     bit<8> ttl;
     bit<8> protocol;
-    bit<16> hdrChecksum;
-    bit<32> srcAddr;
-    bit<32> dstAddr;
+    bit<16> hdr_checksum;
+    bit<32> src_addr;
+    bit<32> dst_addr;
 }
 
 struct ingress_metadata_t {
@@ -35,16 +35,20 @@ struct headers_t {
 }
 
 // Constants
-const bit<16> PORT_VLAN_TABLE_SIZE = 32768
-const bit<16> BD_TABLE_SIZE = 65536
-const bit<32> IPV4_HOST_TABLE_SIZE = 131072
-const bit<16> IPV4_LPM_TABLE_SIZE = 16384
-const bit<16> NEXTHOP_TABLE_SIZE = 32768
-const bit<16> REWRITE_MAC_TABLE_SIZE = 32768
+const bit<16> PORT_VLAN_TABLE_SIZE = 32768;
+const bit<32> BD_TABLE_SIZE = 65536;
+const bit<32> IPV4_HOST_TABLE_SIZE = 131072;
+const bit<16> IPV4_LPM_TABLE_SIZE = 16384;
+const bit<16> NEXTHOP_TABLE_SIZE = 32768;
+const bit<16> REWRITE_MAC_TABLE_SIZE = 32768;
 
-parser SwitchIngressParser(packet_in packet, out headers_t hdr) {
+parser SwitchIngressParser(packet_in packet,
+    out headers_t hdr,
+    out ingress_metadata_t ig_md,
+    out ingress_intrinsic_metadata_t ig_intr_md) {
+    
     state start {
-        return parse_ethernet;
+        transition parse_ethernet;
     }
     state parse_ethernet {
         packet.extract(hdr.ethernet);
@@ -61,7 +65,8 @@ parser SwitchIngressParser(packet_in packet, out headers_t hdr) {
 
 control SwitchIngressDeparser(
         packet_out pkt,
-        inout header_t hdr,
+        inout headers_t hdr,
+        in ingress_metadata_t ig_md,
         in ingress_intrinsic_metadata_for_deparser_t ig_intr_dprsr_md) {
     Checksum() ipv4_checksum;
     
@@ -85,10 +90,11 @@ control SwitchIngressDeparser(
     }
 }
 
-control SwitchIngress(inout headers_t hdr, 
-    out ingress_intrinsic_metadata_t ig_intr_md, 
-    inout ingress_metadata_t ingress_metadata
-    inout ingress_intrinsic_metadata_for_deparser_t ig_intr_dprsr_md
+control SwitchIngress(inout headers_t hdr,
+    inout ingress_metadata_t ingress_metadata, 
+    in ingress_intrinsic_metadata_t ig_intr_md,
+    in ingress_intrinsic_metadata_from_parser_t ig_intr_prsr_md,
+    inout ingress_intrinsic_metadata_for_deparser_t ig_intr_dprsr_md,
     inout ingress_intrinsic_metadata_for_tm_t ig_intr_tm_md) {
 
     action set_bd(bit<16> bd) {
@@ -133,58 +139,58 @@ control SwitchIngress(inout headers_t hdr,
             set_bd;
             port_mapping_on_miss;
         }
-        default_action: port_mapping_on_miss();
-        size : PORT_VLAN_TABLE_SIZE;
+        default_action = port_mapping_on_miss();
+        size = PORT_VLAN_TABLE_SIZE;
     }
 
     table bd {
-        keys = {
+        key = {
             ingress_metadata.bd : exact;
         }
         actions = {
             set_vrf;
             bd_on_miss;
         }
-        default_action: bd_on_miss();
-        size : BD_TABLE_SIZE;
+        default_action = bd_on_miss();
+        size = BD_TABLE_SIZE;
     }
 
     table ipv4_fib {
-        keys = {
+        key = {
             ingress_metadata.vrf : exact;
-            hdr.ipv4.dstAddr : exact;
+            hdr.ipv4.dst_addr : exact;
         }
-        actions {
+        actions = {
             ipv4_fib_on_miss;
             ipv4_fib_hit_nexthop;
         }
-        default_action: ipv4_fib_on_miss();
-        size : IPV4_HOST_TABLE_SIZE;
+        default_action = ipv4_fib_on_miss();
+        size = IPV4_HOST_TABLE_SIZE;
     }
 
     table ipv4_fib_lpm {
-        reads {
+        key = {
             ingress_metadata.vrf : exact;
-            hdr.ipv4.dstAddr : lpm;
+            hdr.ipv4.dst_addr : lpm;
         }
-        actions {
+        actions = {
             ipv4_fib_lpm_on_miss;
             ipv4_fib_lpm_hit_nexthop;
         }
-        default_action: on_miss();
-        size : IPV4_LPM_TABLE_SIZE;
+        default_action = ipv4_fib_lpm_on_miss();
+        size = IPV4_LPM_TABLE_SIZE;
     }
 
     table nexthop {
-        keys = {
+        key = {
             ingress_metadata.nexthop_index : exact;
         }
         actions = {
             ai_drop;
             set_egress_details;
         }
-        default_action: ai_drop();
-        size : NEXTHOP_TABLE_SIZE;
+        default_action = ai_drop();
+        size = NEXTHOP_TABLE_SIZE;
     }
 
     apply {
@@ -200,9 +206,12 @@ control SwitchIngress(inout headers_t hdr,
     }
 } 
 
-parser SwitchEgressParser(packet_in packet, out headers_t hdr) {
+parser SwitchEgressParser(packet_in packet, 
+    out headers_t hdr,
+    out ingress_metadata_t eg_md,
+    out egress_intrinsic_metadata_t eg_intr_md) {
     state start {
-        return parse_ethernet;
+        transition parse_ethernet;
     }
     state parse_ethernet {
         packet.extract(hdr.ethernet);
@@ -219,8 +228,9 @@ parser SwitchEgressParser(packet_in packet, out headers_t hdr) {
 
 control SwitchEgressDeparser(
         packet_out pkt,
-        inout header_t hdr,
-        in ingress_intrinsic_metadata_for_deparser_t ig_intr_dprsr_md) {
+        inout headers_t hdr,
+        in ingress_metadata_t ingress_metadata,
+        in egress_intrinsic_metadata_for_deparser_t eg_intr_md_for_dprsr) {
     Checksum() ipv4_checksum;
     
     apply {
@@ -243,23 +253,28 @@ control SwitchEgressDeparser(
     }
 }
 
-control SwitchEgress(inout headers_t hdr) {
+control SwitchEgress(inout headers_t hdr, 
+    inout ingress_metadata_t ingress_metadata,
+    in egress_intrinsic_metadata_t eg_intr_md,
+    in egress_intrinsic_metadata_from_parser_t eg_intr_md_from_prsr,
+    inout egress_intrinsic_metadata_for_deparser_t ig_intr_dprs_md,
+    inout egress_intrinsic_metadata_for_output_port_t eg_intr_oport_md) {
     action rewrite_mac_on_miss() {}
-    action rewrite_src_dst_mac(smac, dmac) {
-        modify_field(ethernet.srcAddr, smac);
-        modify_field(ethernet.dstAddr, dmac);
+    action rewrite_src_dst_mac(bit<48> smac, bit<48> dmac) {
+        hdr.ethernet.srcAddr = smac;
+        hdr.ethernet.dstAddr = dmac;
     }
 
     table rewrite_mac {
-        reads {
+        key = {
             ingress_metadata.nexthop_index : exact;
         }
-        actions {
-            on_miss;
+        actions = {
+            rewrite_mac_on_miss;
             rewrite_src_dst_mac;
         }
-        default_action: rewrite_mac_on_miss();
-        size : REWRITE_MAC_TABLE_SIZE;
+        default_action = rewrite_mac_on_miss();
+        size = REWRITE_MAC_TABLE_SIZE;
     }
     apply {
         rewrite_mac.apply();
