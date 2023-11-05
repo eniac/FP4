@@ -8,3 +8,19 @@ Without loss of PFuzz capabilities, current assumptions about the user input pro
 4. Minor: for the ease of retrospection, it is better to use `if... else...` (which is fully equivalent) more explicitly to indicate the nested conditionals rather than `else if`.
 5. Minor: currently, the naming of the tables and conditionals may affect the BL instrumentation plan (not for correctness).
 6. Minor: in some edge cases, the generated ILP partition may not result in a weakly connected sub-DAG, i.e., there are isolated nodes. -> Fixed with an improved dummy edge instrumentation
+
+Example compilation for p4_16
+On switch
+```
+cd /home/leoyu/FP4/test_programs/p4_16
+sudo ../../hardware_run/compile_p4_16.sh basic_routing/basic_routing.p4
+cd $HOME
+./p4testgen_bin/p4testgen --target tofino --arch tna --track-coverage STATEMENTS --stop-metric MAX_STATEMENT_COVERAGE --test-backend ptf --max-tests 10000000 FP4/test_programs/p4_16/basic_routing/basic_routing.p4 -I/home/leoyu/bf-sde-9.2.0/install/share/p4c/p4include/
+```
+This will generate `basic_routing.py` in $HOME directory.
+
+Move this file to $HOME/EPV/p4testgenoutput/programs_test.
+```
+cd $HOME/EPV/p4testgenoutput/
+python3 find_coverage.py
+```
