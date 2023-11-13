@@ -523,7 +523,7 @@ class GraphParser(object):
         for subG in subgraphs:
             for n in subG.get_node_list():
                 if 'label' not in n.obj_dict["attributes"]:
-                    continue
+                    raise Exception("No label in attributes {0} for node {1}".format(n.obj_dict["attributes"], n))
                 label = n.obj_dict["attributes"]['label']
                 print("--- name: {0}, label {1} ---".format(n.get_name(), label))
                 if has_numbers(n.get_name()) and label not in ['__START__',"", '__EXIT__', 'tbl_act']:
@@ -667,12 +667,14 @@ class GraphParser(object):
         return stage2tables_dict, table2actions_dict
 
     def replacement_name(self, input_name):
+        print("Before replacement: {}".format(input_name))
         input_name = re.sub(r'^hdr\.', '"', input_name)
         input_name = re.sub(r'^meta\.', '', input_name)
         input_name = re.sub(r'^"hdr\.', '"', input_name)
-        input_name = re.sub(r'^"meta\.', '', input_name)
+        input_name = re.sub(r'^"meta\.', '"', input_name)
         input_name = re.sub(r' hdr\.', ' ', input_name)
         input_name = re.sub(r' meta\.', ' ', input_name)
+        print("After replacement: {}".format(input_name))
         return input_name
 
     def sanitize_node_name(self, graph):
