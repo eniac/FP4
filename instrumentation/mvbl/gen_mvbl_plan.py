@@ -190,7 +190,7 @@ class GraphParser(object):
         visualize_digraph(full_graph, "full_graph")
 
         print("\n====== Sanitize special chars ([^a-zA-Z0-9_], e.g., \`.\`,\(,\),) for all nodes (actually for conditionals) for pulp ======")
-        new_node_mapping, reverse_new_node_mapping = self.sanitize_node_name(full_graph)
+        new_node_mapping, new_node_to_new_node_wo_hdr_meta_prefix_mapping = self.sanitize_node_name(full_graph)
 
         print("\n====== Create a sanitized graph ======")
         table_graph = nx.relabel_nodes(table_graph, new_node_mapping)
@@ -212,8 +212,8 @@ class GraphParser(object):
         for old_name, new_name in new_node_mapping.items():
             if old_name in table2actions_dict:
                 if old_name != new_name:
-                    print("Unexpected rename of table old_name: {0} -> new_name: {1}".format(old_name, new_name))
-                    table2actions_dict[new_name] = table2actions_dict.pop(old_name)
+                    raise Exception("Unexpected rename of table old_name: {0} -> new_name: {1}".format(old_name, new_name))
+                    # table2actions_dict[new_name] = table2actions_dict.pop(old_name)
         json_output_dict[JSON_OUTPUT_KEY_TABLE_TO_ACTIONS_DICT] = table2actions_dict
 
         print("\n=== Sanitize node names in table_conditional_to_exit ===")
@@ -398,6 +398,22 @@ class GraphParser(object):
             print("----- Get BL plan for variable {0} additions------".format(idx))
 
             graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict, json_output_nonzero_edge_dict, json_output_final_nonzero_edge_dict = self.ball_larus(graph, table2actions_dict, idx, full_graph)
+
+            print("--- Sanitize json_output_non_action_increment_dict to be compatible with flex/bison frontend ---")
+            for key, value in json_output_non_action_increment_dict.items():
+                if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
+                    print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
+                    json_output_non_action_increment_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_non_action_increment_dict.pop(key)     
+            print("--- Sanitize json_output_final_non_action_increment_dict to be compatible with flex/bison frontend ---")
+            for key, value in json_output_final_non_action_increment_dict.items():
+                if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
+                    print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
+                    json_output_final_non_action_increment_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_final_non_action_increment_dict.pop(key)    
+            print("--- Sanitize json_output_final_non_action_increment_rootword_dict to be compatible with flex/bison frontend ---")
+            for key, value in json_output_final_non_action_increment_rootword_dict.items():
+                if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
+                    print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
+                    json_output_final_non_action_increment_rootword_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_final_non_action_increment_rootword_dict.pop(key)    
 
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_INCREMENT_DICT] = json_output_edge_dst_increment_dict
             json_output_dict[str(idx)][JSON_OUTPUT_KEY_EDGE_DST_EDGE_DICT] = json_output_edge_dst_edge_dict
@@ -679,14 +695,15 @@ class GraphParser(object):
 
     def sanitize_node_name(self, graph):
         new_node_mapping = {}
-        reverse_new_node_mapping = {}
+        new_node_to_new_node_wo_hdr_meta_prefix_mapping = {}
         for node in graph.nodes:
-            clean_node = self.replacement_name(node)
-            new_node = re.sub(r'\W+', '', clean_node)
+            new_node = re.sub(r'\W+', '', node)
+            node_wo_hdr_meta_prefix = self.replacement_name(node)
+            new_node_wo_hdr_meta_prefix = re.sub(r'\W+', '', node_wo_hdr_meta_prefix)
             print("--- {0} mapped to {1} ---".format(node, new_node))
             new_node_mapping[node] = new_node
-            reverse_new_node_mapping[new_node] = node
-        return new_node_mapping, reverse_new_node_mapping
+            new_node_to_new_node_wo_hdr_meta_prefix_mapping[new_node] = new_node_wo_hdr_meta_prefix
+        return new_node_mapping, new_node_to_new_node_wo_hdr_meta_prefix_mapping
 
     def ball_larus(self, graph, table2actions_dict, graph_idx, full_graph):
         weighted_edges = []
