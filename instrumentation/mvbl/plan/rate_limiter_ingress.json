@@ -111,7 +111,7 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ],
         [
@@ -125,7 +125,7 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
             "000_virtual_EXIT"
         ]
     ],
