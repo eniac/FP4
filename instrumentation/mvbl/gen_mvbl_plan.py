@@ -399,17 +399,27 @@ class GraphParser(object):
 
             graph_with_weights, json_output_edge_dst_increment_dict, json_output_edge_dst_edge_dict, json_output_non_action_increment_dict, json_output_final_edge_dst_increment_dict, json_output_final_edge_dst_edge_dict, json_output_final_non_action_increment_dict, json_output_final_non_action_increment_rootword_dict, json_output_nonzero_edge_dict, json_output_final_nonzero_edge_dict = self.ball_larus(graph, table2actions_dict, idx, full_graph)
 
-            print("--- Sanitize json_output_non_action_increment_dict to be compatible with flex/bison frontend ---")
+            print("--- Sanitize keys json_output_final_edge_dst_increment_dict to be compatible with flex/bison frontend ---")
+            for key, value in json_output_final_edge_dst_increment_dict.items():
+                if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
+                    print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
+                    json_output_final_edge_dst_increment_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_final_edge_dst_increment_dict.pop(key)   
+            print("--- Sanitize keys json_output_final_edge_dst_edge_dict to be compatible with flex/bison frontend ---")
+            for key, value in json_output_final_edge_dst_edge_dict.items():
+                if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
+                    print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
+                    json_output_final_edge_dst_edge_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_final_edge_dst_edge_dict.pop(key)   
+            print("--- Sanitize keys json_output_non_action_increment_dict to be compatible with flex/bison frontend ---")
             for key, value in json_output_non_action_increment_dict.items():
                 if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
                     print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
                     json_output_non_action_increment_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_non_action_increment_dict.pop(key)     
-            print("--- Sanitize json_output_final_non_action_increment_dict to be compatible with flex/bison frontend ---")
+            print("--- Sanitize keys json_output_final_non_action_increment_dict to be compatible with flex/bison frontend ---")
             for key, value in json_output_final_non_action_increment_dict.items():
                 if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
                     print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
                     json_output_final_non_action_increment_dict[new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]] = json_output_final_non_action_increment_dict.pop(key)    
-            print("--- Sanitize json_output_final_non_action_increment_rootword_dict to be compatible with flex/bison frontend ---")
+            print("--- Sanitize keys json_output_final_non_action_increment_rootword_dict to be compatible with flex/bison frontend ---")
             for key, value in json_output_final_non_action_increment_rootword_dict.items():
                 if key in new_node_to_new_node_wo_hdr_meta_prefix_mapping:
                     print("{0} -> {1}".format(key, new_node_to_new_node_wo_hdr_meta_prefix_mapping[key]))
