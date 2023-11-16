@@ -256,15 +256,19 @@ control ingress     {
     }
     else  {
         apply(ti_mvbl_8_hdrethernetisValid_hdripv4isValid);
+
         if (valid(ipv4))  {
             apply(tiHandleIpv4);
+
             apply(ti_mvbl_9_aiForMe_pfuzz_tiHandleIncomingEthernet_tiHandleOutgoingEthernet);
+
             apply(tiHandleOutgoingEthernet);
 
 
         }
         else  {
             apply(ti_mvbl_5_VIRTUAL_START_hdrarpisValidhdrarpoper1);
+
             if (valid(arp) && arp.oper == 1)  {
                 apply(tiHandleIncomingArpReqest_part_one);
 
@@ -274,6 +278,7 @@ control ingress     {
             }
             else  {
                 apply(ti_mvbl_0_aiHandleOutgoingRouting_pfuzz_tiHandleOutgoingRouting_hdrarpisValidhdrarpoper2);
+
                 if (valid(arp) && arp.oper == 2)  {
                     apply(tiHandleIncomingArpResponse);
 
@@ -281,6 +286,7 @@ control ingress     {
                 }
                 else  {
                     apply(ti_mvbl_6_VIRTUAL_START_hdrdistance_vecisValid);
+
                     if (valid(distance_vec))  {
                         apply(tiHandleIncomingRouting);
 
@@ -303,6 +309,7 @@ control ingress     {
 
 
     }
+    apply(ti_temp_port);
 }
 
 action ai_temp_port() {

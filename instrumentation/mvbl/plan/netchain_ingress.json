@@ -95,20 +95,20 @@
             ]
         },
         "final_edge_dst_to_edge": {
-            "hdrnc_hdrop1": "hdrnc_hdrisValid -> hdrnc_hdrop1",
-            "metametaavailable0": "hdrnc_hdrisValid -> metametaavailable0"
+            "metaavailable0": "hdrnc_hdrisValid -> metametaavailable0",
+            "nc_hdrop1": "hdrnc_hdrisValid -> hdrnc_hdrop1"
         },
         "final_edge_dst_to_increment": {
-            "hdrnc_hdrop1": 1,
-            "metametaavailable0": 2
+            "metaavailable0": 2,
+            "nc_hdrop1": 1
         },
         "final_non_action_to_increment": {
-            "hdrnc_hdrop1": 1,
-            "metametaavailable0": 2
+            "metaavailable0": 2,
+            "nc_hdrop1": 1
         },
         "final_non_action_to_increment_rootword": {
-            "hdrnc_hdrop1": "mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1",
-            "metametaavailable0": "mvbl_1_hdrnc_hdrisValid_metametaavailable0"
+            "metaavailable0": "mvbl_1_hdrnc_hdrisValid_metametaavailable0",
+            "nc_hdrop1": "mvbl_1_hdrnc_hdrisValid_hdrnc_hdrop1"
         },
         "final_nonzero_edge_list": {
             "hdrnc_hdrisValid -> hdrnc_hdrop1": 1,
@@ -122,8 +122,8 @@
             "metametaavailable0"
         ],
         "non_action_to_increment": {
-            "hdrnc_hdrop1": 1,
-            "metametaavailable0": 2
+            "metaavailable0": 2,
+            "nc_hdrop1": 1
         },
         "nonzero_edge_list": {
             "hdrnc_hdrisValid -> hdrnc_hdrop1": 1,
@@ -265,6 +265,14 @@
         [
             "VIRTUAL_START",
             "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "release_lock_table",
+            "release_lock_action_pfuzz_release_lock_table",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "drop_action_pfuzz_ipv4_route",
             "000_virtual_EXIT"
@@ -272,6 +280,40 @@
         [
             "VIRTUAL_START",
             "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "release_lock_table",
+            "release_lock_action_pfuzz_release_lock_table",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "set_egress_pfuzz_ipv4_route",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
+            "ipv4_route",
+            "drop_action_pfuzz_ipv4_route",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdrnc_hdrisValid",
+            "decode_table",
+            "decode_action_pfuzz_decode_table",
+            "hdrnc_hdrop0",
+            "hdrnc_hdrop1",
+            "reply_to_client_table",
+            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "set_egress_pfuzz_ipv4_route",
             "000_virtual_EXIT"
@@ -343,14 +385,6 @@
         [
             "VIRTUAL_START",
             "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "release_lock_table",
-            "release_lock_action_pfuzz_release_lock_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "drop_action_pfuzz_ipv4_route",
             "000_virtual_EXIT"
@@ -358,40 +392,6 @@
         [
             "VIRTUAL_START",
             "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "release_lock_table",
-            "release_lock_action_pfuzz_release_lock_table",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "set_egress_pfuzz_ipv4_route",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
-            "ipv4_route",
-            "drop_action_pfuzz_ipv4_route",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdrnc_hdrisValid",
-            "decode_table",
-            "decode_action_pfuzz_decode_table",
-            "hdrnc_hdrop0",
-            "hdrnc_hdrop1",
-            "reply_to_client_table",
-            "reply_to_client_action_pfuzz_reply_to_client_table",
             "ipv4_route",
             "set_egress_pfuzz_ipv4_route",
             "000_virtual_EXIT"

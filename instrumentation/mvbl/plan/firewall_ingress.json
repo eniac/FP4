@@ -35,17 +35,17 @@
         },
         "final_edge_dst_to_edge": {
             "ai_calculate_hash_pfuzz_ti_calculate_hash2": "ti_calculate_hash2 -> ai_calculate_hash_pfuzz_ti_calculate_hash2",
-            "metametadirection0": "VIRTUAL_START -> metametadirection0"
+            "metadirection0": "VIRTUAL_START -> metametadirection0"
         },
         "final_edge_dst_to_increment": {
             "ai_calculate_hash_pfuzz_ti_calculate_hash2": 1,
-            "metametadirection0": 1
+            "metadirection0": 1
         },
         "final_non_action_to_increment": {
-            "metametadirection0": 1
+            "metadirection0": 1
         },
         "final_non_action_to_increment_rootword": {
-            "metametadirection0": "mvbl_0_VIRTUAL_START_metametadirection0"
+            "metadirection0": "mvbl_0_VIRTUAL_START_metametadirection0"
         },
         "final_nonzero_edge_list": {
             "VIRTUAL_START -> metametadirection0": 1,
@@ -62,7 +62,7 @@
             "ti_read_bloom_filter1"
         ],
         "non_action_to_increment": {
-            "metametadirection0": 1,
+            "metadirection0": 1,
             "ti_calculate_hash2": 1
         },
         "nonzero_edge_list": {
@@ -75,20 +75,37 @@
     },
     "1": {
         "edge_dst_to_edge": {
-            "ti_get_incoming_pos": "hdripv4isValid -> ti_get_incoming_pos",
-            "ti_read_bloom_filter2": "hdripv4isValid -> ti_read_bloom_filter2"
+            "check_ports": "hdripv4isValid -> check_ports",
+            "drop_packet_pfuzz_ti_apply_filter": "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter",
+            "set_hit_pfuzz_check_ports": "check_ports -> set_hit_pfuzz_check_ports",
+            "ti_get_incoming_pos": "set_hit_pfuzz_check_ports -> ti_get_incoming_pos",
+            "ti_read_bloom_filter2": "set_hit_pfuzz_check_ports -> ti_read_bloom_filter2"
         },
         "edge_dst_to_increment": {
+            "check_ports": 1,
+            "drop_packet_pfuzz_ti_apply_filter": 1,
+            "set_hit_pfuzz_check_ports": 4,
             "ti_get_incoming_pos": 1,
             "ti_read_bloom_filter2": 2
         },
         "edges": [
             "VIRTUAL_START -> hdripv4isValid",
             "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos -> 000_virtual_EXIT",
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2 -> 000_virtual_EXIT",
+            "ai_noOp_pfuzz_ti_apply_filter -> 000_virtual_EXIT",
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2 -> ti_apply_filter",
+            "check_ports -> set_direction_pfuzz_check_ports",
+            "check_ports -> set_hit_pfuzz_check_ports",
+            "drop_packet_pfuzz_ti_apply_filter -> 000_virtual_EXIT",
             "hdripv4isValid -> 000_virtual_EXIT",
-            "hdripv4isValid -> ti_get_incoming_pos",
-            "hdripv4isValid -> ti_read_bloom_filter2",
+            "hdripv4isValid -> check_ports",
+            "set_direction_pfuzz_check_ports -> 000_virtual_EXIT",
+            "set_direction_pfuzz_check_ports -> ti_get_incoming_pos",
+            "set_direction_pfuzz_check_ports -> ti_read_bloom_filter2",
+            "set_hit_pfuzz_check_ports -> 000_virtual_EXIT",
+            "set_hit_pfuzz_check_ports -> ti_get_incoming_pos",
+            "set_hit_pfuzz_check_ports -> ti_read_bloom_filter2",
+            "ti_apply_filter -> ai_noOp_pfuzz_ti_apply_filter",
+            "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter",
             "ti_get_incoming_pos -> ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
             "ti_read_bloom_filter2 -> ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2"
         ],
@@ -98,26 +115,85 @@
             ],
             "1": [
                 "hdripv4isValid",
-                "ti_get_incoming_pos",
-                "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos"
+                "check_ports",
+                "set_direction_pfuzz_check_ports"
             ],
             "2": [
                 "hdripv4isValid",
+                "check_ports",
+                "set_direction_pfuzz_check_ports",
+                "ti_get_incoming_pos",
+                "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos"
+            ],
+            "3": [
+                "hdripv4isValid",
+                "check_ports",
+                "set_direction_pfuzz_check_ports",
                 "ti_read_bloom_filter2",
-                "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2"
+                "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+                "ti_apply_filter",
+                "ai_noOp_pfuzz_ti_apply_filter"
+            ],
+            "4": [
+                "hdripv4isValid",
+                "check_ports",
+                "set_direction_pfuzz_check_ports",
+                "ti_read_bloom_filter2",
+                "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+                "ti_apply_filter",
+                "drop_packet_pfuzz_ti_apply_filter"
+            ],
+            "5": [
+                "hdripv4isValid",
+                "check_ports",
+                "set_hit_pfuzz_check_ports"
+            ],
+            "6": [
+                "hdripv4isValid",
+                "check_ports",
+                "set_hit_pfuzz_check_ports",
+                "ti_get_incoming_pos",
+                "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos"
+            ],
+            "7": [
+                "hdripv4isValid",
+                "check_ports",
+                "set_hit_pfuzz_check_ports",
+                "ti_read_bloom_filter2",
+                "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+                "ti_apply_filter",
+                "ai_noOp_pfuzz_ti_apply_filter"
+            ],
+            "8": [
+                "hdripv4isValid",
+                "check_ports",
+                "set_hit_pfuzz_check_ports",
+                "ti_read_bloom_filter2",
+                "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+                "ti_apply_filter",
+                "drop_packet_pfuzz_ti_apply_filter"
             ]
         },
         "final_edge_dst_to_edge": {
             "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos": "ti_get_incoming_pos -> ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2": "ti_read_bloom_filter2 -> ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2"
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2": "ti_read_bloom_filter2 -> ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+            "drop_packet_pfuzz_ti_apply_filter": "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter",
+            "set_direction_pfuzz_check_ports": "check_ports -> set_direction_pfuzz_check_ports",
+            "set_hit_pfuzz_check_ports": "check_ports -> set_hit_pfuzz_check_ports"
         },
         "final_edge_dst_to_increment": {
             "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos": 1,
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2": 2
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2": 2,
+            "drop_packet_pfuzz_ti_apply_filter": 1,
+            "set_direction_pfuzz_check_ports": 1,
+            "set_hit_pfuzz_check_ports": 5
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {
+            "check_ports -> set_direction_pfuzz_check_ports": 1,
+            "check_ports -> set_hit_pfuzz_check_ports": 5,
+            "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter": 1,
             "ti_get_incoming_pos -> ai_get_incoming_pos_pfuzz_ti_get_incoming_pos": 1,
             "ti_read_bloom_filter2 -> ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2": 2
         },
@@ -125,141 +201,81 @@
             "000_virtual_EXIT",
             "VIRTUAL_START",
             "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ai_noOp_pfuzz_ti_apply_filter",
             "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+            "check_ports",
+            "drop_packet_pfuzz_ti_apply_filter",
             "hdripv4isValid",
+            "set_direction_pfuzz_check_ports",
+            "set_hit_pfuzz_check_ports",
+            "ti_apply_filter",
             "ti_get_incoming_pos",
             "ti_read_bloom_filter2"
         ],
         "non_action_to_increment": {
+            "check_ports": 1,
             "ti_get_incoming_pos": 1,
             "ti_read_bloom_filter2": 2
         },
         "nonzero_edge_list": {
-            "hdripv4isValid -> ti_get_incoming_pos": 1,
-            "hdripv4isValid -> ti_read_bloom_filter2": 2
+            "check_ports -> set_hit_pfuzz_check_ports": 4,
+            "hdripv4isValid -> check_ports": 1,
+            "set_direction_pfuzz_check_ports -> ti_get_incoming_pos": 1,
+            "set_direction_pfuzz_check_ports -> ti_read_bloom_filter2": 2,
+            "set_hit_pfuzz_check_ports -> ti_get_incoming_pos": 1,
+            "set_hit_pfuzz_check_ports -> ti_read_bloom_filter2": 2,
+            "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter": 1
         },
         "num_bits": 8,
-        "num_bits_original": 3,
-        "num_paths": 3
+        "num_bits_original": 5,
+        "num_paths": 9
     },
     "2": {
         "edge_dst_to_edge": {
-            "check_ports": "VIRTUAL_START -> check_ports",
-            "drop_packet_pfuzz_ti_apply_filter": "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter",
-            "set_hit_pfuzz_check_ports": "check_ports -> set_hit_pfuzz_check_ports",
-            "ti_get_outgoing_pos": "set_hit_pfuzz_check_ports -> ti_get_outgoing_pos"
+            "ti_get_outgoing_pos": "VIRTUAL_START -> ti_get_outgoing_pos"
         },
         "edge_dst_to_increment": {
-            "check_ports": 1,
-            "drop_packet_pfuzz_ti_apply_filter": 1,
-            "set_hit_pfuzz_check_ports": 3,
             "ti_get_outgoing_pos": 1
         },
         "edges": [
             "VIRTUAL_START -> 000_virtual_EXIT",
-            "VIRTUAL_START -> check_ports",
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos -> ti_apply_filter",
-            "ai_noOp_pfuzz_ti_apply_filter -> 000_virtual_EXIT",
-            "check_ports -> set_direction_pfuzz_check_ports",
-            "check_ports -> set_hit_pfuzz_check_ports",
-            "drop_packet_pfuzz_ti_apply_filter -> 000_virtual_EXIT",
-            "set_direction_pfuzz_check_ports -> 000_virtual_EXIT",
-            "set_direction_pfuzz_check_ports -> ti_get_outgoing_pos",
-            "set_hit_pfuzz_check_ports -> 000_virtual_EXIT",
-            "set_hit_pfuzz_check_ports -> ti_get_outgoing_pos",
-            "ti_apply_filter -> ai_noOp_pfuzz_ti_apply_filter",
-            "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter",
+            "VIRTUAL_START -> ti_get_outgoing_pos",
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos -> 000_virtual_EXIT",
             "ti_get_outgoing_pos -> ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos"
         ],
         "encoding_to_path": {
             "0": [],
             "1": [
-                "check_ports",
-                "set_direction_pfuzz_check_ports"
-            ],
-            "2": [
-                "check_ports",
-                "set_direction_pfuzz_check_ports",
                 "ti_get_outgoing_pos",
-                "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-                "ti_apply_filter",
-                "ai_noOp_pfuzz_ti_apply_filter"
-            ],
-            "3": [
-                "check_ports",
-                "set_direction_pfuzz_check_ports",
-                "ti_get_outgoing_pos",
-                "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-                "ti_apply_filter",
-                "drop_packet_pfuzz_ti_apply_filter"
-            ],
-            "4": [
-                "check_ports",
-                "set_hit_pfuzz_check_ports"
-            ],
-            "5": [
-                "check_ports",
-                "set_hit_pfuzz_check_ports",
-                "ti_get_outgoing_pos",
-                "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-                "ti_apply_filter",
-                "ai_noOp_pfuzz_ti_apply_filter"
-            ],
-            "6": [
-                "check_ports",
-                "set_hit_pfuzz_check_ports",
-                "ti_get_outgoing_pos",
-                "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-                "ti_apply_filter",
-                "drop_packet_pfuzz_ti_apply_filter"
+                "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos"
             ]
         },
         "final_edge_dst_to_edge": {
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos": "ti_get_outgoing_pos -> ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-            "drop_packet_pfuzz_ti_apply_filter": "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter",
-            "set_direction_pfuzz_check_ports": "check_ports -> set_direction_pfuzz_check_ports",
-            "set_hit_pfuzz_check_ports": "check_ports -> set_hit_pfuzz_check_ports"
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos": "ti_get_outgoing_pos -> ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos"
         },
         "final_edge_dst_to_increment": {
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos": 1,
-            "drop_packet_pfuzz_ti_apply_filter": 1,
-            "set_direction_pfuzz_check_ports": 1,
-            "set_hit_pfuzz_check_ports": 4
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos": 1
         },
         "final_non_action_to_increment": {},
         "final_non_action_to_increment_rootword": {},
         "final_nonzero_edge_list": {
-            "check_ports -> set_direction_pfuzz_check_ports": 1,
-            "check_ports -> set_hit_pfuzz_check_ports": 4,
-            "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter": 1,
             "ti_get_outgoing_pos -> ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos": 1
         },
         "nodes": [
             "000_virtual_EXIT",
             "VIRTUAL_START",
             "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-            "ai_noOp_pfuzz_ti_apply_filter",
-            "check_ports",
-            "drop_packet_pfuzz_ti_apply_filter",
-            "set_direction_pfuzz_check_ports",
-            "set_hit_pfuzz_check_ports",
-            "ti_apply_filter",
             "ti_get_outgoing_pos"
         ],
         "non_action_to_increment": {
-            "check_ports": 1,
             "ti_get_outgoing_pos": 1
         },
         "nonzero_edge_list": {
-            "VIRTUAL_START -> check_ports": 1,
-            "check_ports -> set_hit_pfuzz_check_ports": 3,
-            "set_direction_pfuzz_check_ports -> ti_get_outgoing_pos": 1,
-            "set_hit_pfuzz_check_ports -> ti_get_outgoing_pos": 1,
-            "ti_apply_filter -> drop_packet_pfuzz_ti_apply_filter": 1
+            "VIRTUAL_START -> ti_get_outgoing_pos": 1
         },
         "num_bits": 8,
-        "num_bits_original": 3,
-        "num_paths": 7
+        "num_bits_original": 1,
+        "num_paths": 2
     },
     "3": {
         "edge_dst_to_edge": {
@@ -432,7 +448,7 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
             "check_ports",
             "set_direction_pfuzz_check_ports",
             "metametacheck_ports_hit1",
@@ -442,155 +458,9 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
+            "ipv4_forward_pfuzz_ipv4_lpm",
             "check_ports",
             "set_direction_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_outgoing_pos",
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-            "ti_calculate_hash2",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
-            "ti_read_bloom_filter1",
-            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
-            "ti_read_bloom_filter2",
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
-            "ti_apply_filter",
-            "ai_noOp_pfuzz_ti_apply_filter",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_direction_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_outgoing_pos",
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-            "ti_calculate_hash2",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
-            "ti_read_bloom_filter1",
-            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
-            "ti_read_bloom_filter2",
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
-            "ti_apply_filter",
-            "drop_packet_pfuzz_ti_apply_filter",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_direction_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_direction_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
-            "ti_write_bloom_filter1",
-            "ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1",
-            "ti_write_bloom_filter2",
-            "ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_hit_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_hit_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_outgoing_pos",
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-            "ti_calculate_hash2",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
-            "ti_read_bloom_filter1",
-            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
-            "ti_read_bloom_filter2",
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
-            "ti_apply_filter",
-            "ai_noOp_pfuzz_ti_apply_filter",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_hit_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_outgoing_pos",
-            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
-            "ti_calculate_hash2",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
-            "ti_read_bloom_filter1",
-            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
-            "ti_read_bloom_filter2",
-            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
-            "ti_apply_filter",
-            "drop_packet_pfuzz_ti_apply_filter",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_hit_pfuzz_check_ports",
-            "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
-            "000_virtual_EXIT"
-        ],
-        [
-            "VIRTUAL_START",
-            "hdripv4isValid",
-            "ipv4_lpm",
-            "ai_noOp_pfuzz_ipv4_lpm",
-            "check_ports",
-            "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
             "metametadirection0",
             "ti_get_incoming_pos",
@@ -612,6 +482,12 @@
             "check_ports",
             "set_direction_pfuzz_check_ports",
             "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
@@ -662,14 +538,8 @@
             "ipv4_lpm",
             "ipv4_forward_pfuzz_ipv4_lpm",
             "check_ports",
-            "set_direction_pfuzz_check_ports",
+            "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
@@ -678,7 +548,7 @@
             "ipv4_lpm",
             "ipv4_forward_pfuzz_ipv4_lpm",
             "check_ports",
-            "set_direction_pfuzz_check_ports",
+            "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
             "metametadirection0",
             "ti_get_incoming_pos",
@@ -700,6 +570,12 @@
             "check_ports",
             "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
@@ -748,25 +624,19 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
             "check_ports",
-            "set_hit_pfuzz_check_ports",
+            "set_direction_pfuzz_check_ports",
             "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "ipv4_forward_pfuzz_ipv4_lpm",
+            "drop_packet_pfuzz_ipv4_lpm",
             "check_ports",
-            "set_hit_pfuzz_check_ports",
+            "set_direction_pfuzz_check_ports",
             "metametacheck_ports_hit1",
             "metametadirection0",
             "ti_get_incoming_pos",
@@ -788,6 +658,12 @@
             "check_ports",
             "set_direction_pfuzz_check_ports",
             "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
@@ -838,14 +714,8 @@
             "ipv4_lpm",
             "drop_packet_pfuzz_ipv4_lpm",
             "check_ports",
-            "set_direction_pfuzz_check_ports",
+            "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
-            "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
@@ -854,7 +724,7 @@
             "ipv4_lpm",
             "drop_packet_pfuzz_ipv4_lpm",
             "check_ports",
-            "set_direction_pfuzz_check_ports",
+            "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
             "metametadirection0",
             "ti_get_incoming_pos",
@@ -876,6 +746,12 @@
             "check_ports",
             "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
             "000_virtual_EXIT"
         ],
         [
@@ -924,7 +800,125 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_direction_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_direction_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
+            "ti_write_bloom_filter1",
+            "ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1",
+            "ti_write_bloom_filter2",
+            "ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_direction_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_direction_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_outgoing_pos",
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
+            "ti_calculate_hash2",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
+            "ti_read_bloom_filter1",
+            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
+            "ti_read_bloom_filter2",
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+            "ti_apply_filter",
+            "ai_noOp_pfuzz_ti_apply_filter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_direction_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_outgoing_pos",
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
+            "ti_calculate_hash2",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
+            "ti_read_bloom_filter1",
+            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
+            "ti_read_bloom_filter2",
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+            "ti_apply_filter",
+            "drop_packet_pfuzz_ti_apply_filter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_hit_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_hit_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_incoming_pos",
+            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
+            "ti_calculate_hash1",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
+            "hdrtcpsyn1",
+            "ti_write_bloom_filter1",
+            "ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1",
+            "ti_write_bloom_filter2",
+            "ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
             "check_ports",
             "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
@@ -940,20 +934,42 @@
             "VIRTUAL_START",
             "hdripv4isValid",
             "ipv4_lpm",
-            "drop_packet_pfuzz_ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
             "check_ports",
             "set_hit_pfuzz_check_ports",
             "metametacheck_ports_hit1",
             "metametadirection0",
-            "ti_get_incoming_pos",
-            "ai_get_incoming_pos_pfuzz_ti_get_incoming_pos",
-            "ti_calculate_hash1",
-            "ai_calculate_hash_pfuzz_ti_calculate_hash1",
-            "hdrtcpsyn1",
-            "ti_write_bloom_filter1",
-            "ai_write_bloom_filter1_pfuzz_ti_write_bloom_filter1",
-            "ti_write_bloom_filter2",
-            "ai_write_bloom_filter2_pfuzz_ti_write_bloom_filter2",
+            "ti_get_outgoing_pos",
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
+            "ti_calculate_hash2",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
+            "ti_read_bloom_filter1",
+            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
+            "ti_read_bloom_filter2",
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+            "ti_apply_filter",
+            "ai_noOp_pfuzz_ti_apply_filter",
+            "000_virtual_EXIT"
+        ],
+        [
+            "VIRTUAL_START",
+            "hdripv4isValid",
+            "ipv4_lpm",
+            "ai_noOp_pfuzz_ipv4_lpm",
+            "check_ports",
+            "set_hit_pfuzz_check_ports",
+            "metametacheck_ports_hit1",
+            "metametadirection0",
+            "ti_get_outgoing_pos",
+            "ai_get_outgoing_pos_pfuzz_ti_get_outgoing_pos",
+            "ti_calculate_hash2",
+            "ai_calculate_hash_pfuzz_ti_calculate_hash2",
+            "ti_read_bloom_filter1",
+            "ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1",
+            "ti_read_bloom_filter2",
+            "ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2",
+            "ti_apply_filter",
+            "drop_packet_pfuzz_ti_apply_filter",
             "000_virtual_EXIT"
         ]
     ],
@@ -1020,7 +1036,7 @@
             "ti_apply_filter"
         ]
     },
-    "sum_num_paths": 23,
+    "sum_num_paths": 24,
     "table2actions_dict": {
         "check_ports": [
             "set_direction_pfuzz_check_ports",

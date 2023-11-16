@@ -149,6 +149,7 @@ control ingress     {
 
         if (meta.check_ports_hit == 1)  {
             apply(ti_mvbl_0_VIRTUAL_START_metametadirection0);
+
             if (meta.direction == 0)  {
                 apply(ti_get_incoming_pos);
 
@@ -442,7 +443,7 @@ action set_direction_pfuzz_check_ports(dir) {
 action set_hit_pfuzz_check_ports() {
     modify_field(meta.check_ports_hit, 1);
     modify_field(meta.direction, 1);
-    add_to_field(pfuzz_visited.encoding_i1, 4);
+    add_to_field(pfuzz_visited.encoding_i1, 5);
 }
 
 action ai_read_bloom_filter1_pfuzz_ti_read_bloom_filter1() {
@@ -455,7 +456,7 @@ action ai_read_bloom_filter2_pfuzz_ti_read_bloom_filter2() {
 }
 
 action drop_packet_pfuzz_ti_apply_filter() {
-    add_to_field(pfuzz_visited.encoding_i2, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 

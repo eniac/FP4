@@ -559,7 +559,7 @@ action action_sketch_one_key_pfuzz_table_sketch_one_key() {
 }
 
 action nop_pfuzz_table_sketch_one_key() {
-    add_to_field(pfuzz_visited.encoding_i2, 8);
+    add_to_field(pfuzz_visited.encoding_i2, 10);
 }
 
 action action_sketch_one_value_pfuzz_table_sketch_one_value() {
@@ -567,23 +567,25 @@ action action_sketch_one_value_pfuzz_table_sketch_one_value() {
 }
 
 action nop_pfuzz_table_sketch_one_value() {
-    add_to_field(pfuzz_visited.encoding_i4, 4);
+    add_to_field(pfuzz_visited.encoding_i4, 3);
 }
 
 action action_sketch_two_key_pfuzz_table_sketch_two_key() {
     alu_sketch_two_key . execute_stateful_alu_from_hash ( hash_two );
+    add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
 action nop_pfuzz_table_sketch_two_key() {
-    add_to_field(pfuzz_visited.encoding_i0, 4);
+    add_to_field(pfuzz_visited.encoding_i0, 3);
 }
 
 action action_sketch_two_value_pfuzz_table_sketch_two_value() {
     alu_sketch_two_value . execute_stateful_alu_from_hash ( hash_two );
+    add_to_field(pfuzz_visited.encoding_i1, 2);
 }
 
 action nop_pfuzz_table_sketch_two_value() {
-    add_to_field(pfuzz_visited.encoding_i3, 4);
+    add_to_field(pfuzz_visited.encoding_i1, 4);
 }
 
 action action_sketch_three_key_pfuzz_table_sketch_three_key() {
@@ -599,7 +601,7 @@ action action_sketch_three_value_pfuzz_table_sketch_three_value() {
 }
 
 action nop_pfuzz_table_sketch_three_value() {
-    add_to_field(pfuzz_visited.encoding_i4, 2);
+    add_to_field(pfuzz_visited.encoding_i0, 1);
 }
 
 action action_sketch_four_key_pfuzz_table_sketch_four_key() {
@@ -607,7 +609,7 @@ action action_sketch_four_key_pfuzz_table_sketch_four_key() {
 }
 
 action nop_pfuzz_table_sketch_four_key() {
-    add_to_field(pfuzz_visited.encoding_i3, 2);
+    add_to_field(pfuzz_visited.encoding_i4, 1);
 }
 
 action action_sketch_four_value_pfuzz_table_sketch_four_value() {
@@ -623,7 +625,7 @@ action action_sketch_five_key_pfuzz_table_sketch_five_key() {
 }
 
 action nop_pfuzz_table_sketch_five_key() {
-    add_to_field(pfuzz_visited.encoding_i0, 2);
+    add_to_field(pfuzz_visited.encoding_i3, 8);
 }
 
 action action_sketch_five_value_pfuzz_table_sketch_five_value() {
@@ -631,7 +633,7 @@ action action_sketch_five_value_pfuzz_table_sketch_five_value() {
 }
 
 action nop_pfuzz_table_sketch_five_value() {
-    add_to_field(pfuzz_visited.encoding_i1, 1);
+    add_to_field(pfuzz_visited.encoding_i3, 4);
 }
 
 action modify_hash_pfuzz_table_hash_init() {
@@ -639,7 +641,7 @@ action modify_hash_pfuzz_table_hash_init() {
 }
 
 action nop_pfuzz_table_hash_init() {
-    add_to_field(pfuzz_visited.encoding_i1, 4);
+    add_to_field(pfuzz_visited.encoding_i0, 5);
 }
 
 action modify_hash_two_pfuzz_table_hash_init_two() {
@@ -647,7 +649,7 @@ action modify_hash_two_pfuzz_table_hash_init_two() {
 }
 
 action nop_pfuzz_table_hash_init_two() {
-    add_to_field(pfuzz_visited.encoding_i1, 2);
+    add_to_field(pfuzz_visited.encoding_i1, 6);
 }
 
 action modify_hash_three_pfuzz_table_hash_init_three() {
@@ -655,7 +657,7 @@ action modify_hash_three_pfuzz_table_hash_init_three() {
 }
 
 action nop_pfuzz_table_hash_init_three() {
-    add_to_field(pfuzz_visited.encoding_i3, 1);
+    add_to_field(pfuzz_visited.encoding_i1, 1);
 }
 
 action modify_hash_four_pfuzz_table_hash_init_four() {
@@ -663,7 +665,7 @@ action modify_hash_four_pfuzz_table_hash_init_four() {
 }
 
 action nop_pfuzz_table_hash_init_four() {
-    add_to_field(pfuzz_visited.encoding_i2, 1);
+    add_to_field(pfuzz_visited.encoding_i3, 2);
 }
 
 action modify_hash_five_pfuzz_table_hash_init_five() {
@@ -671,11 +673,11 @@ action modify_hash_five_pfuzz_table_hash_init_five() {
 }
 
 action nop_pfuzz_table_hash_init_five() {
-    add_to_field(pfuzz_visited.encoding_i4, 1);
+    add_to_field(pfuzz_visited.encoding_i2, 1);
 }
 
 action prune_pfuzz_table_prune() {
-    add_to_field(pfuzz_visited.encoding_i0, 1);
+    add_to_field(pfuzz_visited.encoding_i3, 1);
     modify_field(ig_intr_md_for_tm.ucast_egress_port, pfuzz_visited.temp_port);
 }
 
@@ -713,9 +715,13 @@ control ingress     {
 
     apply(table_sketch_two_value);
 
+    apply(ti_mvbl_2_nop_pfuzz_table_sketch_one_key_table_sketch_three_key);
+
     apply(table_sketch_three_key);
 
     apply(table_sketch_three_value);
+
+    apply(ti_mvbl_4_action_sketch_one_value_pfuzz_table_sketch_one_value_table_sketch_four_key);
 
     apply(table_sketch_four_key);
 
@@ -745,4 +751,27 @@ table ti_temp_port {
     default_action: ai_temp_port();
 }
 
+
+
+action ai_mvbl_2_nop_pfuzz_table_sketch_one_key_table_sketch_three_key() {
+  add_to_field(pfuzz_visited.encoding_i2, 2);
+}
+
+table ti_mvbl_2_nop_pfuzz_table_sketch_one_key_table_sketch_three_key{
+  actions {
+    ai_mvbl_2_nop_pfuzz_table_sketch_one_key_table_sketch_three_key;
+  }
+  default_action: ai_mvbl_2_nop_pfuzz_table_sketch_one_key_table_sketch_three_key();
+}
+
+action ai_mvbl_4_action_sketch_one_value_pfuzz_table_sketch_one_value_table_sketch_four_key() {
+  add_to_field(pfuzz_visited.encoding_i4, 1);
+}
+
+table ti_mvbl_4_action_sketch_one_value_pfuzz_table_sketch_one_value_table_sketch_four_key{
+  actions {
+    ai_mvbl_4_action_sketch_one_value_pfuzz_table_sketch_one_value_table_sketch_four_key;
+  }
+  default_action: ai_mvbl_4_action_sketch_one_value_pfuzz_table_sketch_one_value_table_sketch_four_key();
+}
 

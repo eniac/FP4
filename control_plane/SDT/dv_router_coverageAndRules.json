@@ -29,17 +29,17 @@
         ]
     },
     "table": {
-        "IF_CONDITION_5_parser_3": [
+        "IF_CONDITION_5_parser_4": [
             "arp.oper",
             "ethernet.dstAddr"
         ],
-        "tiHandleIncomingArpReqest_part_two_parser_3": [
+        "tiHandleIncomingArpReqest_part_two_parser_4": [
             "arp.targetPA"
         ],
-        "tiHandleIncomingEthernet_parser_3": [
+        "tiHandleIncomingEthernet_parser_4": [
             "ethernet.dstAddr"
         ],
-        "tiHandleOutgoingEthernet_parser_2": [
+        "tiHandleOutgoingEthernet_parser_3": [
             "ipv4.dstAddr"
         ]
     },
@@ -84,6 +84,10 @@
     "number_of_extract_paths": 5,
     "extract": [
         [
+            "ethernet",
+            "distance_vec"
+        ],
+        [
             "distance_vec"
         ],
         [
@@ -96,13 +100,12 @@
         [
             "ethernet",
             "arp"
-        ],
-        [
-            "ethernet",
-            "distance_vec"
         ]
     ],
     "fixed_fields": [
+        {
+            "ethernet.etherType": "0x0553"
+        },
         null,
         null,
         {
@@ -110,9 +113,6 @@
         },
         {
             "ethernet.etherType": "0x0806"
-        },
-        {
-            "ethernet.etherType": "0x0553"
         }
     ],
     "table_keys": {
@@ -168,6 +168,14 @@
         "ai_set_fixed_header": [
             "real_fixed_header"
         ],
+        "ai_add_fixed_ethernet_distance_vec": [
+            "ethernetdstAddr",
+            "ethernetsrcAddr",
+            "ethernetetherType",
+            "distance_vecsrc",
+            "distance_veclength_dist",
+            "distance_vecdata"
+        ],
         "ai_add_fixed_distance_vec": [
             "distance_vecsrc",
             "distance_veclength_dist",
@@ -209,28 +217,20 @@
             "arptargetHA",
             "arptargetPA"
         ],
-        "ai_add_fixed_ethernet_distance_vec": [
-            "ethernetdstAddr",
-            "ethernetsrcAddr",
-            "ethernetetherType",
-            "distance_vecsrc",
-            "distance_veclength_dist",
-            "distance_vecdata"
-        ],
         "ae_set_table_seed": [
             "real_table_seed"
         ],
-        "ae_move_back_fix_IF_CONDITION_5_parser_3": [
+        "ae_move_back_fix_IF_CONDITION_5_parser_4": [
             "ethernet_dstAddr",
             "arp_oper"
         ],
-        "ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_3": [
+        "ae_move_back_fix_tiHandleIncomingArpReqest_part_two_parser_4": [
             "arp_targetPA"
         ],
-        "ae_move_back_fix_tiHandleIncomingEthernet_parser_3": [
+        "ae_move_back_fix_tiHandleIncomingEthernet_parser_4": [
             "ethernet_dstAddr"
         ],
-        "ae_move_back_fix_tiHandleOutgoingEthernet_parser_2": [
+        "ae_move_back_fix_tiHandleOutgoingEthernet_parser_3": [
             "ipv4_dstAddr"
         ]
     },
