@@ -466,7 +466,7 @@ void UTModifier::instrumentRules() {
                 std::regex pat1 ("pd\\s*([a-zA-Z_\\d]*)\\s*set_default_action\\s*("+action+")\\s*");
                 temp = std::regex_replace (temp, pat1, "pd $1 set_default_action $2_pfuzz_$1");
 
-                std::regex pat2 ("pd\\s*([a-zA-Z_\\d]*)\\s*add_entry\\s*("+action+")\\s*");
+                std::regex pat2 ("pd\\s*([a-zA-Z_\\d]*)\\s*add_entry\\s*("+action+")\\s+");
                 temp = std::regex_replace (temp, pat2, "pd $1 add_entry $2_pfuzz_$1 ");
             } else {
                 PANIC("Unknown target!\n");
