@@ -31,7 +31,7 @@ def main():
     d = "."
     projects = [os.path.join(d, o) for o in os.listdir(d) 
                     if os.path.isdir(os.path.join(d,o))]
-    metrics = ["Program", "sALUs", "TCAM (KB)", "Stages", "Tables", "SRAM (KB)", "Metadata (b)"]
+    metrics = ["Program", "sALUs", "Stages", "Tables", "SRAM (KB)", "TCAM (KB)", "Metadata (b)"]
 
     tbl_header = " & ".join(metrics) + " \\\\"
     print (tbl_header)

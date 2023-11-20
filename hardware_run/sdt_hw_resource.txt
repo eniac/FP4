@@ -1,12 +1,12 @@
-Program & Stages & Tables & sALUs & SRAM (KB) & TCAM (KB) & Metadata (b) \\
+Program & sALUs & Stages & Tables & SRAM (KB) & TCAM (KB) & Metadata (b) \\
 === SDT ===
-firewall_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2157 \\
-load_balance_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2141 \\
-rate_limiter_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1513 \\
-basic_routing_dt_hw & 9 & 22 & 3 & 336 & 10.24 & 1497 \\
-dv_router_dt_hw & 9 & 23 & 3 & 368 & 10.24 & 1935
-mirror_clone_dt_hw & 9 & 22 & 3 & 320 & 10.24 & 1561 \\
-netchain_dt_hw & 9 & 23 & 3 & 400 & 10.24 & 2457 \\
-mac_learning_dt_hw & 9 & 21 & 3 & 336 & 10.24 & 1433 \\
-dos_defense_dt_hw & 9 & 22 & 3 & 368 & 10.24 & 2141 \\
-cheetah_groupby_dt_hw & 8 & 22 & 3 & 320 & 10.24 & 727 \\
+load_balance_dt_hw & 3 & 9 & 22 & 368 & 10.24 & 2141 \\
+basic_routing_dt_hw & 3 & 9 & 22 & 336 & 10.24 & 1497 \\
+rate_limiter_dt_hw & 3 & 9 & 22 & 320 & 10.24 & 1513 \\
+firewall_dt_hw & 3 & 9 & 22 & 368 & 10.24 & 2157 \\
+netchain_dt_hw & 3 & 9 & 23 & 400 & 10.24 & 2457 \\
+cheetah_groupby_dt_hw & 3 & 8 & 22 & 320 & 10.24 & 727 \\
+mirror_clone_dt_hw & 3 & 9 & 22 & 320 & 10.24 & 1561 \\
+mac_learning_dt_hw & 3 & 9 & 21 & 336 & 10.24 & 1433 \\
+dv_router_dt_hw & 3 & 9 & 23 & 368 & 10.24 & 1935 \\
+dos_defense_dt_hw & 3 & 9 & 22 & 368 & 10.24 & 2141 \\
