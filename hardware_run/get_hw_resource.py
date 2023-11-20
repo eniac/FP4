@@ -8,16 +8,16 @@ import argparse
 import json
 
 prog_names = [
-        "firewall",
         "load_balance",
-        "rate_limiter",
         "basic_routing",
-        "dv_router",
-        "mirror_clone",
+        "rate_limiter",
+		"firewall",
         "netchain",
+        "cheetah_groupby",
+        "mirror_clone",
         "mac_learning",
+        "dv_router",
         "dos_defense",
-        "cheetah_groupby"
         #"switch_80019"
         ]
 
@@ -31,7 +31,7 @@ def main():
     d = "."
     projects = [os.path.join(d, o) for o in os.listdir(d) 
                     if os.path.isdir(os.path.join(d,o))]
-    metrics = ["Program", "Stages", "Tables", "sALUs", "SRAM (KB)", "TCAM (KB)", "Metadata (b)"]
+    metrics = ["Program", "sALUs", "TCAM (KB)", "Stages", "Tables", "SRAM (KB)", "Metadata (b)"]
 
     tbl_header = " & ".join(metrics) + " \\\\"
     print (tbl_header)
