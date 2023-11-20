@@ -1,23 +1,23 @@
-Program & Stages & Tables & sALUs & SRAM (KB) & TCAM (KB) & Metadata (b) \\
+Program & sALUs & TCAM (KB) & Stages & Tables & SRAM (KB) & Metadata (b) \\
 === SUT before instrumentation ===
-firewall & 7 & 12 & 2 & 160 & 2.56 & 1043 \\
-load_balance & 2 & 4 & 0 & 144 & 2.56 & 948 \\
-rate_limiter & 5 & 7 & 3 & 128 & 2.56 & 755 \\
-basic_routing & 7 & 9 & 0 & 2096 & 81.92 & 651 \\
-dv_router & 3 & 10 & 0 & 352 & 2.56 & 949 \\
-mirror_clone & 1 & 7 & 2 & 128 & 0.0 & 651 \\
-netchain & 3 & 6 & 1 & 544 & 1.28 & 1084 \\
-mac_learning & 3 & 3 & 0 & 176 & 0.0 & 599 \\
-dos_defense & 6 & 9 & 4 & 160 & 2.56 & 1120 \\
-cheetah_groupby & 7 & 16 & 10 & 1232 & 0.0 & 227 \\
+load_balance & 0 & 2.56 & 2 & 4 & 144 & 948 \\
+basic_routing & 0 & 81.92 & 7 & 9 & 2096 & 651 \\
+rate_limiter & 3 & 2.56 & 5 & 7 & 128 & 755 \\
+firewall & 2 & 2.56 & 7 & 12 & 160 & 1043 \\
+netchain & 1 & 1.28 & 3 & 6 & 544 & 1084 \\
+cheetah_groupby & 10 & 0.0 & 5 & 16 & 1264 & 323 \\
+mirror_clone & 2 & 0.0 & 1 & 7 & 128 & 651 \\
+mac_learning & 0 & 0.0 & 3 & 3 & 176 & 599 \\
+dv_router & 0 & 2.56 & 3 & 11 & 352 & 949 \\
+dos_defense & 4 & 2.56 & 6 & 9 & 160 & 1120 \\
 === SUT after instrumentation ===
-firewall_ut_hw & 7 & 12 & 2 & 160 & 2.56 & 1250 \\
-load_balance_ut_hw & 2 & 4 & 0 & 144 & 2.56 & 1136 \\
-rate_limiter_ut_hw & 5 & 7 & 3 & 128 & 2.56 & 959 \\
-basic_routing_ut_hw & 7 & 9 & 0 & 2096 & 81.92 & 842 \\
-dv_router_ut_hw & 3 & 14 & 0 & 352 & 2.56 & 1236 \\
-mirror_clone_ut_hw & 1 & 7 & 2 & 128 & 0.0 & 925 \\
-netchain_ut_hw & 3 & 7 & 1 & 544 & 1.28 & 1283 \\
-mac_learning_ut_hw & 3 & 3 & 0 & 176 & 0.0 & 758 \\
-dos_defense_ut_hw & 6 & 9 & 4 & 160 & 2.56 & 1311 \\
-cheetah_groupby_ut_hw & 7 & 16 & 10 & 1216 & 0.0 & 443 \\
+load_balance_ut_hw & 0 & 2.56 & 2 & 4 & 144 & 1136 \\
+basic_routing_ut_hw & 0 & 81.92 & 7 & 9 & 2096 & 842 \\
+rate_limiter_ut_hw & 3 & 2.56 & 5 & 7 & 128 & 959 \\
+firewall_ut_hw & 2 & 2.56 & 7 & 12 & 160 & 1250 \\
+netchain_ut_hw & 1 & 1.28 & 3 & 7 & 544 & 1283 \\
+cheetah_groupby_ut_hw & 10 & 0.0 & 5 & 16 & 1264 & 451 \\
+mirror_clone_ut_hw & 2 & 0.0 & 1 & 7 & 128 & 925 \\
+mac_learning_ut_hw & 0 & 0.0 & 3 & 3 & 176 & 758 \\
+dv_router_ut_hw & 0 & 2.56 & 3 & 16 & 336 & 1252 \\
+dos_defense_ut_hw & 4 & 2.56 & 6 & 9 & 160 & 1311 \\
