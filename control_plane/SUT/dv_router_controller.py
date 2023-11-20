@@ -67,7 +67,7 @@ class Controller(pystate.TrackState):
         self.dvLock = threading.Lock()
         self.myIPs = []
         self.visited_bytes = visited_bytes
-        self.visited_bytes = 18  # TODO: avoid hardcoding, read from json
+        self.visited_bytes = 19  # TODO: avoid hardcoding, read from json
         self.arp_entries = set()
         self.dist_entires = set()
         self.SDTsocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
